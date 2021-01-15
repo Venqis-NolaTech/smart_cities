@@ -1,33 +1,33 @@
-import 'package:smart_cities/src/shared/app_colors.dart';
-import 'package:smart_cities/src/shared/constant.dart';
-import 'package:smart_cities/src/shared/spaces.dart';
-
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import '../../../../shared/app_images.dart';
+
+import '../../../../shared/app_colors.dart';
+import '../../../../shared/constant.dart';
+import '../../../../shared/spaces.dart';
 
 class StepView extends StatelessWidget {
-
   final Image image;
   final Image icon;
   final String text;
   final String tittle;
 
-
-  const StepView({Key key, @required this.image, this.icon, @required this.text, this.tittle})
-      : assert(image!=null),
-        assert(text!=null),
+  const StepView(
+      {Key key,
+      @required this.image,
+      this.icon,
+      @required this.text,
+      this.tittle})
+      : assert(image != null),
+        assert(text != null),
         super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
-    final size= MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Container(
       child: Stack(
         children: [
-
           /*Positioned(
             right: -size.width*0.2,
             top: -size.width*0.4,
@@ -45,26 +45,24 @@ class StepView extends StatelessWidget {
           ),
           */
 
-
           /*Positioned(
             right: -size.width*0.45,
             top: -size.height*0.2,
             child: AppImages.ellipseOpacity,
           ),*/
-          Container(width:double.infinity, child: image),
-
-          icon!= null ? Positioned(
-            right: 0,
-            left: 0,
-            top: size.height*0.20,
-            child: icon,
-          ) : Container(),
-
-
+          Container(width: double.infinity, child: image),
+          icon != null
+              ? Positioned(
+                  right: 0,
+                  left: 0,
+                  top: size.height * 0.20,
+                  child: icon,
+                )
+              : Container(),
           Positioned(
             right: 0,
             left: 0,
-            top: size.height*0.6,
+            top: size.height * 0.6,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -88,22 +86,16 @@ class StepView extends StatelessWidget {
                       style: kTitleStyle.copyWith(
                           color: AppColors.testIntro,
                           fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400
-                      ),
+                          fontWeight: FontWeight.w400),
                       textAlign: TextAlign.center,
                     ),
-
                   ),
-
                 ],
               ),
             ),
           )
-
-
         ],
       ),
-
     );
   }
 }

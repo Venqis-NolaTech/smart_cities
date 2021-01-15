@@ -5,15 +5,11 @@ import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
-
 class FeatureNews extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> BlogPage.pushNavigate(
+      onTap: () => BlogPage.pushNavigate(
         context,
         args: BlogPageArgs(),
       ),
@@ -40,9 +36,7 @@ class FeatureNews extends StatelessWidget {
                           color: AppColors.blueBtnRegister,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.bold,
-                        )
-                    )
-                ),
+                        ))),
                 Text('VER TODAS',
                     style: kSmallestTextStyle.copyWith(
                       color: AppColors.blueBtnRegister,

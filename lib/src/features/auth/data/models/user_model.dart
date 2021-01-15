@@ -1,42 +1,39 @@
-import 'dart:math';
-
-import 'package:smart_cities/src/core/entities/catalog_item.dart';
-
+import '../../../../core/entities/catalog_item.dart';
 import '../../../../core/models/catalog_item_model.dart';
 import '../../domain/entities/user.dart';
 
+// ignore: must_be_immutable
 class UserModel extends User {
-  UserModel({
-    String id,
-    String uid,
-    String phoneNumber,
-    String countryCode,
-    String profession,
-    String firstName,
-    String lastName,
-    String nickName,
-    String email,
-    String photoURL,
-    String dni,
-    CatalogItem municipality,
-    CatalogItem province,
-    CatalogItem city
-  }) : super(
-          id: id,
-          uid: uid,
-          phoneNumber: phoneNumber,
-          countryCode: countryCode,
-          profession: profession,
-          firstName: firstName,
-          lastName: lastName,
-          nickName: nickName,
-          email: email,
-          photoURL: photoURL,
-          dni: dni,
-          municipality: municipality,
-          province: province,
-          city: city
-        );
+  UserModel(
+      {String id,
+      String uid,
+      String phoneNumber,
+      String countryCode,
+      String profession,
+      String firstName,
+      String lastName,
+      String nickName,
+      String email,
+      String photoURL,
+      String dni,
+      CatalogItem municipality,
+      CatalogItem province,
+      CatalogItem city})
+      : super(
+            id: id,
+            uid: uid,
+            phoneNumber: phoneNumber,
+            countryCode: countryCode,
+            profession: profession,
+            firstName: firstName,
+            lastName: lastName,
+            nickName: nickName,
+            email: email,
+            photoURL: photoURL,
+            dni: dni,
+            municipality: municipality,
+            province: province,
+            city: city);
 
   // Json
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -54,16 +51,14 @@ class UserModel extends User {
       email: user['email'],
       photoURL: user['photoURL'],
       dni: user['dni'],
-      municipality: user['municipality']!=null
+      municipality: user['municipality'] != null
           ? CatalogItemModel.fromJson(user['municipality'])
           : null,
       province: user['province'] != null
           ? CatalogItemModel.fromJson(user['province'])
           : null,
-      city: user['city'] != null
-          ? CatalogItemModel.fromJson(user['city'])
-          : null,
-
+      city:
+          user['city'] != null ? CatalogItemModel.fromJson(user['city']) : null,
     );
   }
 
@@ -81,16 +76,13 @@ class UserModel extends User {
         'email': email,
         'photoURL': photoURL,
         'dni': dni,
-        'municipality': municipality  != null
+        'municipality': municipality != null
             ? CatalogItemModel.fromEntity(municipality).toJson()
             : null,
         'province': province != null
             ? CatalogItemModel.fromEntity(province).toJson()
             : null,
-
-        'city': city != null
-            ? CatalogItemModel.fromEntity(city).toJson()
-            : null
+        'city': city != null ? CatalogItemModel.fromEntity(city).toJson() : null
       }
     };
   }
@@ -105,7 +97,6 @@ class UserModel extends User {
       'photoURL': photoURL,
       'municipality': municipality.key,
       'province': province.key,
-
     };
   }
 
@@ -130,8 +121,8 @@ class UserModel extends User {
   }
 }
 
+// ignore: must_be_immutable
 class UserRegisterRequestModel extends UserRegisterRequest {
-
   UserRegisterRequestModel({
     this.phoneNumber,
     this.photoUrl,
@@ -145,20 +136,20 @@ class UserRegisterRequestModel extends UserRegisterRequest {
     this.city,
     this.municipality,
     this.number,
-  }): super(
-    phoneNumber: phoneNumber,
-    photoUrl: photoUrl,
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    dni: dni,
-    countryCode: countryCode,
-    street: street,
-    province: province,
-    city: city,
-    municipality: municipality,
-    number: number,
-  );
+  }) : super(
+          phoneNumber: phoneNumber,
+          photoUrl: photoUrl,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          dni: dni,
+          countryCode: countryCode,
+          street: street,
+          province: province,
+          city: city,
+          municipality: municipality,
+          number: number,
+        );
 
   String phoneNumber;
   String photoUrl;
@@ -173,51 +164,51 @@ class UserRegisterRequestModel extends UserRegisterRequest {
   String municipality;
   String number;
 
-  factory UserRegisterRequestModel.fromJson(Map<String, dynamic> json) => UserRegisterRequestModel(
-    phoneNumber: json["phoneNumber"],
-    photoUrl: json["photoURL"],
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    email: json["email"],
-    dni: json["dni"],
-    countryCode: json["countryCode"],
-    street: json["street"],
-    province: json["province"],
-    city: json["city"],
-    municipality: json["municipality"],
-    number: json["number"],
-  );
+  factory UserRegisterRequestModel.fromJson(Map<String, dynamic> json) =>
+      UserRegisterRequestModel(
+        phoneNumber: json["phoneNumber"],
+        photoUrl: json["photoURL"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        email: json["email"],
+        dni: json["dni"],
+        countryCode: json["countryCode"],
+        street: json["street"],
+        province: json["province"],
+        city: json["city"],
+        municipality: json["municipality"],
+        number: json["number"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "phoneNumber": phoneNumber,
-    "photoURL": (photoUrl != null) ? photoUrl : '',
-    "firstName": firstName,
-    "lastName": lastName,
-    "email": (email != null) ? email : '',
-    "dni": dni,
-    "countryCode": countryCode,
-    "street": street,
-    "province": province,
-    "city": city,
-    "municipality": municipality,
-    "number": number,
-  };
-
+        "phoneNumber": phoneNumber,
+        "photoURL": (photoUrl != null) ? photoUrl : '',
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": (email != null) ? email : '',
+        "dni": dni,
+        "countryCode": countryCode,
+        "street": street,
+        "province": province,
+        "city": city,
+        "municipality": municipality,
+        "number": number,
+      };
 
   factory UserRegisterRequestModel.fromEntity(
       UserRegisterRequest userRegisterRequest) {
     return UserRegisterRequestModel(
       phoneNumber: userRegisterRequest.phoneNumber,
       photoUrl: userRegisterRequest.photoUrl,
-      firstName:userRegisterRequest.firstName,
+      firstName: userRegisterRequest.firstName,
       lastName: userRegisterRequest.lastName,
       email: userRegisterRequest.email,
       dni: userRegisterRequest.dni,
       countryCode: userRegisterRequest.countryCode,
       street: userRegisterRequest.street,
-      province:userRegisterRequest. province,
+      province: userRegisterRequest.province,
       city: userRegisterRequest.city,
-      municipality:userRegisterRequest. municipality,
+      municipality: userRegisterRequest.municipality,
       number: userRegisterRequest.number,
     );
   }

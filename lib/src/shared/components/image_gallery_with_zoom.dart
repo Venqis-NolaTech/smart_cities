@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-import '../app_colors.dart';
 import 'firebase_storage_image_provider.dart';
 
 class ImageGalleryWithZoom extends StatefulWidget {

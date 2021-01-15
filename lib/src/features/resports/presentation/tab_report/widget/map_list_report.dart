@@ -1,27 +1,23 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:smart_cities/generated/i18n.dart';
-import 'package:smart_cities/src/core/error/failure.dart';
-import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
-import 'package:smart_cities/src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
-import 'package:smart_cities/src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
-import 'package:smart_cities/src/features/resports/presentation/list/provider/nearby_report_provider.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/pages/general_report.dart';
-import 'package:smart_cities/src/features/resports/presentation/report_details/pages/report_details_page.dart';
-import 'package:smart_cities/src/shared/app_colors.dart';
-import 'package:smart_cities/src/shared/app_images.dart';
-import 'package:smart_cities/src/shared/components/base_view.dart';
-import 'package:smart_cities/src/shared/components/info_view.dart';
-import 'package:smart_cities/src/shared/components/rounded_button.dart';
-import 'package:smart_cities/src/shared/constant.dart';
-import 'package:smart_cities/src/shared/image_utils.dart';
-import 'package:smart_cities/src/shared/provider/view_state.dart';
 
-
+import '../../../../../../generated/i18n.dart';
+import '../../../../../core/error/failure.dart';
+import '../../../../../shared/app_colors.dart';
+import '../../../../../shared/app_images.dart';
+import '../../../../../shared/components/base_view.dart';
+import '../../../../../shared/components/info_view.dart';
+import '../../../../../shared/components/rounded_button.dart';
+import '../../../../../shared/constant.dart';
+import '../../../../../shared/provider/view_state.dart';
+import '../../../../auth/domain/entities/user.dart';
+import '../../../../auth/presentation/base/providers/phone_number_auth_provider.dart';
+import '../../../../auth/presentation/phone_number/pages/phone_number_page.dart';
+import '../../../domain/entities/report.dart';
+import '../../list/provider/nearby_report_provider.dart';
+import '../../new_report/pages/general_report.dart';
+import '../../report_details/pages/report_details_page.dart';
 
 class MapListReport extends StatefulWidget {
   static const _mapZoom = 15.5;
@@ -36,15 +32,13 @@ class _MapListReportState extends State<MapListReport> {
   GoogleMap _googleMap;
   final _key = GlobalKey<GoogleMapStateBase>();
 
-  List<Report> _reports=[];
+  List<Report> _reports = [];
 
   @override
   Widget build(BuildContext context) {
-
     return BaseView<NearbyReportProvider>(
       onProviderReady: (provider) => provider.loadReports(),
-      builder: (context, provider, child){
-
+      builder: (context, provider, child) {
         //_provider = provider;
         final currentState = provider.currentState;
 
@@ -54,7 +48,6 @@ class _MapListReportState extends State<MapListReport> {
           return _buildErrorView(context, failure);
         }
         if (currentState is Loaded) {
-
           _buildMarkers(currentState, provider);
         }
 
@@ -62,7 +55,6 @@ class _MapListReportState extends State<MapListReport> {
           inAsyncCall: currentState is Loading,
           child: Stack(
             children: [
-
               /*FutureBuilder<List<Marker>>(
                 future: _buildMarkers(currentState),
                 initialData: [],
@@ -79,12 +71,13 @@ class _MapListReportState extends State<MapListReport> {
                   child: FlatButton(
                       color: AppColors.blueBtnRegister,
                       onPressed: () {},
-                      child: Text('Incidentes reportados en tu área',
+                      child: Text(
+                        'Incidentes reportados en tu área',
                         style: kNormalStyle.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.bold,
-                        ),))),
-
+                        ),
+                      ))),
 
               Positioned(
                 bottom: 20,
@@ -106,17 +99,12 @@ class _MapListReportState extends State<MapListReport> {
                 ),
               ),
 
-
-
               //ConfirmationAccount()
             ],
           ),
         );
-
       },
-
     );
-
   }
 
   /*void _updateMapCameraByPosition(Position position, {zoom: MapListReport._mapZoom}) async {
@@ -132,10 +120,10 @@ class _MapListReportState extends State<MapListReport> {
     final location = provider.location != null && _selectedReport == null
         ? provider.location
         : _selectedReport != null
-        ? Position(
-        latitude: _selectedReport.latitude,
-        longitude: _selectedReport.longitude)
-        : null;
+            ? Position(
+                latitude: _selectedReport.latitude,
+                longitude: _selectedReport.longitude)
+            : null;
 
     if (location != null) {
       //_updateMapCameraByPosition(location);
@@ -144,9 +132,9 @@ class _MapListReportState extends State<MapListReport> {
     if (_googleMap == null) {
       _googleMap = GoogleMap(
         key: _key,
-        initialPosition: GeoCoord(kDefaultLocation.latitude, kDefaultLocation.longitude),
+        initialPosition:
+            GeoCoord(kDefaultLocation.latitude, kDefaultLocation.longitude),
         initialZoom: MapListReport._mapZoom,
-
         mobilePreferences: const MobileMapPreferences(
           trafficEnabled: true,
           myLocationButtonEnabled: false,
@@ -166,32 +154,21 @@ class _MapListReportState extends State<MapListReport> {
     return _googleMap;
   }
 
-
   void _buildMarkers(ViewState state, NearbyReportProvider provider) async {
     _reports = (state as Loaded<List<Report>>).value;
 
-    GoogleMap.of(_key).moveCamera(GeoCoord(provider.location.latitude, provider.location.longitude), animated: true);
+    GoogleMap.of(_key).moveCamera(
+        GeoCoord(provider.location.latitude, provider.location.longitude),
+        animated: true);
 
-
-
-    for(var i in _reports){
-
-      GoogleMap.of(_key).addMarker(
-        Marker(
-         GeoCoord( i.latitude, i.longitude),
-          icon: i.iconPath,
-          onTap: (value)=> _onTapMarker(i)
-        )
-      );
+    for (var i in _reports) {
+      GoogleMap.of(_key).addMarker(Marker(GeoCoord(i.latitude, i.longitude),
+          icon: i.iconPath, onTap: (value) => _onTapMarker(i)));
     }
 
-    GoogleMap.of(_key).addMarker(
-        Marker(
-            GeoCoord(provider.location.latitude, provider.location.longitude),
-            icon: AppImagePaths.mapIcon)
-    );
-
-
+    GoogleMap.of(_key).addMarker(Marker(
+        GeoCoord(provider.location.latitude, provider.location.longitude),
+        icon: AppImagePaths.mapIcon));
   }
 
   /*Future<Marker> _buildMarker(Report report) async {
@@ -214,7 +191,6 @@ class _MapListReportState extends State<MapListReport> {
 
     _showBottomSheet();*/
 
-
     Navigator.pushNamed(
       context,
       ReportDetailsPage.id,
@@ -225,29 +201,37 @@ class _MapListReportState extends State<MapListReport> {
   Widget _buildErrorView(BuildContext context, Failure failure) {
     return InfoView(
       height: MediaQuery.of(context).size.height,
-      image: failure is UserNotFoundFailure ? AppImages.iconMessage : Container(height: 48),
-      title: failure is UserNotFoundFailure ? S.of(context).userNotFoundTittle: S.of(context).error,
+      image: failure is UserNotFoundFailure
+          ? AppImages.iconMessage
+          : Container(height: 48),
+      title: failure is UserNotFoundFailure
+          ? S.of(context).userNotFoundTittle
+          : S.of(context).error,
       titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
-      description: failure is UserNotFoundFailure ? S.of(context).userNotFoundMessage : S.of(context).unexpectedErrorMessage,
+      description: failure is UserNotFoundFailure
+          ? S.of(context).userNotFoundMessage
+          : S.of(context).unexpectedErrorMessage,
       descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
       child: failure is UserNotFoundFailure ? btnIniciar(context) : Container(),
     );
   }
 
-  Widget btnIniciar(BuildContext context){
+  Widget btnIniciar(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: RoundedButton(
             color: AppColors.blueBtnRegister,
             title: S.of(context).login.toUpperCase(),
-            style: kTitleStyle.copyWith(fontFamily: 'Roboto', fontWeight: FontWeight.bold,  color: AppColors.white),
-            onPressed: () => //Navigator.pushNamedAndRemoveUntil(context, PhoneNumberPage.id, ModalRoute.withName(PhoneNumberPage.id))
-            Navigator.pushReplacementNamed(
-              context,
-              PhoneNumberPage.id,
-              arguments: AuthMethod.login,
-            )
-        )
-    );
+            style: kTitleStyle.copyWith(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.bold,
+                color: AppColors.white),
+            onPressed:
+                () => //Navigator.pushNamedAndRemoveUntil(context, PhoneNumberPage.id, ModalRoute.withName(PhoneNumberPage.id))
+                    Navigator.pushReplacementNamed(
+                      context,
+                      PhoneNumberPage.id,
+                      arguments: AuthMethod.login,
+                    )));
   }
 }

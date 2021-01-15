@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:smart_cities/src/shared/app_images.dart';
-import 'package:smart_cities/src/shared/spaces.dart';
 
 import '../../../generated/i18n.dart';
 import '../app_colors.dart';
+import '../app_images.dart';
 import '../constant.dart';
-
-import 'spinner_button.dart';
+import '../spaces.dart';
 
 class CommentBox extends StatefulWidget {
   CommentBox({
@@ -33,10 +30,8 @@ class CommentBox extends StatefulWidget {
 }
 
 class _CommentBoxState extends State<CommentBox> {
-  bool isVisible= false;
-  bool isAnonymous= false;
-
-
+  bool isVisible = false;
+  bool isAnonymous = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,68 +52,79 @@ class _CommentBoxState extends State<CommentBox> {
             visible: isVisible,
             child: Row(
               children: [
-                Checkbox(value: isAnonymous, onChanged: (value){ setState(() {
-                  isAnonymous= value;
-                  widget.onIsAnonymousChanged(isAnonymous);
-                });}, ),
-                Text(S.of(context).messageAnonymous, style: kSmallTextStyle.copyWith(color: AppColors.primaryTextLight.withOpacity(0.5)),)
+                Checkbox(
+                  value: isAnonymous,
+                  onChanged: (value) {
+                    setState(() {
+                      isAnonymous = value;
+                      widget.onIsAnonymousChanged(isAnonymous);
+                    });
+                  },
+                ),
+                Text(
+                  S.of(context).messageAnonymous,
+                  style: kSmallTextStyle.copyWith(
+                      color: AppColors.primaryTextLight.withOpacity(0.5)),
+                )
               ],
             ),
           ),
-
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-
               AppImages.iconComment,
               Spaces.horizontalSmall(),
-              !isVisible ? Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-
-                    FlatButton(
-                        onPressed: (){
-                          isVisible=!isVisible;
-                          setState(() {});
-                        },
-                        child: Text(S.of(context).comment)),
-                  ],
-                ),
-              ) :
-              Flexible(
-                child: TextField(
-                  keyboardType: TextInputType.multiline,
-                  minLines: 1,
-                  maxLines: 6,
-                  enabled: widget.inputEnabled,
-                  controller: widget.textController,
-                  decoration: kRadiusBorderTextFieldInputDecoration.copyWith(
-                    hintText: S.of(context).writeComment,
-                    suffixIcon: IconButton(
-                      onPressed: widget.addPhotoAction,
-                      icon: Icon(Icons.add_a_photo, color: AppColors.primaryTextLight.withOpacity(0.7),),
+              !isVisible
+                  ? Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FlatButton(
+                              onPressed: () {
+                                isVisible = !isVisible;
+                                setState(() {});
+                              },
+                              child: Text(S.of(context).comment)),
+                        ],
+                      ),
+                    )
+                  : Flexible(
+                      child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          minLines: 1,
+                          maxLines: 6,
+                          enabled: widget.inputEnabled,
+                          controller: widget.textController,
+                          decoration:
+                              kRadiusBorderTextFieldInputDecoration.copyWith(
+                            hintText: S.of(context).writeComment,
+                            suffixIcon: IconButton(
+                              onPressed: widget.addPhotoAction,
+                              icon: Icon(
+                                Icons.add_a_photo,
+                                color:
+                                    AppColors.primaryTextLight.withOpacity(0.7),
+                              ),
+                            ),
+                            //fillColor: Colors.grey.shade300,
+                          ),
+                          onChanged: widget.onTextChanged),
                     ),
-                    //fillColor: Colors.grey.shade300,
-                  ),
-                  onChanged: widget.onTextChanged
-                ),
-              ),
               Visibility(
                 visible: isVisible,
                 child: FlatButton(
-                    onPressed: widget.buttonEnabled ? () async {
-                      bool success = await widget.sendAction();
-                      if (success == true) {
-                        widget.textController.clear();
-                      }
-                    } : null,
+                    onPressed: widget.buttonEnabled
+                        ? () async {
+                            bool success = await widget.sendAction();
+                            if (success == true) {
+                              widget.textController.clear();
+                            }
+                          }
+                        : null,
                     child: Text(S.of(context).send)),
               ),
-
-
             ],
           ),
         ],

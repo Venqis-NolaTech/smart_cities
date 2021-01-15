@@ -15,7 +15,7 @@ dependencies:
   #Material Design Icons
   material_design_icons_flutter: ^4.0.5655
 
-  # Firebase 
+  # Firebase
   firebase_core: ^0.5.0
 
   # Push notifications
@@ -37,7 +37,6 @@ dependencies:
   # Analytics
   firebase_dynamic_links: ^0.5.0+11
 
-
   # Storage image file
   firebase_storage: ^4.0.1
 
@@ -56,7 +55,7 @@ dependencies:
   dartz: ^0.8.9
 
   # RxDar
-  rxdart:  ^0.24.1
+  rxdart: ^0.24.1
 
   # File download
   flutter_downloader: ^1.5.1
@@ -76,8 +75,8 @@ dependencies:
 
   # Environment
   flutter_dotenv: ^2.1.0
-  
-  # WebView 
+
+  # WebView
   #flutter_webview_plugin: ^0.3.11
   #webview_flutter: ^1.0.1
   flutter_inappwebview: ^4.0.0+4
@@ -90,8 +89,8 @@ dependencies:
   cloud_firestore: ^0.14.1+2
 
   # Device
-  permission_handler: ^5.0.1+1 
-  package_info: ^0.4.1 
+  permission_handler: ^5.0.1+1
+  package_info: ^0.4.1
   device_info: ^0.4.2+4
   devicelocale: ^0.2.3
   keyboard_visibility: ^0.5.6
@@ -128,7 +127,6 @@ dev_dependencies:
   gen_lang: ^0.1.2
 
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -139,11 +137,11 @@ flutter:
   fonts:
     - family: AppIcons
       fonts:
-      - asset: fonts/AppIcons.ttf
+        - asset: fonts/AppIcons.ttf
     - family: Quicksand
       fonts:
-      - asset: fonts/Quicksand-Bold.ttf
-      - asset: fonts/Quicksand-Medium.ttf
+        - asset: fonts/Quicksand-Bold.ttf
+        - asset: fonts/Quicksand-Medium.ttf
     - family: Roboto
       fonts:
         - asset: fonts/Roboto-Regular.ttf

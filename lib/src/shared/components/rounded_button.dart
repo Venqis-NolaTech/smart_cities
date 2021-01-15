@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constant.dart';
-
 class RoundedButton extends StatelessWidget {
   final Color color;
   final Color borderColor;
@@ -91,15 +89,10 @@ class RoundedButton extends StatelessWidget {
 
   Widget _buildTitle() {
     return Positioned.fill(
-      child: Align(
-        alignment: Alignment.center,
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: style
-      ),
-      )
-    );
+        child: Align(
+      alignment: Alignment.center,
+      child: Text(title, textAlign: TextAlign.center, style: style),
+    ));
   }
 
   Widget _buildLeadingIcon() {

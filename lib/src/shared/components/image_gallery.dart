@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../app_colors.dart';
 import '../app_images.dart';
 import 'firebase_storage_image.dart';
 

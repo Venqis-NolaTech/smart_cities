@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/entities/catalog_item.dart';
 
+// ignore: must_be_immutable
 class User extends Equatable {
   final String id;
   final String uid;
@@ -21,25 +22,24 @@ class User extends Equatable {
   CatalogItem province;
   CatalogItem city;
 
-  User({
-    this.id,
-    this.uid,
-    this.phoneNumber,
-    this.countryCode,
-    //this.location,
-    //this.address,
-    this.profession,
-    this.firstName,
-    this.lastName,
-    this.nickName,
-    this.photoURL,
-    this.email,
-    this.dni,
-    //this.birthDate,
-    this.municipality,
-    this.province,
-    this.city
-  });
+  User(
+      {this.id,
+      this.uid,
+      this.phoneNumber,
+      this.countryCode,
+      //this.location,
+      //this.address,
+      this.profession,
+      this.firstName,
+      this.lastName,
+      this.nickName,
+      this.photoURL,
+      this.email,
+      this.dni,
+      //this.birthDate,
+      this.municipality,
+      this.province,
+      this.city});
 
   String get fullName => '$firstName $lastName';
 
@@ -59,6 +59,7 @@ class User extends Equatable {
       ];
 }
 
+// ignore: must_be_immutable
 class UserRegisterRequest extends Equatable {
   UserRegisterRequest({
     this.phoneNumber,
