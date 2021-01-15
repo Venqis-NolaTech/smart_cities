@@ -1,0 +1,17 @@
+{
+    "success": true,
+    "message": "successfully",
+    "status_code": 200,
+    "data": {
+        "id": 23,
+        "comment": "description",
+        "report": "159",
+        "user":  {
+            "id": "id",
+            "displayName": "displayName",
+            "pictureUrl": "pictureUrl"
+        },
+        "channel": "HUB",
+        "createdAt": "2019-10-15T18:57:10.873Z"
+    }
+}

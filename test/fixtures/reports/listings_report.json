@@ -1,0 +1,35 @@
+{
+    "totalCount": 10,
+    "reports": [{
+        "id": "159",
+        "number": 159,
+        "title": "title",
+        "description": "description",
+        "longitude": -69.92961097508669,
+        "latitude": 18.483401976204757,
+        "denunciante": {
+            "first_name": "Jose Maria",
+            "last_name": "Ramirez Gonzales",
+            "displayName": "Jose Maria Ramirez Gonzales",
+            "dni": "E-1234-5",
+            "gender": "Masculino",
+            "code_area": "+507",
+            "phone_number": "+5078099899878",
+            "age": 20,
+            "nationality": "CONSULTA"
+        },
+        "category": {
+            "key": "category",
+            "name": "category"
+        },
+        "status": {
+            "key": "EN ESPERA",
+            "name": "En Espera"
+        },
+        "createdAt": "2019-10-15T18:57:10.873Z",
+        "updatedAt": "2019-10-15T18:57:10.873Z",
+        "liked": true
+    }]
+
+
+}

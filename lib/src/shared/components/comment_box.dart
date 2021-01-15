@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:smart_cities/src/shared/app_images.dart';
+import 'package:smart_cities/src/shared/spaces.dart';
+
+import '../../../generated/i18n.dart';
+import '../app_colors.dart';
+import '../constant.dart';
+
+import 'spinner_button.dart';
+
+class CommentBox extends StatefulWidget {
+  CommentBox({
+    this.buttonEnabled = false,
+    this.inputEnabled = false,
+    @required this.textController,
+    @required this.onTextChanged,
+    @required this.onIsAnonymousChanged,
+    @required this.sendAction,
+    @required this.addPhotoAction,
+  });
+
+  final bool buttonEnabled;
+  final bool inputEnabled;
+  final TextEditingController textController;
+  final Function(String) onTextChanged;
+  final Function(bool) onIsAnonymousChanged;
+  final Function sendAction;
+  final Function addPhotoAction;
+
+  @override
+  _CommentBoxState createState() => _CommentBoxState();
+}
+
+class _CommentBoxState extends State<CommentBox> {
+  bool isVisible= false;
+  bool isAnonymous= false;
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: Colors.grey.withOpacity(0.2),
+            width: 1.5,
+          ),
+        ),
+      ),
+      child: Column(
+        children: [
+          Visibility(
+            visible: isVisible,
+            child: Row(
+              children: [
+                Checkbox(value: isAnonymous, onChanged: (value){ setState(() {
+                  isAnonymous= value;
+                  widget.onIsAnonymousChanged(isAnonymous);
+                });}, ),
+                Text(S.of(context).messageAnonymous, style: kSmallTextStyle.copyWith(color: AppColors.primaryTextLight.withOpacity(0.5)),)
+              ],
+            ),
+          ),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+
+              AppImages.iconComment,
+              Spaces.horizontalSmall(),
+              !isVisible ? Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+
+                    FlatButton(
+                        onPressed: (){
+                          isVisible=!isVisible;
+                          setState(() {});
+                        },
+                        child: Text(S.of(context).comment)),
+                  ],
+                ),
+              ) :
+              Flexible(
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  minLines: 1,
+                  maxLines: 6,
+                  enabled: widget.inputEnabled,
+                  controller: widget.textController,
+                  decoration: kRadiusBorderTextFieldInputDecoration.copyWith(
+                    hintText: S.of(context).writeComment,
+                    suffixIcon: IconButton(
+                      onPressed: widget.addPhotoAction,
+                      icon: Icon(Icons.add_a_photo, color: AppColors.primaryTextLight.withOpacity(0.7),),
+                    ),
+                    //fillColor: Colors.grey.shade300,
+                  ),
+                  onChanged: widget.onTextChanged
+                ),
+              ),
+              Visibility(
+                visible: isVisible,
+                child: FlatButton(
+                    onPressed: widget.buttonEnabled ? () async {
+                      bool success = await widget.sendAction();
+                      if (success == true) {
+                        widget.textController.clear();
+                      }
+                    } : null,
+                    child: Text(S.of(context).send)),
+              ),
+
+
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

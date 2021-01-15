@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "170005580330",
+    "firebase_url": "https://smartcities-c3264.firebaseio.com",
+    "project_id": "smartcities-c3264",
+    "storage_bucket": "smartcities-c3264.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170005580330:android:1f606404e98a2fa7699153",
+        "android_client_info": {
+          "package_name": "com.venqis.smartcities"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "170005580330-714boj1dm7i1kjqhe14b8mga1q4lk1bh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJuag5IWl9DzIJohSz1lEOIfTw9eU52Yo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "170005580330-714boj1dm7i1kjqhe14b8mga1q4lk1bh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,26 @@
+{
+    "success": true,
+    "message": "Params Loaded",
+    "status_code": 200,
+    "data": {
+        "params": [{
+                "_id": "5ee0ecd2d4467106e41d1a18",
+                "key": "check_chat_container_room",
+                "value": "true",
+                "description": "Cuando se revisan los salones disponibles, revisar si hay Canales sin salones",
+                "createdAt": "2020-06-10T14:23:14.737Z",
+                "updatedAt": "2020-06-10T14:23:14.737Z",
+                "__v": 0
+            },
+            {
+                "_id": "5ee0ee4ba098ae58e033db7c",
+                "key": "url_prd",
+                "value": "http://edu.prdespanama.com/",
+                "description": "URL PRD",
+                "createdAt": "2020-06-10T14:29:31.290Z",
+                "updatedAt": "2020-06-10T14:29:31.290Z",
+                "__v": 0
+            }
+        ]
+    }
+}

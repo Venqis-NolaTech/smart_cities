@@ -1,0 +1,18 @@
+{
+    "success": true,
+    "message": "Success",
+    "status_code": 200,
+    "data": {
+        "totalCount": 2,
+        "regional": [
+            {
+                "name": "Region1",
+                "key": "Region1"
+            },
+            {
+                "name": "Region2",
+                "key": "Region2"
+            }
+        ]
+    }
+}
