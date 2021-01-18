@@ -96,7 +96,7 @@ class UserModel extends User {
       'email': email,
       'photoURL': photoURL,
       'municipality': municipality.key,
-      'province': province.key,
+      //'province': province.key,
     };
   }
 

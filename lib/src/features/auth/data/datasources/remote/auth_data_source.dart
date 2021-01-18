@@ -11,7 +11,7 @@ import '../local/user_data_source.dart';
 abstract class AuthDataSource {
   Future<bool> login({String firebaseToken, String countryCode});
   Future<bool> register(String firebaseToken, UserRegisterRequestModel request);
-  Future<bool> userExist(String phoneNumber);
+  Future<Map<String, dynamic>> userExist(String phoneNumber, String email, String dni);
 }
 
 class AuthDataSourceImpl extends AuthDataSource {
@@ -63,10 +63,12 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<bool> userExist(String phoneNumber) async {
+  Future<Map<String, dynamic>> userExist(String phoneNumber,  String email, String dni) async {
     var payload = json.encode(
       {
         'phoneNumber': '$phoneNumber',
+        'email': email,
+        'dni': dni
       },
     );
 
@@ -79,7 +81,7 @@ class AuthDataSourceImpl extends AuthDataSource {
       json.decode(response.body),
     );
 
-    return body.data['register_firebase'] ?? false;
+    return body.data;
   }
 
   // private methods --

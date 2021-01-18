@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
       RoutePage(),
       ReportsPage(),
       PaymentsPage(),
-      ProfilePage()
+      Container()
     ];
 
     super.initState();

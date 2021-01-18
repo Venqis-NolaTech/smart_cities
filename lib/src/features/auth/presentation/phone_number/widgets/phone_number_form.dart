@@ -76,7 +76,7 @@ class _PhoneNumberFormState extends State<PhoneNumberForm> {
       bool show = false;
       String message;
 
-      final userExist = await provider.userExist(_phoneNumber);
+      final userExist = await provider.userExist(_phoneNumber, '', ''); //este solo aplica para login
 
       //print('usuario exiiste $userExist');
       switch (widget.authMethod) {

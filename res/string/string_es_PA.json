@@ -259,5 +259,7 @@
 
     "onProcess": "En Proceso",
     "solutionCompleted": "Resueltos",
-    "colse": "Cerrado"
+    "emailExist": "Ya existe una cuenta registrada con este email.",
+    "dniExist": "Ya existe una cuenta registrada con este Cédula de Identidad."
+
 }

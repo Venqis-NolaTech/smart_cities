@@ -40,10 +40,21 @@ class AuthRepositoryImpl implements AuthRepository {
   final UserLocalRepository userLocalRepository;
 
   @override
-  Future<Failure> existUser(String phoneNumber) async {
+  Future<Failure> existUser(String phoneNumber, String email, String dni) async {
     try {
-      final exist = await authDataSource.userExist(phoneNumber);
-      return exist == true ? null : UserNotFoundFailure();
+      final exist = await authDataSource.userExist(phoneNumber, email, dni);
+
+      if(exist['register_firebase'] == true )
+        return UserExistFailure();
+
+      if(exist['register_dni'] == true )
+        return DniExistFailure();
+
+      if(exist['register_email'] == true )
+        return EmailExistFailure();
+
+      return null;
+      //return exist == true ? null : UserNotFoundFailure();
     } catch (e, s) {
       return _handlerFailure(e, s);
     }

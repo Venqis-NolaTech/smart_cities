@@ -91,7 +91,7 @@ class ProfileProvider extends BaseProvider {
       (failure) => profileState = Error(failure: failure),
       (user) {
         _user = user;
-        _municipality= user.municipality.key;
+        _municipality= user.municipality?.key;
 
         profileState = Loaded();
       },

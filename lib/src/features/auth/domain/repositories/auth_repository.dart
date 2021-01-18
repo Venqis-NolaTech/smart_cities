@@ -8,7 +8,7 @@ import '../../../../core/error/failure.dart';
 import '../entities/user.dart';
 
 abstract class AuthRepository {
-  Future<Failure> existUser(String phoneNumber);
+  Future<Failure> existUser(String phoneNumber, String email, String dni);
 
   Future<Either<Failure, User>> login(
     fAuth.AuthCredential credential,

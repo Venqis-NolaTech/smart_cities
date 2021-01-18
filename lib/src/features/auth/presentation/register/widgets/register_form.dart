@@ -110,15 +110,30 @@ class _RegisterFormState extends State<RegisterForm> {
       provider.authMethod= AuthMethod.register;
 
 
-      final userExist = await provider.userExist(_phoneNumber);
+      final userExist = await provider.userExist(_phoneNumber, _dni, _email);
       if (!userExist) {
         await provider.sendPhoneNumber(_phoneNumber);
       } else {
+        var errorMessage= S.of(context).allreadyExistMessage;
+
+        final failureType = (provider.currentState as Error).failure.runtimeType;
+
+        switch (failureType) {
+          case DniExistFailure:
+            errorMessage = S.of(context).dniExist;
+            break;
+          case EmailExistFailure:
+            errorMessage = S.of(context).emailExist;
+            break;
+          default:
+            errorMessage = S.of(context).allreadyExistMessage;
+        }
+
         showDialog(
           context: context,
           builder: (context) {
             return InfoAlertDialog(
-              message: S.of(context).allreadyExistMessage,
+              message: errorMessage ,
             );
           },
         );

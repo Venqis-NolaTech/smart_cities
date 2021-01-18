@@ -15,6 +15,12 @@ class UserInfoFailure extends Failure {}
 
 class UserNotFoundFailure extends Failure {}
 
+class DniExistFailure extends Failure {}
+
+class EmailExistFailure extends Failure {}
+
+class UserExistFailure extends Failure {}
+
 class UserDisabledFailure extends Failure {}
 
 class InvalidCredentialFailure extends Failure {}

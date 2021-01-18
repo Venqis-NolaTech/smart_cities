@@ -35,7 +35,7 @@ class VerifyCodeParams {
   });
 }
 
-class VerifyCodeProvider extends PhoneNumberAuthProvider {
+/*class VerifyCodeProvider extends PhoneNumberAuthProvider {
   VerifyCodeProvider({
     @required FirebaseAuth firebaseAuth,
     @required UserExistUseCase userExistUseCase,
@@ -80,4 +80,4 @@ class VerifyCodeProvider extends PhoneNumberAuthProvider {
         break;
     }
   }
-}
+}*/

@@ -14,7 +14,7 @@ import '../../base/providers/phone_number_auth_provider.dart';
 import '../providers/verify_code_provider.dart';
 import '../widgets/verify_code_form.dart';
 
-class VerifyCodePage extends StatelessWidget {
+class VerifyCodePage extends StatefulWidget {
   static const id = "verify_code_page";
 
   VerifyCodePage({
@@ -24,13 +24,19 @@ class VerifyCodePage extends StatelessWidget {
 
   final VerifyCodeParams params;
 
+  @override
+  _VerifyCodePageState createState() => _VerifyCodePageState();
+}
 
+class _VerifyCodePageState extends State<VerifyCodePage> {
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: params.provider.phoneAuthState == PhoneAuthState.started ||
-          params.provider.currentState is Loading,
+    print(widget.params.provider.phoneAuthState );
+    print(widget.params.provider.currentState );
 
+
+    return ModalProgressHUD(
+      inAsyncCall: widget.params.provider.phoneAuthState == PhoneAuthState.started || widget.params.provider.currentState is Loading,
       child: Scaffold(
         appBar: AppBar(
             backgroundColor: AppColors.red,
@@ -52,8 +58,8 @@ class VerifyCodePage extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: VerifyCodeForm(
-                    params: params,
-                    provider: params.provider,
+                    params: widget.params,
+                    provider: widget.params.provider,
                   ),
                 ),
                 Spaces.verticalMedium(),
@@ -89,7 +95,6 @@ class VerifyCodePage extends StatelessWidget {
     );
   }
 
-
   Widget _buildLabel(BuildContext context) {
     return Row(
       children: [
@@ -103,6 +108,4 @@ class VerifyCodePage extends StatelessWidget {
       ],
     );
   }
-
-
 }

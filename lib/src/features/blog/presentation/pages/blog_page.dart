@@ -8,6 +8,7 @@ import '../providers/blog_provider.dart';
 import '../widgets/blog_header.dart';
 import '../widgets/blog_list.dart';
 import '../widgets/blog_tab_view.dart';
+import '../../../../shared/app_colors.dart';
 
 enum BlogTap {
   all,
@@ -178,6 +179,7 @@ class _BlogPageState extends State<BlogPage>
       pinned: true,
       title: Text(S.of(context).posts),
       centerTitle: false,
+      backgroundColor: AppColors.red,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),

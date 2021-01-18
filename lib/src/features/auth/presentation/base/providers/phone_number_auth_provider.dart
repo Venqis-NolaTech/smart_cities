@@ -56,16 +56,22 @@ abstract class PhoneNumberAuthProvider extends BaseProvider {
     Function callback,
   );
 
-  Future<bool> userExist(String phoneNumber) async {
+  Future<bool> userExist(String phoneNumber, String dni, String email) async {
     state = Loading();
 
-    final failureOrExist = await userExistUseCase(phoneNumber);
+    final failureOrExist = await userExistUseCase(UserExistParam(email: email, dni: dni, phoneNumber: phoneNumber));
 
-    state = Loaded();
+    //state = Loaded();
 
     return failureOrExist.fold(
-      (failure) => false,
-      (exist) => exist ?? false,
+      (failure) {
+        state = Error(failure: failure);
+        return true;
+      },
+      (exist) {
+        state = Loaded();
+        return false;
+      },
     );
   }
 
@@ -78,7 +84,7 @@ abstract class PhoneNumberAuthProvider extends BaseProvider {
 
     final fAuth.PhoneCodeSent codeSent = (String verificationId, [int forceResendingToken]) {
       actualCode = verificationId;
-
+      print('codeSent');
       if (codeSendCallback != null) codeSendCallback();
 
       phoneAuthState = PhoneAuthState.codeSent;
@@ -105,6 +111,8 @@ abstract class PhoneNumberAuthProvider extends BaseProvider {
     };
 
     final fAuth.PhoneVerificationCompleted verificationCompleted = (fAuth.AuthCredential authCredential) {
+      print('verificationCompleted');
+
       this.authCredential = authCredential;
 
       signInWithCredential(authCredential, signInWithCredentialCallback);
