@@ -10,7 +10,7 @@ import '../../../../core/usecases/use_case.dart';
 
 
 
-class GetUserValidateUseCase implements UseCase<bool, NoParams> {
+class GetUserValidateUseCase implements UseCase<User, NoParams> {
   final FirebaseAuth firebaseAuth;
 
   GetUserValidateUseCase({
@@ -18,15 +18,15 @@ class GetUserValidateUseCase implements UseCase<bool, NoParams> {
   });
 
   @override
-  Future<Either<Failure, bool>> call(NoParams params, {callback}) {
+  Future<Either<Failure, User>> call(NoParams params, {callback}) async{
 
     final currentUser = firebaseAuth.currentUser;
 
     if (currentUser != null) {
-      Right(currentUser.emailVerified);
+      return Right(currentUser);
     }
-    else
-      Right(false);
+
+    return Left(UserNotFoundFailure());
   }
 
 

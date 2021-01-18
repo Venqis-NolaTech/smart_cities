@@ -21,7 +21,8 @@ initProvider(GetIt sl) {
       getAllCategoryUseCase: sl(),
       getSectoresUseCase: sl(),
       getNeighborhoodUseCase: sl(),
-      getCurrentLocationUseCase: sl()
+      getCurrentLocationUseCase: sl(),
+      validateEmailUseCase: sl(),
     ),
   );
 

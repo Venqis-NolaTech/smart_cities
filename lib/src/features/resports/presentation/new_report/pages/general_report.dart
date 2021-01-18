@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/core/error/failure.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/providers/create_report_provider.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/widget/bottom_navigation.dart';
@@ -16,6 +17,8 @@ import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
+
+import 'package:smart_cities/src/features/auth/presentation/validate/widget/confirmation_validate_account.dart';
 
 
 
@@ -38,6 +41,14 @@ class _NewReportState extends State<NewReport> {
     return BaseView<CreateReportProvider>(
       onProviderReady: (provider)=> provider.initData(),
       builder: (context, provider, child ){
+
+        final currentState = provider.currentState;
+
+        if (currentState is Error) {
+          final failure = currentState.failure;
+
+          //return _buildErrorView(provider, failure);
+        }
 
         return WillPopScope(
           onWillPop: ()async{
@@ -75,17 +86,23 @@ class _NewReportState extends State<NewReport> {
                         SummaryReport(provider: provider)
                       ],
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        BottomNavigationReport(
-                          textOnBack: _stepIndex==0 ? ' ' : S.of(context).back.toUpperCase(),
-                          textOnNext: _stepIndex==_lengthIndex ? S.of(context).finalize.toUpperCase() : S.of(context).nextPage.toUpperCase(),
-                          onBack: previewStep,
-                          onNext: () => nextStep(provider),
-                        )
-                      ],
-                    ),
+                    provider.emailVerified != null && !provider.emailVerified
+                        ? ConfirmationAccount(onValidate: ()=>_onValidate(provider),)
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              BottomNavigationReport(
+                                textOnBack: _stepIndex == 0
+                                    ? ' '
+                                    : S.of(context).back.toUpperCase(),
+                                textOnNext: _stepIndex == _lengthIndex
+                                    ? S.of(context).finalize.toUpperCase()
+                                    : S.of(context).nextPage.toUpperCase(),
+                                onBack: previewStep,
+                                onNext: () => nextStep(provider),
+                              )
+                            ],
+                          )
                   ],
                 )
             ),
@@ -225,5 +242,13 @@ class _NewReportState extends State<NewReport> {
       return S.of(context).summary;
     else
       return S.of(context).newReport;
+  }
+
+  /*Widget _buildErrorView(CreateReportProvider provider, Failure failure) {
+    return Container()
+  }*/
+
+  void _onValidate(CreateReportProvider provider) {
+    provider.initData();
   }
 }

@@ -9,7 +9,9 @@ import 'package:smart_cities/src/shared/spaces.dart';
 
 class ConfirmationAccount extends StatelessWidget {
 
+  final Function onValidate;
 
+  const ConfirmationAccount({Key key, this.onValidate}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,10 @@ class ConfirmationAccount extends StatelessWidget {
             Spaces.verticalSmall(),
 
             FlatButton(
-                onPressed: ()=> Navigator.pushNamed(context, ValidateAccountPage.id),
+                onPressed: () async {
+                  await Navigator.pushNamed(context, ValidateAccountPage.id);
+                  onValidate();
+                },
                 color: AppColors.blueBtnRegister,
                 textColor: AppColors.white,
                 shape: RoundedRectangleBorder(

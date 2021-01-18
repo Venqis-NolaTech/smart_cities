@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/get_municipality_use_case.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/get_user_validate_use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/validate_email_use_case.dart';
 
 import '../domain/usecases/edit_profile_use_case.dart';
@@ -115,6 +116,12 @@ initUseCase(GetIt sl) {
     () => ValidateEmailUseCase(
         firebaseAuth: sl(),
         userRepository: sl()
+    ),
+  );
+
+  sl.registerLazySingleton(
+        () => GetUserValidateUseCase(
+        firebaseAuth: sl(),
     ),
   );
 }

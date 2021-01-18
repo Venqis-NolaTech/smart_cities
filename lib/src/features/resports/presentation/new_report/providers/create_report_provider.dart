@@ -13,9 +13,11 @@ import '../../../../../core/error/failure.dart';
 import '../../../../../core/util/list_util.dart';
 import '../../../../../shared/provider/view_state.dart';
 import '../../../../auth/domain/entities/user.dart';
+import '../../../../auth/domain/usecases/get_user_validate_use_case.dart';
 import '../../../domain/usecases/create_report_use_case.dart';
 import '../../../domain/usecases/update_report_use_case.dart';
 import '../../../domain/usecases/upload_report_file_use_case.dart';
+
 import 'base_new_report_form_provider.dart';
 
 class CreateReportProvider extends BaseNewReportFormProvider {
@@ -28,6 +30,7 @@ class CreateReportProvider extends BaseNewReportFormProvider {
     @required this.getSectoresUseCase,
     @required this.getNeighborhoodUseCase,
     @required this.getCurrentLocationUseCase,
+    @required this.validateEmailUseCase,
   });
 
   final CreateReportUseCase createReportUseCase;
@@ -39,6 +42,7 @@ class CreateReportProvider extends BaseNewReportFormProvider {
   final GetSectoresUseCase getSectoresUseCase;
   final GetNeighborhoodUseCase getNeighborhoodUseCase;
   final GetCurrentLocationUseCase getCurrentLocationUseCase;
+  final GetUserValidateUseCase validateEmailUseCase;
 
 
   String nameStreet;
@@ -91,6 +95,7 @@ class CreateReportProvider extends BaseNewReportFormProvider {
 
   Position get location => _location;
 
+  bool emailVerified;
 
   final Map<String, dynamic> _reportData = {
     //DataKey.ISSUE_DATE: DateTime.now().toIso8601String(),
@@ -109,6 +114,16 @@ class CreateReportProvider extends BaseNewReportFormProvider {
   @override
   Future initData() async {
     state = Loading();
+
+
+    final failureOrSuccessValidate = await  validateEmailUseCase(NoParams());
+
+    await failureOrSuccessValidate.fold(
+      (failure) => state= Error(failure: failure),
+      (user) {
+        emailVerified= user.emailVerified;
+      },
+    );
 
     if (_location == null) await _getCurrentLocation();
 
