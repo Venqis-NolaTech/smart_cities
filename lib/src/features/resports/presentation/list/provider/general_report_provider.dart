@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:smart_cities/app.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/logged_user_use_case.dart';
+import 'package:smart_cities/src/features/resports/domain/usecases/get_all_filtres_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/like_report_use_case.dart';
+import 'package:smart_cities/src/features/resports/domain/usecases/set_filtres_use_case.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:meta/meta.dart';
 
@@ -15,11 +17,18 @@ class GeneralReportProvider extends PaginatedProvider<Report> {
   GeneralReportProvider( {
     @required this.loggedUserUseCase,
     @required this.likeReportUseCase,
-    @required this.getGeneralReportsUseCase});
+    @required this.getGeneralReportsUseCase,
+    @required this.getAllFiltresUseCase,
+    @required this.setFiltresUseCase,
+  });
 
   final GetGeneralReportsUseCase getGeneralReportsUseCase;
   final LoggedUserUseCase loggedUserUseCase;
   final LikeReportUseCase likeReportUseCase;
+
+  final GetAllFiltresUseCase getAllFiltresUseCase;
+  final SetFiltresUseCase setFiltresUseCase;
+
 
   @override
   Future<Either<Failure, PageData<Report>>> processRequest() async {
@@ -95,4 +104,29 @@ class GeneralReportProvider extends PaginatedProvider<Report> {
     );
 
   }
+
+
+  Future getParam() async {
+
+    state = Loading();
+
+    final failureOrSuccess = await getAllFiltresUseCase(NoParams());
+
+    failureOrSuccess.fold(
+          (_) {},
+          (list) => state = Loaded<List<FilterReportItem>>(value: list),
+    );
+
+  }
+
+  Future setParam(FilterReportItem filter) async {
+
+    state = Loading();
+
+    final failureOrSuccess = await setFiltresUseCase(filter);
+
+    getParam();
+  }
+
+
 }

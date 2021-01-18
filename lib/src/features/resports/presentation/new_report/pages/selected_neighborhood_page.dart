@@ -24,11 +24,12 @@ class SelectedNeighborhoodPage extends StatefulWidget {
 class _SelectedSectorPageState extends State<SelectedNeighborhoodPage> {
   ScrollController _scrollController;
   var alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-
+  List list= [];
 
   @override
   void initState() {
     _scrollController = ScrollController();
+      list= widget.provider.allNeighborhood;
     super.initState();
   }
 
@@ -59,8 +60,8 @@ class _SelectedSectorPageState extends State<SelectedNeighborhoodPage> {
       ),
       body: Stack(
         children: [
-          HeaderSearch(),
-          _buildListNeighborhood(widget.provider.allNeighborhood, widget.provider, screenHeight),
+          HeaderSearch(onChanged: (value)=> onChanged(value)),
+          _buildListNeighborhood(list, widget.provider, screenHeight),
 
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -128,6 +129,20 @@ class _SelectedSectorPageState extends State<SelectedNeighborhoodPage> {
         },
       ),
     );
+  }
+
+  void onChanged(String value) {
+    print(value); //widget.provider.allSectores
+
+    if(value.isEmpty)
+      list= widget.provider.allNeighborhood;
+    else
+      list = widget.provider.allNeighborhood
+          .where((element) => element.value.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+
+    setState(() {
+    });
   }
 
 }

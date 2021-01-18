@@ -1,8 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/get_all_category_use_case.dart';
+import 'package:smart_cities/src/features/resports/domain/usecases/get_all_filtres_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/get_neighborhood_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/get_sectores_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/like_report_use_case.dart';
+import 'package:smart_cities/src/features/resports/domain/usecases/set_filtres_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/update_report_comment_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/upload_comment_report_file_use_case.dart';
 
@@ -110,4 +112,14 @@ initUseCase(GetIt sl) {
               firebaseStorage: sl()
           ));
 
+
+  sl.registerLazySingleton(
+          () => GetAllFiltresUseCase(
+          reportRepository: sl()
+      ));
+
+  sl.registerLazySingleton(
+          () => SetFiltresUseCase(
+          reportRepository: sl()
+      ));
 }

@@ -250,15 +250,6 @@ class LocationReport extends Equatable {
     coordinates
   ];
 
-  /*factory LocationReport.fromJson(Map<String, dynamic> json) => LocationReport(
-    type: json["type"],
-    coordinates: List<double>.from(json["coordinates"].map((x) => x.toDouble())),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "type": type,
-    "coordinates": List<dynamic>.from(coordinates.map((x) => x)),
-  };*/
 }
 
 
@@ -273,16 +264,13 @@ class CreatedBy {
   String id;
   String displayName;
 
-  /*factory CreatedBy.fromJson(Map<String, dynamic> json) => CreatedBy(
-    photoUrl: json["photoURL"],
-    id: json["_id"],
-    displayName: json["displayName"],
-  );
+}
 
-  Map<String, dynamic> toJson() => {
-    "photoURL": photoUrl,
-    "_id": id,
-    "displayName": displayName,
-  };*/
+class FilterReportItem{
+  String key;
+  bool value;
+  String title;
+
+  FilterReportItem({this.key, this.value, this.title});
 }
 

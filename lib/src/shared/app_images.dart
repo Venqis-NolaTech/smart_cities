@@ -57,6 +57,8 @@ class AppImagePaths {
 
   static const empyteComment = '$_basePath/empyte_comment.png';
 
+  static const tune = '$_basePath/tune.png';
+
 }
 
 class AppImages {
@@ -98,6 +100,7 @@ class AppImages {
 
   static final iconGallery = Image.asset(AppImagePaths.iconGallery);
   static final empyteComment = Image.asset(AppImagePaths.empyteComment);
+  static final iconTune = Image.asset(AppImagePaths.tune);
 
 
 }

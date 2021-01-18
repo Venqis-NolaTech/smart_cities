@@ -24,11 +24,12 @@ class SelectedSectorPage extends StatefulWidget {
 class _SelectedSectorPageState extends State<SelectedSectorPage> {
   ScrollController _scrollController;
   var alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-
+  List list= [];
 
   @override
   void initState() {
     _scrollController = ScrollController();
+    list= widget.provider.allSectores;
     super.initState();
   }
 
@@ -59,8 +60,8 @@ class _SelectedSectorPageState extends State<SelectedSectorPage> {
       ),
       body: Stack(
         children: [
-          HeaderSearch(),
-          _buildListSector(widget.provider.allSectores, widget.provider, screenHeight),
+          HeaderSearch(onChanged: (value)=> onChanged(value) ,),
+          _buildListSector(list, widget.provider, screenHeight),
 
 
           Column(
@@ -79,6 +80,20 @@ class _SelectedSectorPageState extends State<SelectedSectorPage> {
 
   }
 
+  void onChanged(String value) {
+    print(value); //widget.provider.allSectores
+
+    if(value.isEmpty)
+      list= widget.provider.allSectores;
+    else
+      list = widget.provider.allSectores
+          .where((element) => element.value.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+
+    setState(() {
+    });
+  }
+
   Widget _buildListSector(List<CatalogItem> allSectores,  CreateReportProvider provider, double screenHeight) {
 
     return Padding(
@@ -91,6 +106,7 @@ class _SelectedSectorPageState extends State<SelectedSectorPage> {
           selected: provider.selectedSector== null ? false : provider.selectedSector.key==allSectores.elementAt(index).key,
           onTap: (value){
             provider.selectedSector=value;
+            provider.selectedNeighborhood= null;
             setState(() {
 
             });

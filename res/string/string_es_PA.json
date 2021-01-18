@@ -253,5 +253,11 @@
     "announcementType": "Tipo de convocatoria",
     "getDirection": "Como llegar",
     "startDate": "Fecha de inicio",
-    "endDate": "Fecha de finalizacíon"
+    "endDate": "Fecha de finalizacíon",
+    "filterReport": "Filtrar por reporte",
+    "titleFilter": "Elige los reportes que quieres ver",
+
+    "onProcess": "En Proceso",
+    "solutionCompleted": "Resueltos",
+    "colse": "Cerrado"
 }

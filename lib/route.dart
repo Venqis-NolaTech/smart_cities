@@ -4,6 +4,8 @@ import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_pa
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/resports/presentation/filter_report/page/FilterPage.dart';
+import 'package:smart_cities/src/features/resports/presentation/list/provider/general_report_provider.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/pages/general_report.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/pages/selected_neighborhood_page.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/pages/selected_sector_page.dart';
@@ -112,68 +114,18 @@ class AppRoute {
 
           return BlogDetailPage(args: args);
         })
+      )
+      ..define(
+        routePath: FilterReportPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          //final provider = arguments as GeneralReportProvider;
+          return FilterReportPage();
+        }),
       );
 
-
-    /*
-      ..define(
-        routePath: MainPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) {
-          final selectedIndex = arguments as int ?? 0;
-
-          return MainPage(selectedIndex: selectedIndex);
-        }),
-      )
-      ..define(
-        routePath: ReportDetailsPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) {
-          final report = arguments as Report;
-
-          return ReportDetailsPage(report: report);
-        }),
-      )
-      ..define(
-        routePath: ReportFilesPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) {
-          final files = arguments as List;
-
-          return ReportFilesPage(files: files);
-        }),
-      )
-      ..define(
-        routePath: ReportCommentsPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) {
-          final report = arguments as Report;
-
-          return ReportCommentsPage(report: report);
-        }),
-      )
-      ..define(
-        routePath: ReportTypePage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => ReportTypePage()),
-      )
-      ..define(
-        routePath: WizardNewReportPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) {
-          final params = arguments as WizardNewReportPageParams;
-          return WizardNewReportPage(params: params);
-        }),
-      )
-      ..define(
-        routePath: ProfilePage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => ProfilePage()),
-      )
-      ..define(
-        routePath: GooglePlacesSearchPage.id,
-        handler: AppRouteHandler(
-            handlerFunc: (arguments) => GooglePlacesSearchPage()),
-      )
-      ..define(
-        routePath: WebViewPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) {
-          final args = arguments as WebViewArgs;
-          return WebViewPage(args: args);
-        }),
-      )*/
   }
+
+
+
+
 }

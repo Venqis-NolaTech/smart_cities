@@ -35,10 +35,12 @@ initProvider(GetIt sl) {
   );
 
   sl.registerFactory(
-        () => GeneralReportProvider(
+    () => GeneralReportProvider(
       getGeneralReportsUseCase: sl(),
       loggedUserUseCase: sl(),
-      likeReportUseCase: sl()
+      likeReportUseCase: sl(),
+      setFiltresUseCase: sl(),
+      getAllFiltresUseCase: sl(),
     ),
   );
 

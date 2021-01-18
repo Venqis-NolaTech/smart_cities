@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_cities/src/features/resports/presentation/filter_report/page/FilterPage.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
@@ -37,9 +38,11 @@ class _ReportsPageState extends State<ReportsPage>
     return Scaffold(
       appBar: _buildAppBar(),
       body: TabBarView(
+        physics: _tabController.index == 2
+            ? NeverScrollableScrollPhysics()
+            : AlwaysScrollableScrollPhysics(),
         controller: _tabController,
         children: _widgetOptions,
-        //physics: NeverScrollableScrollPhysics(),
       ),
     );
     ;
@@ -51,16 +54,24 @@ class _ReportsPageState extends State<ReportsPage>
       centerTitle: true,
       title: Text(S.of(context).menuReport),
       actions: [
+
+        IconButton(
+            onPressed: () async {
+              await Navigator.pushNamed(context, FilterReportPage.id);
+              //TODO ACTUALIZAR NUEVAMENTE LISTADO CON LOS FILTROS MODIFICADOS
+            },
+            icon: Icon(
+              Icons.tune,
+              color: AppColors.white,
+            )),
+
         IconButton(
             onPressed: () => Navigator.pushNamed(context, NewReport.id),
             icon: Icon(
               Icons.add,
               color: AppColors.white,
             )),
-        /*FlatButton(
-            onPressed: () => Navigator.pushNamed(context, NewReport.id),
-            child: Icon(Icons.settings_overscan, color: AppColors.white,)
-        ),*/
+
       ],
       bottom: TabBarContainer(
         color: AppColors.white,
