@@ -106,9 +106,10 @@ class GeneralReportProvider extends PaginatedProvider<Report> {
   }
 
 
-  Future getParam() async {
+  Future getParam({bool isLoading= true}) async {
 
-    state = Loading();
+    if(isLoading)
+      state = Loading();
 
     final failureOrSuccess = await getAllFiltresUseCase(NoParams());
 
@@ -121,11 +122,11 @@ class GeneralReportProvider extends PaginatedProvider<Report> {
 
   Future setParam(FilterReportItem filter) async {
 
-    state = Loading();
+    //state = Loading();
 
     final failureOrSuccess = await setFiltresUseCase(filter);
 
-    getParam();
+    getParam(isLoading: false);
   }
 
 

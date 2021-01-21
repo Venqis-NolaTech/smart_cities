@@ -25,11 +25,10 @@ class ReportWidget extends StatelessWidget {
                   Image.asset(AppImagePaths.iconReport),
                   Spaces.horizontalSmall(),
                   Text(
-                    'Reportes',
+                    S.of(context).report,
                     textAlign: TextAlign.center,
                     style: kMediumTitleStyle.copyWith(
                       color: AppColors.blueBtnRegister,
-                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -46,7 +45,6 @@ class ReportWidget extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: kNormalStyle.copyWith(
                         color: AppColors.blueBtnRegister,
-                        fontFamily: 'Roboto',
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -60,15 +58,13 @@ class ReportWidget extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(
-                    child: Text(
-                      '¡Déjanos saber!',
-                      textAlign: TextAlign.center,
-                      style: kNormalStyle.copyWith(
-                        color: AppColors.blueBtnRegister,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    '¡Déjanos saber!',
+                    textAlign: TextAlign.center,
+                    style: kNormalStyle.copyWith(
+                      color: AppColors.blueBtnRegister,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -83,7 +79,8 @@ class ReportWidget extends StatelessWidget {
                     side: BorderSide(color: AppColors.blueLight)),
                 child: Text(
                   S.of(context).newReport,
-                  style: kNormalStyle.copyWith(
+                  maxLines: 1,
+                  style: kSmallestTextStyle.copyWith(
                     color: AppColors.blueLight,
                     fontWeight: FontWeight.bold,
                   ),

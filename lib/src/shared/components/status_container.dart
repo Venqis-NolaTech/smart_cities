@@ -26,7 +26,7 @@ class StatusContainer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 4),
       child: Row(
         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -38,7 +38,7 @@ class StatusContainer extends StatelessWidget {
               shape: BoxShape.circle,
             ),
           ),
-          Spaces.horizontalSmall(),
+          Spaces.horizontalSmallest(),
           Text(
             report?.reportStatus?.id ?? "",
             style: kSmallestTextStyle.copyWith(

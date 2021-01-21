@@ -58,15 +58,13 @@ class RouteWidget extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Flexible(
-                      child: Text(
-                        '¡Déjanos saber!',
-                        textAlign: TextAlign.center,
-                        style: kNormalStyle.copyWith(
-                          color: AppColors.blueBtnRegister,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      '¡Déjanos saber!',
+                      textAlign: TextAlign.center,
+                      style: kNormalStyle.copyWith(
+                        color: AppColors.blueBtnRegister,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -82,7 +80,8 @@ class RouteWidget extends StatelessWidget {
                     side: BorderSide(color: AppColors.blueLight)),
                 child: Text(
                   'Agregar Sector',
-                  style: kNormalStyle.copyWith(
+                  maxLines: 1,
+                  style: kSmallestTextStyle.copyWith(
                     color: AppColors.blueLight,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.bold,

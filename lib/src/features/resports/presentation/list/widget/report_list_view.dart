@@ -9,6 +9,7 @@ import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
+import 'package:smart_cities/src/shared/app_images.dart';
 
 import '../../../../../core/error/failure.dart';
 import '../../../../../shared/components/base_view.dart';
@@ -193,8 +194,8 @@ class ReportListViewState<P extends PaginatedProvider<Report>> extends State<Rep
 
   Widget _buildEmptyView() {
     return InfoView(
-      height: MediaQuery.of(context).size.height,
-      image: Container(height: 48),
+      height: MediaQuery.of(context).size.height*0.7,
+      image: AppImages.iconMessage,
       title: S.of(context).report,
       titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
       description: S.of(context).reportNotFound,
@@ -204,8 +205,8 @@ class ReportListViewState<P extends PaginatedProvider<Report>> extends State<Rep
 
   Widget _buildErrorView(BuildContext context, Failure failure) {
     return InfoView(
-      height: MediaQuery.of(context).size.height,
-      image: Container(height: 48),
+      height: MediaQuery.of(context).size.height*0.7,
+      image: AppImages.iconMessage,
       title: S.of(context).error,
       titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
       description: S.of(context).unexpectedErrorMessage,

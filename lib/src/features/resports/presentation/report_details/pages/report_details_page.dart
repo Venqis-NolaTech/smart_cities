@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/widget/report_files.dart';
@@ -15,6 +17,12 @@ import '../../../domain/entities/report.dart';
 import '../widgets/report_details_content.dart';
 import '../widgets/report_details_header.dart';
 import '../widgets/report_details_sub_header.dart';
+
+
+
+final _refreshStreamController = StreamController<dynamic>();
+Stream<dynamic> get refreshComment => _refreshStreamController.stream;
+
 
 class ReportDetailsPage extends StatefulWidget {
   static const id = "report_details_page";
@@ -38,6 +46,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
   bool _isDisposed = false;
   bool _reportLoaded = false;
   int indexStack= 0;
+  int indexUltimate= 0;
   bool addImage= false;
 
   set report(Report newReport) {
@@ -45,9 +54,9 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
 
     setState(() {
       _report = newReport;
-
-      _headerKey.currentState.setLiked(_report.follow);
+      //_headerKey.currentState.setLiked(_report.follow);
     });
+
   }
 
   @override
@@ -83,6 +92,8 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
           );
 
           _reportLoaded = true;
+
+          //report = currentState.value;
         }
 
 
@@ -106,7 +117,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
                     index: indexStack,
                     children: [
                       buildDetail(provider),
-                      buildComment(provider),
+                      buildComment(),
                       ReportFiles(provider: provider, addBottomPadding: true)
                     ],
                   ),
@@ -127,9 +138,10 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
                       },
                       onSendComment: (){
                         setState(() {
-                          indexStack=0;
+                          indexStack=indexUltimate;
                           addImage= false;
                         });
+                        _refreshStreamController.add(null);
                       },
                     )
                   ],
@@ -164,10 +176,16 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
             key: _headerKey,
             report: _report,
             provider: provider,
+            addPhoto: (){
+              if(indexStack!=2)
+                setState(() {
+                  addImage= true;
+                });
+            },
           ),
           ReportDetailsSubHeader(
             report: _report,
-            onFollow: provider.likeReport,
+            onFollow: () => onFollow(provider),
           ),
           ReportDetailsContent(
             report: _report,
@@ -177,7 +195,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
     );
   }
 
-  Widget buildComment(ReportDetailsProvider provider) {
+  Widget buildComment() {
 
     return ReportCommentsPage(report: _report);
 
@@ -185,6 +203,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
 
   void _onChangedInde(int index) {
     indexStack= index;
+    indexUltimate= index;
     addImage= false;
     setState(() {});
   }
@@ -192,4 +211,12 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
 
 
 
+
+  void onFollow(ReportDetailsProvider provider) async {
+    await provider.likeReport();
+    var currentState= provider.currentState;
+    if (currentState is Loaded<Report>) {
+      report = currentState.value;
+    }
+  }
 }

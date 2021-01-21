@@ -177,7 +177,7 @@
     "all": "Todo",
     "validate": "Validar",
     "questionValidate": "¿Tu cuenta aún no esta validada?",
-    "accessAccount":"Accede a tu correo y valida tu cuenta para poder crear un reporte",
+    "accessAccount":"Crea tu cuenta para que puedas crear reportes",
     "questionValidateAccount":"¿Validaste tu cuenta?",
     "meesageValidate":"Cierra la sesión e inicia nuevamente para poder crear reportes.",
     "logout": "Cerrar sesión",
@@ -260,6 +260,13 @@
     "onProcess": "En Proceso",
     "solutionCompleted": "Resueltos",
     "emailExist": "Ya existe una cuenta registrada con este email.",
-    "dniExist": "Ya existe una cuenta registrada con este Cédula de Identidad."
+    "dniExist": "Ya existe una cuenta registrada con este Cédula de Identidad.",
+
+    "questionNotAccount": "¿Aún no tienes una cuenta?",
+    "questionAccount": "¿Ya tienes una cuenta?",
+
+    "empyteReport": "No hay ningún reporte"
+
+
 
 }

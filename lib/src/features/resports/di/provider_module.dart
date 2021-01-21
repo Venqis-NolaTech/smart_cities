@@ -8,7 +8,6 @@ import 'package:smart_cities/src/features/resports/presentation/report_details/p
 
 
 import '../presentation/new_report/providers/create_report_provider.dart';
-//import '../presentation/new_report/providers/report_location_provider.dart';
 
 
 initProvider(GetIt sl) {
@@ -22,7 +21,7 @@ initProvider(GetIt sl) {
       getSectoresUseCase: sl(),
       getNeighborhoodUseCase: sl(),
       getCurrentLocationUseCase: sl(),
-      validateEmailUseCase: sl(),
+      loggedUserUseCase: sl(),
     ),
   );
 
@@ -66,7 +65,8 @@ initProvider(GetIt sl) {
       createReportCommentUseCase: sl(),
       updateReportCommentUseCase: sl(),
       likeReportUseCase: sl(),
-      uploadReportFileUseCase: sl()
+      uploadReportFileUseCase: sl(),
+      getReportCommentsUseCase: sl()
     ),
   );
 

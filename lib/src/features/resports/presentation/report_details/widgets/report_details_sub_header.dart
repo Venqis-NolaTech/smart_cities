@@ -37,7 +37,7 @@ class ReportDetailsSubHeader extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withOpacity(0.1),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
               child: Row(
@@ -69,7 +69,7 @@ class ReportDetailsSubHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
             color: report.follow ? AppColors.colorFollow : Colors.white),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
           child: Text(
             report.follow ? S.of(context).followTrue : S.of(context).follow,
             textAlign: TextAlign.center,

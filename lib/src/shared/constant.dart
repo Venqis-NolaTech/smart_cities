@@ -84,19 +84,19 @@ const kRadiusBorderTextFieldInputDecoration = InputDecoration(
     borderRadius: BorderRadius.all(
       Radius.circular(8.0),
     ),
-    borderSide: BorderSide(color: Colors.grey, width: 1),
+    borderSide: BorderSide(color: AppColors.divider, width: 0.5),
   ),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(
       Radius.circular(8.0),
     ),
-    borderSide: BorderSide(color: Colors.grey, width: 1),
+    borderSide: BorderSide(color: AppColors.divider, width: 0.5),
   ),
   focusedBorder: OutlineInputBorder(
     borderRadius: BorderRadius.all(
       Radius.circular(8.0),
     ),
-    borderSide: BorderSide(color: Colors.grey, width: 1),
+    borderSide: BorderSide(color: AppColors.divider, width: 0.5),
   ),
 );
 

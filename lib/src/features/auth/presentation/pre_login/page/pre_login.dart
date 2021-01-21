@@ -105,18 +105,21 @@ class PreLogin extends StatelessWidget {
   }
 
   Widget btnAccess(BuildContext context) {
-    return GestureDetector(
-      onTap: ()=>
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            MainPage.id,
-            ModalRoute.withName(MainPage.id),
-          ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Text(S.of(context).loginWithoutQccount,
-            style: kNormalStyle.copyWith(fontFamily: 'Roboto', fontWeight: FontWeight.bold,  color: AppColors.primaryTextLight)
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: RoundedButton(
+          color: AppColors.white,
+          borderColor: AppColors.white,
+          elevation: 0,
+          title: S.of(context).loginWithoutQccount,
+          style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.primaryTextLight,),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              MainPage.id,
+              ModalRoute.withName(MainPage.id),
+            );
+          }
       ),
     );
   }

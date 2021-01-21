@@ -30,6 +30,7 @@ class PhoneNumberPage extends StatelessWidget {
           inAsyncCall: provider.currentState is Loading,
           child: Scaffold(
             backgroundColor: AppColors.white,
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
                 backgroundColor: AppColors.red,
                 title: tittleAppBarLogin(onLogin: null,onRegister: ()=> Navigator.pushReplacementNamed(context, RegisterPage.id)),

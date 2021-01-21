@@ -69,6 +69,9 @@ class _CommentBoxState extends State<CommentBox> {
               ],
             ),
           ),
+
+
+
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,32 +89,47 @@ class _CommentBoxState extends State<CommentBox> {
                                 isVisible = !isVisible;
                                 setState(() {});
                               },
-                              child: Text(S.of(context).comment)),
+                              child: Text(S.of(context).comment, style: kNormalStyle.copyWith(
+                                  color: AppColors.blueLight),)),
                         ],
                       ),
                     )
                   : Flexible(
-                      child: TextField(
-                          keyboardType: TextInputType.multiline,
-                          minLines: 1,
-                          maxLines: 6,
-                          enabled: widget.inputEnabled,
-                          controller: widget.textController,
-                          decoration:
-                              kRadiusBorderTextFieldInputDecoration.copyWith(
-                            hintText: S.of(context).writeComment,
-                            suffixIcon: IconButton(
-                              onPressed: widget.addPhotoAction,
-                              icon: Icon(
-                                Icons.add_a_photo,
-                                color:
-                                    AppColors.primaryTextLight.withOpacity(0.7),
-                              ),
-                            ),
-                            //fillColor: Colors.grey.shade300,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.grey.shade300,
+                            width: 1,
                           ),
-                          onChanged: widget.onTextChanged),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: TextField(
+                              keyboardType: TextInputType.multiline,
+                              minLines: 1,
+                              maxLines: 6,
+                              enabled: widget.inputEnabled,
+                              controller: widget.textController,
+                              decoration: InputDecoration(
+                                hintText: S.of(context).writeComment,
+                                suffixIcon: IconButton(
+                                  onPressed: widget.addPhotoAction,
+                                  icon: Icon(
+                                    Icons.add_a_photo,
+                                    color:
+                                        AppColors.primaryTextLight.withOpacity(0.7),
+                                  ),
+                                ),
+                                border: InputBorder.none
+                                //fillColor: Colors.grey.shade300,
+                              ),
+                              onChanged: widget.onTextChanged),
+                        ),
+                      ),
                     ),
+
+              Spaces.horizontalSmallest(),
               Visibility(
                 visible: isVisible,
                 child: FlatButton(
@@ -127,6 +145,8 @@ class _CommentBoxState extends State<CommentBox> {
               ),
             ],
           ),
+
+          Spaces.verticalMedium(),
         ],
       ),
     );

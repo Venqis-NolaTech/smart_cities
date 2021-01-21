@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
     _widgetOptions = <Widget>[
       HomePage(),
       RoutePage(),
-      ReportsPage(),
+      ReportsPage(onBackPress: onBackPressReport),
       PaymentsPage(),
       Container()
     ];
@@ -60,5 +60,12 @@ class _MainPageState extends State<MainPage> {
         onItemTapped: _onItemTapped,
       ),
     );
+  }
+
+  void onBackPressReport() {
+    print('on back press icon');
+    setState(() {
+      _selectedIndex=0;
+    });
   }
 }

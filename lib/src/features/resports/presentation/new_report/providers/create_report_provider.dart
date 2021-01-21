@@ -1,19 +1,21 @@
-import 'package:jiffy/jiffy.dart';
+import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/core/usecases/use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/get_current_location_use_case.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/logged_user_use_case.dart';
+import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/get_all_category_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/get_neighborhood_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/get_sectores_use_case.dart';
 import 'package:smart_cities/src/shared/constant.dart';
+import 'package:smart_cities/src/shared/provider/paginated_provider.dart';
 
 import '../../../../../../app.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../../core/util/list_util.dart';
 import '../../../../../shared/provider/view_state.dart';
 import '../../../../auth/domain/entities/user.dart';
-import '../../../../auth/domain/usecases/get_user_validate_use_case.dart';
 import '../../../domain/usecases/create_report_use_case.dart';
 import '../../../domain/usecases/update_report_use_case.dart';
 import '../../../domain/usecases/upload_report_file_use_case.dart';
@@ -30,7 +32,7 @@ class CreateReportProvider extends BaseNewReportFormProvider {
     @required this.getSectoresUseCase,
     @required this.getNeighborhoodUseCase,
     @required this.getCurrentLocationUseCase,
-    @required this.validateEmailUseCase,
+    @required this.loggedUserUseCase,
   });
 
   final CreateReportUseCase createReportUseCase;
@@ -42,7 +44,7 @@ class CreateReportProvider extends BaseNewReportFormProvider {
   final GetSectoresUseCase getSectoresUseCase;
   final GetNeighborhoodUseCase getNeighborhoodUseCase;
   final GetCurrentLocationUseCase getCurrentLocationUseCase;
-  final GetUserValidateUseCase validateEmailUseCase;
+  final LoggedUserUseCase loggedUserUseCase;
 
 
   String nameStreet;
@@ -95,8 +97,6 @@ class CreateReportProvider extends BaseNewReportFormProvider {
 
   Position get location => _location;
 
-  bool emailVerified;
-
   final Map<String, dynamic> _reportData = {
     //DataKey.ISSUE_DATE: DateTime.now().toIso8601String(),
   };
@@ -115,49 +115,54 @@ class CreateReportProvider extends BaseNewReportFormProvider {
   Future initData() async {
     state = Loading();
 
+    final logged = await loggedUserUseCase(NoParams());
 
-    final failureOrSuccessValidate = await  validateEmailUseCase(NoParams());
-
-    await failureOrSuccessValidate.fold(
-      (failure) => state= Error(failure: failure),
-      (user) {
-        emailVerified= user.emailVerified;
-      },
-    );
-
-    if (_location == null) await _getCurrentLocation();
-
-
-    final failureOrSuccess = await getAllCategoryUseCase(NoParams());
-
-    await failureOrSuccess.fold(
-      (failure) {
+    await logged.fold(
+          (failure) {
         state = Error(failure: failure);
       },
-      (listCategory) async {
-        if (listCategory.isNotNullOrNotEmpty) {
-          allCategory = listCategory;
-          state = Loaded();
-        } else {
-          state = Error(failure: UnexpectedFailure());
+          (user) async {
+        if (user != null) {
+
+          if (_location == null) await _getCurrentLocation();
+
+
+          final failureOrSuccess = await getAllCategoryUseCase(NoParams());
+
+          await failureOrSuccess.fold(
+                (failure) {
+              state = Error(failure: failure);
+            },
+                (listCategory) async {
+              if (listCategory.isNotNullOrNotEmpty) {
+                allCategory = listCategory;
+                state = Loaded();
+              } else {
+                state = Error(failure: UnexpectedFailure());
+              }
+            },
+          );
+
+          var result= await getSectoresUseCase(NoParams());
+
+          await result.fold(
+                (failure) {
+              print('fallo al actualizar sectores');
+            },
+                (list) async {
+              if (list.isNotNullOrNotEmpty) {
+                allSectores = list;
+                print('actualizada listado de sectores');
+                notifyListeners();
+              }
+            },
+          );
+
+
         }
       },
     );
 
-    var result= await getSectoresUseCase(NoParams());
-
-    await result.fold(
-      (failure) {
-        print('fallo al actualizar sectores');
-      },
-      (list) async {
-        if (list.isNotNullOrNotEmpty) {
-          allSectores = list;
-          print('actualizada listado de sectores');
-          notifyListeners();
-        }
-      },
-    );
 
 
 
@@ -289,5 +294,10 @@ class CreateReportProvider extends BaseNewReportFormProvider {
       return false;
     }else
       return true;
+  }
+
+  @override
+  Future<Either<Failure, PageData<ReportComment>>> processRequest() {
+
   }
 }

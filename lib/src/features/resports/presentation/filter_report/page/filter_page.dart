@@ -63,7 +63,7 @@ class _FilterReportPageState extends State<FilterReportPage> {
           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
           child: Text(
             S.of(context).titleFilter,
-            style: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister),
+            style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),
             textAlign: TextAlign.start,
           ),
         )));

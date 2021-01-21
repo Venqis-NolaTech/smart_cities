@@ -68,7 +68,7 @@ class ReportDetailsContent extends StatelessWidget {
           ),
           Spaces.verticalMedium(),
           Container(
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withOpacity(0.1),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
               child: Row(
@@ -129,7 +129,7 @@ class ReportDetailsContent extends StatelessWidget {
       children.addAll(
         [
           Container(
-            height: 180,
+            height: 250,
             child: FutureBuilder<Marker>(
               future: _buildMarker(),
               initialData: null,

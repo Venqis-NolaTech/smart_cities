@@ -110,12 +110,12 @@ abstract class PhoneNumberAuthProvider extends BaseProvider {
       state = Loaded();
     };
 
-    final fAuth.PhoneVerificationCompleted verificationCompleted = (fAuth.AuthCredential authCredential) {
+    final fAuth.PhoneVerificationCompleted verificationCompleted = (fAuth.AuthCredential authCredential) async {
       print('verificationCompleted');
 
       this.authCredential = authCredential;
-
-      signInWithCredential(authCredential, signInWithCredentialCallback);
+      phoneAuthState = PhoneAuthState.started;
+      await signInWithCredential(authCredential, signInWithCredentialCallback);
 
       phoneAuthState = PhoneAuthState.verified;
       state = Loaded();

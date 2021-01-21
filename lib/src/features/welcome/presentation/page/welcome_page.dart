@@ -100,22 +100,42 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   List<Widget> _generateViews() {
-    /*return List<Widget>.generate(length, (index) {
-      return StepView(image: AppImages.step1, text: S
-          .of(context)
-          .textWelcome);
-    });*/
+
 
     return List<Widget>.generate(length, (index) {
       switch(index){
         case 0:
           return StepView(image:  AppImages.step1, text: S.of(context).textWelcome);
         case 1:
-          return StepView(image:  AppImages.step2, icon:  Image.asset(AppImagePaths.iconPay, fit: BoxFit.contain, height: 90,),  text: S.of(context).textPay, tittle : S.of(context).pay);
+          return StepView(
+              image: AppImages.step2,
+              icon: Image.asset(
+                AppImagePaths.iconPay,
+                fit: BoxFit.contain,
+                height: 90,
+              ),
+              text: S.of(context).textPay,
+              tittle: S.of(context).pay.toUpperCase());
         case 2:
-          return StepView(image:  AppImages.step3, icon:  Image.asset(AppImagePaths.iconCar, fit: BoxFit.contain, height: 90,) , text: S.of(context).textPickup, tittle : S.of(context).pickup);
+          return StepView(
+              image: AppImages.step3,
+              icon: Image.asset(
+                AppImagePaths.iconCar,
+                fit: BoxFit.contain,
+                height: 90,
+              ),
+              text: S.of(context).textPickup,
+              tittle: S.of(context).pickup.toUpperCase());
         case 3:
-          return StepView(image:  AppImages.step4, icon:  Image.asset(AppImagePaths.iconReports, fit: BoxFit.contain, height: 90,) , text: S.of(context).textReport, tittle : S.of(context).report);
+          return StepView(
+              image: AppImages.step4,
+              icon: Image.asset(
+                AppImagePaths.iconReports,
+                fit: BoxFit.contain,
+                height: 90,
+              ),
+              text: S.of(context).textReport,
+              tittle: S.of(context).report.toUpperCase());
         default:
           return Container();
       }

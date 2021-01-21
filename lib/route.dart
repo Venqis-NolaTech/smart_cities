@@ -4,8 +4,7 @@ import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_pa
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
-import 'package:smart_cities/src/features/resports/presentation/filter_report/page/FilterPage.dart';
-import 'package:smart_cities/src/features/resports/presentation/list/provider/general_report_provider.dart';
+import 'package:smart_cities/src/features/resports/presentation/filter_report/page/filter_page.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/pages/general_report.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/pages/selected_neighborhood_page.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/pages/selected_sector_page.dart';

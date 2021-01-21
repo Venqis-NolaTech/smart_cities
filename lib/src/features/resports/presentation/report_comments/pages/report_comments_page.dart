@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:smart_cities/src/features/resports/presentation/report_details/pages/report_details_page.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
@@ -39,6 +40,11 @@ class _ReportCommentsPageState extends State<ReportCommentsPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController()..addListener(_scrollListener);
+
+    refreshComment.listen((event) {
+      print('actualizar comment');
+      _provider?.refreshData();
+    });
   }
 
   @override
@@ -69,7 +75,9 @@ class _ReportCommentsPageState extends State<ReportCommentsPage> {
 
     return _proccessPostComment(provider);
   }
+  void refresComment(){
 
+  }
   bool _proccessPostComment(ReportCommentsProvider provider) {
     final commentPostState = provider.commentPostState;
 
@@ -139,14 +147,6 @@ class _ReportCommentsPageState extends State<ReportCommentsPage> {
                         },
                       ),
                     ),
-                  ),
-                  CommentBox(
-                    textController: _textController,
-                    inputEnabled: isCommetAllow,
-                    buttonEnabled: provider.comment.isNotNullOrNotEmpty,
-                    onTextChanged: (value) => provider.comment = value,
-                    sendAction:
-                        isCommetAllow ? () => _sendComment(provider) : null,
                   ),
                 ],
               ),

@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/like_report_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/update_report_comment_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/upload_comment_report_file_use_case.dart';
-import 'package:smart_cities/src/features/resports/domain/usecases/upload_report_file_use_case.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/providers/base_new_report_form_provider.dart';
 
 
@@ -10,14 +9,17 @@ import '../../../../../shared/provider/view_state.dart';
 import '../../../domain/entities/report.dart';
 import '../../../domain/usecases/create_report_comment_use_case.dart';
 import '../../../domain/usecases/get_report_by_id_use_case.dart';
+import '../../../domain/usecases/get_report_comments_use_case.dart';
 
-class ReportDetailsProvider extends BaseNewReportFormProvider {
+
+class ReportDetailsProvider extends BaseNewReportFormProvider{
   ReportDetailsProvider({
     @required this.getReportByIdUseCase,
     @required this.createReportCommentUseCase,
     @required this.updateReportCommentUseCase,
     @required this.likeReportUseCase,
     @required this.uploadReportFileUseCase,
+    @required this.getReportCommentsUseCase,
     bool inTest,
   }) : super();
 
@@ -26,6 +28,7 @@ class ReportDetailsProvider extends BaseNewReportFormProvider {
   final UpdateReportCommentUseCase updateReportCommentUseCase;
   final LikeReportUseCase likeReportUseCase;
   final UploadCommentReportFileUseCase uploadReportFileUseCase;
+  final GetReportCommentsUseCase getReportCommentsUseCase;
 
   ViewState commentPostState = Idle();
 
@@ -168,4 +171,33 @@ class ReportDetailsProvider extends BaseNewReportFormProvider {
   Future submitData() {
 
   }
+
+ /* @override
+  Future<Either<Failure, PageData<ReportComment>>> processRequest() async {
+    final params = CommentsParams(
+      _reportId,
+      page: page,
+      count: count,
+    );
+
+    final failureOrListings = await getReportCommentsUseCase(params);
+
+    return failureOrListings.fold(
+          (failure) => Left(failure),
+          (listings) => Right(
+        PageData(
+          totalCount: listings.totalCount,
+          items: listings.comments,
+        ),
+      ),
+    );
+  }
+
+  void getComments(String id) {
+    _reportId = id;
+
+    fetchData();
+
+  }*/
+
 }

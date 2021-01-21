@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:smart_cities/src/features/resports/presentation/tab_report/widget/btn_iniciar.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../core/error/failure.dart';
@@ -91,7 +92,7 @@ class _MapListReportState extends State<MapListReport> {
                     //side: BorderSide(color: AppColors.blueLight)
                   ),
                   child: Text(
-                    'Crear Reporte',
+                    S.of(context).newReport,
                     style: kMediumTitleStyle.copyWith(
                       color: AppColors.white,
                     ),
@@ -106,15 +107,6 @@ class _MapListReportState extends State<MapListReport> {
       },
     );
   }
-
-  /*void _updateMapCameraByPosition(Position position, {zoom: MapListReport._mapZoom}) async {
-    if(!mounted)
-      return;
-    final GoogleMapController controller = await _mapController.future;
-
-    controller?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(position.latitude, position.longitude), zoom: zoom)));
-  }*/
 
   GoogleMap _buildMap(NearbyReportProvider provider) {
     final location = provider.location != null && _selectedReport == null
@@ -171,26 +163,7 @@ class _MapListReportState extends State<MapListReport> {
         icon: AppImagePaths.mapIcon));
   }
 
-  /*Future<Marker> _buildMarker(Report report) async {
-    var markerId = MarkerId(report.id.toString());
-    var icon = await ImageUtil.getImage(report.iconPath, width: 78, height: 78);
-
-    return Marker(
-      markerId: markerId,
-      icon: pinLocationIcon,
-      position: LatLng(report.latitude, report.longitude),
-      onTap: () => _onTapMarker(report),
-    );
-  }*/
-
   void _onTapMarker(Report report) {
-    /*setState(() {
-      _isVisibleReportGotoBtn = true;
-      _selectedReport = report;
-    });
-
-    _showBottomSheet();*/
-
     Navigator.pushNamed(
       context,
       ReportDetailsPage.id,
@@ -200,10 +173,8 @@ class _MapListReportState extends State<MapListReport> {
 
   Widget _buildErrorView(BuildContext context, Failure failure) {
     return InfoView(
-      height: MediaQuery.of(context).size.height,
-      image: failure is UserNotFoundFailure
-          ? AppImages.iconMessage
-          : Container(height: 48),
+      height: MediaQuery.of(context).size.height*0.7,
+      image: AppImages.iconMessage,
       title: failure is UserNotFoundFailure
           ? S.of(context).userNotFoundTittle
           : S.of(context).error,
@@ -212,26 +183,8 @@ class _MapListReportState extends State<MapListReport> {
           ? S.of(context).userNotFoundMessage
           : S.of(context).unexpectedErrorMessage,
       descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
-      child: failure is UserNotFoundFailure ? btnIniciar(context) : Container(),
+      child: failure is UserNotFoundFailure ? BtnLogin() : Container(),
     );
   }
 
-  Widget btnIniciar(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: RoundedButton(
-            color: AppColors.blueBtnRegister,
-            title: S.of(context).login.toUpperCase(),
-            style: kTitleStyle.copyWith(
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.bold,
-                color: AppColors.white),
-            onPressed:
-                () => //Navigator.pushNamedAndRemoveUntil(context, PhoneNumberPage.id, ModalRoute.withName(PhoneNumberPage.id))
-                    Navigator.pushReplacementNamed(
-                      context,
-                      PhoneNumberPage.id,
-                      arguments: AuthMethod.login,
-                    )));
-  }
 }

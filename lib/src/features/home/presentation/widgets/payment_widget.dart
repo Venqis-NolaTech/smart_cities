@@ -36,25 +36,28 @@ class PaymentWidget extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        'Paga tu factura',
-                        textAlign: TextAlign.justify,
-                        style: kMediumTitleStyle.copyWith(
-                          color: AppColors.primaryTextLight,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
+                      Flexible(
+                        child: Text(
+                          'Paga tu factura',
+                          textAlign: TextAlign.justify,
+                          style: kTitleStyle.copyWith(
+                            color: AppColors.primaryTextLight,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   Row(
                     children: [
-                      Text(
-                        'Colabora con tu municipio',
-                        style: kNormalStyle.copyWith(
-                          color: AppColors.primaryTextLight,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
+                      Flexible(
+                        child: Text(
+                          'Colabora con tu municipio',
+                          style: kSmallTextStyle.copyWith(
+                            color: AppColors.primaryTextLight,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ],
@@ -62,7 +65,26 @@ class PaymentWidget extends StatelessWidget {
                 ],
               ),
             ),
-            FlatButton(
+            GestureDetector(
+              onTap: null,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18.0),
+                    color: AppColors.blueBtnRegister,
+                    //color: report.follow ? AppColors.colorFollow : Colors.white
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 15.0),
+                  child: Text(
+                    S.of(context).connect,
+                    textAlign: TextAlign.center,
+                    style: kSmallTextStyle.copyWith(color: Colors.white),
+                  ),
+                ),
+              ),
+            )
+            /*FlatButton(
               onPressed: () {},
               color: AppColors.blueBtnRegister,
               shape: RoundedRectangleBorder(
@@ -70,13 +92,12 @@ class PaymentWidget extends StatelessWidget {
                   side: BorderSide(color: AppColors.blueBtnRegister)),
               child: Text(
                 S.of(context).connect,
-                style: kNormalStyle.copyWith(
+                style: kSmallTextStyle.copyWith(
                   color: AppColors.white,
-                  fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,
                 ),
               ),
-            )
+            )*/
           ],
         ),
       ),

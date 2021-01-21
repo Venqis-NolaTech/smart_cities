@@ -74,7 +74,6 @@ class StepView extends StatelessWidget {
                           tittle,
                           style: kMediumTitleStyle.copyWith(
                               color: AppColors.testTittleIntro,
-                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.bold),
                         )
                       : Container(),
@@ -85,7 +84,6 @@ class StepView extends StatelessWidget {
                       text,
                       style: kTitleStyle.copyWith(
                           color: AppColors.testIntro,
-                          fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400),
                       textAlign: TextAlign.center,
                     ),

@@ -15,6 +15,7 @@ import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
+import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
@@ -43,11 +44,12 @@ class _NewReportState extends State<NewReport> {
       builder: (context, provider, child ){
 
         final currentState = provider.currentState;
+        var failure;
 
         if (currentState is Error) {
-          final failure = currentState.failure;
+          failure = currentState.failure;
 
-          //return _buildErrorView(provider, failure);
+          return _buildErrorView(context, failure);
         }
 
         return WillPopScope(
@@ -86,8 +88,8 @@ class _NewReportState extends State<NewReport> {
                         SummaryReport(provider: provider)
                       ],
                     ),
-                    provider.emailVerified != null && !provider.emailVerified
-                        ? ConfirmationAccount(onValidate: ()=>_onValidate(provider),)
+                    currentState is Error && failure is UserNotFoundFailure
+                        ? ConfirmationAccount()
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -244,11 +246,14 @@ class _NewReportState extends State<NewReport> {
       return S.of(context).newReport;
   }
 
-  /*Widget _buildErrorView(CreateReportProvider provider, Failure failure) {
-    return Container()
-  }*/
-
-  void _onValidate(CreateReportProvider provider) {
-    provider.initData();
+  Widget _buildErrorView(BuildContext context, Failure failure) {
+    return InfoView(
+      height: MediaQuery.of(context).size.height*0.7,
+      image: failure is UserNotFoundFailure ? AppImages.iconMessage : Container(height: 48),
+      title: failure is UserNotFoundFailure ? S.of(context).userNotFoundTittle: S.of(context).error,
+      titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
+      description: failure is UserNotFoundFailure ? S.of(context).userNotFoundMessage : S.of(context).unexpectedErrorMessage,
+      descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
+    );
   }
 }

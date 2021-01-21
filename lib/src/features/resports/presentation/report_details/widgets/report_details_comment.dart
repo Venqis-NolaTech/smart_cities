@@ -83,15 +83,7 @@ class ReportDetailsComment extends StatelessWidget {
   List<Widget> _buildCommentSection(BuildContext context) {
     final isCommetAllow = provider.currentState is Idle || provider.currentState is Loaded;
 
-    //final comments = [];//report?.lastComments ?? [];
     final children = List<Widget>();
-
-    /*if (comments.isNotNullOrNotEmpty) {
-      children.addAll([
-        _buildCommentHeader(context),
-        _buildCommentList(context, comments),
-      ]);
-    }*/
 
     children.add(
       CommentBox(
@@ -108,61 +100,6 @@ class ReportDetailsComment extends StatelessWidget {
     return children;
   }
 
-  Widget _buildCommentHeader(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 10.0, bottom: 5.0),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                '${S.of(context).comments}:',
-                style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              FlatButton(
-                  onPressed: () => _sendComment(context),
-                  child: Text(S.of(context).comment)),
 
-              /*RoundedButton(
-                elevation: 0.0,
-                minHeight: 28.0,
-                color: Colors.grey.shade100,
-                borderColor: AppColors.red,
-                title: S.of(context).viewAll.toUpperCase(),
-                style: TextStyle(
-                  color: AppColors.red,
-                ),
-                onPressed: () => Navigator.pushNamed(
-                  context,
-                  ReportCommentsPage.id,
-                  arguments: report,
-                ),
-              ),*/
-            ],
-          ),
-          Divider(
-            thickness: 1.2,
-          ),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildCommentList(BuildContext context, List<ReportComment> comments) {
-    return ListView.builder(
-      shrinkWrap: true,
-      primary: false,
-      itemCount: comments.length,
-      itemBuilder: (_, index) {
-        return CommentItem(
-          comment: comments[index],
-          isLast: index == comments.length - 1,
-        );
-      },
-    );
-  }
 }

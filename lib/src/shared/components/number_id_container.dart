@@ -16,11 +16,11 @@ class NumberIdContainer extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
       decoration: BoxDecoration(
-          border: Border.all(color: AppColors.primaryText.withOpacity(0.2)),
-          color: AppColors.primaryText.withOpacity(0.05)),
+          border: Border.all(color: AppColors.primaryText.withOpacity(0.01)),
+          color: AppColors.primaryText.withOpacity(0.03)),
       child: Text(
         _createNumberId(),
-        style: kSmallTextStyle.copyWith(color: AppColors.primaryText),
+        style: kSmallestTextStyle.copyWith(color: AppColors.primaryText),
       ),
     );
   }

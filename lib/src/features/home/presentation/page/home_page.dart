@@ -9,7 +9,7 @@ import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
-
+import 'package:smart_cities/app.dart';
 
 
 
@@ -17,6 +17,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth= MediaQuery.of(context).size.width;
+
+
+
     return Stack(
       children: [
 
@@ -31,7 +35,7 @@ class HomePage extends StatelessWidget {
           width: double.infinity,
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth*0.03),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -39,7 +43,7 @@ class HomePage extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '',
+                          currentUser?.firstName  ?? '¡Hola!',
                           textAlign: TextAlign.left,
                           style: kBigTitleStyle.copyWith(
                             color: AppColors.white,
@@ -129,8 +133,8 @@ class HomePage extends StatelessWidget {
                     Spaces.verticalMedium(),
                     Row(
                       children: [
-                        Flexible(child: ReportWidget()),
-                        Flexible(child: RouteWidget()),
+                        Expanded(child: ReportWidget()),
+                        Expanded(child: RouteWidget()),
                       ],
                     ),
                     Spaces.verticalMedium(),
