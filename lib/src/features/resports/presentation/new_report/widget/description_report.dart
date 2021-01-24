@@ -152,6 +152,7 @@ class DescriptionReport extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: TextFormField(
                     maxLines: 10,
+                    maxLength: 4000,
                     onChanged: (value){
                       provider.descriptionReport= value;
                     },

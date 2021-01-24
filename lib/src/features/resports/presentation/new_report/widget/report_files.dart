@@ -48,7 +48,7 @@ class _ReportFilesState extends State<ReportFiles> {
                       )
                   ),
                   child: InfoView(
-                      height: MediaQuery.of(context).size.height*0.5,
+                      height: MediaQuery.of(context).size.height*0.4,
                       image: Image.asset(AppImagePaths.camera),
                       title: S.of(context).files,
                       titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
@@ -57,7 +57,7 @@ class _ReportFilesState extends State<ReportFiles> {
                           kNormalStyle.copyWith(color: Colors.grey.shade500),
                     ),
                 )
-                : ReportFileList( files: widget.provider.files, onPressend: _onTapFile),
+                : ReportFileList( files: widget.provider.files, onPressend: _onTapFile, addFile: addFile,),
               Spaces.verticalMedium(),
               _buildMessage(),
               Spaces.verticalMedium(),
@@ -179,5 +179,15 @@ class _ReportFilesState extends State<ReportFiles> {
 
   void _onTapFile(File file) {
     //widget.provider.removeFile(file);
+  }
+
+  void addFile() {
+     ImageUtil.showPhotoDialog(
+      context, (file) {
+       if (file != null)
+         widget.provider.addFile(file);
+       addAttachmentsDisabled = false;
+    },
+    );
   }
 }

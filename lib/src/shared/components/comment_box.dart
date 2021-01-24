@@ -138,6 +138,8 @@ class _CommentBoxState extends State<CommentBox> {
                             bool success = await widget.sendAction();
                             if (success == true) {
                               widget.textController.clear();
+                              isVisible = !isVisible;
+                              setState(() {});
                             }
                           }
                         : null,

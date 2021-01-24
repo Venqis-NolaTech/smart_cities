@@ -21,22 +21,23 @@ class BottomNavigationReport extends StatelessWidget {
 
     return Container(
       color: AppColors.blueBtnRegister,
-      height: screenHeight*0.06,
+//      height: screenHeight*0.06,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Spaces.horizontalSmall(),
-          GestureDetector(
+          InkWell(
             onTap: onBack,
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(20),
               child: Text(textOnBack ?? S.of(context).back.toUpperCase(), style: kNormalStyle.copyWith(color: AppColors.white, fontWeight: FontWeight.w500)),
             ),
           ),
           Expanded(child: Spaces.horizontalSmall(),),
-          GestureDetector(
+          InkWell(
             onTap: onNext,
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(20),
               child: Text(textOnNext ?? S.of(context).nextPage.toUpperCase(), style: kNormalStyle.copyWith(color: AppColors.white, fontWeight: FontWeight.w500)),
             ),
           ),

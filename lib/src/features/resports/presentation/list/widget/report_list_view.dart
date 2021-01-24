@@ -196,10 +196,10 @@ class ReportListViewState<P extends PaginatedProvider<Report>> extends State<Rep
     return InfoView(
       height: MediaQuery.of(context).size.height*0.7,
       image: AppImages.iconMessage,
-      title: S.of(context).report,
+      title: S.of(context).reportNotFound,
       titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
-      description: S.of(context).reportNotFound,
-      descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
+      //description: S.of(context).reportNotFound,
+      //descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
     );
   }
 

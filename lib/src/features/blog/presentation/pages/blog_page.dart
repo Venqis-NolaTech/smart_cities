@@ -13,8 +13,8 @@ import '../../../../shared/app_colors.dart';
 enum BlogTap {
   all,
   news,
-  annoumcement,
   training,
+  annoumcement
 }
 
 extension BlogTapExtension on BlogTap {

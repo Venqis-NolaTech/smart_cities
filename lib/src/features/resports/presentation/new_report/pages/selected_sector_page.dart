@@ -68,6 +68,8 @@ class _SelectedSectorPageState extends State<SelectedSectorPage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               BottomNavigationReport(
+                textOnBack: S.of(context).cancel,
+                textOnNext: S.of(context).toSelect,
                 onBack: ()=> Navigator.of(context).pop(),
                 onNext: _onNext,
               ),

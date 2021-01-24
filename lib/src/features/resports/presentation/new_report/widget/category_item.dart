@@ -13,14 +13,14 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => onTap(categoria),
       child: Padding(
         padding: EdgeInsets.symmetric( horizontal: 20),
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric( vertical: 10),
+              padding: EdgeInsets.symmetric( vertical: 20),
               child: Row(
                 children: [
                   Expanded(

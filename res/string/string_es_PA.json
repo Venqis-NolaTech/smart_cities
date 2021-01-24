@@ -120,7 +120,7 @@
 
     "newReportTitle": "Estas realizando una denuncia",
     "newReportSubTitle": "Continua paso a paso por el proceso de denuncia, puedes volver atrás a revisar lo que has hecho antes de confirmarla.",
-    "newReportCancelMessage": "¿Está seguro que desea cancelar la creación de la denuncia?",
+    "newReportCancelMessage": "¿Está seguro que desea cancelar la creación del Reporte?",
 
     "validProfileTitle": "Tienes que completar tu perfil",
     "validProfileSubtitle": "Accede para completar tu cuenta y poder crear tu denuncia.",
@@ -265,8 +265,9 @@
     "questionNotAccount": "¿Aún no tienes una cuenta?",
     "questionAccount": "¿Ya tienes una cuenta?",
 
-    "empyteReport": "No hay ningún reporte"
-
-
+    "empyteReport": "No hay ningún reporte",
+    "messageIsAnonymous": "Mensaje Anónimo",
+    "toSelect": "Seleccionar",
+    "locationDisable": "Los servicios de ubicación estan desactivados."
 
 }

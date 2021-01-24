@@ -10,11 +10,12 @@ class ReportFileList extends StatelessWidget {
     Key key,
     @required this.files,
     this.onPressend,
+    @required this.addFile,
   }) : super(key: key);
 
   final List<File> files;
   final Function(File) onPressend;
-
+  final Function addFile;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +25,15 @@ class ReportFileList extends StatelessWidget {
   Widget _buidlAttachmentList(BuildContext context) {
 
     var listWidget= List.generate(files.length, (index) => _buildItem(file: files.elementAt(index)));
-    listWidget.add(Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AppImagePaths.rectangle),
-                fit: BoxFit.fill)),
-      child: Icon(Icons.add, size: 50, color: AppColors.greyButtom.withOpacity(0.5)),
+    listWidget.add(InkWell(
+      onTap: addFile,
+      child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(AppImagePaths.rectangle),
+                  fit: BoxFit.fill)),
+        child: Icon(Icons.add, size: 50, color: AppColors.greyButtom.withOpacity(0.5)),
+      ),
     )
     );
 

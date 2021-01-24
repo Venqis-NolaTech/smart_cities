@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_cities/src/core/util/file_util.dart';
@@ -8,6 +7,7 @@ import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/firebase_storage_image.dart';
 import 'package:smart_cities/src/shared/components/image_gallery_with_zoom.dart';
 
+import '../../../generated/i18n.dart';
 import '../../core/util/string_util.dart';
 import '../constant.dart';
 import '../spaces.dart';
@@ -57,7 +57,7 @@ class CommentItem extends StatelessWidget {
             ),*/
             children: [
               Text(
-                user?.displayName ?? "",
+                comment.isAnonymous ? S.of(context).messageIsAnonymous : user?.displayName ?? "" ,
                 style: kNormalStyle.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.blueBtnRegister

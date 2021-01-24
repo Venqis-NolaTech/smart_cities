@@ -67,10 +67,11 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              width: 80,
+              width: 90,
               child: Text(
                 title,
                 textAlign: TextAlign.center,
+                maxLines: 1,
                 style: kNormalStyle.copyWith(color: isSelected ? inactiveBgColor : activeBgColor ),),
             ),
           )
@@ -94,9 +95,10 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              width: 80,
+              width: 90,
               child: Text(
                 title,
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 style: kNormalStyle.copyWith(color: isSelected ? inactiveBgColor : activeBgColor ),),
             ),

@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:meta/meta.dart';
 import 'package:smart_cities/app.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/logged_user_use_case.dart';
 import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
 import 'package:smart_cities/src/features/resports/domain/usecases/like_report_use_case.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+
 
 import '../../../../../core/usecases/use_case.dart';
 import '../../../../../shared/constant.dart';
@@ -11,6 +16,8 @@ import '../../../../../shared/provider/view_state.dart';
 import '../../../../auth/domain/entities/user.dart';
 import '../../../../auth/domain/usecases/get_current_location_use_case.dart';
 import '../../../domain/usecases/get_nearby_reports_use_case.dart';
+import '../../../../../core/util/device_info.dart';
+
 
 class NearbyReportProvider extends BaseProvider {
   NearbyReportProvider({
@@ -18,14 +25,14 @@ class NearbyReportProvider extends BaseProvider {
     @required this.getNearbyReportsUseCase,
     @required this.loggedUserUseCase,
     @required this.likeReportUseCase,
-
+    @required this.deviceInfo,
   });
 
   final GetCurrentLocationUseCase getCurrentLocationUseCase;
   final GetNearbyReportsUseCase getNearbyReportsUseCase;
   final LoggedUserUseCase loggedUserUseCase;
   final LikeReportUseCase likeReportUseCase;
-
+  final DeviceInfo deviceInfo;
 
   final distance = 1000.0;
 
@@ -73,6 +80,7 @@ class NearbyReportProvider extends BaseProvider {
         (location) => location);
 
     _location = location;
+
   }
 
   void _getNearbyReports() async {

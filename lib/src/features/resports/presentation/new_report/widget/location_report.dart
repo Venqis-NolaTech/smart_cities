@@ -48,6 +48,8 @@ class LocationReport extends StatelessWidget {
                 },
                 decoration: InputDecoration(
                   border: InputBorder.none,
+                  hintText: S.of(context).nameStreet,
+                  hintStyle: TextStyle(color: AppColors.greyButtom.withOpacity(0.7))
                 ),
                 textInputAction: TextInputAction.next,
                 onSaved: (value) {
@@ -68,6 +70,8 @@ class LocationReport extends StatelessWidget {
                 },
                 decoration: InputDecoration(
                   border: InputBorder.none,
+                  hintText: S.of(context).numberStreet,
+                  hintStyle: TextStyle(color: AppColors.greyButtom.withOpacity(0.7))
                 ),
                 textInputAction: TextInputAction.next,
                 onSaved: (value) {
@@ -77,7 +81,7 @@ class LocationReport extends StatelessWidget {
               Divider(),
               //Spaces.verticalMedium(),
 
-              GestureDetector(
+              InkWell(
                 onTap: ()=> Navigator.pushNamed(
                   context,
                   SelectedSectorPage.id,
@@ -100,7 +104,7 @@ class LocationReport extends StatelessWidget {
               ),
               Divider(),
               Spaces.verticalMedium(),
-              GestureDetector(
+              InkWell(
                 onTap: () async {
 
                   if(provider.selectedSector==null){

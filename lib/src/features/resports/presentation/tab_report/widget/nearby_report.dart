@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/core/error/failure.dart';
-import 'package:smart_cities/src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
-import 'package:smart_cities/src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
 import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
 import 'package:smart_cities/src/features/resports/presentation/list/provider/nearby_report_provider.dart';
 import 'package:smart_cities/src/features/resports/presentation/list/widget/report_list_item.dart';
 import 'package:smart_cities/src/features/resports/presentation/report_details/pages/report_details_page.dart';
 import 'package:smart_cities/src/features/resports/presentation/tab_report/widget/btn_iniciar.dart';
-import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/shared/components/info_view.dart';
-import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
@@ -40,7 +36,6 @@ class _NearbyReportState extends State<NearbyReport> {
 
         if (currentState is Error) {
           final failure = currentState.failure;
-
           return _buildErrorView(context, failure);
         }
 

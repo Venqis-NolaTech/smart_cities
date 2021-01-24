@@ -196,6 +196,13 @@ class CreateReportProvider extends BaseNewReportFormProvider {
             (location) => location);
 
     _location = location;
+
+    failureOrLocation.fold(
+            (failure) {
+              state = Error(failure: failure);
+            },
+            (location) => null);
+
   }
 
 

@@ -30,7 +30,8 @@ initProvider(GetIt sl) {
       getCurrentLocationUseCase: sl(),
       getNearbyReportsUseCase: sl(),
       loggedUserUseCase: sl(),
-      likeReportUseCase: sl()
+      likeReportUseCase: sl(),
+      deviceInfo: sl(),
     ),
   );
 

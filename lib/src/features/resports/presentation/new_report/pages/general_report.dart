@@ -49,7 +49,26 @@ class _NewReportState extends State<NewReport> {
         if (currentState is Error) {
           failure = currentState.failure;
 
-          return _buildErrorView(context, failure);
+          if(failure is LocationServiceFailure){
+            //showInfoDialog('Enciende servicio de geolocalizacion para mejores resultados');
+
+            Future.delayed(
+              Duration(milliseconds: 250),
+                  () async {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return InfoAlertDialog(
+                      textAlign: TextAlign.center,
+                      message: S.of(context).locationDisable,
+                      onConfirm: () {},
+                    );
+                  },
+                );
+              },
+            );
+          }//else
+            //return _buildErrorView(context, failure);
         }
 
         return WillPopScope(

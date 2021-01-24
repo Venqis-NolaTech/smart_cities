@@ -7,9 +7,7 @@ import 'package:smart_cities/src/shared/constant.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../core/error/failure.dart';
-import '../../../../../core/util/string_util.dart';
 import '../../../../../shared/components/base_view.dart';
-import '../../../../../shared/components/comment_box.dart';
 import '../../../../../shared/components/comment_item.dart';
 import '../../../../../shared/components/info_alert_dialog.dart';
 import '../../../../../shared/provider/view_state.dart';

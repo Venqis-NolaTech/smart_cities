@@ -64,7 +64,7 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                provider.user.firstName,
+                                provider.user?.firstName ?? '',
                                 style: kTitleStyle.copyWith(
                                   fontSize: 35.0,
                                   color: AppColors.primaryText.withOpacity(0.5),
