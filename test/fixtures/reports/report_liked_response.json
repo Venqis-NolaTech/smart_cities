@@ -1,0 +1,65 @@
+{
+    "success": true,
+    "message": "successfully",
+    "status_code": 200,
+    "data": {
+        "id": "159",
+        "number": 159,
+            "longitude": -69.92961097508669,
+            "latitude": 18.483401976204757,
+            "category": {
+                "key": "category",
+                "name": "category"
+            },
+            "title": "title",
+            "description": "description",
+            "status": {
+                "key": "EN ESPERA",
+                "name": "En Espera"
+            },
+            "institution": [{
+                "key": "institution",
+                "name": "institution"
+            }],
+            "right_violated": [{
+                "key": "rightsViolated",
+                "name": "rightsViolated"
+            }],
+            "files": [
+                "file",
+                "file",
+                "file"
+            ],
+            "denunciante": {
+                "first_name": "Jose Maria",
+                "last_name": "Ramirez Gonzales",
+                "displayName": "Jose Maria Ramirez Gonzales",
+                "dni": "E-1234-5",
+                "gender": "Masculino",
+                "code_area": "+507",
+                "phone_number": "+5078099899878",
+                "age": 20,
+                "nationality": "CONSULTA"
+            },
+            "managedBy": {
+                "id": "id",
+                "displayName": "displayName",
+                "pictureUrl": "pictureUrl"
+            },
+            "lastComments": [{
+                "id": 23,
+                "comment": "description",
+                "report": "159",
+                "user":  {
+                    "id": "id",
+                    "displayName": "displayName",
+                    "pictureUrl": "pictureUrl"
+                },
+                "channel": "HUB",
+                "createdAt": "2019-10-15T18:57:10.873Z"
+            }],
+            "createdAt": "2019-10-15T18:57:10.873Z",
+            "updatedAt": "2019-10-15T18:57:10.873Z",
+            "liked": true
+    }
+}

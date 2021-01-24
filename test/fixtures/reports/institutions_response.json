@@ -1,0 +1,18 @@
+{
+    "success": true,
+    "message": "Success",
+    "status_code": 200,
+    "data": {
+        "totalCount": 2,
+        "institutions": [
+            {
+                "name": "Institucion1",
+                "key": "Institucion1"
+            },
+            {
+                "name": "Institucion2",
+                "key": "Institucion2"
+            }
+        ]
+    }
+}

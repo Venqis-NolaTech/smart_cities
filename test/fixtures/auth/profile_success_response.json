@@ -1,0 +1,17 @@
+{
+    "success": true,
+    "message": "User found",
+    "data": {
+        "user": {
+            "_id": "id",
+            "firstName": "Adal",
+            "lastName": "Figueroa",
+            "dni": "123",
+            "uid": "test",
+            "birthDate": "2020-04-28T22:52:06.414Z",
+            "createdAt": "2020-04-28T22:52:06.414Z",
+            "updatedAt": "2020-04-28T22:52:06.414Z",
+            "__v": 0
+        }
+    }
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>916841254215-dg6taqdqog7ddldngthk6qo2mofkn4t2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.916841254215-dg6taqdqog7ddldngthk6qo2mofkn4t2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA7JeSU9rAKICssh-0mJ7Uji6qzSlDkeL4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>916841254215</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.venqis.contraloria</string>
+	<key>PROJECT_ID</key>
+	<string>contraloriaapp-168e6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>contraloriaapp-168e6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:916841254215:ios:a67b0e3e2e0ea052fdd062</string>
+	<key>DATABASE_URL</key>
+	<string>https://contraloriaapp-168e6.firebaseio.com</string>
+</dict>
+</plist>

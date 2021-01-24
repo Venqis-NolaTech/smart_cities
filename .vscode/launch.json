@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [{
+            "request": "launch",
+            "type": "dart",
+            "name": "Run all Tests",
+            "program": "${workspaceFolder}/test/"
+        },
+        {
+            "request": "launch",
+            "type": "dart",
+            "name": "Develop Debug",
+            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "args": ["--flavor=dev"]
+        },
+        {
+            "request": "launch",
+            "type": "dart",
+            "name": "Develop Profile",
+            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "args": ["--profile", "--flavor=dev"]
+        },
+        {
+            "request": "launch",
+            "type": "dart",
+            "name": "Develop Release",
+            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "args": ["--release", "--flavor=dev"]
+        },
+        {
+            "request": "launch",
+            "type": "dart",
+            "name": "Production Debug",
+            "program": "${workspaceFolder}/lib/main_prod.dart",
+            "args": ["--flavor=prod"]
+        },
+        {
+            "request": "launch",
+            "type": "dart",
+            "name": "Production Profile",
+            "program": "${workspaceFolder}/lib/main_prod.dart",
+            "args": ["--profile", "--flavor=prod"]
+        },
+        {
+            "request": "launch",
+            "type": "dart",
+            "name": "Production Release",
+            "program": "${workspaceFolder}/lib/main_prod.dart",
+            "args": ["--release", "--flavor=prod"]
+        },
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "success": true,
+    "message": "Success",
+    "status_code": 200,
+    "data": {
+        "totalCount": 2,
+        "rights": [
+            {
+                "name": "Derecho1",
+                "key": "Derecho1"
+            },
+            {
+                "name": "Derecho2",
+                "key": "Derecho2"
+            }
+        ]
+    }
+}

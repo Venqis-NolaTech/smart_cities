@@ -1,0 +1,18 @@
+{
+    "success": true,
+    "message": "Success",
+    "status_code": 200,
+    "data": {
+        "totalCount": 2,
+        "nationality": [
+            {
+                "name": "Panamá1",
+                "key": "Panamá1"
+            },
+            {
+                "name": "Panamá2",
+                "key": "Panamá2"
+            }
+        ]
+    }
+}

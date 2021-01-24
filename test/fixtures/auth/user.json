@@ -1,0 +1,22 @@
+{
+    "user": {
+        "_id": "id",
+        "firstName": "Pepito",
+        "lastName": "Perencejo",
+        "dni": "8-123-123",
+        "uid": "uid",
+        "phoneNumber": "8092245163",
+        "photoURL": "gs//:picture",
+        "location": {
+            "key": "REPUBLICA DOMINICANA",
+            "name": "Republica Dominicana"
+        },
+        "profession": "Developer",
+        "address": "address",
+        "nickName": "DjGaby",
+        "birthDate": "2020-04-28T22:52:06.414Z",
+        "createdAt": "2020-04-28T22:52:06.414Z",
+        "updatedAt": "2020-04-28T22:52:06.414Z",
+        "__v": 0
+    }
+}

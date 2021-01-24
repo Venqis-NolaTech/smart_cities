@@ -1,0 +1,8 @@
+{
+    "success": true,
+    "message": "User found",
+    "data": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJMQk1zZXA1YU5BZnV0ekRSeFNPYk5IQjZIMmEyIiwiaWF0IjoxNTg3NzQzMTg4LCJleHAiOjE1ODc4Mjk1ODh9.SDK_JiH8t7exo-x8G6MuYPf1D-79LPMARTtrlrnxt1k",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJMQk1zZXA1YU5BZnV0ekRSeFNPYk5IQjZIMmEyIiwiaWF0IjoxNTg3NzQzMTg4fQ.NnyMULA0lWFcZI9eH3bChzIKNSseE-Dj2nYKOb77H0A"
+    }
+}

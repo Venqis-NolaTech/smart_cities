@@ -1,0 +1,150 @@
+name: smart_cities
+description: A new Flutter project.
+
+version: 1.0.0+3
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  #Material Design Icons
+  material_design_icons_flutter: ^4.0.5655
+
+  # Firebase
+  firebase_core: ^0.5.0
+
+  # Push notifications
+  firebase_messaging: ^7.0.3
+  flutter_local_notifications: ^2.0.0
+
+  # Crashlytics
+  firebase_crashlytics: ^0.2.1
+
+  # Performance
+  firebase_performance: ^0.4.0+1
+
+  # Analytics
+  firebase_analytics: ^6.0.1
+
+  # Auth
+  firebase_auth: ^0.18.4+1
+
+  # Analytics
+  firebase_dynamic_links: ^0.5.0+11
+
+  # Storage image file
+  firebase_storage: ^4.0.1
+
+  # Maps
+  flutter_google_maps: ^4.0.0
+  geolocator: ^6.0.0+4
+  flutter_google_places: ^0.2.6
+
+  # Service locator
+  get_it: ^5.0.1
+
+  # Value equality
+  equatable: ^1.0.2
+
+  # Functional programming thingies
+  dartz: ^0.8.9
+
+  # RxDar
+  rxdart: ^0.24.1
+
+  # File download
+  flutter_downloader: ^1.5.1
+
+  # Network
+  cached_network_image: ^2.3.2+1
+  data_connection_checker: ^0.3.4
+  connectivity: ^2.0.2
+  url_launcher: ^5.7.2
+  http: ^0.12.2
+
+  # Provider
+  provider: ^4.3.2+2
+
+  # Intl
+  intl: ^0.16.1
+
+  # Environment
+  flutter_dotenv: ^2.1.0
+
+  # WebView
+  #flutter_webview_plugin: ^0.3.11
+  #webview_flutter: ^1.0.1
+  flutter_inappwebview: ^4.0.0+4
+
+  # Share
+  share: ^0.6.5+2
+
+  # Persistent data
+  shared_preferences: ^0.5.12
+  cloud_firestore: ^0.14.1+2
+
+  # Device
+  permission_handler: ^5.0.1+1
+  package_info: ^0.4.1
+  device_info: ^0.4.2+4
+  devicelocale: ^0.2.3
+  keyboard_visibility: ^0.5.6
+  jiffy: ^3.0.1
+
+  # UI
+  modal_progress_hud: ^0.1.3
+  country_code_picker: ^1.4.0
+  pin_input_text_field: ^3.1.1
+  carousel_slider: ^2.3.1
+  image_picker: ^0.6.7+11
+  image_cropper: ^1.3.1
+  photo_view: ^0.10.2
+  file_picker: ^1.13.3
+  flutter_typeahead: ^1.8.8
+  linkify: ^2.0.3
+
+  # System
+  path_provider: ^1.6.18
+  path: ^1.7.0
+
+  dots_indicator: ^1.2.0
+  #multi_masked_formatter: ^0.1.0
+  get_version: ^0.2.2
+
+  flutter_widget_from_html: ^0.5.1+5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  mockito: ^4.1.1
+
+  gen_lang: ^0.1.2
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env.dev
+    - .env.prod
+    - res/images/
+
+  fonts:
+    - family: AppIcons
+      fonts:
+        - asset: fonts/AppIcons.ttf
+    - family: Quicksand
+      fonts:
+        - asset: fonts/Quicksand-Bold.ttf
+        - asset: fonts/Quicksand-Medium.ttf
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Bold.ttf
+        - asset: fonts/Roboto-Light.ttf
+        - asset: fonts/Roboto-Black.ttf

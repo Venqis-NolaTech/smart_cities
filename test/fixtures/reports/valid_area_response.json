@@ -1,0 +1,8 @@
+{
+    "success": true,
+    "message": "User exist",
+    "status_code": 200,
+    "data": {
+        "valid": true
+    }
+}
