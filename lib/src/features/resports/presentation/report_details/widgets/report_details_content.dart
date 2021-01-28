@@ -45,6 +45,7 @@ class ReportDetailsContent extends StatelessWidget {
     return Container(
       //padding: EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           /*Text(

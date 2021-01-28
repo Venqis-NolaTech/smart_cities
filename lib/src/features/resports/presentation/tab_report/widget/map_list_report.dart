@@ -22,6 +22,10 @@ import '../../report_details/pages/report_details_page.dart';
 
 class MapListReport extends StatefulWidget {
   static const _mapZoom = 15.5;
+  final Function onNewReport;
+
+  const MapListReport({Key key, this.onNewReport}) : super(key: key);
+
 
   @override
   _MapListReportState createState() => _MapListReportState();
@@ -85,7 +89,11 @@ class _MapListReportState extends State<MapListReport> {
                 right: 30,
                 left: 30,
                 child: FlatButton(
-                  onPressed: () => Navigator.pushNamed(context, NewReport.id),
+                  onPressed: () async {
+                    var result= await Navigator.pushNamed(context, NewReport.id);
+                    if(result!= null && result)
+                      widget.onNewReport();
+                  },
                   color: AppColors.blueBtnRegister,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),

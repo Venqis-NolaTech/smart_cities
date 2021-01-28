@@ -2,19 +2,22 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
+import 'package:smart_cities/src/shared/components/info_view.dart';
+import 'package:smart_cities/src/shared/constant.dart';
+import 'package:smart_cities/src/features/resports/presentation/new_report/providers/create_report_provider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ReportFileList extends StatelessWidget {
   const ReportFileList({
     Key key,
-    @required this.files,
-    this.onPressend,
-    @required this.addFile,
+    @required this.provider,
+    @required this.addFile
   }) : super(key: key);
 
-  final List<File> files;
-  final Function(File) onPressend;
+  final CreateReportProvider provider;
   final Function addFile;
 
   @override
@@ -24,7 +27,7 @@ class ReportFileList extends StatelessWidget {
 
   Widget _buidlAttachmentList(BuildContext context) {
 
-    var listWidget= List.generate(files.length, (index) => _buildItem(file: files.elementAt(index)));
+    var listWidget= List.generate(provider.files.length, (index) => _buildItem(file: provider.files.elementAt(index)));
     listWidget.add(InkWell(
       onTap: addFile,
       child: Container(
@@ -38,6 +41,36 @@ class ReportFileList extends StatelessWidget {
     );
 
     return Container(
+      color: Colors.grey.shade50,
+      child: provider.files.isEmpty
+          ? Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(AppImagePaths.rectangle),
+                fit: BoxFit.fill
+            )
+        ),
+        child: InfoView(
+          height: MediaQuery.of(context).size.height*0.4,
+          image: Image.asset(AppImagePaths.camera),
+          title: S.of(context).files,
+          titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
+          description: S.of(context).reportFileNotFound,
+          descriptionStyle:
+          kNormalStyle.copyWith(color: Colors.grey.shade500),
+        ),
+      ) : GridView.count(
+          shrinkWrap: true,
+          primary: false,
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          crossAxisCount: 2,
+          children: listWidget
+      ),
+    );
+
+    /*return Container(
       child: GridView.count(
         shrinkWrap: true,
         primary: false,
@@ -47,10 +80,25 @@ class ReportFileList extends StatelessWidget {
         crossAxisCount: 2,
         children: listWidget
       ),
-    );
+    );*/
   }
 
   Widget _buildItem({File file}) {
-    return GestureDetector(onTap: onPressend(file) ,child: Container(child: Image.file(file, fit: BoxFit.fitWidth,)));
+    return Stack(
+        children: [
+          Image.file(file, fit: BoxFit.fill),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: IconButton(
+              icon: Icon(
+                MdiIcons.closeCircle,
+                color: AppColors.red,
+              ),
+              onPressed: () => provider.removeFile(file),
+            ),
+          )
+        ],
+    );
   }
 }

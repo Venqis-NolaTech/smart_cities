@@ -39,7 +39,7 @@ extension ReportStatusExtension on ReportStatus {
       return ReportStatus.Open;
     if(value=="CLOSED")
       return ReportStatus.Closed;
-    if(value=="ON PROCESS")
+    if(value=="IN_PROGRESS")
       return ReportStatus.OnProcess;
 
     return  ReportStatus.Open;
@@ -88,7 +88,7 @@ class Report extends Equatable {
   CatalogItem province;
   CatalogItem municipality;
   CatalogItem sector;
-  LocationReport location;
+  LocationR location;
   CatalogItem category;
   String status;
   bool muted;
@@ -219,11 +219,13 @@ class ReportUser extends Equatable {
   final String id;
   final String displayName;
   final String pictureUrl;
+  final bool isAdmin;
 
   ReportUser({
     this.id,
     this.displayName,
     this.pictureUrl,
+    this.isAdmin
   });
 
   @override
@@ -235,8 +237,8 @@ class ReportUser extends Equatable {
 }
 
 
-class LocationReport extends Equatable {
-  LocationReport({
+class LocationR extends Equatable {
+  LocationR({
     this.type,
     this.coordinates,
   });

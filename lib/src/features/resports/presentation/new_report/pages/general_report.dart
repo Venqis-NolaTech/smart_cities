@@ -15,12 +15,10 @@ import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
-import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
 import 'package:smart_cities/src/features/auth/presentation/validate/widget/confirmation_validate_account.dart';
-
 
 
 class NewReport extends StatefulWidget {
@@ -103,7 +101,7 @@ class _NewReportState extends State<NewReport> {
                         ReportType(provider: provider),
                         LocationReport(provider: provider),
                         DescriptionReport(provider: provider),
-                        ReportFiles(provider: provider),
+                        ReportFiles(provider: provider,  addBottomPadding: true),
                         SummaryReport(provider: provider)
                       ],
                     ),
@@ -218,6 +216,7 @@ class _NewReportState extends State<NewReport> {
         confirmTitle: confirmTitle,
         cancelTitle: cancelTitle,
         cancelAction: cancelAction,
+        buttomStyle: TextStyle(color: AppColors.primaryTextLight),
         onConfirm: () {
           if (onConfirm != null) onConfirm();
         },
@@ -249,7 +248,7 @@ class _NewReportState extends State<NewReport> {
             message: sucesss ? message : '',
             onConfirm: sucesss
                 ? () {
-              Navigator.pop(context);
+              Navigator.pop(context, true);
             }
                 : null,
           );
@@ -265,14 +264,4 @@ class _NewReportState extends State<NewReport> {
       return S.of(context).newReport;
   }
 
-  Widget _buildErrorView(BuildContext context, Failure failure) {
-    return InfoView(
-      height: MediaQuery.of(context).size.height*0.7,
-      image: failure is UserNotFoundFailure ? AppImages.iconMessage : Container(height: 48),
-      title: failure is UserNotFoundFailure ? S.of(context).userNotFoundTittle: S.of(context).error,
-      titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
-      description: failure is UserNotFoundFailure ? S.of(context).userNotFoundMessage : S.of(context).unexpectedErrorMessage,
-      descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
-    );
-  }
 }

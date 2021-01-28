@@ -63,19 +63,24 @@ class ReportDetailsComment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isCommetAllow = provider.currentState is Idle || provider.currentState is Loaded;
+
+
     return Container(
       color: Colors.white,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          CommentBox(
+            textController: controller,
+            inputEnabled: isCommetAllow,
+            buttonEnabled: provider.comment.isNotNullOrNotEmpty,
+            onTextChanged: (value) => provider.comment = value,
+            onIsAnonymousChanged: (value) => provider.isAnonymous= value,
+            addPhotoAction: addPhotoAction,  //funciono para mostrar el widget que permite llegar al page de add photo
+            sendAction: isCommetAllow ? () => _sendComment(context) : null,
           ),
-          color: Colors.grey.shade100,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: _buildCommentSection(context),
-        ),
+        ],
       ),
     );
   }

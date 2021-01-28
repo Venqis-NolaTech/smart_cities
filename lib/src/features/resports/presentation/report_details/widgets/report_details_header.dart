@@ -88,46 +88,45 @@ class ReportDetailsHeaderState extends State<ReportDetailsHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          ImageGallery(
-            imageUrls: _images,
-            height: 220.0,
-            onTap: (index) => _showImageDetail(index),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        ImageGallery(
+          imageUrls: _images,
+          height: 220.0,
+          onTap: (index) => _showImageDetail(index),
+        ),
+        Spaces.verticalSmall(),
+        /// TITULO
+        Container(
+          padding: EdgeInsets.only(top: 24.0, left: 24.0, right: 24.0),
+          child: Text(
+            widget.report?.title,
+            textAlign: TextAlign.start,
+            style: kBigTitleStyle.copyWith(
+              color: AppColors.blueBtnRegister,
+            ),
           ),
-          Spaces.verticalSmall(),
-          /// TITULO
-          Container(
-            padding: EdgeInsets.only(top: 24.0, left: 24.0, right: 24.0),
-            child: Text(
-              widget.report?.title,
-              textAlign: TextAlign.start,
-              style: kBigTitleStyle.copyWith(
-                color: AppColors.blueBtnRegister,
+        ),
+        //Spaces.verticalSmall(),
+
+        Container(
+          padding: EdgeInsets.only(top: 24.0, left: 24.0, right: 24.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: buildCreatedAt(context),
               ),
-            ),
+              buildAddPhoto(context),
+            ],
           ),
-          //Spaces.verticalSmall(),
+        ),
 
-          Container(
-            padding: EdgeInsets.only(top: 24.0, left: 24.0, right: 24.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: buildCreatedAt(context),
-                ),
-                buildAddPhoto(context),
-              ],
-            ),
-          ),
-
-          Spaces.verticalSmall(),
-          Divider(),
-        ],
-      ),
+        Spaces.verticalSmall(),
+        Divider(),
+      ],
     );
   }
 

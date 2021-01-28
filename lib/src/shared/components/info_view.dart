@@ -31,45 +31,43 @@ class InfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        constraints: BoxConstraints(minHeight: height),
-        padding: EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            image,
-            Spaces.verticalMedium(),
-            Text(
-              title ?? '',
-              textAlign: TextAlign.center,
-              style: titleStyle,
-            ),
-            Spaces.verticalMedium(),
-            Text(
-              description ?? '',
-              textAlign: TextAlign.center,
-              style: descriptionStyle,
-            ),
-            Spaces.verticalLarge(),
-            if (child != null) child,
-            actionPressed != null ? Spaces.verticalMedium() : Container(),
-            actionPressed != null
-                ? RoundedButton(
-                    color: AppColors.red,
-                    title: titleAction,
-                    trailingIcon: Icon(MdiIcons.chevronRight),
-                    style: kNormalStyle.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    onPressed: actionPressed,
-                  )
-                : Container(),
-          ],
-        ),
+    return Container(
+      constraints: BoxConstraints(minHeight: height),
+      padding: EdgeInsets.all(24.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          image,
+          Spaces.verticalMedium(),
+          Text(
+            title ?? '',
+            textAlign: TextAlign.center,
+            style: titleStyle,
+          ),
+          Spaces.verticalMedium(),
+          Text(
+            description ?? '',
+            textAlign: TextAlign.center,
+            style: descriptionStyle,
+          ),
+          Spaces.verticalLarge(),
+          if (child != null) child,
+          actionPressed != null ? Spaces.verticalMedium() : Container(),
+          actionPressed != null
+              ? RoundedButton(
+                  color: AppColors.red,
+                  title: titleAction,
+                  trailingIcon: Icon(MdiIcons.chevronRight),
+                  style: kNormalStyle.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  onPressed: actionPressed,
+                )
+              : Container(),
+        ],
       ),
     );
   }

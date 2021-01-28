@@ -21,24 +21,26 @@ class ReportsPage extends StatefulWidget {
 
 class _ReportsPageState extends State<ReportsPage>
     with SingleTickerProviderStateMixin {
-  final List<Widget> _widgetOptions = <Widget>[
-    AllReport(),
-    NearbyReport(),
-    MapListReport(),
-    MyReport(),
-  ];
-
+  List<Widget> _widgetOptions;
   TabController _tabController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _widgetOptions = <Widget>[
+      AllReport(),
+      NearbyReport(),
+      MapListReport(onNewReport: moveToMyReport),
+      MyReport(),
+    ];
+
     _tabController = TabController(vsync: this, length: _widgetOptions.length);
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: _buildAppBar(),
       body: TabBarView(
@@ -69,7 +71,11 @@ class _ReportsPageState extends State<ReportsPage>
             )),
 
         IconButton(
-            onPressed: () => Navigator.pushNamed(context, NewReport.id),
+            onPressed: () async {
+              var result = await Navigator.pushNamed(context, NewReport.id);
+              if(result!= null && result)
+                moveToMyReport();
+            },
             icon: Icon(
               Icons.add,
               color: AppColors.white,
@@ -94,4 +100,9 @@ class _ReportsPageState extends State<ReportsPage>
       ),
     );
   }
+  moveToMyReport(){
+    _tabController.animateTo(3);
+  }
+
+
 }

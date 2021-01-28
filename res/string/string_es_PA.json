@@ -104,7 +104,7 @@
     "youMustSelectMessage": "Debe selecionar ${value}",
     "youAreOnlyAllowedToEnterMessage": "Solo se puede introducir ${value}",
     "involvedMandatoryMessage": "Debe introducir al menos un Implicado",
-    "maxFilesAndFileSizeMessage": "Puede adjuntar hasta (3) imágenes, con un peso máximo de (50 MB).",
+    "maxFilesAndFileSizeMessage": "Puede adjuntar hasta (3) imágenes.",
     "deleteDataMessage": "¿Esta seguro que desea eliminar este dato?",
     "reportDescriptionHitMessage": "Describa los hecho que respaldan su denuncia, trate de ser claro y explícito, la información prestada a continuación es confidencial.",
     "saveDataMessage": "Se han actualizado los datos.",

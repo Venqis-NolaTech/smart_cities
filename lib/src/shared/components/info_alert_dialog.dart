@@ -17,6 +17,7 @@ class InfoAlertDialog extends StatelessWidget {
     this.cancelAction = false,
     this.disableExecuteActions = false,
     this.textAlign = TextAlign.center,
+    this.buttomStyle
   });
 
   final Widget image;
@@ -29,6 +30,8 @@ class InfoAlertDialog extends StatelessWidget {
   final bool cancelAction;
   final bool disableExecuteActions;
   final TextAlign textAlign;
+  final TextStyle buttomStyle;
+
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +126,7 @@ class InfoAlertDialog extends StatelessWidget {
 
     actions.add(
       FlatButton(
-        child: Text(confirmTitle ?? S.of(context).ok, style: TextStyle(color: AppColors.blueLight),),
+        child: Text(confirmTitle ?? S.of(context).ok, style: buttomStyle ?? TextStyle(color: AppColors.blueLight)),
         onPressed: () {
           if (!disableExecuteActions) Navigator.pop(context);
 

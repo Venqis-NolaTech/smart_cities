@@ -4,17 +4,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_cities/generated/i18n.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/providers/base_new_report_form_provider.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/providers/create_report_provider.dart';
 import 'package:smart_cities/src/features/resports/presentation/new_report/widget/report_file_list.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
-import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
-import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/image_utils.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
-
+import 'package:smart_cities/src/features/resports/presentation/new_report/providers/base_new_report_form_provider.dart';
 
 class ReportFiles extends StatefulWidget {
   final BaseNewReportFormProvider provider;
@@ -34,30 +30,11 @@ class _ReportFilesState extends State<ReportFiles> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         child: Column(
             children: [
-
-              widget.provider.files.isEmpty
-                ? Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(AppImagePaths.rectangle),
-                          fit: BoxFit.fill
-                      )
-                  ),
-                  child: InfoView(
-                      height: MediaQuery.of(context).size.height*0.4,
-                      image: Image.asset(AppImagePaths.camera),
-                      title: S.of(context).files,
-                      titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
-                      description: S.of(context).reportFileNotFound,
-                      descriptionStyle:
-                          kNormalStyle.copyWith(color: Colors.grey.shade500),
-                    ),
-                )
-                : ReportFileList( files: widget.provider.files, onPressend: _onTapFile, addFile: addFile,),
+              ReportFileList( provider: widget.provider, addFile: addFile,),
               Spaces.verticalMedium(),
               _buildMessage(),
               Spaces.verticalMedium(),
@@ -176,13 +153,17 @@ class _ReportFilesState extends State<ReportFiles> {
     );
   }
 
-
-  void _onTapFile(File file) {
-    //widget.provider.removeFile(file);
-  }
-
   void addFile() {
-     ImageUtil.showPhotoDialog(
+    final addFileIsValid = widget.provider.addFileIsValid();
+
+    if (!addFileIsValid) {
+      showInfoDialog(
+        S.of(context).maxFilesAndFileSizeMessage,
+      );
+      return;
+    }
+
+    ImageUtil.showPhotoDialog(
       context, (file) {
        if (file != null)
          widget.provider.addFile(file);
