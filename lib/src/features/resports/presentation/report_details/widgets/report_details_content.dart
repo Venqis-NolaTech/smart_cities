@@ -45,27 +45,9 @@ class ReportDetailsContent extends StatelessWidget {
     return Container(
       //padding: EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          /*Text(
-            S.of(context).description.capitalize,
-            style: kSmallestTextStyle.copyWith(
-              color: Colors.grey,
-            ),
-          ),
-          Spaces.verticalMedium(),*/
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: ReadMoreText(
-              report?.description ?? "",
-              trimCollapsedText: S.of(context).showMore.toLowerCase(),
-              trimExpandedText: S.of(context).showLess.toLowerCase(),
-              trimLines: 4,
-              trimMode: TrimMode.Line,
-              colorClickableText: AppColors.blue,
-              style: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister),
-            ),
-          ),
           Spaces.verticalMedium(),
           Container(
             color: Colors.grey.withOpacity(0.1),
@@ -101,21 +83,6 @@ class ReportDetailsContent extends StatelessWidget {
           ),
 
           ..._buildMap(context),
-          /*RoundedButton(
-            title: S.of(context).downloadAttachments.toUpperCase(),
-            color: Colors.white,
-            elevation: 0.0,
-            borderColor: AppColors.red,
-            style: TextStyle(
-              color: AppColors.red,
-            ),
-            onPressed: null /*() => Navigator.pushNamed(
-              context,
-              ReportFilesPage.id,
-              arguments: report.filesUrls,
-            ),*/
-          ),
-          Spaces.verticalLarge(),*/
         ],
       ),
     );

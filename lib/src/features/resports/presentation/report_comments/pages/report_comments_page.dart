@@ -4,12 +4,12 @@ import 'package:smart_cities/src/features/resports/presentation/report_details/p
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
+import 'package:smart_cities/src/shared/app_colors.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../../shared/components/base_view.dart';
 import '../../../../../shared/components/comment_item.dart';
-import '../../../../../shared/components/info_alert_dialog.dart';
 import '../../../../../shared/provider/view_state.dart';
 import '../../../domain/entities/report.dart';
 import '../providers/report_comments_provider.dart';
@@ -68,39 +68,7 @@ class _ReportCommentsPageState extends State<ReportCommentsPage> {
     );
   }
 
-  Future<bool> _sendComment(ReportCommentsProvider provider) async {
-    //await provider.createComment();
 
-    return _proccessPostComment(provider);
-  }
-  void refresComment(){
-
-  }
-  bool _proccessPostComment(ReportCommentsProvider provider) {
-    final commentPostState = provider.commentPostState;
-
-    String titleDialog = S.of(context).info;
-    String messageDialog = S.of(context).reportCommentSuccessMessage;
-    bool success = true;
-
-    if (commentPostState is Error) {
-      titleDialog = S.of(context).error;
-      messageDialog = S.of(context).unexpectedErrorMessage;
-      success = false;
-    }
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return InfoAlertDialog(
-          title: titleDialog,
-          message: messageDialog,
-        );
-      },
-    );
-
-    return success;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,12 +81,12 @@ class _ReportCommentsPageState extends State<ReportCommentsPage> {
 
         _provider = provider;
 
-        final isCommetAllow =
-            _provider.currentState is Idle || provider.currentState is Loaded;
+        //final isCommetAllow = _provider.currentState is Idle || provider.currentState is Loaded;
 
         return ModalProgressHUD(
           inAsyncCall: currentState is Loading,
             child: Container(
+              color: AppColors.background,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[

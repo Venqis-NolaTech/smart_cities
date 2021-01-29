@@ -112,6 +112,7 @@ class ReportListItem extends StatelessWidget {
               children: [
 
                 _buildLeftContent(context),
+                Spaces.horizontalSmall(),
                 _buildCenterWidget(context),
                 !isMyReport ? _buildRightContent(context) : Container(),
               ],
@@ -149,7 +150,8 @@ class ReportListItem extends StatelessWidget {
   Widget _buildLeftContent(BuildContext context) {
     return Expanded(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(
             S.of(context).distance,
@@ -181,13 +183,16 @@ class ReportListItem extends StatelessWidget {
     }
 
 
-    return   Container(
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-        decoration: BoxDecoration(
-            //border: Border.all(color: AppColors.blueLight),
-            color: AppColors.blueLight.withOpacity(0.6)),
-        child: Text('$distancia $unidad',
-            style: kSmallTextStyle.copyWith(color: AppColors.white))
+    return   Padding(
+      padding: const EdgeInsets.only(right: 30),
+      child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          decoration: BoxDecoration(
+              //border: Border.all(color: AppColors.blueLight),
+              color: AppColors.blueLight.withOpacity(0.6)),
+          child: Text('$distancia $unidad',
+              style: kSmallTextStyle.copyWith(color: AppColors.white))
+      ),
     );
 
   }

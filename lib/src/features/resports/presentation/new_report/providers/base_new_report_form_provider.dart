@@ -54,7 +54,6 @@ enum DataType {
 }
 
 const int kMaxFiles = 3;
-const int kMaxFileSize = 50000000;
 
 abstract class BaseNewReportFormProvider extends BaseProvider {
   final List<File> _files = [];
@@ -87,7 +86,7 @@ abstract class BaseNewReportFormProvider extends BaseProvider {
   }
 
   bool addFileIsValid() =>
-      _files.length < kMaxFiles && getFilesSize() < kMaxFileSize;
+      _files.length < kMaxFiles;
 
   @protected
   void addData(List<Map<String, String>> dataPull, Map<String, String> data) {

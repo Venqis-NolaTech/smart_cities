@@ -7,6 +7,7 @@ import 'package:smart_cities/src/features/resports/presentation/report_comments/
 import 'package:smart_cities/src/features/resports/presentation/report_details/providers/report_details_provider.dart';
 import 'package:smart_cities/src/features/resports/presentation/report_details/widgets/add_photo_header.dart';
 import 'package:smart_cities/src/features/resports/presentation/report_details/widgets/report_details_comment.dart';
+import 'package:smart_cities/src/features/resports/presentation/report_details/widgets/report_details_completed.dart';
 import 'package:smart_cities/src/features/resports/presentation/report_details/widgets/toggle_switch.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 
@@ -20,7 +21,7 @@ import '../widgets/report_details_sub_header.dart';
 
 
 
-final _refreshStreamController = StreamController<dynamic>();
+final _refreshStreamController = StreamController<dynamic>.broadcast();
 Stream<dynamic> get refreshComment => _refreshStreamController.stream;
 
 
@@ -102,49 +103,58 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
           child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text(S.of(context).report),
-              centerTitle: true,
-              backgroundColor: AppColors.red,
-            ),
+                title: Text(S.of(context).report),
+                centerTitle: true,
+                backgroundColor: AppColors.red,
+                bottom: PreferredSize(
+                  preferredSize: Size.square(screenHeight * 0.07),
+                  child: SizedBox(
+                      height: screenHeight * 0.07,
+                      child: ToggleSwitch(
+                          onChangedIndex: _onChangedInde,
+                          index: indexStack > 1 ? 0 : indexStack)),
+                )),
             body: Stack(
               children: [
 
-                ToggleSwitch(onChangedIndex: _onChangedInde, index: indexStack>1 ? 0 : indexStack),
-
-                Padding(
-                  padding: EdgeInsets.only(top: screenHeight*0.07),
-                  child: IndexedStack(
-                    index: indexStack,
-                    children: [
-                      buildDetail(provider),
-                      buildComment(),
-                      ReportFiles(provider: provider, addBottomPadding: true)
-                    ],
-                  ),
+                IndexedStack(
+                  index: indexStack,
+                  children: [
+                    buildDetail(provider),
+                    buildComment(),
+                    ReportFiles(provider: provider, addBottomPadding: true)
+                  ],
                 ),
 
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ReportDetailsComment(  //widget para enviar un nuevo comentario
-                      report: _report,
-                      controller: _textController,
-                      provider: provider,
-                      addPhotoAction: (){
-                        if(indexStack!=2)
+                _report.reportStatus == ReportStatus.SolutionCompleted ? Container()
+                : Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ReportDetailsComment(  //widget para enviar un nuevo comentario
+                        report: _report,
+                        controller: _textController,
+                        provider: provider,
+                        addPhotoAction: (){
+                          if(indexStack!=2)
+                            setState(() {
+                              addImage= true;
+                            });
+                        },
+                        onSendComment: (){
                           setState(() {
-                            addImage= true;
+                            indexStack=indexUltimate;
+                            addImage= false;
                           });
-                      },
-                      onSendComment: (){
-                        setState(() {
-                          indexStack=indexUltimate;
-                          addImage= false;
-                        });
-                        _refreshStreamController.add(null);
-                      },
-                    )
-                  ],
+                          _refreshStreamController.add(null);
+                        },
+                      )
+                    ],
+                  ),
                 ),
 
 
@@ -170,6 +180,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
   Widget buildDetail(ReportDetailsProvider provider) {
     return SingleChildScrollView(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           ReportDetailsHeader(
@@ -187,6 +198,8 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
             report: _report,
             onFollow: () => onFollow(provider),
           ),
+          _report.reportStatus == ReportStatus.SolutionCompleted ?
+          ReportDetailsCompleted(report: _report) :
           ReportDetailsContent(
             report: _report,
           ),

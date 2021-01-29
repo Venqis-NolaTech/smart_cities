@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
@@ -49,12 +51,8 @@ class CreateReportProvider extends BaseNewReportFormProvider {
 
   String nameStreet;
   String numberStreet;
-
-
   String titleReport;
   String descriptionReport;
-
-
   bool postYourName= true;
 
   /// VECINDARIOS
@@ -111,6 +109,28 @@ class CreateReportProvider extends BaseNewReportFormProvider {
     notifyListeners();
   }
 
+  /*final List<File> _photos = [];
+
+  List<File> get photos => _photos;
+
+  bool get isPhotoNotEmpty => _photos.isNotEmpty;
+
+
+  void addPhoto(File photo, {bool notify = true}) {
+    _photos.add(photo);
+
+    if (notify) notifyListeners();
+  }
+
+  void removePhoto(File photo) {
+    _photos.remove(photo);
+
+    notifyListeners();
+  }
+
+  bool addPhotoIsValid() => _photos.length < kMaxFiles;*/
+
+
   @override
   Future initData() async {
     state = Loading();
@@ -145,7 +165,7 @@ class CreateReportProvider extends BaseNewReportFormProvider {
 
           var result= await getSectoresUseCase(NoParams());
 
-          await result.fold(
+          await result?.fold(
                 (failure) {
               print('fallo al actualizar sectores');
             },

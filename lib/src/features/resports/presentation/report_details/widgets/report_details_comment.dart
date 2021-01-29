@@ -1,9 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
-import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/comment_box.dart';
-import 'package:smart_cities/src/shared/components/comment_item.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
@@ -63,42 +61,28 @@ class ReportDetailsComment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20.0),
-          ),
-          color: Colors.grey.shade100,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: _buildCommentSection(context),
-        ),
-      ),
-    );
-  }
-
-  List<Widget> _buildCommentSection(BuildContext context) {
     final isCommetAllow = provider.currentState is Idle || provider.currentState is Loaded;
 
-    final children = List<Widget>();
 
-    children.add(
-      CommentBox(
-        textController: controller,
-        inputEnabled: isCommetAllow,
-        buttonEnabled: provider.comment.isNotNullOrNotEmpty,
-        onTextChanged: (value) => provider.comment = value,
-        onIsAnonymousChanged: (value) => provider.isAnonymous= value,
-        addPhotoAction: addPhotoAction,  //funciono para mostrar el widget que permite llegar al page de add photo
-        sendAction: isCommetAllow ? () => _sendComment(context) : null,
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          CommentBox(
+            textController: controller,
+            inputEnabled: isCommetAllow,
+            buttonEnabled: provider.comment.isNotNullOrNotEmpty,
+            onTextChanged: (value) => provider.comment = value,
+            onIsAnonymousChanged: (value) => provider.isAnonymous= value,
+            addPhotoAction: addPhotoAction,  //funciono para mostrar el widget que permite llegar al page de add photo
+            sendAction: isCommetAllow ? () => _sendComment(context) : null,
+          ),
+        ],
       ),
     );
-
-    return children;
   }
+
 
 
 

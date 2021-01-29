@@ -1,5 +1,4 @@
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
-import 'package:smart_cities/src/features/auth/data/models/user_model.dart';
 
 import '../../../../core/models/catalog_item_model.dart';
 import '../../../../core/util/list_util.dart';
@@ -40,11 +39,12 @@ class ReportModel extends Report {
     CatalogItem province,
     CatalogItem municipality,
     CatalogItem sector,
-    LocationReport location,
+    LocationR location,
     CatalogItem category,
     String status,
     bool muted,
     List<String> images,
+    List<String> imagesClosed,
     bool isAnonymous,
     String priority,
     bool isActive,
@@ -69,6 +69,7 @@ class ReportModel extends Report {
       status: status,
       muted: muted,
       images: images,
+      imagesClosed: imagesClosed,
       isAnonymous: isAnonymous,
       priority: priority,
       isActive: isActive,
@@ -107,6 +108,7 @@ class ReportModel extends Report {
         status: report.status,
         muted: report.muted,
         images: report.images,
+        imagesClosed: report.imagesClosed,
         isAnonymous: report.isAnonymous,
         priority: report.priority,
         isActive: report.isActive,
@@ -119,11 +121,12 @@ class ReportModel extends Report {
       province: json["province"] != null ? CatalogItemModel.fromJson(json["province"]) : null,
       municipality: json["municipality"] != null ? CatalogItemModel.fromJson(json["municipality"]) : null,
       sector: json["sector"] != null ? CatalogItemModel.fromJson(json["sector"]) : null,
-      location: json["location"]!= null ? LocationReportModel.fromJson(json["location"]) : null,
+      location: json["location"]!= null ? LocationModel.fromJson(json["location"]) : null,
       category: json["category"] != null ? CatalogItemModel.fromJson(json["category"]) : null,
       status: json["status"],
       muted: json["muted"],
       images: (json['images'] as List).isNotNullOrNotEmpty ? List<String>.from(json["images"].map((x) => x)) : null,
+      imagesClosed: (json['imagesClosed'] as List).isNotNullOrNotEmpty ? List<String>.from(json["imagesClosed"].map((x) => x)) : null,
       isAnonymous: json["isAnonymous"],
       priority: json["priority"],
       isActive: json["isActive"],
@@ -147,11 +150,12 @@ class ReportModel extends Report {
       "province": province != null ? CatalogItemModel.fromEntity(province).toJson() : null,
       "municipality": municipality != null ? CatalogItemModel.fromEntity(municipality).toJson() : null,
       "sector": sector != null ? CatalogItemModel.fromEntity(sector).toJson() : null,
-      "location": location != null ? LocationReportModel.fromEntity(location).toJson() : null,
+      "location": location != null ? LocationModel.fromEntity(location).toJson() : null,
       "category": category != null ? CatalogItemModel.fromEntity(category).toJson() : null,
       "status": status,
       "muted": muted,
       "images": images.isNotNullOrNotEmpty ?  List<dynamic>.from(images.map((x) => x)) : null,
+      "imagesClosed": imagesClosed.isNotNullOrNotEmpty ?  List<dynamic>.from(imagesClosed.map((x) => x)) : null,
       "isAnonymous": isAnonymous,
       "priority": priority,
       "isActive": isActive,
@@ -276,6 +280,7 @@ class ReportCommentModel extends ReportComment {
     String report,
     String comment,
     ReportUser user,
+    String status,
     //List<dynamic> comments;
     String createdAt,
     String updatedAt,
@@ -290,6 +295,7 @@ class ReportCommentModel extends ReportComment {
           report: report,
           comment: comment,
           user: user,
+          status: status,
           createdAt: createdAt,
           updatedAt: updatedAt
         );
@@ -305,6 +311,7 @@ class ReportCommentModel extends ReportComment {
       report: comment.report,
       comment: comment.comment,
       user: comment.user,
+      status: comment.status,
       createdAt: comment.createdAt,
       updatedAt: comment.updatedAt
     );
@@ -321,6 +328,7 @@ class ReportCommentModel extends ReportComment {
       report: json["report"],
       comment: json["comment"],
       user: json['user'] != null ? ReportUserModel.fromJson(json['user']) : null,
+      status: json["status"],
       createdAt: json["createdAt"],
       updatedAt: json["updatedAt"],
       v: json["__v"],
@@ -339,6 +347,7 @@ class ReportCommentModel extends ReportComment {
       "comment": comment,
       "user": user!= null ? ReportUserModel.fromEntity(user) : null,
       //"comments": comments!= null ? List<dynamic>.from(comments.map((x) => x)) :,
+      "status": status,
       "createdAt": createdAt,
       "updatedAt": updatedAt,
       "__v": v,
@@ -351,10 +360,12 @@ class ReportUserModel extends ReportUser {
     String id,
     String displayName,
     String pictureUrl,
+    bool isAdmin
   }) : super(
           id: id,
           displayName: displayName,
           pictureUrl: pictureUrl,
+          isAdmin: isAdmin
         );
 
   factory ReportUserModel.fromEntity(ReportUser reportUser) {
@@ -362,6 +373,7 @@ class ReportUserModel extends ReportUser {
       id: reportUser.id,
       displayName: reportUser.displayName,
       pictureUrl: reportUser.pictureUrl,
+      isAdmin: reportUser.isAdmin
     );
   }
 
@@ -369,7 +381,8 @@ class ReportUserModel extends ReportUser {
     return ReportUserModel(
       id: json['id'],
       displayName: json['displayName'],
-      pictureUrl: json['pictureUrl'],
+      pictureUrl: json['photoURL'],
+      isAdmin: json['isAdmin'] ?? false
     );
   }
 
@@ -377,29 +390,30 @@ class ReportUserModel extends ReportUser {
     return {
       'id': id,
       'displayName': displayName,
-      'pictureUrl': pictureUrl,
+      'photoURL': pictureUrl,
+      'isAdmin' : isAdmin
     };
   }
 }
 
 
-class LocationReportModel extends LocationReport{
-  LocationReportModel({String type,
+class LocationModel extends LocationR{
+  LocationModel({String type,
         List<double> coordinates})
       : super(
           type: type,
           coordinates: coordinates,
         );
 
-  factory LocationReportModel.fromEntity(LocationReport locationReport) {
-    return LocationReportModel(
+  factory LocationModel.fromEntity(LocationR locationReport) {
+    return LocationModel(
       type: locationReport.type,
       coordinates: locationReport.coordinates
     );
   }
 
-  factory LocationReportModel.fromJson(Map<String, dynamic> json) {
-    return LocationReportModel(
+  factory LocationModel.fromJson(Map<String, dynamic> json) {
+    return LocationModel(
       type: json["type"],
       coordinates:  json["coordinates"] != null ? List<double>.from(json["coordinates"].map((x) => x.toDouble())) :  null,
     );

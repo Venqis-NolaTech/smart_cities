@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 
 import '../../../../../generated/i18n.dart';
 import '../../../../core/error/failure.dart';
@@ -35,6 +36,8 @@ class _SplashPageState extends State<SplashPage> {
       onProviderReady: (provider) {
         provider.initializeApp(callback: (route) {
           initialRoute = route;
+          if(initialRoute==MainPage.id)
+            Navigator.pushReplacementNamed(context, initialRoute);
         });
       },
       builder: (context, provider, child) {

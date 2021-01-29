@@ -15,6 +15,8 @@ class AppColors {
   static const greyButtom= Color(0xFF949599);
   static const blueBtnRegister= Color(0xFF48626A);
   static const green = Color(0xFF48626A);
+  static const greenCompleted = Color(0xFF22D8A0);
+
   static const testIntro = Color(0xFF9F9F9F);
   static const testTittleIntro = Color(0xFF48626A);
 

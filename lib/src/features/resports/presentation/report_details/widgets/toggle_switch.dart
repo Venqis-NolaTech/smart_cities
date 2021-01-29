@@ -24,10 +24,8 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight= MediaQuery.of(context).size.height;
 
     return Container(
-      height: screenHeight*0.07,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
