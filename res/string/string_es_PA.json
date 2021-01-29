@@ -14,7 +14,6 @@
     "delete": "Eliminar",
     "select": "Seleccione",
     "camera": "Cámara",
-    "gallery": "Galería de imágenes",
     "crop": "Recortar",
     "requiredField": "Requerido",
     "send": "Enviar",
@@ -268,6 +267,7 @@
     "empyteReport": "No hay ningún reporte",
     "messageIsAnonymous": "Mensaje Anónimo",
     "toSelect": "Seleccionar",
-    "locationDisable": "Los servicios de ubicación estan desactivados."
-
+    "locationDisable": "Los servicios de ubicación estan desactivados.",
+    "seeGallery": "Ver galería",
+    "gallery": "Galería de fotos - Antes/Después"
 }

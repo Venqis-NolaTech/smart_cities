@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_cities/src/shared/components/read_more_text.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
@@ -55,6 +56,18 @@ class ReportDetailsSubHeader extends StatelessWidget {
             ),
           ),
           Spaces.verticalSmall(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: ReadMoreText(
+              report?.description ?? "",
+              trimCollapsedText: S.of(context).showMore.toLowerCase(),
+              trimExpandedText: S.of(context).showLess.toLowerCase(),
+              trimLines: 4,
+              trimMode: TrimMode.Line,
+              colorClickableText: AppColors.blue,
+              style: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister),
+            ),
+          ),
         ],
       ),
     );

@@ -44,6 +44,7 @@ class ReportModel extends Report {
     String status,
     bool muted,
     List<String> images,
+    List<String> imagesClosed,
     bool isAnonymous,
     String priority,
     bool isActive,
@@ -68,6 +69,7 @@ class ReportModel extends Report {
       status: status,
       muted: muted,
       images: images,
+      imagesClosed: imagesClosed,
       isAnonymous: isAnonymous,
       priority: priority,
       isActive: isActive,
@@ -106,6 +108,7 @@ class ReportModel extends Report {
         status: report.status,
         muted: report.muted,
         images: report.images,
+        imagesClosed: report.imagesClosed,
         isAnonymous: report.isAnonymous,
         priority: report.priority,
         isActive: report.isActive,
@@ -123,6 +126,7 @@ class ReportModel extends Report {
       status: json["status"],
       muted: json["muted"],
       images: (json['images'] as List).isNotNullOrNotEmpty ? List<String>.from(json["images"].map((x) => x)) : null,
+      imagesClosed: (json['imagesClosed'] as List).isNotNullOrNotEmpty ? List<String>.from(json["imagesClosed"].map((x) => x)) : null,
       isAnonymous: json["isAnonymous"],
       priority: json["priority"],
       isActive: json["isActive"],
@@ -151,6 +155,7 @@ class ReportModel extends Report {
       "status": status,
       "muted": muted,
       "images": images.isNotNullOrNotEmpty ?  List<dynamic>.from(images.map((x) => x)) : null,
+      "imagesClosed": imagesClosed.isNotNullOrNotEmpty ?  List<dynamic>.from(imagesClosed.map((x) => x)) : null,
       "isAnonymous": isAnonymous,
       "priority": priority,
       "isActive": isActive,
@@ -275,6 +280,7 @@ class ReportCommentModel extends ReportComment {
     String report,
     String comment,
     ReportUser user,
+    String status,
     //List<dynamic> comments;
     String createdAt,
     String updatedAt,
@@ -289,6 +295,7 @@ class ReportCommentModel extends ReportComment {
           report: report,
           comment: comment,
           user: user,
+          status: status,
           createdAt: createdAt,
           updatedAt: updatedAt
         );
@@ -304,6 +311,7 @@ class ReportCommentModel extends ReportComment {
       report: comment.report,
       comment: comment.comment,
       user: comment.user,
+      status: comment.status,
       createdAt: comment.createdAt,
       updatedAt: comment.updatedAt
     );
@@ -320,6 +328,7 @@ class ReportCommentModel extends ReportComment {
       report: json["report"],
       comment: json["comment"],
       user: json['user'] != null ? ReportUserModel.fromJson(json['user']) : null,
+      status: json["status"],
       createdAt: json["createdAt"],
       updatedAt: json["updatedAt"],
       v: json["__v"],
@@ -338,6 +347,7 @@ class ReportCommentModel extends ReportComment {
       "comment": comment,
       "user": user!= null ? ReportUserModel.fromEntity(user) : null,
       //"comments": comments!= null ? List<dynamic>.from(comments.map((x) => x)) :,
+      "status": status,
       "createdAt": createdAt,
       "updatedAt": updatedAt,
       "__v": v,
@@ -372,7 +382,7 @@ class ReportUserModel extends ReportUser {
       id: json['id'],
       displayName: json['displayName'],
       pictureUrl: json['photoURL'],
-      isAdmin: json['isAdmin']
+      isAdmin: json['isAdmin'] ?? false
     );
   }
 

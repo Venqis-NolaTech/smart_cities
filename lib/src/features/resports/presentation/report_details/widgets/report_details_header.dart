@@ -119,6 +119,7 @@ class ReportDetailsHeaderState extends State<ReportDetailsHeader> {
               Expanded(
                 child: buildCreatedAt(context),
               ),
+              widget.report.reportStatus == ReportStatus.SolutionCompleted ? Container() :
               buildAddPhoto(context),
             ],
           ),

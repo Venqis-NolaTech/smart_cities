@@ -4,6 +4,7 @@ import 'package:smart_cities/src/core/util/file_util.dart';
 import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
+import 'package:smart_cities/src/shared/components/comment_item_admin.dart';
 import 'package:smart_cities/src/shared/components/firebase_storage_image.dart';
 import 'package:smart_cities/src/shared/components/image_gallery_with_zoom.dart';
 
@@ -29,62 +30,57 @@ class CommentItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = comment?.user;
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(
-            _creatAtFormatted(context).capitalize,
-            style: kSmallestTextStyle.copyWith(
-              color: AppColors.blueButton,
-            ),
-            textAlign: TextAlign.end,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            /*leading: CircleAvatar(
-              child: user?.pictureUrl?.isNotNullOrNotEmpty ?? false
-                  ? CachedNetworkImage(imageUrl: user.pictureUrl)
-                  : Text(
-                      user?.displayName[0]?.toUpperCase() ?? "",
-                      style: TextStyle(
-                        color: Colors.white,
+    if(user.isAdmin)
+      return CommentItemAdmin(comment: comment);
+    else
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        comment.isAnonymous ? S.of(context).messageIsAnonymous : user?.displayName ?? "" ,
+                        style: kNormalStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.blueBtnRegister
+                        ),
                       ),
                     ),
-              backgroundColor: Colors.grey.shade400,
-            ),*/
-            children: [
-              Text(
-                comment.isAnonymous ? S.of(context).messageIsAnonymous : user?.displayName ?? "" ,
-                style: kNormalStyle.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.blueBtnRegister
-                ),
-              ),
-              Spaces.verticalSmall(),
 
-              Text(
-                comment?.comment ?? "",
-                style: kNormalStyle.copyWith(
-                    color: AppColors.blueBtnRegister.withOpacity(0.5)
+                    Text(
+                      _creatAtFormatted(context).capitalize,
+                      style: kSmallestTextStyle.copyWith(
+                        color: AppColors.blueButton,
+                      ),
+                      textAlign: TextAlign.end,
+                    ),
+                  ],
                 ),
-              ),
-              Spaces.verticalSmall(),
-              comment.pictureUrl.isNotEmpty ?
-                  _buildGallery(context) : Container()
+                Spaces.verticalSmall(),
 
-            ],
-          ),
-          isLast
-              ? SizedBox.shrink()
-              : Divider(
-                  thickness: 1.2,
+                Text(
+                  comment?.comment ?? "",
+                  style: kNormalStyle.copyWith(
+                      color: AppColors.blueBtnRegister.withOpacity(0.5)
+                  ),
                 ),
-        ],
-      ),
-    );
+                Spaces.verticalSmall(),
+                comment.pictureUrl.isNotEmpty ?
+                    _buildGallery(context) : Container()
+
+              ],
+            )
+          ],
+        ),
+      );
   }
 
   Widget _buildGallery(BuildContext context) {

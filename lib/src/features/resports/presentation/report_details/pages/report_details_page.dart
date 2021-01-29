@@ -7,6 +7,7 @@ import 'package:smart_cities/src/features/resports/presentation/report_comments/
 import 'package:smart_cities/src/features/resports/presentation/report_details/providers/report_details_provider.dart';
 import 'package:smart_cities/src/features/resports/presentation/report_details/widgets/add_photo_header.dart';
 import 'package:smart_cities/src/features/resports/presentation/report_details/widgets/report_details_comment.dart';
+import 'package:smart_cities/src/features/resports/presentation/report_details/widgets/report_details_completed.dart';
 import 'package:smart_cities/src/features/resports/presentation/report_details/widgets/toggle_switch.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 
@@ -125,7 +126,8 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
                   ],
                 ),
 
-                Positioned(
+                _report.reportStatus == ReportStatus.SolutionCompleted ? Container()
+                : Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
@@ -196,6 +198,8 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
             report: _report,
             onFollow: () => onFollow(provider),
           ),
+          _report.reportStatus == ReportStatus.SolutionCompleted ?
+          ReportDetailsCompleted(report: _report) :
           ReportDetailsContent(
             report: _report,
           ),

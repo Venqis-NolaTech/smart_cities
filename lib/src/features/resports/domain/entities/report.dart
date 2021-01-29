@@ -1,11 +1,15 @@
+import 'dart:ui';
 import 'package:equatable/equatable.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
+import 'package:smart_cities/src/shared/app_colors.dart';
+
 import '../../../../core/entities/catalog_item.dart';
 
 enum ReportStatus {
   Open, // abierto
   OnProcess, // en progreso
   Closed, // cerrado
+  SolutionCompleted
 }
 
 
@@ -18,6 +22,8 @@ extension ReportStatusExtension on ReportStatus {
         return "En Proceso";
       case ReportStatus.Closed:
         return "Cerrado";
+      case ReportStatus.SolutionCompleted:
+        return "Completado";
     }
     return "Abierto";
   }
@@ -30,9 +36,25 @@ extension ReportStatusExtension on ReportStatus {
         return AppImagePaths.inProgressStatus;
       case ReportStatus.Closed:
         return AppImagePaths.closeStatus;
+      case ReportStatus.SolutionCompleted:
+        return AppImagePaths.closeStatus;
     }
     return AppImagePaths.openStatus;
   }
+
+
+  Color get color {
+    switch (this) {
+      case ReportStatus.Open:
+        return AppColors.greenCompleted;
+      case ReportStatus.OnProcess:
+        return AppColors.greenCompleted;
+      case ReportStatus.Closed:
+        return AppColors.greenCompleted;
+    }
+    return AppColors.greenCompleted;
+  }
+
 
   static ReportStatus findByValue(String value) {
     if(value=="OPEN")
@@ -41,7 +63,8 @@ extension ReportStatusExtension on ReportStatus {
       return ReportStatus.Closed;
     if(value=="IN_PROGRESS")
       return ReportStatus.OnProcess;
-
+    if(value=="SOLUTION_COMPLETED")
+      return ReportStatus.SolutionCompleted;
     return  ReportStatus.Open;
   }
 
@@ -68,6 +91,7 @@ class Report extends Equatable {
     this.status,
     this.muted,
     this.images,
+    this.imagesClosed,
     this.isAnonymous,
     this.priority,
     this.isActive,
@@ -93,6 +117,7 @@ class Report extends Equatable {
   String status;
   bool muted;
   List<String> images;
+  List<String> imagesClosed;
   bool isAnonymous;
   String priority;
   bool isActive;
@@ -185,6 +210,7 @@ class ReportComment extends Equatable {
   final String report;
   final String comment;
   final ReportUser user;
+  String status;
   //List<dynamic> comments;
   final String createdAt;
   final String updatedAt;
@@ -200,6 +226,7 @@ class ReportComment extends Equatable {
     this.report,
     this.comment,
     this.user,
+    this.status,
     //this.comments,
     this.createdAt,
     this.updatedAt,
@@ -213,6 +240,13 @@ class ReportComment extends Equatable {
         user,
         createdAt,
       ];
+
+  ReportStatus get reportStatus =>
+      ReportStatusExtension.findByValue(this.status);
+
+  Color get color => reportStatus.color;
+
+  String get nameStatus => reportStatus.id;
 }
 
 class ReportUser extends Equatable {

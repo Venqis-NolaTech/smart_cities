@@ -7,8 +7,9 @@ import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/providers/create_report_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:smart_cities/src/features/resports/presentation/new_report/providers/base_new_report_form_provider.dart';
+
 
 class ReportFileList extends StatelessWidget {
   const ReportFileList({
@@ -17,7 +18,7 @@ class ReportFileList extends StatelessWidget {
     @required this.addFile
   }) : super(key: key);
 
-  final CreateReportProvider provider;
+  final BaseNewReportFormProvider provider;
   final Function addFile;
 
   @override
@@ -86,7 +87,7 @@ class ReportFileList extends StatelessWidget {
   Widget _buildItem({File file}) {
     return Stack(
         children: [
-          Image.file(file, fit: BoxFit.fill),
+          Image.file(file, fit: BoxFit.fitWidth),
           Positioned(
             bottom: 0,
             right: 0,

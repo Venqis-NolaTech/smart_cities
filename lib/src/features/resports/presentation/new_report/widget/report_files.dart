@@ -41,7 +41,8 @@ class _ReportFilesState extends State<ReportFiles> {
               _buildButtoms(context),
               widget.addBottomPadding ?  Spaces.verticalLargest() : Container(),
               widget.addBottomPadding ?  Spaces.verticalLargest() : Container(),
-
+              widget.addBottomPadding ?  Spaces.verticalLargest() : Container(),
+              widget.addBottomPadding ?  Spaces.verticalLargest() : Container(),
           ]
         ,
         ),
