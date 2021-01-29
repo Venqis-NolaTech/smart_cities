@@ -27,8 +27,8 @@
 				<string>Editor</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>com.googleusercontent.apps.753192095136-a64gjofqcs1ddk9nb5j7s99qivcevk0c</string>
-					<string>com.googleusercontent.apps.916841254215-dg6taqdqog7ddldngthk6qo2mofkn4t2</string>
+					<string>com.googleusercontent.apps.817935113816-jbal383hqgj35f5btu865pnag4miju2n</string>
+					<string>com.googleusercontent.apps.170005580330-c3bcabfvt90i0degdg73amqpd1rvhqln</string>
 				</array>
 			</dict>
 		</array>
@@ -37,11 +37,11 @@
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSCameraUsageDescription</key>
-		<string>Permita que Contraloria acceda a su cámara para que pueda usarla para tomar fotografías de sus informes</string>
+		<string>Permita que Smart Cities acceda a su cámara para que pueda usarla para tomar fotografías de sus informes</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Esto nos permite utilizar su ubicación para proporcionar los informes cerca de usted.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Permita que Contraloria acceda a su biblioteca de imagenes para que pueda agregar sus fotos al crear sus informes.</string>
+		<string>Permita que Smart Cities acceda a su biblioteca de imagenes para que pueda agregar sus fotos al crear sus informes.</string>
 		<key>UIBackgroundModes</key>
 		<array>
 			<string>fetch</string>
@@ -58,12 +58,11 @@
 		<key>UISupportedInterfaceOrientations~ipad</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationPortraitUpsideDown</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
+        <key>FirebaseAppDelegateProxyEnabled</key>
+        <false/>
 		<key>io.flutter.embedded_views_preview</key>
 		<true/>
 	</dict>

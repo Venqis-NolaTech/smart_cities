@@ -58,7 +58,7 @@ dependencies:
   rxdart: ^0.24.1
 
   # File download
-  flutter_downloader: ^1.5.1
+  # flutter_downloader: ^1.5.1
 
   # Network
   cached_network_image: ^2.3.2+1

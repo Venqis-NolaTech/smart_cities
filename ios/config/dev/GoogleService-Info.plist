@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>753192095136-a64gjofqcs1ddk9nb5j7s99qivcevk0c.apps.googleusercontent.com</string>
+	<string>817935113816-jbal383hqgj35f5btu865pnag4miju2n.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.753192095136-a64gjofqcs1ddk9nb5j7s99qivcevk0c</string>
+	<string>com.googleusercontent.apps.817935113816-jbal383hqgj35f5btu865pnag4miju2n</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>817935113816-73irh5i7ovrbtjrqf51u053ra294lchv.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBirD0Yj6zmNGKCe9DzmZFDmHSPySZS74s</string>
+	<string>AIzaSyBSIt61eeWHKQX6g7eoKh9wp-zhDUjb4hk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>753192095136</string>
+	<string>817935113816</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.venqis.contraloria.dev</string>
+	<string>com.venqis.smartcities.develop</string>
 	<key>PROJECT_ID</key>
-	<string>contraloriaapp-devel</string>
+	<string>smartcities-devel</string>
 	<key>STORAGE_BUCKET</key>
-	<string>contraloriaapp-devel.appspot.com</string>
+	<string>smartcities-devel.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:753192095136:ios:132739f64040c2ff73e8c5</string>
+	<string>1:817935113816:ios:71d0efd1382df07e11b42d</string>
 	<key>DATABASE_URL</key>
-	<string>https://contraloriaapp-devel.firebaseio.com</string>
+	<string>https://smartcities-devel.firebaseio.com</string>
 </dict>
 </plist>
