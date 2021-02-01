@@ -10,6 +10,13 @@ abstract class BlogRepository {
     int count,
   });
 
+  Future<Either<Failure, PostListings>> getGeneralPosts({
+    PostKind kind,
+    int page,
+    int count,
+  });
+
+
   Future<Either<Failure, PostListings>> getLastPosts({
     int page,
     int count,

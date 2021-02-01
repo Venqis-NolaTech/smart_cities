@@ -19,6 +19,12 @@ abstract class BlogDataSource {
     int count,
   });
 
+  Future<PostListingsModel> getGeneralPosts({
+    PostKind kind,
+    int page,
+    int count,
+  });
+
   Future<PostListingsModel> getLastPosts({
     int page,
     int count,
@@ -75,6 +81,34 @@ class BlogDataSourceImpl extends BlogDataSource {
   }
 
   @override
+  Future<PostListingsModel> getGeneralPosts({
+    PostKind kind,
+    int page,
+    int count,
+  }) async {
+    final queryParams = Map<String, String>();
+
+    if (kind != null) {
+      queryParams['kind'] = '${kind.value}';
+    }
+
+    if (page != null && count != null) {
+      queryParams['page'] = '$page';
+      queryParams['count'] = '$count';
+    }
+
+    final response = await _getRequest(
+      '/api/notice/notice',
+      queryParams,
+      publicHttpClient
+    );
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return PostListingsModel.fromJson(body.data);
+  }
+
+  @override
   Future<PostListingsModel> getLastPosts({
     int page,
     int count,
@@ -92,9 +126,7 @@ class BlogDataSourceImpl extends BlogDataSource {
       publicHttpClient,
     );
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.data),
-    );
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return PostListingsModel.fromJson(body.data);
   }
@@ -104,9 +136,7 @@ class BlogDataSourceImpl extends BlogDataSource {
     final response =
         await publicHttpClient.get('$baseApiUrl/api/notice/news/$postId');
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.data),
-    );
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return PostModel.fromJson(body.data);
   }
@@ -116,9 +146,7 @@ class BlogDataSourceImpl extends BlogDataSource {
     final response = await publicHttpClient
         .get('$baseApiUrl/api/notice/announcement/$postId');
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.data),
-    );
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return PostTrainingModel.fromJson(body.data);
   }
@@ -128,9 +156,7 @@ class BlogDataSourceImpl extends BlogDataSource {
     final response =
         await publicHttpClient.get('$baseApiUrl/api/notice/training/$postId');
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.data),
-    );
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return PostTrainingModel.fromJson(body.data);
   }
@@ -140,9 +166,7 @@ class BlogDataSourceImpl extends BlogDataSource {
     final response =
         await authHttpClient.post('$baseApiUrl/api/notice/notice/$postId/like');
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.data),
-    );
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return PostModel.fromJson(body.data);
   }

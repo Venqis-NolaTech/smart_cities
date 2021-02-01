@@ -163,6 +163,7 @@ class _PostsListState extends State<PostsList> {
           post: post,
           isFirst: isFirst,
           isLast: isLast,
+          isVisibleLiked: provider.isLogged ?? false,
           onPressed: () => _gotoDetail(post),
           onLikePressed: (liked) => _onLikePost(post, liked),
           onSharePressed: () => _onSharePost(post),
