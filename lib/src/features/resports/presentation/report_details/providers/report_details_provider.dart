@@ -53,27 +53,6 @@ class ReportDetailsProvider extends BaseNewReportFormProvider{
     notifyListeners();
   }
 
-  final List<dynamic> _photos = [];
-
-  List<dynamic> get photos => _photos;
-
-  bool get isPhotoNotEmpty => _photos.isNotEmpty;
-
-
-  void addPhoto(dynamic photo, {bool notify = true}) {
-    _photos.add(photo);
-
-    if (notify) notifyListeners();
-  }
-
-  void removePhoto(dynamic photo) {
-    _photos.remove(photo);
-
-    notifyListeners();
-  }
-
-  bool addPhotoIsValid() => _photos.length < kMaxFiles;
-
 
   @override
   Future<void> refreshData() async {
@@ -139,7 +118,7 @@ class ReportDetailsProvider extends BaseNewReportFormProvider{
             await _updateComment(_reportId, commentCreated.id, request);
           }
 
-          photos.clear();
+          files.clear();
           state = Loaded<ReportComment>(value: commentCreated);
           _comment = "";
           isAnonymous= false;
@@ -154,9 +133,9 @@ class ReportDetailsProvider extends BaseNewReportFormProvider{
   Future<List<String>> _uploadFiles(String commentId) async {
     List<String> urls = [];
 
-    if (photos.isNotEmpty) {
+    if (files.isNotEmpty) {
       final params = UploadCommentFileParams(
-        files: photos,
+        files: files,
         commentId: commentId,
       );
 
