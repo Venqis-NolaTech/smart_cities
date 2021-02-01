@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../core/api/auth_client.dart';
 import '../../../../../core/api/public_http_client.dart';
 import '../../../../../core/models/catalog_item_model.dart';
 import '../../../../../core/models/response_model.dart';
-import '../../../../../core/util/flavor_config.dart';
 import '../../models/report_model.dart';
 
 abstract class ReportDataSource {
@@ -61,20 +60,18 @@ class ReportDataSourceImpl implements ReportDataSource {
   final AuthHttpClient authHttpClient;
   final PublicHttpClient publicHttpClient;
 
-  String get baseApiUrl => FlavorConfig.instance?.values?.baseApiUrl ?? "";
+  //String get baseApiUrl => FlavorConfig.instance?.values?.baseApiUrl ?? "";
 
   @override
   Future<ReportModel> createReport(Map<String, dynamic> request) async {
     var payload = json.encode(request);
 
     var response = await authHttpClient.post(
-      '$baseApiUrl/api/report',
+      '/api/report',
       body: payload,
     );
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
-    );
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return ReportModel.fromJson(body.data);
   }
@@ -85,13 +82,11 @@ class ReportDataSourceImpl implements ReportDataSource {
     var payload = json.encode(request);
 
     var response = await authHttpClient.put(
-      '$baseApiUrl/api/report/$id',
+      '/api/report/$id',
       body: payload,
     );
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
-    );
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return ReportModel.fromJson(body.data);
   }
@@ -131,10 +126,9 @@ class ReportDataSourceImpl implements ReportDataSource {
   @override
   Future<ReportModel> getReportById(String id) async {
     final response =
-        await authHttpClient.get('$baseApiUrl/api/report/$id');
+        await authHttpClient.get('/api/report/$id');
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return ReportModel.fromJson(body.data);
   }
@@ -142,10 +136,9 @@ class ReportDataSourceImpl implements ReportDataSource {
   @override
   Future<ReportModel> likeReport(String reportId) async {
     final response =
-        await authHttpClient.post('$baseApiUrl/api/report/$reportId/follow');
+        await authHttpClient.post('/api/report/$reportId/follow');
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return ReportModel.fromJson(body.data);
   }
@@ -175,13 +168,11 @@ class ReportDataSourceImpl implements ReportDataSource {
     var payload = json.encode(request);
 
     var response = await authHttpClient.post(
-      '$baseApiUrl/api/report/$reportId/comment',
+      '/api/report/$reportId/comment',
       body: payload,
     );
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
-    );
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return ReportCommentModel.fromJson(body.data);
   }
@@ -192,27 +183,22 @@ class ReportDataSourceImpl implements ReportDataSource {
     var payload = json.encode(request);
 
     var response = await authHttpClient.put(
-      '$baseApiUrl/api/report/$reportId/comment/$commentId',
+      '/api/report/$reportId/comment/$commentId',
       body: payload,
     );
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
-    );
-
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
     return ReportCommentModel.fromJson(body.data);
   }
 
 
   @override
   Future<List<CatalogItemModel>> getCategory() async {
-    final response = await publicHttpClient.get('$baseApiUrl/api/report/category');
+    final response = await publicHttpClient.get('/api/report/category');
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
-    final list =
-        body.data.containsKey('reportcategory') ? body.data['reportcategory'] as List : [];
+    final list = body.data.containsKey('reportcategory') ? body.data['reportcategory'] as List : [];
 
     return list.map((json) => CatalogItemModel.fromJson(json)).toList();
   }
@@ -222,8 +208,7 @@ class ReportDataSourceImpl implements ReportDataSource {
       String urlPath, Map<String, String> queryParams) async {
     final response = await _getRequest(urlPath, queryParams);
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return ReportListingModel.fromJson(body.data);
   }
@@ -232,8 +217,7 @@ class ReportDataSourceImpl implements ReportDataSource {
       String urlPath, Map<String, String> queryParams) async {
     final response = await _getRequest(urlPath, queryParams);
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     final list =
         body.data.containsKey('reports') ? body.data['reports'] as List : [];
@@ -245,18 +229,17 @@ class ReportDataSourceImpl implements ReportDataSource {
       String urlPath, Map<String, String> queryParams) async {
     final response = await _getRequest(urlPath, queryParams);
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return ReportCommentListingModel.fromJson(body.data);
   }
 
-  Future<http.Response> _getRequest(
+  Future<Response> _getRequest(
       String urlPath, Map<String, String> queryParams) {
-    final authority = baseApiUrl.replaceAll('https://', '');
-    final uri = Uri.https(authority, urlPath, queryParams);
+    //final authority = baseApiUrl.replaceAll('https://', '');
+    //final uri = Uri.https(authority, urlPath, queryParams);
 
-    return authHttpClient.get(uri);
+    return authHttpClient.get(urlPath, headers: queryParams);
   }
 
 

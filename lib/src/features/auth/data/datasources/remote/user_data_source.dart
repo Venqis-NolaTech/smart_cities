@@ -44,10 +44,9 @@ class UserDataSourceImpl extends UserDataSource {
 
   @override
   Future<UserModel> getProfile() async {
-    final response = await authHttpClient.get('$baseApiUrl/api/user');
+    final response = await authHttpClient.get('/api/user');
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return UserModel.fromJson(body.data);
   }
@@ -57,12 +56,11 @@ class UserDataSourceImpl extends UserDataSource {
     var payload = json.encode(user.toJsonRequest());
 
     final response = await authHttpClient.put(
-      '$baseApiUrl/api/user',
+      '/api/user',
       body: payload,
     );
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel.fromJson(response.data);
 
     return UserModel.fromJson(body.data);
   }
@@ -72,12 +70,11 @@ class UserDataSourceImpl extends UserDataSource {
     var payload = json.encode({'photoURL': photoURL});
 
     final response = await authHttpClient.put(
-      '$baseApiUrl/api/user',
+      '/api/user',
       body: payload,
     );
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return UserModel.fromJson(body.data);
   }
@@ -90,12 +87,11 @@ class UserDataSourceImpl extends UserDataSource {
     });
 
     final response = await authHttpClient.post(
-      '$baseApiUrl/api/user/messagingtoken/add',
+      '/api/user/messagingtoken/add',
       body: payload,
     );
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return body.success;
   }
@@ -112,8 +108,7 @@ class UserDataSourceImpl extends UserDataSource {
 
     final response = await publicHttpClient.get(uri);
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     final params = Map<String, dynamic>();
 
@@ -129,33 +124,33 @@ class UserDataSourceImpl extends UserDataSource {
 
   @override
   Future<List<CatalogItem>> getMunicipality() async {
-    final response = await publicHttpClient.get('$baseApiUrl/api/user/municipality');
+    final response = await publicHttpClient.get('/api/user/municipality');
     print('listado de municipios'+response.toString());
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
     return List<CatalogItem>.from(body.data['municipality'].map((x) => CatalogItemModel.fromJson(x)));
   }
 
   @override
   Future<List<CatalogItem>> getNeighborhood(String keySector) async {
-    final response = await publicHttpClient.get('$baseApiUrl/api/user/sector/${keySector}/neighborhood');
+    final response = await publicHttpClient.get('/api/user/sector/${keySector}/neighborhood');
     print('listado de sectores '+response.toString());
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
       return List<CatalogItem>.from(body.data['neighborhood'].map((x) => CatalogItemModel.fromJson(x)));
   }
 
   @override
   Future<List<CatalogItem>> getProvince() async {
-    final response = await publicHttpClient.get('$baseApiUrl/api/user/province');
+    final response = await publicHttpClient.get('/api/user/province');
     print('listado de provincias '+response.toString());
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
     return List<CatalogItem>.from(body.data['province'].map((x) => CatalogItemModel.fromJson(x)));
   }
 
   @override
   Future<List<CatalogItem>> getSectores(String keyMunicipality) async {
-    final response = await publicHttpClient.get('$baseApiUrl/api/user/sector?municipality=$keyMunicipality');
+    final response = await publicHttpClient.get('/api/user/sector?municipality=$keyMunicipality');
     print('listado de sectores '+response.toString());
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(json.decode(response.body));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
     return List<CatalogItem>.from(body.data['sector'].map((x) => CatalogItemModel.fromJson(x)));
   }
 

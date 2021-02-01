@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_cities/src/core/api/auth_client.dart';
-import 'package:smart_cities/src/core/api/base_http_client.dart';
+import 'package:smart_cities/src/core/api/base_dio_client.dart';
 
 import '../../../../../core/api/public_http_client.dart';
 import '../../../../../core/entities/response_model.dart';
@@ -68,7 +68,7 @@ class BlogDataSourceImpl extends BlogDataSource {
     );
 
     final body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
+      json.decode(response.data),
     );
 
     return PostListingsModel.fromJson(body.data);
@@ -93,7 +93,7 @@ class BlogDataSourceImpl extends BlogDataSource {
     );
 
     final body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
+      json.decode(response.data),
     );
 
     return PostListingsModel.fromJson(body.data);
@@ -105,7 +105,7 @@ class BlogDataSourceImpl extends BlogDataSource {
         await publicHttpClient.get('$baseApiUrl/api/notice/news/$postId');
 
     var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
+      json.decode(response.data),
     );
 
     return PostModel.fromJson(body.data);
@@ -117,7 +117,7 @@ class BlogDataSourceImpl extends BlogDataSource {
         .get('$baseApiUrl/api/notice/announcement/$postId');
 
     var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
+      json.decode(response.data),
     );
 
     return PostTrainingModel.fromJson(body.data);
@@ -129,7 +129,7 @@ class BlogDataSourceImpl extends BlogDataSource {
         await publicHttpClient.get('$baseApiUrl/api/notice/training/$postId');
 
     var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
+      json.decode(response.data),
     );
 
     return PostTrainingModel.fromJson(body.data);
@@ -141,22 +141,22 @@ class BlogDataSourceImpl extends BlogDataSource {
         await authHttpClient.post('$baseApiUrl/api/notice/notice/$postId/like');
 
     var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
+      json.decode(response.data),
     );
 
     return PostModel.fromJson(body.data);
   }
 
   // private methods --
-  Future<http.Response> _getRequest(
+  Future<Response> _getRequest(
     String urlPath,
     Map<String, String> queryParams,
-    BaseHttpClient client,
+    BaseDioClient client,
   ) {
-    final authority = baseApiUrl.replaceAll(RegExp(r'https://|http://'), '');
-    final uri = Uri.https(authority, urlPath, queryParams);
+    //final authority = baseApiUrl.replaceAll(RegExp(r'https://|http://'), '');
+    //final uri = Uri.https(authority, urlPath, queryParams);
 
-    return client.get(uri);
+    return client.get(urlPath, headers: queryParams);
   }
 
   // -- private methods

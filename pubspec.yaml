@@ -65,7 +65,8 @@ dependencies:
   data_connection_checker: ^0.3.4
   connectivity: ^2.0.2
   url_launcher: ^5.7.2
-  http: ^0.12.2
+  #http: ^0.12.2
+  dio: ^3.0.10
 
   # Provider
   provider: ^4.3.2+2
