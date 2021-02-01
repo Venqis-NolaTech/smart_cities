@@ -1,18 +1,13 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:smart_cities/src/core/util/file_util.dart';
 import 'package:smart_cities/src/shared/components/image_gallery.dart';
 import 'package:smart_cities/src/shared/components/image_gallery_with_zoom.dart';
 
 import '../../../../../../generated/i18n.dart';
-import '../../../../../core/util/string_util.dart';
 import '../../../../../shared/app_colors.dart';
-import '../../../../../shared/components/read_more_text.dart';
-import '../../../../../shared/components/rounded_button.dart';
 import '../../../../../shared/constant.dart';
-import '../../../../../shared/image_utils.dart';
 import '../../../../../shared/spaces.dart';
 import '../../../domain/entities/report.dart';
 
@@ -52,7 +47,12 @@ class _ReportDetailsCompletedState extends State<ReportDetailsCompleted> {
               padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
               child: Row(
                 children: [
-                  Expanded(child: Text(S.of(context).gallery, style: kNormalStyle.copyWith(color: AppColors.primaryTextLight),)),
+                  Expanded(
+                      child: Text(
+                    S.of(context).galleryPhoto,
+                    style: kNormalStyle.copyWith(
+                        color: AppColors.primaryTextLight),
+                  )),
                 ],
               ),
             ),

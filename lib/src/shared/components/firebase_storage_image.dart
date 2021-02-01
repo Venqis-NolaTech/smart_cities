@@ -142,13 +142,10 @@ class _FirebaseStorageImageState extends State<FirebaseStorageImage>
       return;
     }
 
-    final reference = _storage.getReferenceFromUrl(widget.referenceUrl);
+    final reference = _storage.refFromURL(widget.referenceUrl);
 
     this._imageDownloadState = ImageDownloadState.GettingReference;
-
-    reference.then(this._getReferenceByUrl).catchError((err) {
-      this._setError();
-    });
+    this._getReferenceByUrl(reference);
   }
 
   Widget _buildPlaceholder() => this.placeholderImage != null
@@ -156,7 +153,7 @@ class _FirebaseStorageImageState extends State<FirebaseStorageImage>
       : Center(child: this.fallbackWidget);
 
   /// Gets reference from reference url.
-  void _getReferenceByUrl(StorageReference reference) {
+  void _getReferenceByUrl(Reference reference) {
     final url = reference.getDownloadURL();
 
     this._imageDownloadState = ImageDownloadState.GettingURL;

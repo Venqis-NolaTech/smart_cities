@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_firebase_performance/dio_firebase_performance.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:smart_cities/src/core/util/flavor_config.dart';
+import 'package:smart_cities/src/core/api/dio_interceptor.dart';
 
 import '../error/exception.dart';
 
@@ -20,7 +23,7 @@ abstract class BaseDioClient {
 
 
   Future<Dio> getDio() async {
-    await checkDeviceConnected();
+    //await checkDeviceConnected();
     _instance = Dio();
     _instance.options.baseUrl = _apiBaseUrl;
     _instance.options.connectTimeout = 12000;
@@ -28,6 +31,11 @@ abstract class BaseDioClient {
       "Content-Type": "application/json",
       "Authorization": "Bearer ${await _getToken()}"
     };
+
+    //final performanceInterceptor = DioFirebasePerformanceInterceptor();
+    //_instance.interceptors.add(DioInterceptor());
+    _instance.interceptors.add(DioCacheManager(CacheConfig(baseUrl: _apiBaseUrl)).interceptor);
+
     return _instance;
   }
 
@@ -44,27 +52,34 @@ abstract class BaseDioClient {
     if(_instance==null)
       await getDio();
 
-    final response = await _instance.get(url, queryParameters: headers ?? null);
+    final response = await _instance.get(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
     return _processResponse(response);
   }
 
   Future<Response> post(url, {Map<String, String> headers, body, Encoding encoding}) async {
+    if(_instance==null)
+      await getDio();
 
-    final response = await _instance.post(url, data: body, queryParameters: headers ?? null);
+    final response = await _instance.post(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
 
     return _processResponse(response);
   }
 
   Future<Response> put(url, {Map<String, String> headers, body, Encoding encoding}) async {
+    if(_instance==null)
+      await getDio();
 
-    final response = await _instance.put(url, data: body, queryParameters: headers ?? null);
+    final response = await _instance.put(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
 
     return _processResponse(response);
   }
 
 
   Future<Response> delete(url, {Map<String, String> headers}) async {
-    final response = await _instance.delete(url, queryParameters: headers ?? null);
+    if(_instance==null)
+      await getDio();
+
+    final response = await _instance.delete(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
 
     return _processResponse(response);
   }

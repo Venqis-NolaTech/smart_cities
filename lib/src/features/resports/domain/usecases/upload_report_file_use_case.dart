@@ -33,15 +33,15 @@ class UploadReportFileUseCase
 
         final fileRoute =
             'reportFiles/${reportId}_$count.${file.extensionName}';
-        final StorageReference storageRef =
+        final Reference storageRef =
             firebaseStorage.ref().child(fileRoute);
 
-        StorageUploadTask uploadTask = storageRef.putFile(file);
+        UploadTask uploadTask = storageRef.putFile(file);
 
-        final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
+        final TaskSnapshot downloadUrl = await uploadTask.whenComplete(() => null);
 
-        String bucket = await downloadUrl.ref.getBucket();
-        String path = await downloadUrl.ref.getPath();
+        String bucket = await downloadUrl.ref.bucket;
+        String path = await downloadUrl.ref.fullPath;
 
         uploadUrls.add('gs://$bucket/$path');
       }));
