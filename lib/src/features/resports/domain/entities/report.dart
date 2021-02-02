@@ -51,6 +51,8 @@ extension ReportStatusExtension on ReportStatus {
         return AppColors.greenCompleted;
       case ReportStatus.Closed:
         return AppColors.greenCompleted;
+      case ReportStatus.SolutionCompleted:
+        return AppColors.greenCompleted;
     }
     return AppColors.greenCompleted;
   }

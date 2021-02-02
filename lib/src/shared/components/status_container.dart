@@ -18,6 +18,8 @@ class StatusContainer extends StatelessWidget {
         return AppColors.inProgressStatus;
       case ReportStatus.Closed:
         return AppColors.closedStatus;
+      case ReportStatus.SolutionCompleted:
+        return AppColors.openStatus;
     }
     return AppColors.openStatus;
   }

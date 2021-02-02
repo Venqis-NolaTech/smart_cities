@@ -23,7 +23,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   final PublicHttpClient publicHttpClient;
   final UserLocalDataSource userLocalDataSource;
 
-  String get baseApiUrl => FlavorConfig.instance?.values?.baseApiUrl ?? "";
+  //String get baseApiUrl => FlavorConfig.instance?.values?.baseApiUrl ?? "";
 
   @override
   Future<bool> login({String firebaseToken, String countryCode}) async {
@@ -32,7 +32,7 @@ class AuthDataSourceImpl extends AuthDataSource {
       'countryCode': '$countryCode',
     });
 
-    final response = await publicHttpClient.post('$baseApiUrl/api/auth/login',
+    final response = await publicHttpClient.post('/api/auth/login',
         body: payload);
 
     var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
@@ -51,7 +51,7 @@ class AuthDataSourceImpl extends AuthDataSource {
     });
 
     final response = await publicHttpClient
-        .post('$baseApiUrl/api/auth/register', body: payload);
+        .post('/api/auth/register', body: payload);
 
     var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
@@ -71,7 +71,7 @@ class AuthDataSourceImpl extends AuthDataSource {
     );
 
     var response = await publicHttpClient.post(
-      '$baseApiUrl/api/auth/validphone',
+      '/api/auth/validphone',
       body: payload,
     );
 
