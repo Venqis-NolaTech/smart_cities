@@ -75,7 +75,7 @@ class _PostsListState extends State<PostsList> {
   void _gotoDetail(Post post) async {
     final detailCallback = (await BlogDetailPage.pushNavigate(
       context,
-      args: BlogDetailPageArgs(post: post),
+      args: BlogDetailPageArgs(post: post, isVisibleLiked: _provider.isLogged ?? false),
     )) as PostListDetailCallback;
 
     if (detailCallback != null && detailCallback.refresh)
@@ -163,6 +163,7 @@ class _PostsListState extends State<PostsList> {
           post: post,
           isFirst: isFirst,
           isLast: isLast,
+          isVisibleLiked: provider.isLogged ?? false,
           onPressed: () => _gotoDetail(post),
           onLikePressed: (liked) => _onLikePost(post, liked),
           onSharePressed: () => _onSharePost(post),

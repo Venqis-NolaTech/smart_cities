@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,7 +47,7 @@ initExternal(GetIt sl) async {
   sl.registerLazySingleton(() => Connectivity());
 
   sl.registerLazySingleton(() => ImagePicker());
-  sl.registerLazySingleton<http.Client>(() => http.Client());
+  //sl.registerLazySingleton<http.Client>(() => http.Client());
   sl.registerLazySingleton(() => GoogleMapsPlaces(
       apiKey: FlavorConfig?.instance?.values?.googlePlacesApiKey ?? ""));
 

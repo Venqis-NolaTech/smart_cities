@@ -138,7 +138,7 @@ class ReportModel extends Report {
       longitude: json["longitude"]  ?? 0.0,
       street: json["street"],
       createdBy: json["createdBy"]!=null ? CreatedByModel.fromJson(json["createdBy"]): null,
-      number: json["number"],
+      number: json["number"]!=null ? int.parse(json["number"].toString()) : null,
       createdAt: json["createdAt"],
       updatedAt: json["updatedAt"],
       follow: json["follow"] ?? false,

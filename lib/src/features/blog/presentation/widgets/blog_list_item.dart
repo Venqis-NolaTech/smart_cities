@@ -19,11 +19,13 @@ class BlogListItem extends StatefulWidget {
     @required this.onSharePressed,
     this.isFirst = false,
     this.isLast = false,
+    this.isVisibleLiked = false,
   }) : super(key: key);
 
   final Post post;
   final bool isFirst;
   final bool isLast;
+  final bool isVisibleLiked;
   final Function onPressed;
   final Function(bool) onLikePressed;
   final Function onSharePressed;
@@ -153,7 +155,7 @@ class _BlogListItemState extends State<BlogListItem> {
                 ),
                 onPressed: widget.onSharePressed,
               ),
-              CircularButton(
+              widget.isVisibleLiked ? CircularButton(
                 color: Colors.transparent,
                 size: 36,
                 child: Icon(
@@ -161,7 +163,7 @@ class _BlogListItemState extends State<BlogListItem> {
                   color: Colors.white,
                 ),
                 onPressed: _onLikePressed,
-              ),
+              ): Container(),
             ],
           ),
         ],

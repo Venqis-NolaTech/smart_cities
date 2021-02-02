@@ -26,6 +26,17 @@ class BlogRepositoryImpl extends BlogRepository {
       );
 
   @override
+  Future<Either<Failure, PostListings>> getGeneralPosts({PostKind kind, int page, int count}) =>
+    _process(
+            () => blogDataSource.getGeneralPosts(
+          kind: kind,
+          page: page,
+          count: count,
+        ),
+    );
+
+
+  @override
   Future<Either<Failure, PostListings>> getLastPosts(
           {PostKind kind, int page, int count}) =>
       _process(

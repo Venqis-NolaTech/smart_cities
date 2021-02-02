@@ -50,7 +50,7 @@ class FirebaseStoreImageProvider
   }
 
   Future<String> _getImageUrl() async {
-    final gsReference = await _storage.getReferenceFromUrl(ref);
+    final gsReference = await _storage.refFromURL(ref);
     final String url = await gsReference.getDownloadURL();
     return url;
   }

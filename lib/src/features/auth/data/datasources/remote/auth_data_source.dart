@@ -35,8 +35,7 @@ class AuthDataSourceImpl extends AuthDataSource {
     final response = await publicHttpClient.post('$baseApiUrl/api/auth/login',
         body: payload);
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     _setTokes(body);
 
@@ -54,8 +53,7 @@ class AuthDataSourceImpl extends AuthDataSource {
     final response = await publicHttpClient
         .post('$baseApiUrl/api/auth/register', body: payload);
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.body));
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     _setTokes(body);
 
@@ -77,9 +75,7 @@ class AuthDataSourceImpl extends AuthDataSource {
       body: payload,
     );
 
-    var body = ResponseModel<Map<String, dynamic>>.fromJson(
-      json.decode(response.body),
-    );
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return body.data;
   }

@@ -1,7 +1,7 @@
 name: smart_cities
 description: A new Flutter project.
 
-version: 1.0.0+3
+version: 1.1.0+4
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -16,29 +16,29 @@ dependencies:
   material_design_icons_flutter: ^4.0.5655
 
   # Firebase
-  firebase_core: ^0.5.0
-
+  firebase_core: ^0.7.0
+  firebase_core_platform_interface: ^3.0.1
   # Push notifications
-  firebase_messaging: ^7.0.3
+  firebase_messaging:
   flutter_local_notifications: ^2.0.0
 
   # Crashlytics
-  firebase_crashlytics: ^0.2.1
+  firebase_crashlytics:
 
   # Performance
-  firebase_performance: ^0.4.0+1
+  firebase_performance: ^0.5.0+1
 
   # Analytics
-  firebase_analytics: ^6.0.1
+  firebase_analytics:
 
   # Auth
-  firebase_auth: ^0.18.4+1
+  firebase_auth: ^0.20.0+1
 
   # Analytics
   firebase_dynamic_links: ^0.5.0+11
 
   # Storage image file
-  firebase_storage: ^4.0.1
+  firebase_storage:
 
   # Maps
   flutter_google_maps: ^4.0.0
@@ -65,7 +65,10 @@ dependencies:
   data_connection_checker: ^0.3.4
   connectivity: ^2.0.2
   url_launcher: ^5.7.2
-  http: ^0.12.2
+  #http: ^0.12.2
+  dio: ^3.0.10
+  dio_firebase_performance: ^0.3.0
+  dio_http_cache: ^0.2.11
 
   # Provider
   provider: ^4.3.2+2
@@ -86,7 +89,7 @@ dependencies:
 
   # Persistent data
   shared_preferences: ^0.5.12
-  cloud_firestore: ^0.14.1+2
+  cloud_firestore:
 
   # Device
   permission_handler: ^5.0.1+1

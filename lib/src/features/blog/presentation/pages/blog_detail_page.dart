@@ -22,8 +22,8 @@ import '../widgets/blog_detail_header.dart';
 
 class BlogDetailPageArgs {
   final Post post;
-
-  BlogDetailPageArgs({@required this.post});
+  final bool isVisibleLiked;
+  BlogDetailPageArgs({@required this.post, @required this.isVisibleLiked});
 }
 
 class BlogDetailPage extends StatefulWidget {
@@ -149,13 +149,13 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
           ),
           onPressed: _onSharePost,
         ),
-        IconButton(
+        args.isVisibleLiked ? IconButton(
           icon: Icon(
             _liked ? MdiIcons.heart : MdiIcons.heartOutline,
             color: Colors.white,
           ),
           onPressed: () => _onLikePressed(provider),
-        ),
+        ) : Container(),
       ],
     );
   }

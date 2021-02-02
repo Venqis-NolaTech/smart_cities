@@ -74,7 +74,7 @@ class _SplashPageState extends State<SplashPage> {
               Logo(),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
+                    const EdgeInsets.symmetric(vertical: 40, horizontal: 80),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

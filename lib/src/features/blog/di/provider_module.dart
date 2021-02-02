@@ -20,6 +20,8 @@ initProvider(GetIt sl) {
     () => BlogListProvider(
       getAllPostsUseCase: sl(),
       likePostUseCase: sl(),
+      loggedUserUseCase: sl(),
+      geGeneralPostsUseCase: sl(),
     ),
   );
 

@@ -15,6 +15,7 @@
     "select": "Seleccione",
     "camera": "Cámara",
     "crop": "Recortar",
+    "gallery": "Galería de imágenes",
     "requiredField": "Requerido",
     "send": "Enviar",
     "phoneNumber": "Número de teléfono",
@@ -134,7 +135,7 @@
     "menuProfileTitle": "Perfil",
 
     "municipality" : "p r o v i n c i a",
-    "textWelcome": "!Bienvenido¡ Aquí te conectas con tu comunidad y participas en su crecimiento",
+    "textWelcome": "¡Bienvenido! Aquí te conectas con tu comunidad y participas en su crecimiento",
     "pay": "PAGOS",
     "textPay" : "Realiza el pago de tus servicios de manera más rápida",
     "pickup": "RECOGIDA",
@@ -269,5 +270,5 @@
     "toSelect": "Seleccionar",
     "locationDisable": "Los servicios de ubicación estan desactivados.",
     "seeGallery": "Ver galería",
-    "gallery": "Galería de fotos - Antes/Después"
+    "galleryPhoto": "Galería de fotos - Antes/Después"
 }

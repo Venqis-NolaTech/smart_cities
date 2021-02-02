@@ -12,7 +12,6 @@ initCore(GetIt sl) {
 
   sl.registerLazySingleton(
     () => AuthHttpClient(
-      client: sl(),
       dataConnectionChecker: sl(),
       userLocalDataSource: sl(),
       publicHttpClient: sl(),
@@ -22,14 +21,12 @@ initCore(GetIt sl) {
   sl.registerLazySingleton(
     () => FirebaseAuthHttpClient(
       firebaseAuth: sl(),
-      client: sl(),
       dataConnectionChecker: sl(),
     ),
   );
 
   sl.registerLazySingleton(
     () => PublicHttpClient(
-      client: sl(),
       dataConnectionChecker: sl(),
     ),
   );

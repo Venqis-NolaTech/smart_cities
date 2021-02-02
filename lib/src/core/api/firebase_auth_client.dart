@@ -1,17 +1,14 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' show Client;
 import 'package:meta/meta.dart';
+import 'package:smart_cities/src/core/api/base_dio_client.dart';
 
-import 'base_http_client.dart';
 
-class FirebaseAuthHttpClient extends BaseHttpClient {
+  class FirebaseAuthHttpClient extends BaseDioClient {
   FirebaseAuthHttpClient({
     @required this.firebaseAuth,
-    @required Client client,
     @required DataConnectionChecker dataConnectionChecker,
   }) : super(
-          client,
           dataConnectionChecker,
         );
 

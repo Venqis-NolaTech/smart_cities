@@ -138,8 +138,9 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                     Spaces.verticalMedium(),
-                    FeatureNews()
-
+                    FeatureNews(),
+                    Spaces.verticalMedium(),
+                    Spaces.verticalMedium(),
                   ],
                 ),
               ),
