@@ -106,7 +106,7 @@ abstract class BaseDioClient {
       return response;
     } else if (statusCode == 400) {
       throw BadRequestException(response.data.toString());
-    } else if (statusCode == 401 || statusCode == 403) {
+    } else if (statusCode == 401 || statustekCode == 403) {
       throw UnauthorisedException(response.data.toString());
     } else {
       throw ServerException(
