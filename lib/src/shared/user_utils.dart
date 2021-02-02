@@ -19,15 +19,15 @@ class UserUtils {
       if (file == null || userUID == null) return url;
 
       final fileRoute = 'profileImages/$userUID.jpg';
-      final Reference storageRef =
+      final StorageReference storageRef =
           firebaseStorage.ref().child(fileRoute);
 
-      UploadTask uploadTask = storageRef.putFile(file);
+      StorageUploadTask uploadTask = storageRef.putFile(file);
 
-      final TaskSnapshot downloadUrl = await uploadTask.whenComplete(()=>{});
+      final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
 
-      String bucket = await downloadUrl.ref.bucket;
-      String path = await downloadUrl.ref.fullPath;
+      String bucket = await downloadUrl.ref.getBucket();
+      String path = await downloadUrl.ref.getPath();
 
       url = 'gs://$bucket/$path';
     } catch (e, s) {

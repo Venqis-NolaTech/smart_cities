@@ -24,15 +24,15 @@ class UploadUserPhotoUseCase extends UseCase<String, File> {
       final currentUser = firebaseAuth.currentUser;
 
       final fileRoute = 'profileImages/${currentUser.uid}.jpg';
-      final Reference storageRef =
+      final StorageReference storageRef =
           firebaseStorage.ref().child(fileRoute);
 
-      UploadTask uploadTask = storageRef.putFile(file);
+      StorageUploadTask uploadTask = storageRef.putFile(file);
 
-      final TaskSnapshot downloadUrl = await uploadTask.whenComplete(() => null);
+      final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
 
-      String bucket = await downloadUrl.ref.bucket;
-      String path = await downloadUrl.ref.fullPath;
+      String bucket = await downloadUrl.ref.getBucket();
+      String path = await downloadUrl.ref.getPath();
 
       return Right('gs://$bucket/$path');
     } catch (e, s) {

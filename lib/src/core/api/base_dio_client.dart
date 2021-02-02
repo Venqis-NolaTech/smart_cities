@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_firebase_performance/dio_firebase_performance.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:smart_cities/src/core/util/flavor_config.dart';
-import 'package:smart_cities/src/core/api/dio_interceptor.dart';
+//import 'package:smart_cities/src/core/api/dio_interceptor.dart';
 
 import '../error/exception.dart';
 
