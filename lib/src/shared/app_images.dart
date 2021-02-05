@@ -59,6 +59,7 @@ class AppImagePaths {
 
   static const tune = '$_basePath/tune.png';
 
+  static const backgroundProfile = '$_basePath/backgroung_profile.png';
 }
 
 class AppImages {
@@ -101,6 +102,8 @@ class AppImages {
   static final iconGallery = Image.asset(AppImagePaths.iconGallery);
   static final empyteComment = Image.asset(AppImagePaths.empyteComment);
   static final iconTune = Image.asset(AppImagePaths.tune);
+
+  static final backgroundProfile = Image.asset(AppImagePaths.backgroundProfile);
 
 
 }

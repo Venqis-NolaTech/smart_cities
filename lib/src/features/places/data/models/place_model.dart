@@ -1,8 +1,8 @@
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/core/models/catalog_item_model.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
-import 'package:smart_cities/src/features/resports/data/models/report_model.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/reports/data/models/report_model.dart';
+import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
 
 
 class PlaceListingModel extends PlaceListing {
@@ -48,9 +48,9 @@ class PlaceCommentListingModel extends PlaceCommentListing {
   factory PlaceCommentListingModel.fromJson(Map<String, dynamic> json) {
     return PlaceCommentListingModel(
       totalCount: json['totalCount'],
-      comments: json['comments']  != null
+      comments: json['ratings']  != null
           ? List<LastComment>.from(
-          json['comments'].map((c) => LastCommentModel.fromJson(c)))
+          json['ratings'].map((c) => LastCommentModel.fromJson(c)))
           .toList()
           : null,
     );

@@ -43,8 +43,7 @@ class AuthHttpClient extends BaseDioClient {
 
     final response = await publicHttpClient.post('/api/auth/refresh', body: payload);
 
-    final body = ResponseModel<Map<String, dynamic>>.fromJson(
-        json.decode(response.data));
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     userLocalDataSource.setToken(body.data['token']);
   }

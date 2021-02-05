@@ -3,14 +3,16 @@ import 'package:smart_cities/src/features/auth/presentation/validate/page/valida
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
-import 'package:smart_cities/src/features/resports/presentation/filter_report/page/filter_page.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/pages/general_report.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/pages/selected_neighborhood_page.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/pages/selected_sector_page.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/providers/create_report_provider.dart';
-import 'package:smart_cities/src/features/resports/presentation/report_comments/pages/report_comments_page.dart';
-import 'package:smart_cities/src/features/resports/presentation/report_details/pages/report_details_page.dart';
+import 'package:smart_cities/src/features/places/presentation/page/places_category_page.dart';
+import 'package:smart_cities/src/features/places/presentation/page/places_page.dart';
+import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/reports/presentation/filter_report/page/filter_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/pages/general_report.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/pages/selected_neighborhood_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/pages/selected_sector_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/providers/create_report_provider.dart';
+import 'package:smart_cities/src/features/reports/presentation/report_comments/pages/report_comments_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/report_details/pages/report_details_page.dart';
 
 import 'src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
 import 'src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
@@ -120,7 +122,16 @@ class AppRoute {
           //final provider = arguments as GeneralReportProvider;
           return FilterReportPage();
         }),
-      );
+      )
+      ..define(
+        routePath: PlacesCategoryPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) => PlacesCategoryPage()),
+      )
+      ..define(
+        routePath: PlacesPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) => PlacesPage()),
+      )
+    ;
 
   }
 

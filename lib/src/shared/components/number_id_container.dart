@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../features/resports/domain/entities/report.dart';
+import '../../features/reports/domain/entities/report.dart';
 import '../app_colors.dart';
 import '../constant.dart';
 

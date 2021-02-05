@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/shared/app_colors.dart';
+import 'package:smart_cities/src/shared/components/tab_bar_container.dart';
+
+
+
+class PlacesPage extends StatefulWidget {
+  static const id = "places_page";
+  @override
+  _PlacesPageState createState() => _PlacesPageState();
+}
+
+class _PlacesPageState extends State<PlacesPage> with SingleTickerProviderStateMixin{
+  List<Widget> _widgetOptions;
+  TabController _tabController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _widgetOptions = <Widget>[
+      Container(),
+      Container(),
+      Container(),
+    ];
+
+    _tabController = TabController(vsync: this, length: _widgetOptions.length);
+
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: _buildAppBar(context),
+        body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _tabController,
+          children: _widgetOptions,
+        ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+        backgroundColor: AppColors.red,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: Text(S.of(context).sitesTourist),
+        actions: [
+
+          IconButton(
+              onPressed: () async {
+                //await Navigator.pushNamed(context, FilterReportPage.id);
+              },
+              icon: Icon(
+                Icons.tune,
+                color: AppColors.white,
+              )),
+        ],
+      bottom: TabBarContainer(
+        color: AppColors.white,
+        tabBar: TabBar(
+          isScrollable: true,
+          labelColor: AppColors.blueBtnRegister,
+          unselectedLabelColor: AppColors.blueBtnRegister.withAlpha(100),
+          indicatorColor: AppColors.blueBtnRegister,
+          controller: _tabController,
+          tabs: <Widget>[
+            Tab(child: SizedBox(width: 90, child: Text(S.of(context).all, textAlign: TextAlign.center, maxLines: 1,))),
+            Tab(child: SizedBox(width: 90, child: Text(S.of(context).cercaMi, textAlign: TextAlign.center, maxLines: 1 ))),
+            Tab(child: SizedBox(width: 90, child: Text(S.of(context).map, textAlign: TextAlign.center, maxLines: 1))),
+          ],
+        ),
+      ),
+      );
+  }
+}
+
+
+

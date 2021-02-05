@@ -1,12 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../../../../../app.dart';
 import '../../../../../../generated/i18n.dart';
-import '../../../../../core/entities/catalog_item.dart';
 import '../../../../../core/util/string_util.dart';
 import '../../../../../core/util/validator.dart';
 import '../../../../../di/injection_container.dart' as di;

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
 
 
 import '../../../../core/entities/catalog_item.dart';

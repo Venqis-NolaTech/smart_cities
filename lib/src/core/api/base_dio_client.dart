@@ -23,12 +23,16 @@ abstract class BaseDioClient {
 
   Future<Dio> getDio() async {
     //await checkDeviceConnected();
+
+    final token = await _getToken();
+    final tokenChecked = await checkToken(token);
+
     _instance = Dio();
     _instance.options.baseUrl = _apiBaseUrl;
     _instance.options.connectTimeout = 12000;
     _instance.options.headers = {
       "Content-Type": "application/json",
-      "Authorization": "Bearer ${await _getToken()}"
+      "Authorization": "Bearer ${tokenChecked}"
     };
 
     //final performanceInterceptor = DioFirebasePerformanceInterceptor();
@@ -37,6 +41,11 @@ abstract class BaseDioClient {
 
     return _instance;
   }
+
+  Future<String> checkToken(String token) async{
+    return _getToken();
+  }
+
 
   Future<String> _getToken() async {
     final token = await getToken();
@@ -91,12 +100,6 @@ abstract class BaseDioClient {
           "No Internet, Reason: ${_connectionChecker?.lastTryResults?.toString() ?? ""}"));
     }
   }
-
-  Future<String> checkToken(String token) async {
-    return _getToken();
-  }
-
-
 
 
   Response _processResponse(Response response) {

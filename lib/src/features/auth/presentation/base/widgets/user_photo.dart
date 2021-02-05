@@ -19,6 +19,7 @@ class UserPhoto extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.only(top: 16.0),
+      alignment: Alignment.center,
       child: Stack(
         alignment: Alignment.topRight,
         children: <Widget>[

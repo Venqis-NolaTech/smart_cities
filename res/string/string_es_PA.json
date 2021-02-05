@@ -270,5 +270,7 @@
     "toSelect": "Seleccionar",
     "locationDisable": "Los servicios de ubicación estan desactivados.",
     "seeGallery": "Ver galería",
-    "galleryPhoto": "Galería de fotos - Antes/Después"
+    "galleryPhoto": "Galería de fotos - Antes/Después",
+    "places": "Lugares",
+    "sitesTourist": "Sitios Turísticos"
 }

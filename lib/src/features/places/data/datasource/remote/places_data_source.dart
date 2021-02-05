@@ -1,7 +1,13 @@
+import 'dart:convert';
+import 'package:meta/meta.dart';
+import 'package:dio/dio.dart';
+
 import 'package:smart_cities/src/features/places/data/models/place_model.dart';
+import 'package:smart_cities/src/core/api/auth_client.dart';
 
+import '../../../../../core/api/public_http_client.dart';
 import '../../../../../core/models/catalog_item_model.dart';
-
+import '../../../../../core/models/response_model.dart';
 
 abstract class PlacesDataSource{
   Future<List<CatalogItemModel>> getListCategory();
@@ -30,11 +36,121 @@ abstract class PlacesDataSource{
       });
 
 
-  Future<List<PlaceModel>> getNearbyPlaces({ //ReportModel
+  Future<PlaceListingModel> getNearbyPlaces({ //ReportModel
     double latitude,
     double longitude,
     double distance,
     String municipality
   });
+
+}
+
+
+class PlacesDataSourceImpl extends PlacesDataSource{
+  final PublicHttpClient publicHttpClient;
+  final AuthHttpClient authHttpClient;
+
+  PlacesDataSourceImpl({
+    @required this.publicHttpClient,
+    @required  this.authHttpClient
+  });
+
+  @override
+  Future<LastCommentModel> createComment({String placeId, Map<String, dynamic> request}) async  {
+    var payload = json.encode(request);
+
+    var response = await authHttpClient.post(
+      '/api/place/$placeId/rating',
+      body: payload,
+    );
+
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return LastCommentModel.fromJson(body.data);
+  }
+
+  @override
+  Future<List<CatalogItemModel>> getListCategory() async {
+    final response = await publicHttpClient.get('/api/place/category');
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    final list = body.data.containsKey('placecategory') ? body.data['placecategory'] as List : [];
+
+    return list.map((json) => CatalogItemModel.fromJson(json)).toList();
+
+  }
+
+  @override
+  Future<PlaceCommentListingModel> getMyComments(String placeId, {int page, int count}) {
+
+
+  }
+
+  @override
+  Future<PlaceListingModel> getNearbyPlaces(
+      {double latitude,
+      double longitude,
+      double distance,
+      String municipality}) async {
+    final queryParams = Map<String, String>();
+
+    if (latitude != null && longitude != null && distance != null) {
+      queryParams['latitude'] = '$latitude';
+      queryParams['longitude'] = '$longitude';
+      queryParams['distanceRadius'] = '$distance';
+    }
+
+    return _placesRequest('/api/place/municipality/$municipality/nearby', queryParams);
+
+  }
+
+  Future<PlaceListingModel> _placesRequest(
+      String urlPath, Map<String, String> queryParams) async {
+    final response = await _getRequest(urlPath, queryParams);
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return PlaceListingModel.fromJson(body.data);
+  }
+
+
+  Future<Response> _getRequest(
+      String urlPath, Map<String, String> queryParams) {
+    //final authority = baseApiUrl.replaceAll('https://', '');
+    //final uri = Uri.https(authority, urlPath, queryParams);
+
+    return authHttpClient.get(urlPath, headers: queryParams);
+  }
+
+
+  @override
+  Future<PlaceModel> getPlace(String id) {
+
+
+  }
+
+  @override
+  Future<PlaceCommentListingModel> getPlaceComments(String placeId, {int page, int count}) {
+
+
+  }
+
+  @override
+  Future<PlaceListingModel> getPlaces(String municipality) {
+
+
+  }
+
+  @override
+  Future<PlaceListingModel> getPlacesByCategory(String municipality, String category)  async {
+    final queryParams = Map<String, String>();
+
+    if (municipality != null && category != null ) {
+      queryParams['category'] = '$category';
+    }
+
+    return _placesRequest('/api/report/municipality/$municipality', queryParams);
+  }
 
 }

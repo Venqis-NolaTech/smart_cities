@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/app.dart';
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/features/auth/presentation/base/widgets/user_photo.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
+import 'package:smart_cities/src/shared/components/custom_item_list.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
@@ -114,40 +116,25 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
 
         var selected= provider.municipality == municipalitys[index].key;
 
-        return Container(
-          color:   selected ? AppColors.green : Colors.white,
-          child: Column(
-            children: [
-              ListTile(
-                onTap: () async {
-                  setState(() {
-                    provider.municipality=municipalitys[index].key;
-                    //Navigator.pushReplacementNamed(context, MainPage.id);
-                  });
-                  await provider.updateMunicipio(municipalitys[index]);
-                  _process(provider);
-                  //await provider.editProfile();
-
-                },
-                title: Text(municipalitys[index].value,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: selected
-                            ? AppColors.white
-                            : AppColors.textItem,
-
-                      fontFamily: 'Roboto',
-                      fontWeight: selected ? FontWeight.bold : FontWeight.w400 ,
-                    )
-                ),
-              ),
-              Container(color: AppColors.greyButtom.withOpacity(0.5), height: 0.6,),
-            ],
-          ),
+        return CustomItemList(
+          selected: selected,
+          onTap: () => onTapMunicipality(provider, municipalitys[index]),
+          title: municipalitys[index].value,
+          isDivider: true,
         );
       });
     else
       return List<Widget>();
+  }
+
+  Future onTapMunicipality(ProfileProvider provider, CatalogItem item) async {
+    setState(() {
+      provider.municipality=item.key;
+      //Navigator.pushReplacementNamed(context, MainPage.id);
+    });
+    await provider.updateMunicipio(item);
+    _process(provider);
+    //await provider.editProfile();
   }
 
 
