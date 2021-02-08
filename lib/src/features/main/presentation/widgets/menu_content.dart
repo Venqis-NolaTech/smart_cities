@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/auth/presentation/base/widgets/user_photo.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
-import 'package:smart_cities/src/features/places/presentation/page/places_category_page.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/page/places_category_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/custom_item_list.dart';
 import 'package:smart_cities/src/shared/spaces.dart';

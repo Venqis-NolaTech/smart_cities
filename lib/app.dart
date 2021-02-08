@@ -12,12 +12,6 @@ import 'src/shared/app_colors.dart';
 Map<String, String> authHeaders;
 Map<String, dynamic> remoteParams;
 User currentUser;
-List<CatalogItem> institutions;
-List<CatalogItem> provinces;
-List<CatalogItem> rights;
-List<CatalogItem> nationalities;
-List<CatalogItem> reportTypes;
-
 List<CatalogItem> municipalitys;
 
 class App extends StatelessWidget {

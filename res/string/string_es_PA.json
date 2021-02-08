@@ -272,5 +272,13 @@
     "seeGallery": "Ver galería",
     "galleryPhoto": "Galería de fotos - Antes/Después",
     "places": "Lugares",
-    "sitesTourist": "Sitios Turísticos"
+    "sitesTourist": "Sitios Turísticos",
+
+    "reportInLocation": "Incidentes reportados en tu área",
+    "placesInLocation": "Lugares a visitar cerca de tí",
+
+    "qualify": "Calificar",
+    "qualifySitie": "Calificar el lugar",
+    "writeReview": "Escribir reseña",
+    "placesNotFound": "No hay Lugares que mostrar."
 }

@@ -14,6 +14,7 @@ class GetNearbyPlacesByCategoryUseCase extends UseCase<PlaceListingModel, GetPla
 
   @override
   Future<Either<Failure, PlaceListingModel>> call(params, {callback}) {
+    return placeRepository.listPlacesByCategory(params.municipality, params.category);
     return placeRepository.getNearbyPlaces(municipality: params.municipality,
         category: params.category, latitude: params.latitude,
         longitude: params.longitude, distance: params.distance);

@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 
 import 'package:smart_cities/src/features/places/data/models/place_model.dart';
 import 'package:smart_cities/src/core/api/auth_client.dart';
+import 'package:smart_cities/src/core/util/flavor_config.dart';
+
 
 import '../../../../../core/api/public_http_client.dart';
 import '../../../../../core/models/catalog_item_model.dart';
@@ -40,7 +42,8 @@ abstract class PlacesDataSource{
     double latitude,
     double longitude,
     double distance,
-    String municipality
+    String municipality,
+    String category
   });
 
 }
@@ -92,13 +95,15 @@ class PlacesDataSourceImpl extends PlacesDataSource{
       {double latitude,
       double longitude,
       double distance,
-      String municipality}) async {
+      String municipality,
+      String category}) async {
     final queryParams = Map<String, String>();
 
     if (latitude != null && longitude != null && distance != null) {
       queryParams['latitude'] = '$latitude';
       queryParams['longitude'] = '$longitude';
       queryParams['distanceRadius'] = '$distance';
+      queryParams['category'] = '$category';
     }
 
     return _placesRequest('/api/place/municipality/$municipality/nearby', queryParams);
@@ -114,13 +119,15 @@ class PlacesDataSourceImpl extends PlacesDataSource{
     return PlaceListingModel.fromJson(body.data);
   }
 
+  String get _apiBaseUrl => FlavorConfig?.instance?.values?.baseApiUrl ?? "";
 
   Future<Response> _getRequest(
       String urlPath, Map<String, String> queryParams) {
-    //final authority = baseApiUrl.replaceAll('https://', '');
-    //final uri = Uri.https(authority, urlPath, queryParams);
 
-    return authHttpClient.get(urlPath, headers: queryParams);
+    final authority = _apiBaseUrl.replaceAll(RegExp(r'https://|http://'), '');
+    final uri = Uri.https(authority, urlPath, queryParams);
+
+    return publicHttpClient.getUri(uri);
   }
 
 
@@ -146,11 +153,11 @@ class PlacesDataSourceImpl extends PlacesDataSource{
   Future<PlaceListingModel> getPlacesByCategory(String municipality, String category)  async {
     final queryParams = Map<String, String>();
 
-    if (municipality != null && category != null ) {
+    if (category != null ) {
       queryParams['category'] = '$category';
     }
 
-    return _placesRequest('/api/report/municipality/$municipality', queryParams);
+    return _placesRequest('/api/place/municipality/$municipality', queryParams);
   }
 
 }

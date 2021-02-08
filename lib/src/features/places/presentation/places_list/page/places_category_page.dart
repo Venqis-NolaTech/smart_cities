@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/core/error/failure.dart';
-import 'package:smart_cities/src/features/places/presentation/page/places_page.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/page/places_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
@@ -10,10 +10,10 @@ import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 
-import '../../../../shared/components/base_view.dart';
+import '../../../../../shared/components/base_view.dart';
 import '../provider/places_provider.dart';
-import '../../../../shared/provider/view_state.dart';
-import '../../../../shared/components/custom_item_list.dart';
+import '../../../../../shared/provider/view_state.dart';
+import '../../../../../shared/components/custom_item_list.dart';
 
 
 class PlacesCategoryPage extends StatefulWidget {
@@ -91,8 +91,8 @@ class _PlacesCategoryPageState extends State<PlacesCategoryPage> {
   void onTapCatgeory(PlacesProvider provider, CatalogItem category) {
     provider.selectedCategory= category;
 
-    Future.delayed(Duration(seconds: 2), ()=> Navigator.pushNamed(context, PlacesPage.id));
-
+    Future.delayed(Duration(milliseconds: 250),
+        () => Navigator.pushReplacementNamed(context, PlacesPage.id, arguments: provider.selectedCategory.key));
   }
 
   Widget _buildErrorView(BuildContext context, Failure failure, PlacesProvider provider) {

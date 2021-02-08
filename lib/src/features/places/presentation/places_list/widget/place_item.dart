@@ -29,7 +29,7 @@ class PlaceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var referenceUrl = place.images?.first;
+    var referenceUrl = place.images.isNotEmpty ? place.images.first : null;
 
 
 
@@ -55,7 +55,7 @@ class PlaceItem extends StatelessWidget {
             height: 120,
             width: double.infinity,
             child: Material(
-              child: referenceUrl != null
+              child:  place.images.isEmpty || referenceUrl != null
                   ? FirebaseStorageImage(
                 referenceUrl: referenceUrl,
                 fit: BoxFit.fitWidth,

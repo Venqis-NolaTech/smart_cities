@@ -30,6 +30,7 @@ abstract class BaseDioClient {
     _instance = Dio();
     _instance.options.baseUrl = _apiBaseUrl;
     _instance.options.connectTimeout = 12000;
+
     _instance.options.headers = {
       "Content-Type": "application/json",
       "Authorization": "Bearer ${tokenChecked}"
@@ -60,15 +61,23 @@ abstract class BaseDioClient {
     if(_instance==null)
       await getDio();
 
-    final response = await _instance.get(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
+    final response = await _instance.get(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
     return _processResponse(response);
   }
+
+  Future<Response> getUri(url) async {
+    if(_instance==null)
+      await getDio();
+    final response = await _instance.getUri(url);
+    return _processResponse(response);
+  }
+
 
   Future<Response> post(url, {Map<String, String> headers, body, Encoding encoding}) async {
     if(_instance==null)
       await getDio();
 
-    final response = await _instance.post(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
+    final response = await _instance.post(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
 
     return _processResponse(response);
   }
@@ -77,7 +86,7 @@ abstract class BaseDioClient {
     if(_instance==null)
       await getDio();
 
-    final response = await _instance.put(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
+    final response = await _instance.put(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
 
     return _processResponse(response);
   }
@@ -87,7 +96,7 @@ abstract class BaseDioClient {
     if(_instance==null)
       await getDio();
 
-    final response = await _instance.delete(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
+    final response = await _instance.delete(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
 
     return _processResponse(response);
   }

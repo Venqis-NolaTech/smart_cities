@@ -77,7 +77,7 @@ class _MapListReportState extends State<MapListReport> {
                       color: AppColors.blueBtnRegister,
                       onPressed: () {},
                       child: Text(
-                        'Incidentes reportados en tu área',
+                        S.of(context).reportInLocation,
                         style: kNormalStyle.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.bold,

@@ -3,8 +3,10 @@ import 'package:smart_cities/src/features/auth/presentation/validate/page/valida
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
-import 'package:smart_cities/src/features/places/presentation/page/places_category_page.dart';
-import 'package:smart_cities/src/features/places/presentation/page/places_page.dart';
+import 'package:smart_cities/src/features/places/domain/entities/place.dart';
+import 'package:smart_cities/src/features/places/presentation/places_detail/page/place_detail.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/page/places_category_page.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/page/places_page.dart';
 import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
 import 'package:smart_cities/src/features/reports/presentation/filter_report/page/filter_page.dart';
 import 'package:smart_cities/src/features/reports/presentation/new_report/pages/general_report.dart';
@@ -129,8 +131,19 @@ class AppRoute {
       )
       ..define(
         routePath: PlacesPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => PlacesPage()),
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final category= arguments as String;
+          return PlacesPage(category: category);
+        }),
       )
+      ..define(
+        routePath: PlaceDetailsPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final place= arguments as Place;
+          return PlaceDetailsPage(place: place);
+        }),
+      )
+
     ;
 
   }

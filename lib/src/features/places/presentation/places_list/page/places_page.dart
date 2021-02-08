@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/provider/all_places_provider.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/provider/nearby_places_provider.dart';
+
+import 'package:smart_cities/src/features/places/presentation/places_list/widget/nearby_places.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/widget/places_list_view.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/tab_bar_container.dart';
 
@@ -7,6 +12,15 @@ import 'package:smart_cities/src/shared/components/tab_bar_container.dart';
 
 class PlacesPage extends StatefulWidget {
   static const id = "places_page";
+
+  PlacesPage({
+    Key key,
+    @required this.category,
+  }) : super(key: key);
+
+  final String category;
+
+
   @override
   _PlacesPageState createState() => _PlacesPageState();
 }
@@ -20,9 +34,17 @@ class _PlacesPageState extends State<PlacesPage> with SingleTickerProviderStateM
     // TODO: implement initState
     super.initState();
     _widgetOptions = <Widget>[
-      Container(),
-      Container(),
-      Container(),
+      PlaceListView<AllPlacesProvider>(
+        currentLocation: null,
+        topAndBottomPaddingEnabled: false,
+        category: widget.category,
+      ),
+      PlaceListView<NearbyPlacesProvider>(
+        currentLocation: null,
+        topAndBottomPaddingEnabled: false,
+        category: widget.category,
+      ),
+      NearbyPlaces(category: widget.category)
     ];
 
     _tabController = TabController(vsync: this, length: _widgetOptions.length);

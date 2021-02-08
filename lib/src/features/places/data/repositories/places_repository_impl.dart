@@ -42,7 +42,8 @@ class PlaceRepositoryImpl extends PlacesRepository {
           latitude: latitude,
           longitude: longitude,
           distance: distance,
-          municipality: municipality
+          municipality: municipality,
+          category: category
         ),
       );
 
