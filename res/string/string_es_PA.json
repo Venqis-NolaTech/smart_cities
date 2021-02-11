@@ -251,7 +251,7 @@
     "area": "Área",
     "courseType": "Tipo de curso",
     "announcementType": "Tipo de convocatoria",
-    "getDirection": "Como llegar",
+    "getDirection": "Cómo llegar",
     "startDate": "Fecha de inicio",
     "endDate": "Fecha de finalizacíon",
     "filterReport": "Filtrar por reporte",
@@ -280,5 +280,21 @@
     "qualify": "Calificar",
     "qualifySitie": "Calificar el lugar",
     "writeReview": "Escribir reseña",
-    "placesNotFound": "No hay Lugares que mostrar."
+    "placesNotFound": "No hay Lugares que mostrar.",
+    "aboutTitle": "Sobre el lugar",
+    "scheduleSite": "Horario del sitio",
+    "reserve": "Reservar Espacio",
+    "events": "Eventos",
+    "services": "Servicios",
+    "family": "Gazebo",
+    "security": "Seguridad",
+    "toilets": "Baños",
+    "cleaning": "Limpieza",
+    "restaurant": "Restaurante",
+    "childrensZone": "Juegos Infantiles",
+    "exerciseZone": "Zona Ejercicio",
+    "bicycleZone": "Ciclovia",
+    "seeComment": "Ver comentarios",
+    "reportInPlace": "¿Has tenido algun incidente o tienes sugerencias de mejoras?"
+
 }

@@ -132,8 +132,12 @@ class PlacesDataSourceImpl extends PlacesDataSource{
 
 
   @override
-  Future<PlaceModel> getPlace(String id) {
+  Future<PlaceModel> getPlace(String id) async  {
+    final response = await publicHttpClient.get('/api/place/$id');
 
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return PlaceModel.fromJson(body.data);
 
   }
 

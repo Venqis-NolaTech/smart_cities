@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
@@ -27,7 +26,6 @@ class PlaceListView<P extends PaginatedProvider<Place>> extends StatefulWidget {
     Key key,
     final this.onProviderReady= true,
     final this.onlyConsumerProvider = false,
-    this.currentLocation,
     this.topAndBottomPaddingEnabled = false,
     this.category
   }) : super(key: key);
@@ -35,7 +33,6 @@ class PlaceListView<P extends PaginatedProvider<Place>> extends StatefulWidget {
   final bool onProviderReady;
   final bool onlyConsumerProvider;
   final bool topAndBottomPaddingEnabled;
-  final Position currentLocation;
   final String category;
 
   @override
@@ -50,7 +47,7 @@ class _PlaceListViewState<P extends PaginatedProvider<Place>> extends State<Plac
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController()..addListener(_scrollListener);
+    _scrollController = ScrollController(keepScrollOffset: false)..addListener(_scrollListener);
   }
 
   @override
@@ -168,26 +165,38 @@ class _PlaceListViewState<P extends PaginatedProvider<Place>> extends State<Plac
   }
 
   Widget _buildList(List<Place> places, P provider, Orientation orientation) {
+    var size = MediaQuery.of(context).size;
+    final double itemHeight = 240;
+    final double itemWidth = size.width / 2;
 
-    return RefreshIndicator(
+   return RefreshIndicator(
       onRefresh: provider.refreshData,
-      child: GridView.builder(
-        itemCount: places.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3),
+      child: GridView.count(
+        crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
+        shrinkWrap: true,
         controller: _scrollController,
-        itemBuilder: (context, index) => PlaceItem(
-          place: places[index],
-          isFirst: index== 0 || index== 1,
-          isLast: index == places.length - 1 ||  index == places.length - 2,
-          currentLocation: widget.currentLocation,
-          topAndBottomPaddingEnabled: widget.topAndBottomPaddingEnabled,
-          onTap: () =>Navigator.pushNamed(context, PlaceDetailsPage.id, arguments: places[index])
-        ),
+        childAspectRatio: (itemWidth / itemHeight),
+
+        children: getPlacesChildren(places, provider),
       ),
     );
   }
 
+  List<Widget> getPlacesChildren(List<Place> places, P provider) {
+    List<Widget> list= [];
+
+    places.asMap().forEach((index, value) {
+      list.add(PlaceItem(
+          place: places[index],
+          isFirst: index == 0 || index == 1,
+          isLast: index == places.length - 1 || index == places.length - 2,
+          currentLocation: provider is NearbyPlacesProvider ? provider.currentLocation : null,
+          topAndBottomPaddingEnabled: widget.topAndBottomPaddingEnabled,
+          onTap: () => Navigator.pushNamed(context, PlaceDetailsPage.id,
+              arguments: places[index])));
+    });
+    return list;
+  }
 
 
   Widget _buildEmptyView() {
@@ -211,5 +220,7 @@ class _PlaceListViewState<P extends PaginatedProvider<Place>> extends State<Plac
       descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
     );
   }
+
+
 
 }

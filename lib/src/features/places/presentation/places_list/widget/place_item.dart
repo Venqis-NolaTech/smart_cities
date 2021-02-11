@@ -6,6 +6,10 @@ import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/custom_card.dart';
 import 'package:smart_cities/src/shared/components/firebase_storage_image.dart';
 import 'package:smart_cities/src/shared/constant.dart';
+import 'package:smart_cities/src/shared/map_utils.dart';
+
+import '../../../../../shared/spaces.dart';
+
 
 class PlaceItem extends StatelessWidget {
 
@@ -45,14 +49,11 @@ class PlaceItem extends StatelessWidget {
         right: 16.0,
       ),
       onTap: onTap,
-
       child: Column(
         children: [
 
-
-
           Container(
-            height: 120,
+            height: 100,
             width: double.infinity,
             child: Material(
               child:  place.images.isEmpty || referenceUrl != null
@@ -69,23 +70,86 @@ class PlaceItem extends StatelessWidget {
 
           Padding(
             padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 10),
-            child: Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(
-                    child: Text(
-                      place.name,
-                      style: kTitleStyle.copyWith(
-                          color: AppColors.blueBtnRegister),
-                    )),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                          place.name,
+                          style: kTitleStyle.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.blueBtnRegister),
+                        )),
+
+                  ],
+
+                ),
+
+                Spaces.verticalSmall(),
+
+                Flexible(
+                  child: Text(
+                    place.aboutTitle ?? '',
+                    maxLines: 2,
+                    style: kNormalStyle.copyWith(
+                        color: AppColors.blueBtnRegister),
+                  ),
+                ),
+
+                Spaces.verticalSmall(),
+
+                currentLocation !=null ? FutureBuilder<int>(
+                    future: MapsUtils.distanceInMeters(currentLocation.latitude,
+                        currentLocation.longitude, place.latitude, place.longitude),
+                    builder: (_, snapshot) {
+                      if (snapshot.hasData)
+                        return _buildDistance(snapshot.data);
+                      else
+                        return Container();
+                    }) : Container(),
+
 
               ],
-
             ),
           ),
+
+
+
+
+
+
+
+
+
         ],
       ),
-
-
     );
   }
+
+
+
+  Widget _buildDistance(int data) {
+    String unidad= 'Mts';
+    int distancia= data;
+
+    if (data>1000) {
+      distancia = (data / 1000).round();
+      unidad = 'Km';
+    }
+
+
+    return   Row(
+      children: [
+        Text('$distancia $unidad',
+            style:  kNormalStyle.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppColors.blueBtnRegister),),
+      ],
+    );
+
+  }
+
 }

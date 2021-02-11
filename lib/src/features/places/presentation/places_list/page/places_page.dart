@@ -35,12 +35,10 @@ class _PlacesPageState extends State<PlacesPage> with SingleTickerProviderStateM
     super.initState();
     _widgetOptions = <Widget>[
       PlaceListView<AllPlacesProvider>(
-        currentLocation: null,
         topAndBottomPaddingEnabled: false,
         category: widget.category,
       ),
       PlaceListView<NearbyPlacesProvider>(
-        currentLocation: null,
         topAndBottomPaddingEnabled: false,
         category: widget.category,
       ),

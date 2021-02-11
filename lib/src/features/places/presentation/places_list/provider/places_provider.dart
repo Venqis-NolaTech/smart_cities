@@ -3,6 +3,7 @@ import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/core/usecases/use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/get_current_location_use_case.dart';
+import 'package:smart_cities/src/features/places/domain/entities/place.dart';
 import 'package:smart_cities/src/features/places/domain/usescase/get_all_category_places_use_case.dart';
 import 'package:smart_cities/src/features/places/domain/usescase/get_nearby_places_by_category_use_case.dart';
 import 'package:smart_cities/src/features/places/domain/usescase/get_places_by_category_use_case.dart';
@@ -30,6 +31,7 @@ class PlacesProvider extends BaseProvider{
 
   Position currentLocation;
   final distance = 5000.0;
+  List<Place> placesList=[];
 
   set selectedCategory(CatalogItem value) {
     _selectedCategory=value;
@@ -65,7 +67,10 @@ class PlacesProvider extends BaseProvider{
 
     failureOrReports.fold(
           (failure) => state = Error(failure: failure),
-          (places) => state = Loaded(value: places),
+          (places) {
+            placesList= places.places;
+            state = Loaded();
+          },
     );
     state = Loaded();
   }

@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../../generated/i18n.dart';
-import '../../../../../core/util/string_util.dart';
 import '../../../../../shared/app_colors.dart';
-import '../../../../../shared/components/read_more_text.dart';
-import '../../../../../shared/components/rounded_button.dart';
 import '../../../../../shared/constant.dart';
 import '../../../../../shared/image_utils.dart';
 import '../../../../../shared/spaces.dart';

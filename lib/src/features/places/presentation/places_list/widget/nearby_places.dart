@@ -4,16 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/core/error/failure.dart';
-import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/provider/places_provider.dart';
-import 'package:smart_cities/src/features/places/data/models/place_model.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
-import 'package:smart_cities/src/shared/image_utils.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:flutter_google_maps/flutter_google_maps.dart';
 
@@ -34,7 +31,6 @@ class NearbyPlaces extends StatefulWidget {
 class _NearbyPlacesState extends State<NearbyPlaces> {
   GoogleMap _googleMap;
   static const _mapZoom = 11.0;
-  List<Place> _places = [];
   final _key = GlobalKey<GoogleMapStateBase>();
 
 
@@ -62,7 +58,7 @@ class _NearbyPlacesState extends State<NearbyPlaces> {
 
 
        if (currentState is Loaded) {
-          _buildMarkers(currentState, provider);
+          _buildMarkers(provider);
         }
 
 
@@ -131,25 +127,20 @@ class _NearbyPlacesState extends State<NearbyPlaces> {
   }
 
 
-  Future<List<Marker>> _buildMarkers(ViewState state, PlacesProvider provider) async {
-    if(state is Loaded && state.value!=null){
-      _places = (state as Loaded<PlaceListingModel>).value.places;
+  Future<void> _buildMarkers(PlacesProvider provider) async {
 
+    GoogleMap.of(_key).moveCamera(
+        GeoCoord(provider.currentLocation.latitude, provider.currentLocation.longitude),
+        animated: true);
 
-      GoogleMap.of(_key).moveCamera(
-          GeoCoord(provider.currentLocation.latitude, provider.currentLocation.longitude),
-          animated: true);
-
-      for (var i in _places) {
-        GoogleMap.of(_key).addMarker(Marker(GeoCoord(i.latitude, i.longitude),
-            icon: AppImagePaths.openStatus, onTap: (value) => _onTapMarker(i)));
-      }
-
-      GoogleMap.of(_key).addMarker(Marker(
-          GeoCoord(provider.currentLocation.latitude, provider.currentLocation.longitude),
-          icon: AppImagePaths.mapIcon));
+    for (var i in provider.placesList) {
+      GoogleMap.of(_key).addMarker(Marker(GeoCoord(i.latitude, i.longitude),
+          icon: AppImagePaths.openStatus, onTap: (value) => _onTapMarker(i)));
     }
-    return [];
+
+    GoogleMap.of(_key).addMarker(Marker(
+        GeoCoord(provider.currentLocation.latitude, provider.currentLocation.longitude),
+        icon: AppImagePaths.mapIcon));
   }
 
 

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../app_colors.dart';
 import '../app_images.dart';
 import 'firebase_storage_image.dart';
 
@@ -93,7 +94,7 @@ class _ImageGalleryState extends State<ImageGallery>
               onPageChanged: onPageChanged,
             ),
           ),
-          /*Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: _map<Widget>(
               widget.imageUrls,
@@ -119,7 +120,7 @@ class _ImageGalleryState extends State<ImageGallery>
                 );
               },
             ),
-          ),*/
+          ),
         ],
       ),
     );
