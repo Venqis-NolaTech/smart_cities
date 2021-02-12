@@ -4,6 +4,7 @@ import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_pa
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
+import 'package:smart_cities/src/features/places/presentation/new_review/page/new_review_page.dart';
 import 'package:smart_cities/src/features/places/presentation/places_detail/page/place_detail.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/page/places_category_page.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/page/places_page.dart';
@@ -143,6 +144,16 @@ class AppRoute {
           return PlaceDetailsPage(place: place);
         }),
       )
+
+      ..define(
+        routePath: NewReviewPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final place= arguments as Place;
+          return NewReviewPage(place: place);
+        }),
+      )
+
+
 
     ;
 

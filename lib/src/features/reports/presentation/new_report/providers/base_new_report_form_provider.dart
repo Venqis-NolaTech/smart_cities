@@ -45,6 +45,7 @@ class DataKey {
   //comment key
   static const COMMENT = "comment";
   static const PICTUREURL = "pictureURL";
+  static const RANTING = "rating";
 }
 
 enum DataType {

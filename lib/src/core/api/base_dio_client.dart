@@ -58,24 +58,21 @@ abstract class BaseDioClient {
 
 
   Future<Response> get(url, {Map<String, String> headers}) async {
-    if(_instance==null)
-      await getDio();
+    await getDio();
 
     final response = await _instance.get(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
     return _processResponse(response);
   }
 
   Future<Response> getUri(url) async {
-    if(_instance==null)
-      await getDio();
+    await getDio();
     final response = await _instance.getUri(url);
     return _processResponse(response);
   }
 
 
   Future<Response> post(url, {Map<String, String> headers, body, Encoding encoding}) async {
-    if(_instance==null)
-      await getDio();
+    await getDio();
 
     final response = await _instance.post(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
 
@@ -83,8 +80,7 @@ abstract class BaseDioClient {
   }
 
   Future<Response> put(url, {Map<String, String> headers, body, Encoding encoding}) async {
-    if(_instance==null)
-      await getDio();
+    await getDio();
 
     final response = await _instance.put(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
 
@@ -93,8 +89,7 @@ abstract class BaseDioClient {
 
 
   Future<Response> delete(url, {Map<String, String> headers}) async {
-    if(_instance==null)
-      await getDio();
+    await getDio();
 
     final response = await _instance.delete(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
 

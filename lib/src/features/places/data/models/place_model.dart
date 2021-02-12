@@ -182,13 +182,13 @@ class PlaceModel extends Place{
     location: json["location"] == null ? null : LocationModel.fromJson(json["location"]),
     phoneNumber: json["phoneNumber"] == null ? null : json["phoneNumber"],
     videoUrl: json["videoURL"] == null ? null : json["videoURL"],
-    rating: json["rating"] == null ? 0.0 : json["rating"],
-    votes: json["votes"] == null ? 0.0 : json["votes"],
-    votes1: json["votes_1"] == null ? 0.0 : json["votes_1"],
-    votes2: json["votes_2"] == null ? 0.0 : json["votes_2"],
-    votes3: json["votes_3"] == null ? 0.0 : json["votes_3"],
-    votes4: json["votes_4"] == null ? 0.0 : json["votes_4"],
-    votes5: json["votes_5"] == null ? 0.0 : json["votes_5"],
+    rating: json["rating"] == null ? 0.0 : double.parse(json["rating"].toString()),
+    votes: json["votes"] == null ? 0.0 : double.parse(json["votes"].toString()),
+    votes1: json["votes_1"] == null ? 0.0 : double.parse(json["votes_1"].toString()),
+    votes2: json["votes_2"] == null ? 0.0 : double.parse(json["votes_2"].toString()),
+    votes3: json["votes_3"] == null ? 0.0 : double.parse(json["votes_3"].toString()),
+    votes4: json["votes_4"] == null ? 0.0 : double.parse(json["votes_4"].toString()),
+    votes5: json["votes_5"] == null ? 0.0 : double.parse(json["votes_5"].toString()),
     isActive: json["isActive"] == null ? null : json["isActive"],
     isVisible: json["isVisible"] == null ? null : json["isVisible"],
     aboutTitle: json["aboutTitle"] == null ? null : json["aboutTitle"],
@@ -313,7 +313,7 @@ class ScheduleModel extends Schedule{
 
 class LastCommentModel extends LastComment{
   LastCommentModel({
-    int rating,
+    double rating,
     bool isActive,
     String id,
     String comment,
@@ -349,7 +349,7 @@ class LastCommentModel extends LastComment{
     );
   }
   factory LastCommentModel.fromJson(Map<String, dynamic> json) => LastCommentModel(
-    rating: json["rating"],
+    rating: json["rating"] != null ? double.parse(json["rating"].toString()) : 0.0,
     isActive: json["isActive"],
     id: json["_id"],
     comment: json["comment"],

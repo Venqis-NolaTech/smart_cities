@@ -76,7 +76,7 @@ class PlaceRepositoryImpl extends PlacesRepository {
 
 
   @override
-  Future<Either<Failure, LastCommentModel>> sendComment(String placeId, Map<String, dynamic> request) =>
+  Future<Either<Failure, LastCommentModel>> sendComment({String placeId, Map<String, dynamic> request}) =>
       _process(
             () => placesDataSource.createComment(placeId: placeId, request: request),
       );

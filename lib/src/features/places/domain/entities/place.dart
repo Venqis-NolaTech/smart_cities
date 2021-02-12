@@ -157,7 +157,7 @@ class LastComment extends Equatable {
     this.v,
   });
 
-  int rating;
+  double rating;
   bool isActive;
   String id;
   String comment;

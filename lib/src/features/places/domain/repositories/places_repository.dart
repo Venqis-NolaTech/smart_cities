@@ -16,9 +16,9 @@ abstract class PlacesRepository{
 
   Future<Either<Failure, PlaceModel>> getPlace(String placeId);
 
-  Future<Either<Failure, LastCommentModel>> sendComment(
+  Future<Either<Failure, LastCommentModel>> sendComment({
       String placeId,
-      Map<String, dynamic> request);
+      Map<String, dynamic> request});
 
   Future<Either<Failure, PlaceCommentListingModel>> getComments();
   //Future<Either<Failure, dynamic>> getMyComments();

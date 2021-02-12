@@ -295,6 +295,9 @@
     "exerciseZone": "Zona Ejercicio",
     "bicycleZone": "Ciclovia",
     "seeComment": "Ver comentarios",
-    "reportInPlace": "¿Has tenido algun incidente o tienes sugerencias de mejoras?"
+    "reportInPlace": "¿Has tenido algun incidente o tienes sugerencias de mejoras?",
+    "review": "Reseña",
+    "averageMark": "Calificación promedio",
+    "vote": "voto"
 
 }

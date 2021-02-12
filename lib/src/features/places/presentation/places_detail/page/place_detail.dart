@@ -4,6 +4,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
 import 'package:smart_cities/src/features/places/presentation/places_detail/provider/place_detail_provider.dart';
+import 'package:smart_cities/src/features/places/presentation/places_detail/widget/place_content_comment.dart';
 import 'package:smart_cities/src/features/places/presentation/places_detail/widget/place_content_services.dart';
 import 'package:smart_cities/src/features/places/presentation/places_detail/widget/place_content_ubication.dart';
 import 'package:smart_cities/src/features/places/presentation/places_detail/widget/place_header.dart';
@@ -89,6 +90,8 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   PlaceContentVideo(place: _place),
                   Spaces.verticalLarge(),
                   PlaceContentUbication(place: _place),
+                  Spaces.verticalLarge(),
+                  PlaceContentComment(place: _place),
                   Spaces.verticalLarge(),
                   btnNewReport(),
                   Spaces.verticalLarge(),
