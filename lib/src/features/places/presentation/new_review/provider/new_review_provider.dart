@@ -14,7 +14,7 @@ class NewReviewProvider extends BaseProvider{
 
     String title;
     String comment;
-    double qualification;
+    double qualification=5;
 
     String placeId;
 

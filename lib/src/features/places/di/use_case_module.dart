@@ -4,6 +4,7 @@ import 'package:smart_cities/src/features/places/domain/usescase/get_nearby_plac
 import 'package:smart_cities/src/features/places/domain/usescase/get_place_by_id_use_case.dart';
 import 'package:smart_cities/src/features/places/domain/usescase/get_places_by_category_use_case.dart';
 import 'package:smart_cities/src/features/places/domain/usescase/new_review_place_use_case.dart';
+import 'package:smart_cities/src/features/places/domain/usescase/get_place_comment_use_case.dart';
 
 initUseCase(GetIt sl) async{
 
@@ -38,6 +39,13 @@ initUseCase(GetIt sl) async{
       placeRepository: sl(),
     ),
   );
+
+  sl.registerLazySingleton(
+        () => GetPlaceCommentUseCase(
+      placeRepository: sl(),
+    ),
+  );
+
 
 
 }

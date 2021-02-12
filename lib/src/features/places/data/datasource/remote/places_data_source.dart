@@ -110,6 +110,15 @@ class PlacesDataSourceImpl extends PlacesDataSource{
 
   }
 
+  Future<PlaceCommentListingModel> _placesCommentRequest(
+      String urlPath, Map<String, String> queryParams) async {
+    final response = await _getRequest(urlPath, queryParams);
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return PlaceCommentListingModel.fromJson(body.data);
+  }
+
   Future<PlaceListingModel> _placesRequest(
       String urlPath, Map<String, String> queryParams) async {
     final response = await _getRequest(urlPath, queryParams);
@@ -143,7 +152,14 @@ class PlacesDataSourceImpl extends PlacesDataSource{
 
   @override
   Future<PlaceCommentListingModel> getPlaceComments(String placeId, {int page, int count}) {
+    final queryParams = Map<String, String>();
 
+    if (page != null && count != null) {
+      queryParams['page'] = '$page';
+      queryParams['count'] = '$count';
+    }
+
+    return _placesCommentRequest('/api/place/$placeId/rating', queryParams);
 
   }
 

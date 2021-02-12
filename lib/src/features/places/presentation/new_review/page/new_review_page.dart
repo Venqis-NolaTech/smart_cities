@@ -11,6 +11,9 @@ import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/rating_bar_card.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
+import 'package:smart_cities/src/shared/app_images.dart';
+import 'package:smart_cities/src/shared/components/place_title_header.dart';
+
 
 class NewReviewPage extends StatelessWidget {
   static const id = "new_review_page";
@@ -44,10 +47,7 @@ class NewReviewPage extends StatelessWidget {
         );
       }
 
-      if (currentState is Loaded) {
-        print('comentario enviado');
-        Future.delayed(Duration(milliseconds: 250), ()=>Navigator.pop(context));
-      }
+
 
       return ModalProgressHUD(
         inAsyncCall: currentState is Loading,
@@ -61,35 +61,12 @@ class NewReviewPage extends StatelessWidget {
             child: Column(children: [
               Spaces.verticalLarge(),
 
-              Container(
-                padding: EdgeInsets.only(left: 24.0, right: 24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      place.name,
-                      textAlign: TextAlign.start,
-                      style: kBigTitleStyle.copyWith(
-                        color: AppColors.blueBtnRegister,
-                      ),
-                    ),
-                    Spaces.verticalSmall(),
-                    Text(
-                      place.aboutTitle,
-                      textAlign: TextAlign.start,
-                      style: kSmallTextStyle.copyWith(
-                        color: AppColors.blueBtnRegister,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+             PlaceTitleHeader(place: place),
 
               Container(
                   padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 48),
                   child: RantingBarCard(
-                      initialRating: 1,
+                      initialRating: 5,
                       onRatingUpdate: (ranting) => provider.qualification = ranting,
                       ignoreGestures: false)
                       ),
@@ -168,13 +145,15 @@ class NewReviewPage extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: RoundedButton(
-            color: AppColors.red,
+            color: AppColors.blueBtnRegister,
             title: S.of(context).send.toUpperCase(),
             style: kTitleStyle.copyWith(
                 fontWeight: FontWeight.bold, color: AppColors.white),
-            onPressed: () {
+            onPressed: () async {
               if (provider.validate()) {
-                provider.submitData(place.id);
+                await provider.submitData(place.id);
+                _process(provider, context);
+
               } else
                 showDialog(
                   context: context,
@@ -187,5 +166,36 @@ class NewReviewPage extends StatelessWidget {
                   },
                 );
             }));
+  }
+
+  void _process(NewReviewProvider provider, BuildContext context) {
+
+    final currentState = provider.currentState;
+
+    Widget image =  Image.asset(AppImagePaths.createComment, height: 120);
+    String title = S.of(context).reportCreatedSuccessMessage;
+    String message = S.of(context).infoCreateReport;
+    bool sucesss = true;
+
+    if (currentState is Error) {
+      title = S.of(context).unexpectedErrorMessage;
+      sucesss = false;
+    }
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return InfoAlertDialog(
+            image: sucesss ? image : Container(height: 120),
+            title: title,
+            message: sucesss ? message : '',
+            onConfirm: sucesss
+                ? () {
+              Navigator.pop(context, true);
+            }
+                : null,
+          );
+        });
   }
 }

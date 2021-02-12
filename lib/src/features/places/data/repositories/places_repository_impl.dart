@@ -20,7 +20,7 @@ class PlaceRepositoryImpl extends PlacesRepository {
 
   @override
   Future<Either<Failure, PlaceCommentListingModel>> getComments(
-      {String placeId, int page, int count}) =>
+      String placeId, {int page, int count}) =>
       _process(
             () => placesDataSource.getPlaceComments(
           placeId,

@@ -19,6 +19,9 @@ import 'package:smart_cities/src/shared/rating_bar_card.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../places_detail/widget/place_content_video_player.dart';
+import '../../place_comment/page/place_comment_page.dart';
+
+
 
 class PlaceDetailsPage extends StatefulWidget {
   static const id = "places_details_page";
@@ -100,7 +103,9 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   Spaces.verticalSmall(),
                   _buildNewReview(),
                   Spaces.verticalLarge(),
-                  PlaceContentComment(place: _place),
+                  InkWell(
+                      onTap: () => Navigator.pushNamed(context, PlaceCommentPage.id, arguments: _place), 
+                      child: PlaceContentComment(place: _place)),
                   Spaces.verticalLarge(),
                   btnNewReport(),
                   Spaces.verticalLarge(),
@@ -113,7 +118,6 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             ),
           ),
         );
-      
       },
     );
   }
@@ -168,8 +172,9 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
 
   Widget _buildNewReview() {
     return InkWell(
-        onTap: () => Navigator.pushNamed(context, NewReviewPage.id,arguments: _place),
-        child: Row(
+      onTap: () =>
+          Navigator.pushNamed(context, NewReviewPage.id, arguments: _place),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

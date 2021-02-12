@@ -5,6 +5,8 @@ import 'package:smart_cities/src/features/places/presentation/places_detail/prov
 import 'package:smart_cities/src/features/places/presentation/places_list/provider/all_places_provider.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/provider/nearby_places_provider.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/provider/places_provider.dart';
+import 'package:smart_cities/src/features/places/presentation/place_comment/provider/place_comment_provider.dart';
+
 
 initProvider(GetIt sl) async {
 
@@ -34,5 +36,10 @@ initProvider(GetIt sl) async {
 
     sl.registerFactory(() => NewReviewProvider(
         newReviewPlaceUseCase: sl()
+    ));
+
+
+    sl.registerFactory(() => PlaceCommentProvider(
+        getPlaceCommentUseCase: sl()
     ));
 }

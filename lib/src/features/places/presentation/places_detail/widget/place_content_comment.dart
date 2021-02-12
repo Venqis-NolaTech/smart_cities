@@ -5,6 +5,9 @@ import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 import 'package:smart_cities/src/features/places/presentation/places_detail/widget/rating_item.dart';
+import '../../../../../shared/components/comment_item_place.dart';
+
+
 
 class PlaceContentComment extends StatelessWidget {
   final Place place;
@@ -30,7 +33,7 @@ class PlaceContentComment extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Spaces.horizontalMedium(),
-                Text('${place.votes}', style: kMenuBigTitleStyle.copyWith(color: AppColors.primaryText, fontWeight: FontWeight.bold),),
+                Text('${place.rating}', style: kMenuBigTitleStyle.copyWith(color: AppColors.primaryText, fontWeight: FontWeight.bold),),
                 Spaces.horizontalMedium(),
 
                 Expanded(
@@ -38,7 +41,7 @@ class PlaceContentComment extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(S.of(context).averageMark, style: kNormalStyle.copyWith(color: AppColors.primaryText, fontWeight: FontWeight.bold),),
-                      Text('34 ${S.of(context).vote}', style: kNormalStyle.copyWith(color: AppColors.primaryText),),
+                      Text('${place.votes} ${S.of(context).vote}', style: kNormalStyle.copyWith(color: AppColors.primaryText),),
                     ],
                   ),
                 ),
@@ -52,7 +55,8 @@ class PlaceContentComment extends StatelessWidget {
             RatingItem(vote: place.votes2, ranting: 2),
             RatingItem(vote: place.votes1, ranting: 1),
 
-
+            Spaces.verticalMedium(),
+            PlaceCommentItem(comment: place.lastComment)
 
             ],
           ),

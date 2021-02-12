@@ -20,7 +20,7 @@ abstract class PlacesRepository{
       String placeId,
       Map<String, dynamic> request});
 
-  Future<Either<Failure, PlaceCommentListingModel>> getComments();
+  Future<Either<Failure, PlaceCommentListingModel>> getComments(String placeId, {int page, int count});
   //Future<Either<Failure, dynamic>> getMyComments();
 
   Future<Either<Failure, PlaceListingModel>> getNearbyPlaces(

@@ -13,7 +13,6 @@ import 'package:smart_cities/src/shared/components/read_more_text.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
-
 class PlaceDetailHeader extends StatefulWidget {
   final Place place;
 
@@ -32,8 +31,6 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
     _images = _getImages();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,6 +42,7 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
           onTap: (index) => _showImageDetail(index),
         ),
         Spaces.verticalSmall(),
+
         /// TITULO
 
         Container(
@@ -64,9 +62,9 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
                           color: AppColors.blueBtnRegister,
                         ),
                       ),
-                    Spaces.verticalSmall(),
+                      Spaces.verticalSmall(),
                       Text(
-                        widget.place?.aboutTitle,
+                        widget.place?.address,
                         textAlign: TextAlign.start,
                         style: kSmallTextStyle.copyWith(
                           color: AppColors.blueBtnRegister,
@@ -76,11 +74,10 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
                   ),
                 ),
               ),
-
-              //IconButton(icon: Icon(Icons.call), onPressed: null)
-              CircularButton(child: Icon(Icons.call), onPressed: null, color: AppColors.greyButtom.withOpacity(0.2)),
-
-
+              CircularButton(
+                  child: Icon(Icons.call),
+                  onPressed: null,
+                  color: AppColors.greyButtom.withOpacity(0.2)),
             ],
           ),
         ),
@@ -107,9 +104,7 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
                   print(rating);
                 },
               ),
-              Expanded(
-                child: Container()
-              )
+              Expanded(child: Container())
             ],
           ),
         ),
@@ -120,8 +115,7 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
             S.of(context).aboutTitle,
             textAlign: TextAlign.start,
             style: kTitleStyle.copyWith(
-              fontWeight: FontWeight.bold,
-                color: AppColors.blueButton),
+                fontWeight: FontWeight.bold, color: AppColors.blueButton),
           ),
         ),
         Spaces.verticalSmall(),
@@ -139,7 +133,6 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
           ),
         ),
         Spaces.verticalSmall(),
-
       ],
     );
   }
@@ -173,20 +166,17 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
 
   List<String> _getImages() {
     return widget.place?.images?.where((file) {
-      if (file != null) {
-        final extensionName = file
-            .substring(file.lastIndexOf(".") + 1)
-            .replaceAll(RegExp(r'["\]]'), '');
+          if (file != null) {
+            final extensionName = file
+                .substring(file.lastIndexOf(".") + 1)
+                .replaceAll(RegExp(r'["\]]'), '');
 
-        final fileType = FileTypeExtension.find(extensionName);
+            final fileType = FileTypeExtension.find(extensionName);
 
-        return fileType == FileType.image;
-      }
-      return false;
-    })?.toList() ??
+            return fileType == FileType.image;
+          }
+          return false;
+        })?.toList() ??
         [];
   }
-
-
-
 }

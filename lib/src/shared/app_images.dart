@@ -41,6 +41,7 @@ class AppImagePaths {
   static const camera = '$_basePath/photo_camera.png';
   static const rectangle = '$_basePath/rectangle.png';
   static const createReport = '$_basePath/img_create_report.png';
+  static const createComment= '$_basePath/img_create_comment.png';
 
   // status icon map
 

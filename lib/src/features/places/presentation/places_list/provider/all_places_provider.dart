@@ -20,7 +20,7 @@ class AllPlacesProvider extends PaginatedProvider<Place>{
 
 
   @override
-  Future<Either<Failure, PageData<Place>>> processRequest() async {
+  Future<Either<Failure, PageData<Place>>> get processRequest async {
 
     final params= GetPlacesParams(municipality: municipality, category: category);
     final failureOrListings = await getPlacesByCategoryUseCase(params);
