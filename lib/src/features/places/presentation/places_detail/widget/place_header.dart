@@ -12,6 +12,8 @@ import 'package:smart_cities/src/shared/components/image_gallery_with_zoom.dart'
 import 'package:smart_cities/src/shared/components/read_more_text.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
+import 'package:smart_cities/src/shared/components/place_title_header.dart';
+import 'package:smart_cities/src/shared/user_utils.dart';
 
 class PlaceDetailHeader extends StatefulWidget {
   final Place place;
@@ -50,33 +52,11 @@ class _PlaceDetailHeaderState extends State<PlaceDetailHeader> {
           child: Row(
             children: [
               Expanded(
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        widget.place?.name,
-                        textAlign: TextAlign.start,
-                        style: kBigTitleStyle.copyWith(
-                          color: AppColors.blueBtnRegister,
-                        ),
-                      ),
-                      Spaces.verticalSmall(),
-                      Text(
-                        widget.place?.address,
-                        textAlign: TextAlign.start,
-                        style: kSmallTextStyle.copyWith(
-                          color: AppColors.blueBtnRegister,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: PlaceTitleHeader(place: widget.place),
               ),
               CircularButton(
                   child: Icon(Icons.call),
-                  onPressed: null,
+                  onPressed: widget.place.phoneNumber != null ? ()=>UserUtils.launchCall(widget.place.phoneNumber, context) : null,
                   color: AppColors.greyButtom.withOpacity(0.2)),
             ],
           ),

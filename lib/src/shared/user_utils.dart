@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:smart_cities/src/core/error/failure.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../core/util/string_util.dart';
 import 'constant.dart';
@@ -76,5 +78,14 @@ class UserUtils {
         .formatPhoneNumber();
 
     return [contryCode, phone];
+  }
+
+  static launchCall(String phone, BuildContext context) async {
+    String telf = 'tel:$phone';
+    if (await canLaunch(telf)) {
+      await launch(telf);
+    } else {
+      throw('Error No se pudo iniciar la aplicacion');
+    }
   }
 }

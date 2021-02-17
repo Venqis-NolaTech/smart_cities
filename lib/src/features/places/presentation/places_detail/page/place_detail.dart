@@ -9,19 +9,22 @@ import 'package:smart_cities/src/features/places/presentation/places_detail/widg
 import 'package:smart_cities/src/features/places/presentation/places_detail/widget/place_content_ubication.dart';
 import 'package:smart_cities/src/features/places/presentation/places_detail/widget/place_header.dart';
 import 'package:smart_cities/src/features/places/presentation/new_review/page/new_review_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/pages/general_report.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
+import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
+import 'package:smart_cities/src/shared/components/video_player_view.dart';
+import 'package:smart_cities/src/shared/map_utils.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 import 'package:smart_cities/src/shared/rating_bar_card.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_cities/src/shared/components/custom_card.dart';
 
-import '../../places_detail/widget/place_content_video_player.dart';
 import '../../place_comment/page/place_comment_page.dart';
-
-
 
 class PlaceDetailsPage extends StatefulWidget {
   static const id = "places_details_page";
@@ -79,17 +82,25 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
           inAsyncCall: currentState is Loading,
           child: Scaffold(
             appBar: AppBar(
-              backgroundColor: AppColors.red,
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              title: Text(S.of(context).sitesTourist),
-            ),
+                backgroundColor: AppColors.red,
+                automaticallyImplyLeading: false,
+                centerTitle: true,
+                title: Text(S.of(context).sitesTourist),
+                leading: IconButton(
+                  icon: Icon(MdiIcons.arrowLeft),
+                  color: AppColors.white,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )),
             body: SingleChildScrollView(
               child: Column(
                 children: [
                   PlaceDetailHeader(place: _place),
                   PlaceContentService(place: _place),
-                  PlaceContentVideo(place: _place),
+                  _place.videoUrl.isNotEmpty
+                      ? _buildVideo(_place.videoUrl)
+                      : Container(),
                   Spaces.verticalLarge(),
                   PlaceContentUbication(place: _place),
                   Spaces.verticalLarge(),
@@ -104,7 +115,9 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   _buildNewReview(),
                   Spaces.verticalLarge(),
                   InkWell(
-                      onTap: () => Navigator.pushNamed(context, PlaceCommentPage.id, arguments: _place), 
+                      onTap: () => Navigator.pushNamed(
+                          context, PlaceCommentPage.id,
+                          arguments: _place),
                       child: PlaceContentComment(place: _place)),
                   Spaces.verticalLarge(),
                   btnNewReport(),
@@ -128,18 +141,22 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
         child: Row(
           children: [
             Flexible(child: Text(S.of(context).reportInPlace)),
-            Container(
-                decoration: BoxDecoration(
-                  color: AppColors.greyButtom.withOpacity(.1),
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(S.of(context).newReport,
-                      style: kNormalStyle.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryText)),
-                ))
+            InkWell(
+              onTap: ()=> Navigator.pushNamed(context, NewReport.id, 
+              arguments: NewReportParams(latitude: _place.latitude, longitude: _place.longitude)),
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.greyButtom.withOpacity(.1),
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Text(S.of(context).newReport,
+                        style: kNormalStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryText)),
+                  )),
+            )
           ],
         ));
   }
@@ -154,7 +171,8 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.bold,
                 color: AppColors.white),
-            onPressed: () {}));
+            onPressed: () => Navigator.pushNamed(context, PlaceCommentPage.id,
+                arguments: _place)));
   }
 
   Widget btnGetDirection() {
@@ -167,7 +185,8 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
               fontWeight: FontWeight.w400,
               color: AppColors.white,
             ),
-            onPressed: () {}));
+            onPressed: () => MapsUtils.launchGoogleMapsApp(
+                LatLng(_place.latitude, _place.longitude))));
   }
 
   Widget _buildNewReview() {
@@ -187,6 +206,19 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                 fontWeight: FontWeight.bold, color: AppColors.blueButton),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildVideo(String videoUrl) {
+    return CustomCard(
+      margin: EdgeInsets.only(left: 20, right: 20),
+      child: FirebaseStoreVideoPlayerView(
+        width: double.infinity,
+        height: 250,
+        referenceUrl: videoUrl,
+        fallbackWidget: CircularProgressIndicator(),
+        errorWidget: AppImages.defaultImage,
       ),
     );
   }

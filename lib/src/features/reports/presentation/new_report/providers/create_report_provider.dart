@@ -90,8 +90,14 @@ class CreateReportProvider extends BaseNewReportFormProvider {
 
   ///UBICATION
   Position _location;
+  Position provisionalLocation;
 
   Position get location => _location;
+
+  
+  set location(Position newValue){
+    _location= newValue;
+  }
 
   final Map<String, dynamic> _reportData = {
     //DataKey.ISSUE_DATE: DateTime.now().toIso8601String(),

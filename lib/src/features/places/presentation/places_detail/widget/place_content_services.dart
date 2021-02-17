@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
+import 'package:smart_cities/src/features/places/presentation/place_schedule/page/place_schedule_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/custom_card.dart';
@@ -26,6 +27,7 @@ class PlaceContentService extends StatelessWidget {
       children: [
 
         ListTile(
+          onTap: () => Navigator.pushNamed(context, SchedulePlacePage.id, arguments: place),
           leading: Icon(MdiIcons.clockTimeThreeOutline),
           title: Text(S.of(context).scheduleSite),
         ),

@@ -22,14 +22,22 @@ class PlaceCommentItem extends StatelessWidget {
   final LastComment comment;
   final bool isLast;
 
-  String _creatAtFormatted(BuildContext context) => DateFormat('MMMM d, y')
-      .format(DateTime.parse(comment.createdAt).toLocal());
+  String _creatAtFormatted(BuildContext context) => comment.createdAt != null ? DateFormat('MMMM d, y')
+      .format(DateTime.parse(comment.createdAt).toLocal()) : '';
 
   @override
   Widget build(BuildContext context) {
     final user = comment?.user;
 
     return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey.shade300,
+            width: 2,
+          ),
+        ),
+      ),
       padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

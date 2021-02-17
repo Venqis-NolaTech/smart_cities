@@ -17,12 +17,24 @@ import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
+import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
 
 import 'package:smart_cities/src/features/auth/presentation/validate/widget/confirmation_validate_account.dart';
+
+class NewReportParams{
+  final double latitude;
+  final double longitude;
+
+  NewReportParams({this.latitude, this.longitude});
+}
+
 
 
 class NewReport extends StatefulWidget {
   static const id = "rew_report_page";
+  final NewReportParams params;
+
+  const NewReport({Key key, this.params}) : super(key: key);
 
   @override
   _NewReportState createState() => _NewReportState();
@@ -38,7 +50,11 @@ class _NewReportState extends State<NewReport> {
   Widget build(BuildContext context) {
 
     return BaseView<CreateReportProvider>(
-      onProviderReady: (provider)=> provider.initData(),
+      onProviderReady: (provider) {
+        if(widget.params!=null)
+          provider.location= Position(latitude: widget.params.latitude,  longitude: widget.params.longitude );
+        provider.initData();
+      },
       builder: (context, provider, child ){
 
         final currentState = provider.currentState;
@@ -137,6 +153,11 @@ class _NewReportState extends State<NewReport> {
   }
 
   nextStep(CreateReportProvider provider) async {
+    if (_stepIndex == 0) {
+      provider.location= provider.provisionalLocation;
+    }
+
+
     if (_stepIndex == 1 && provider.selectedCategory ==
         null) { // validar que se ha seleccionado una categoria
       showInfoDialog(S

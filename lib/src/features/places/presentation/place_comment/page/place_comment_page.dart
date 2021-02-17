@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:smart_cities/src/shared/components/info_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
+import 'package:smart_cities/src/shared/spaces.dart';
 
 import 'package:smart_cities/src/shared/app_colors.dart';
 import '../../../domain/entities/place.dart';
@@ -75,39 +77,49 @@ class _PlaceCommentPageState extends State<PlaceCommentPage> {
                 automaticallyImplyLeading: false,
                 centerTitle: true,
                 title: Text(S.of(context).comments),
+                leading: IconButton(
+                  icon: Icon(MdiIcons.arrowLeft),
+                  color: AppColors.white,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ),
               body: Container(
-              color: AppColors.background,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    child: Scrollbar(
-                      child: StreamBuilder<List<ReportComment>>(
-                        stream: provider.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            if (snapshot.data.isEmpty) {
-                              return _buildEmptyView();
+                color: AppColors.background,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Spaces.verticalMedium(),
+                    Container(padding: EdgeInsets.only(left: 24.0, right: 24.0), child: PlaceTitleHeader(place: widget.place)),
+                    Spaces.verticalMedium(),
+                    Expanded(
+                      child: Scrollbar(
+                        child: StreamBuilder<List<LastComment>>(
+                          stream: provider.stream,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.isEmpty) {
+                                return _buildEmptyView();
+                              } else {
+                                final comments = snapshot.data;
+                                return Stack(children: <Widget>[
+                                  _buildList(comments, provider),
+                                  _buildLoadingIndicator(provider.isLoading),
+                                ]);
+                              }
+                            } else if (snapshot.hasError) {
+                              return _buildErrorView(context, snapshot.error);
                             } else {
-                              final comments = snapshot.data;
-                              return Stack(children: <Widget>[
-                                _buildList(comments, provider),
-                                _buildLoadingIndicator(provider.isLoading),
-                              ]);
+                              return SizedBox.shrink();
                             }
-                          } else if (snapshot.hasError) {
-                            return _buildErrorView(context, snapshot.error);
-                          } else {
-                            return SizedBox.shrink();
-                          }
-                        },
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
             ),
           );
         });

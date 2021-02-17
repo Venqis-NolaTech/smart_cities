@@ -39,7 +39,7 @@ class MenuContent extends StatelessWidget {
 
           CustomItemList(
               title: S.of(context).places,
-              onTap: () =>  Navigator.pushNamed(context, PlacesCategoryPage.id),
+              onTap: () =>  Navigator.pushNamed(context, PlacesCategoryPage.id, arguments: null),
               selected: false,
               isDivider: false,
               textStyle: textStyle),

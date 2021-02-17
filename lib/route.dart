@@ -5,6 +5,7 @@ import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
 import 'package:smart_cities/src/features/places/presentation/new_review/page/new_review_page.dart';
+import 'package:smart_cities/src/features/places/presentation/place_schedule/page/place_schedule_page.dart';
 import 'package:smart_cities/src/features/places/presentation/places_detail/page/place_detail.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/page/places_category_page.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/page/places_page.dart';
@@ -68,7 +69,10 @@ class AppRoute {
       )
       ..define(
         routePath: NewReport.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => NewReport()),
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final params = arguments as NewReportParams;
+          return NewReport(params: params);
+        }),
       )
       ..define(
         routePath: ValidateAccountPage.id,
@@ -129,7 +133,10 @@ class AppRoute {
       )
       ..define(
         routePath: PlacesCategoryPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => PlacesCategoryPage()),
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+           final category= arguments as String;
+           return PlacesCategoryPage(category: category);
+        }),
       )
       ..define(
         routePath: PlacesPage.id,
@@ -159,6 +166,13 @@ class AppRoute {
         handler: AppRouteHandler(handlerFunc: (arguments) {
           final place= arguments as Place;
           return PlaceCommentPage(place: place);
+        }),
+      )
+      ..define(
+        routePath: SchedulePlacePage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final place= arguments as Place;
+          return SchedulePlacePage(place: place);
         }),
       )
 

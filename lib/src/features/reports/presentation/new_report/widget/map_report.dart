@@ -74,10 +74,9 @@ class _MapReportState extends State<MapReport> {
         },
         onCameraMove: (CameraPosition position) {
           print(position.toString());
-          //widget.provider.location=Position(latitude: position.)
+          widget.provider.provisionalLocation=Position(latitude: position.target.latitude,  longitude: position.target.longitude );
         },
       );
-
     else
       return _googleMap;
   }

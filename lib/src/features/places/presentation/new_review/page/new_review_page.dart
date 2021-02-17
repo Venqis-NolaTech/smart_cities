@@ -58,10 +58,13 @@ class NewReviewPage extends StatelessWidget {
             backgroundColor: AppColors.red,
           ),
           body: SingleChildScrollView(
-            child: Column(children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               Spaces.verticalLarge(),
 
-             PlaceTitleHeader(place: place),
+             Container( padding: EdgeInsets.only(left: 24.0, right: 24.0), 
+             child: PlaceTitleHeader(place: place)),
 
               Container(
                   padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 48),
@@ -100,7 +103,7 @@ class NewReviewPage extends StatelessWidget {
                   provider.title = value;
                 },
                 decoration: InputDecoration(
-                    border: InputBorder.none, hintText: S.of(context).title),
+                    border: InputBorder.none),
                 textInputAction: TextInputAction.next,
                 style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),
               ),
@@ -173,8 +176,7 @@ class NewReviewPage extends StatelessWidget {
     final currentState = provider.currentState;
 
     Widget image =  Image.asset(AppImagePaths.createComment, height: 120);
-    String title = S.of(context).reportCreatedSuccessMessage;
-    String message = S.of(context).infoCreateReport;
+    String title = S.of(context).reviewCreatedSuccessMessage;
     bool sucesss = true;
 
     if (currentState is Error) {
@@ -189,7 +191,6 @@ class NewReviewPage extends StatelessWidget {
           return InfoAlertDialog(
             image: sucesss ? image : Container(height: 120),
             title: title,
-            message: sucesss ? message : '',
             onConfirm: sucesss
                 ? () {
               Navigator.pop(context, true);

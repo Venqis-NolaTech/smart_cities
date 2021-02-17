@@ -56,7 +56,7 @@ class PlaceContentComment extends StatelessWidget {
             RatingItem(vote: place.votes1, ranting: 1),
 
             Spaces.verticalMedium(),
-            PlaceCommentItem(comment: place.lastComment)
+            place.lastComment != null ? PlaceCommentItem(comment: place.lastComment) : Container()
 
             ],
           ),

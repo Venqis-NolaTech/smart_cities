@@ -51,6 +51,17 @@ class RantingBarCard extends StatelessWidget {
                       ),
                       onRatingUpdate: onRatingUpdate,
                     ),
+
+                    Spaces.verticalSmall(),
+
+                    Text(
+                      S.of(context).tapStart,
+                      textAlign: TextAlign.start,
+                      style: kSmallTextStyle.copyWith(
+                        color: AppColors.blueBtnRegister,
+                      ),
+                    ),
+
                   ],
                 ),
               )

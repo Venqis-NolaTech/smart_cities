@@ -181,7 +181,7 @@ class PlaceModel extends Place{
     services: json["services"] == null ? null : ServiceModel.fromJson(json["services"]),
     location: json["location"] == null ? null : LocationModel.fromJson(json["location"]),
     phoneNumber: json["phoneNumber"] == null ? null : json["phoneNumber"],
-    videoUrl: json["videoURL"] == null ? null : json["videoURL"],
+    videoUrl: json["videoURL"] == null ? '' : json["videoURL"],
     rating: json["rating"] == null ? 0.0 : double.parse(json["rating"].toString()),
     votes: json["votes"] == null ? 0.0 : double.parse(json["votes"].toString()),
     votes1: json["votes_1"] == null ? 0.0 : double.parse(json["votes_1"].toString()),

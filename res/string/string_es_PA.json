@@ -272,7 +272,7 @@
     "seeGallery": "Ver galería",
     "galleryPhoto": "Galería de fotos - Antes/Después",
     "places": "Lugares",
-    "sitesTourist": "Sitios Turísticos",
+    "sitesTourist": "Sítios Turísticos",
 
     "reportInLocation": "Incidentes reportados en tu área",
     "placesInLocation": "Lugares a visitar cerca de tí",
@@ -298,6 +298,7 @@
     "reportInPlace": "¿Has tenido algun incidente o tienes sugerencias de mejoras?",
     "review": "Reseña",
     "averageMark": "Calificación promedio",
-    "vote": "voto"
-
+    "vote": "voto",
+    "tapStart": "Toca una estrella para calificar",
+    "reviewCreatedSuccessMessage": "!Gracias por calificar este lugar¡"
 }
