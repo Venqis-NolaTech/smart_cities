@@ -156,8 +156,8 @@ class AppRoute {
       ..define(
         routePath: NewReviewPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          final place= arguments as Place;
-          return NewReviewPage(place: place);
+          final params= arguments as NewReviewParams;
+          return NewReviewPage(params: params);
         }),
       )
 

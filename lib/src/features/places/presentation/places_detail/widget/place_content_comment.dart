@@ -18,7 +18,6 @@ class PlaceContentComment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.only(left: 24.0, right: 24.0),
-        //onTap: () => Navigator.pushNamed(context, NewReviewPage.id,arguments: place),
         child:  Container(
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.greyButtom.withOpacity(0.5)),

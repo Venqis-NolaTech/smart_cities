@@ -14,12 +14,18 @@ import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/place_title_header.dart';
 
+class NewReviewParams{
+  final Place place;
+  final double ranting;
+
+  NewReviewParams({this.place, this.ranting});
+}
 
 class NewReviewPage extends StatelessWidget {
   static const id = "new_review_page";
-  NewReviewPage({Key key, this.place}) : super(key: key);
+  NewReviewPage({Key key, this.params}) : super(key: key);
 
-  final Place place;
+  final NewReviewParams params;
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -27,7 +33,7 @@ class NewReviewPage extends StatelessWidget {
     return BaseView<NewReviewProvider>(builder: (context, provider, child) {
       final currentState = provider.currentState;
 
-      if (currentState is Error) {
+      /*if (currentState is Error) {
         //var failure = currentState.failure;
 
         Future.delayed(
@@ -45,7 +51,7 @@ class NewReviewPage extends StatelessWidget {
             );
           },
         );
-      }
+      }*/
 
 
 
@@ -64,12 +70,12 @@ class NewReviewPage extends StatelessWidget {
               Spaces.verticalLarge(),
 
              Container( padding: EdgeInsets.only(left: 24.0, right: 24.0), 
-             child: PlaceTitleHeader(place: place)),
+             child: PlaceTitleHeader(place: params.place)),
 
               Container(
                   padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 48),
                   child: RantingBarCard(
-                      initialRating: 5,
+                      initialRating: params.ranting ?? 5,
                       onRatingUpdate: (ranting) => provider.qualification = ranting,
                       ignoreGestures: false)
                       ),
@@ -154,7 +160,7 @@ class NewReviewPage extends StatelessWidget {
                 fontWeight: FontWeight.bold, color: AppColors.white),
             onPressed: () async {
               if (provider.validate()) {
-                await provider.submitData(place.id);
+                await provider.submitData(params.place.id);
                 _process(provider, context);
 
               } else
@@ -191,11 +197,13 @@ class NewReviewPage extends StatelessWidget {
           return InfoAlertDialog(
             image: sucesss ? image : Container(height: 120),
             title: title,
+            message: '',
             onConfirm: sucesss
                 ? () {
               Navigator.pop(context, true);
             }
-                : null,
+                : null, 
+                
           );
         });
   }

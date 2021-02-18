@@ -28,18 +28,24 @@ class PlaceContentService extends StatelessWidget {
 
         ListTile(
           onTap: () => Navigator.pushNamed(context, SchedulePlacePage.id, arguments: place),
-          leading: Icon(MdiIcons.clockTimeThreeOutline),
-          title: Text(S.of(context).scheduleSite),
+          leading: Icon(MdiIcons.clockTimeThreeOutline, color: AppColors.blueBtnRegister),
+          title: Text(S.of(context).scheduleSite, style: kNormalStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.blueBtnRegister)),
         ),
         Divider(),
         ListTile(
-          leading: Icon(MdiIcons.bookOpen),
-          title: Text(S.of(context).reserve),
+          leading: Icon(MdiIcons.bookOpen, color: AppColors.blueBtnRegister),
+          title: Text(S.of(context).reserve, style: kNormalStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.blueBtnRegister)),
         ),
         Divider(),
         ListTile(
-          leading: Icon(MdiIcons.calendarMonth),
-          title: Text(S.of(context).events),
+          leading: Icon(MdiIcons.calendarMonth, color: AppColors.blueBtnRegister),
+          title: Text(S.of(context).events, style: kNormalStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.blueBtnRegister)),
         ),
         Divider(),
         Container(

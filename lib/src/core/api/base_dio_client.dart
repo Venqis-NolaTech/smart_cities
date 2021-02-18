@@ -38,7 +38,7 @@ abstract class BaseDioClient {
 
     //final performanceInterceptor = DioFirebasePerformanceInterceptor();
     //_instance.interceptors.add(DioInterceptor());
-    _instance.interceptors.add(DioCacheManager(CacheConfig(baseUrl: _apiBaseUrl)).interceptor);
+    //_instance.interceptors.add(DioCacheManager(CacheConfig(baseUrl: _apiBaseUrl)).interceptor);
 
     return _instance;
   }
@@ -60,7 +60,7 @@ abstract class BaseDioClient {
   Future<Response> get(url, {Map<String, String> headers}) async {
     await getDio();
 
-    final response = await _instance.get(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
+    final response = await _instance.get(url, queryParameters: headers ?? null, /*options: buildCacheOptions(Duration(days: 1))*/);
     return _processResponse(response);
   }
 
@@ -74,7 +74,7 @@ abstract class BaseDioClient {
   Future<Response> post(url, {Map<String, String> headers, body, Encoding encoding}) async {
     await getDio();
 
-    final response = await _instance.post(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
+    final response = await _instance.post(url, data: body, queryParameters: headers ?? null, /*options: buildCacheOptions(Duration(days: 1))*/);
 
     return _processResponse(response);
   }
@@ -82,7 +82,7 @@ abstract class BaseDioClient {
   Future<Response> put(url, {Map<String, String> headers, body, Encoding encoding}) async {
     await getDio();
 
-    final response = await _instance.put(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
+    final response = await _instance.put(url, data: body, queryParameters: headers ?? null, /*options: buildCacheOptions(Duration(days: 1))*/);
 
     return _processResponse(response);
   }
@@ -91,7 +91,7 @@ abstract class BaseDioClient {
   Future<Response> delete(url, {Map<String, String> headers}) async {
     await getDio();
 
-    final response = await _instance.delete(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 1)));
+    final response = await _instance.delete(url, queryParameters: headers ?? null, /*options: buildCacheOptions(Duration(days: 1))*/);
 
     return _processResponse(response);
   }

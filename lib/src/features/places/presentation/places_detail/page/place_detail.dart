@@ -108,7 +108,8 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     padding: EdgeInsets.only(left: 24.0, right: 24.0),
                     child: RantingBarCard(
                       initialRating: 5,
-                      onRatingUpdate: (ranting) {},
+                      ignoreGestures: false, 
+                      onRatingUpdate: (ranting) =>  Navigator.pushNamed(context, NewReviewPage.id, arguments: NewReviewParams(place: _place, ranting: ranting)),
                     ),
                   ),
                   Spaces.verticalSmall(),
@@ -140,7 +141,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Row(
           children: [
-            Flexible(child: Text(S.of(context).reportInPlace)),
+            Flexible(child: Text(S.of(context).reportInPlace, style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister))),
             InkWell(
               onTap: ()=> Navigator.pushNamed(context, NewReport.id, 
               arguments: NewReportParams(latitude: _place.latitude, longitude: _place.longitude)),
@@ -154,7 +155,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     child: Text(S.of(context).newReport,
                         style: kNormalStyle.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: AppColors.primaryText)),
+                            color: AppColors.blueBtnRegister)),
                   )),
             )
           ],
@@ -168,7 +169,6 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             color: AppColors.red,
             title: S.of(context).seeComment.toUpperCase(),
             style: kTitleStyle.copyWith(
-                fontFamily: 'Roboto',
                 fontWeight: FontWeight.bold,
                 color: AppColors.white),
             onPressed: () => Navigator.pushNamed(context, PlaceCommentPage.id,
@@ -192,7 +192,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   Widget _buildNewReview() {
     return InkWell(
       onTap: () =>
-          Navigator.pushNamed(context, NewReviewPage.id, arguments: _place),
+          Navigator.pushNamed(context, NewReviewPage.id, arguments: NewReviewParams(place: _place)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
