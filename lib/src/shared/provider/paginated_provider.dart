@@ -81,7 +81,7 @@ abstract class PaginatedProvider<T> extends BaseProvider {
   }
 
   @protected
-  Future<Either<Failure, PageData<T>>> processRequest();
+  Future<Either<Failure, PageData<T>>> get processRequest;
 
   void fetchData() async {
     if (_isLoading || (_totalPage > 0 && _page + 1 > _totalPage)) return;
@@ -94,7 +94,7 @@ abstract class PaginatedProvider<T> extends BaseProvider {
 
     _page++;
 
-    final failureOrListings = await processRequest();
+    final failureOrListings = await processRequest;
 
     failureOrListings.fold(
       (failure) {

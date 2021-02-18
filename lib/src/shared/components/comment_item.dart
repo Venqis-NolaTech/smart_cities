@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_cities/src/core/util/file_util.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/comment_item_admin.dart';

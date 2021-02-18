@@ -1,7 +1,7 @@
 name: smart_cities
 description: A new Flutter project.
 
-version: 1.1.0+4
+version: 1.1.1+5
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -109,7 +109,9 @@ dependencies:
   file_picker: ^1.13.3
   flutter_typeahead: ^1.8.8
   linkify: ^2.0.3
-
+  flutter_rating_bar: ^3.2.0+1
+  video_player: ^1.0.1
+  
   # System
   path_provider: ^1.6.18
   path: ^1.7.0

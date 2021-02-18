@@ -41,6 +41,7 @@ class AppImagePaths {
   static const camera = '$_basePath/photo_camera.png';
   static const rectangle = '$_basePath/rectangle.png';
   static const createReport = '$_basePath/img_create_report.png';
+  static const createComment= '$_basePath/img_create_comment.png';
 
   // status icon map
 
@@ -58,6 +59,20 @@ class AppImagePaths {
   static const empyteComment = '$_basePath/empyte_comment.png';
 
   static const tune = '$_basePath/tune.png';
+
+  static const backgroundProfile = '$_basePath/backgroung_profile.png';
+
+  //services
+  static const gazebo = '$_basePath/gazebo.png';
+  static const security = '$_basePath/security.png';
+  static const bicycle = '$_basePath/bicycle.png';
+  static const running = '$_basePath/running.png';
+
+  static const games = '$_basePath/two_swings.png';
+  static const dish = '$_basePath/dish.png';// plato
+  static const bath = '$_basePath/toilet.png'; // baño
+  static const cleanning = '$_basePath/shape.png';
+
 
 }
 
@@ -101,6 +116,19 @@ class AppImages {
   static final iconGallery = Image.asset(AppImagePaths.iconGallery);
   static final empyteComment = Image.asset(AppImagePaths.empyteComment);
   static final iconTune = Image.asset(AppImagePaths.tune);
+
+  static final backgroundProfile = Image.asset(AppImagePaths.backgroundProfile);
+
+  static final family = Image.asset(AppImagePaths.gazebo);
+  static final security = Image.asset(AppImagePaths.security);
+  static final bicycle = Image.asset(AppImagePaths.bicycle);
+  static final running = Image.asset(AppImagePaths.running);
+
+  static final games = Image.asset(AppImagePaths.games);
+  static final restaurant = Image.asset(AppImagePaths.dish);
+  static final bath = Image.asset(AppImagePaths.bath);
+  static final cleanning = Image.asset(AppImagePaths.cleanning);
+
 
 
 }

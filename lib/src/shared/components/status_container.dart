@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
 import '../app_colors.dart';

@@ -46,7 +46,7 @@ class BlogListProvider extends PaginatedProvider<Post> {
   }
 
   @override
-  Future<Either<Failure, PageData<Post>>> processRequest() async {
+  Future<Either<Failure, PageData<Post>>> get processRequest async {
     final params = GetAllPostParams(
       _kind,
       page: page,

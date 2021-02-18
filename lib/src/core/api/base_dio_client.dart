@@ -23,20 +23,30 @@ abstract class BaseDioClient {
 
   Future<Dio> getDio() async {
     //await checkDeviceConnected();
+
+    final token = await _getToken();
+    final tokenChecked = await checkToken(token);
+
     _instance = Dio();
     _instance.options.baseUrl = _apiBaseUrl;
     _instance.options.connectTimeout = 12000;
+
     _instance.options.headers = {
       "Content-Type": "application/json",
-      "Authorization": "Bearer ${await _getToken()}"
+      "Authorization": "Bearer ${tokenChecked}"
     };
 
     //final performanceInterceptor = DioFirebasePerformanceInterceptor();
     //_instance.interceptors.add(DioInterceptor());
-    _instance.interceptors.add(DioCacheManager(CacheConfig(baseUrl: _apiBaseUrl)).interceptor);
+    //_instance.interceptors.add(DioCacheManager(CacheConfig(baseUrl: _apiBaseUrl)).interceptor);
 
     return _instance;
   }
+
+  Future<String> checkToken(String token) async{
+    return _getToken();
+  }
+
 
   Future<String> _getToken() async {
     final token = await getToken();
@@ -48,37 +58,40 @@ abstract class BaseDioClient {
 
 
   Future<Response> get(url, {Map<String, String> headers}) async {
-    if(_instance==null)
-      await getDio();
+    await getDio();
 
-    final response = await _instance.get(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
+    final response = await _instance.get(url, queryParameters: headers ?? null, /*options: buildCacheOptions(Duration(days: 1))*/);
     return _processResponse(response);
   }
 
-  Future<Response> post(url, {Map<String, String> headers, body, Encoding encoding}) async {
-    if(_instance==null)
-      await getDio();
+  Future<Response> getUri(url) async {
+    await getDio();
+    final response = await _instance.getUri(url);
+    return _processResponse(response);
+  }
 
-    final response = await _instance.post(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
+
+  Future<Response> post(url, {Map<String, String> headers, body, Encoding encoding}) async {
+    await getDio();
+
+    final response = await _instance.post(url, data: body, queryParameters: headers ?? null, /*options: buildCacheOptions(Duration(days: 1))*/);
 
     return _processResponse(response);
   }
 
   Future<Response> put(url, {Map<String, String> headers, body, Encoding encoding}) async {
-    if(_instance==null)
-      await getDio();
+    await getDio();
 
-    final response = await _instance.put(url, data: body, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
+    final response = await _instance.put(url, data: body, queryParameters: headers ?? null, /*options: buildCacheOptions(Duration(days: 1))*/);
 
     return _processResponse(response);
   }
 
 
   Future<Response> delete(url, {Map<String, String> headers}) async {
-    if(_instance==null)
-      await getDio();
+    await getDio();
 
-    final response = await _instance.delete(url, queryParameters: headers ?? null, options: buildCacheOptions(Duration(days: 7)));
+    final response = await _instance.delete(url, queryParameters: headers ?? null, /*options: buildCacheOptions(Duration(days: 1))*/);
 
     return _processResponse(response);
   }
@@ -91,12 +104,6 @@ abstract class BaseDioClient {
           "No Internet, Reason: ${_connectionChecker?.lastTryResults?.toString() ?? ""}"));
     }
   }
-
-  Future<String> checkToken(String token) async {
-    return _getToken();
-  }
-
-
 
 
   Response _processResponse(Response response) {

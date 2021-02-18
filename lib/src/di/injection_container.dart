@@ -1,8 +1,9 @@
 import 'package:get_it/get_it.dart';
+import 'package:smart_cities/src/features/places/di/places_di.dart';
 
 import '../features/auth/di/auth_di.dart';
 import '../features/blog/di/blog_di.dart';
-import '../features/resports/di/report_di.dart';
+import '../features/reports/di/report_di.dart';
 import 'core_module.dart';
 import 'external_module.dart';
 import 'global_module.dart';
@@ -17,6 +18,7 @@ init() async {
   initAuthModule(sl);
   initReportModule(sl);
   initBlogModule(sl);
+  initPlacesModule(sl);
 
   await initExternal(sl);
 }

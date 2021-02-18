@@ -1,8 +1,8 @@
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/core/models/catalog_item_model.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
-import 'package:smart_cities/src/features/resports/data/models/report_model.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/reports/data/models/report_model.dart';
+import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
 
 
 class PlaceListingModel extends PlaceListing {
@@ -48,9 +48,9 @@ class PlaceCommentListingModel extends PlaceCommentListing {
   factory PlaceCommentListingModel.fromJson(Map<String, dynamic> json) {
     return PlaceCommentListingModel(
       totalCount: json['totalCount'],
-      comments: json['comments']  != null
+      comments: json['ratings']  != null
           ? List<LastComment>.from(
-          json['comments'].map((c) => LastCommentModel.fromJson(c)))
+          json['ratings'].map((c) => LastCommentModel.fromJson(c)))
           .toList()
           : null,
     );
@@ -85,13 +85,13 @@ class PlaceModel extends Place{
     LocationR location,
     String phoneNumber,
     String videoUrl,
-    int rating,
-    int votes,
-    int votes1,
-    int votes2,
-    int votes3,
-    int votes4,
-    int votes5,
+    double rating,
+    double votes,
+    double votes1,
+    double votes2,
+    double votes3,
+    double votes4,
+    double votes5,
     bool isActive,
     bool isVisible,
     String aboutTitle,
@@ -181,14 +181,14 @@ class PlaceModel extends Place{
     services: json["services"] == null ? null : ServiceModel.fromJson(json["services"]),
     location: json["location"] == null ? null : LocationModel.fromJson(json["location"]),
     phoneNumber: json["phoneNumber"] == null ? null : json["phoneNumber"],
-    videoUrl: json["videoURL"] == null ? null : json["videoURL"],
-    rating: json["rating"] == null ? null : json["rating"],
-    votes: json["votes"] == null ? null : json["votes"],
-    votes1: json["votes_1"] == null ? null : json["votes_1"],
-    votes2: json["votes_2"] == null ? null : json["votes_2"],
-    votes3: json["votes_3"] == null ? null : json["votes_3"],
-    votes4: json["votes_4"] == null ? null : json["votes_4"],
-    votes5: json["votes_5"] == null ? null : json["votes_5"],
+    videoUrl: json["videoURL"] == null ? '' : json["videoURL"],
+    rating: json["rating"] == null ? 0.0 : double.parse(json["rating"].toString()),
+    votes: json["votes"] == null ? 0.0 : double.parse(json["votes"].toString()),
+    votes1: json["votes_1"] == null ? 0.0 : double.parse(json["votes_1"].toString()),
+    votes2: json["votes_2"] == null ? 0.0 : double.parse(json["votes_2"].toString()),
+    votes3: json["votes_3"] == null ? 0.0 : double.parse(json["votes_3"].toString()),
+    votes4: json["votes_4"] == null ? 0.0 : double.parse(json["votes_4"].toString()),
+    votes5: json["votes_5"] == null ? 0.0 : double.parse(json["votes_5"].toString()),
     isActive: json["isActive"] == null ? null : json["isActive"],
     isVisible: json["isVisible"] == null ? null : json["isVisible"],
     aboutTitle: json["aboutTitle"] == null ? null : json["aboutTitle"],
@@ -250,14 +250,14 @@ class ServiceModel extends Services{
   }
 
   factory ServiceModel.fromJson(Map<String, dynamic> json) => ServiceModel(
-    bicycleZone: json["bicycleZone"],
-    exerciseZone: json["exerciseZone"],
-    childrensZone: json["childrensZone"],
-    family: json["family"],
-    security: json["security"],
-    toilets: json["toilets"],
-    cleaning: json["cleaning"],
-    restaurant: json["restaurant"],
+    bicycleZone: json["bicycleZone"] ?? false,
+    exerciseZone: json["exerciseZone"] ?? false,
+    childrensZone: json["childrensZone"] ?? false,
+    family: json["family"] ?? false,
+    security: json["security"] ?? false,
+    toilets: json["toilets"] ?? false,
+    cleaning: json["cleaning"] ?? false,
+    restaurant: json["restaurant"] ?? false,
   );
 
   Map<String, dynamic> toJson() => {
@@ -313,7 +313,7 @@ class ScheduleModel extends Schedule{
 
 class LastCommentModel extends LastComment{
   LastCommentModel({
-    int rating,
+    double rating,
     bool isActive,
     String id,
     String comment,
@@ -349,7 +349,7 @@ class LastCommentModel extends LastComment{
     );
   }
   factory LastCommentModel.fromJson(Map<String, dynamic> json) => LastCommentModel(
-    rating: json["rating"],
+    rating: json["rating"] != null ? double.parse(json["rating"].toString()) : 0.0,
     isActive: json["isActive"],
     id: json["_id"],
     comment: json["comment"],

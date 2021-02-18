@@ -65,8 +65,6 @@ class CustomCard extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             child: Container(
-              height: height,
-              width: width,
               padding: padding,
               decoration: BoxDecoration(
                 borderRadius: borderRadius,

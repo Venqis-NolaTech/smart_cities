@@ -3,14 +3,21 @@ import 'package:smart_cities/src/features/auth/presentation/validate/page/valida
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
-import 'package:smart_cities/src/features/resports/presentation/filter_report/page/filter_page.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/pages/general_report.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/pages/selected_neighborhood_page.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/pages/selected_sector_page.dart';
-import 'package:smart_cities/src/features/resports/presentation/new_report/providers/create_report_provider.dart';
-import 'package:smart_cities/src/features/resports/presentation/report_comments/pages/report_comments_page.dart';
-import 'package:smart_cities/src/features/resports/presentation/report_details/pages/report_details_page.dart';
+import 'package:smart_cities/src/features/places/domain/entities/place.dart';
+import 'package:smart_cities/src/features/places/presentation/new_review/page/new_review_page.dart';
+import 'package:smart_cities/src/features/places/presentation/place_schedule/page/place_schedule_page.dart';
+import 'package:smart_cities/src/features/places/presentation/places_detail/page/place_detail.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/page/places_category_page.dart';
+import 'package:smart_cities/src/features/places/presentation/places_list/page/places_page.dart';
+import 'package:smart_cities/src/features/places/presentation/place_comment/page/place_comment_page.dart';
+import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/reports/presentation/filter_report/page/filter_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/pages/general_report.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/pages/selected_neighborhood_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/pages/selected_sector_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/providers/create_report_provider.dart';
+import 'package:smart_cities/src/features/reports/presentation/report_comments/pages/report_comments_page.dart';
+import 'package:smart_cities/src/features/reports/presentation/report_details/pages/report_details_page.dart';
 
 import 'src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
 import 'src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
@@ -62,7 +69,10 @@ class AppRoute {
       )
       ..define(
         routePath: NewReport.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => NewReport()),
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final params = arguments as NewReportParams;
+          return NewReport(params: params);
+        }),
       )
       ..define(
         routePath: ValidateAccountPage.id,
@@ -120,7 +130,55 @@ class AppRoute {
           //final provider = arguments as GeneralReportProvider;
           return FilterReportPage();
         }),
-      );
+      )
+      ..define(
+        routePath: PlacesCategoryPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+           final category= arguments as String;
+           return PlacesCategoryPage(category: category);
+        }),
+      )
+      ..define(
+        routePath: PlacesPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final category= arguments as String;
+          return PlacesPage(category: category);
+        }),
+      )
+      ..define(
+        routePath: PlaceDetailsPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final place= arguments as Place;
+          return PlaceDetailsPage(place: place);
+        }),
+      )
+
+      ..define(
+        routePath: NewReviewPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final params= arguments as NewReviewParams;
+          return NewReviewPage(params: params);
+        }),
+      )
+
+      ..define(
+        routePath: PlaceCommentPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final place= arguments as Place;
+          return PlaceCommentPage(place: place);
+        }),
+      )
+      ..define(
+        routePath: SchedulePlacePage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final place= arguments as Place;
+          return SchedulePlacePage(place: place);
+        }),
+      )
+
+
+
+    ;
 
   }
 

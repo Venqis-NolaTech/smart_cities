@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:smart_cities/src/features/resports/domain/entities/report.dart';
+import 'package:smart_cities/src/features/reports/domain/entities/report.dart';
 
 
 import '../../../../core/entities/catalog_item.dart';
@@ -74,13 +74,13 @@ class Place extends Equatable{
   LocationR location;
   String phoneNumber;
   String videoUrl;
-  int rating;
-  int votes;
-  int votes1;
-  int votes2;
-  int votes3;
-  int votes4;
-  int votes5;
+  double rating;
+  double votes;
+  double votes1;
+  double votes2;
+  double votes3;
+  double votes4;
+  double votes5;
   bool isActive;
   bool isVisible;
   String aboutTitle;
@@ -157,7 +157,7 @@ class LastComment extends Equatable {
     this.v,
   });
 
-  int rating;
+  double rating;
   bool isActive;
   String id;
   String comment;
