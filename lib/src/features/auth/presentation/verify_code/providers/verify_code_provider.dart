@@ -2,44 +2,21 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:smart_cities/src/features/auth/presentation/phone_number/providers/phone_number_provider.dart';
+import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
 
+import '../../../../../../app.dart';
 import '../../../../../shared/provider/view_state.dart';
 import '../../../domain/usecases/login_use_case.dart';
+import '../../../domain/usecases/register_user_use_case.dart';
 import '../../../domain/usecases/user_exist_use_case.dart';
 import '../../base/providers/phone_number_auth_provider.dart';
 
-class VerifyCodeParams {
-  //para registro
-  final String name;
-  final String lastName;
-  final String email;
-  final String phoneNumber;
-  final String countryCode;
-  final String dni;
-
-
-
-  final File photo;
-
-  //para login
-  final String actualCode;
-
-  //provider
-  final PhoneNumberProvider provider;
-
-  final AuthMethod authMethod;
-
-  VerifyCodeParams({this.provider, this.actualCode, this.photo, this.dni, this.name, this.lastName, this.email, this.phoneNumber, this.countryCode,
-    @required this.authMethod,
-  });
-}
-
-/*class VerifyCodeProvider extends PhoneNumberAuthProvider {
+class VerifyCodeProvider extends PhoneNumberAuthProvider {
   VerifyCodeProvider({
     @required FirebaseAuth firebaseAuth,
     @required UserExistUseCase userExistUseCase,
     @required this.loginUseCase,
+    @required this.registerUserUseCase,
     bool inTest,
   }) : super(
           firebaseAuth: firebaseAuth,
@@ -48,36 +25,88 @@ class VerifyCodeParams {
         );
 
   final LoginUseCase loginUseCase;
+  final RegisterUserUseCase registerUserUseCase;
 
   VerifyCodeParams _params;
 
   set params(VerifyCodeParams newParams) {
     _params = newParams;
+    actualCode = newParams.actualCode;
   }
 
   @override
-  Future<void> signInWithCredential(AuthCredential authCredential, Function callback) async {
+  Future<void> signInWithCredential(
+    AuthCredential credential,
+    Function callback,
+  ) async {
     switch (_params.authMethod) {
       case AuthMethod.login:
-        state = Loading();
-
-        final result = await loginUseCase(LoginUseCaseParams(
-          authCredential: authCredential,
-          countryCode: _params.countryCode,
-        ));
-
-        result.fold((failure) {
-          state = Error(failure: failure);
-        }, (_) {
-          state = Loaded();
-
-          callback();
-        });
+        _login(credential, callback);
 
         break;
       case AuthMethod.register:
-        callback();
+        _register(credential, callback);
+
         break;
     }
   }
-}*/
+
+  Future<void> _register(AuthCredential credential, Function callback) async {
+    final params = RegisterParams(
+      credential: credential,
+      userRegisterRequest: _params.request,
+    );
+
+    state = Loading();
+
+    final result = await registerUserUseCase(params);
+
+    result.fold(
+      (failure) {
+        state = Error(failure: failure);
+      },
+      (user) {
+        currentUser = user;
+
+        state = Loaded();
+
+        callback();
+      },
+    );
+  }
+
+  Future<void> _login(AuthCredential credential, Function callback) async {
+    state = Loading();
+
+    final result = await loginUseCase(LoginUseCaseParams(
+      authCredential: credential,
+      countryCode: _params.countryCode,
+    ));
+
+    result.fold((failure) {
+      state = Error(failure: failure);
+    }, (_) {
+      state = Loaded();
+
+      callback();
+    });
+  }
+}
+
+class VerifyCodeParams {
+  final String phoneNumber;
+  final String countryCode;
+  final String actualCode;
+  final AuthMethod authMethod;
+  final UserRegisterRequest request;
+  final File photo;
+
+  VerifyCodeParams({
+    @required this.phoneNumber,
+    @required this.countryCode,
+    @required this.actualCode,
+    @required this.authMethod,
+    this.request,
+    this.photo
+  });
+}

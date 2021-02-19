@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/src/core/error/failure.dart';
 import 'package:smart_cities/src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
-import 'package:smart_cities/src/features/auth/presentation/phone_number/providers/phone_number_provider.dart';
-import 'package:smart_cities/src/features/auth/presentation/selected_municipality/page/selected_municipality_page.dart';
+import 'package:smart_cities/src/features/auth/presentation/register/providers/register_provider.dart';
 import 'package:smart_cities/src/features/auth/presentation/verify_code/pages/verify_code_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/verify_code/providers/verify_code_provider.dart';
 import 'package:smart_cities/src/shared/components/phone_number_text_field.dart';
@@ -26,7 +25,7 @@ class RegisterForm extends StatefulWidget {
     @required this.provider,
   }) : super(key: key);
 
-  final PhoneNumberProvider provider;
+  final RegisterProvider provider;
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -104,10 +103,8 @@ class _RegisterFormState extends State<RegisterForm> {
       provider.email = _email;
 
 
-      provider.signInWithCredentialCallback = _gotoMain;
       provider.failureCallback = _showFailure;
       provider.codeSendCallback = _gotoVerifyCode;
-      provider.authMethod= AuthMethod.register;
 
 
       final userExist = await provider.userExist(_phoneNumber, _dni, _email);
@@ -143,27 +140,16 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
-  void _gotoMain() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      SelectedMunicipalityPage.id,
-      ModalRoute.withName(SelectedMunicipalityPage.id),
-    );
-  }
 
   void _gotoVerifyCode() {
     final params = VerifyCodeParams(
-      name: _name,
-      lastName: _lastName,
-      email: _email,
       phoneNumber: _phoneNumber,
       countryCode: _countryCode,
-      dni: _dni,
-      photo:  widget.provider.photo,
       authMethod: AuthMethod.register,
-      provider: widget.provider
+      photo:  widget.provider.photo,
+      request: widget.provider.prepareRequest(),
+      actualCode: widget.provider.actualCode,
     );
-
     Navigator.pushNamed(context, VerifyCodePage.id, arguments: params);
   }
 

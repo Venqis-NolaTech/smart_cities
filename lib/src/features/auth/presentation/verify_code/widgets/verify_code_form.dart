@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
-import 'package:smart_cities/src/features/auth/presentation/phone_number/providers/phone_number_provider.dart';
+import 'package:smart_cities/src/features/auth/presentation/selected_municipality/page/selected_municipality_page.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
 
 import '../../../../../../generated/i18n.dart';
@@ -25,7 +25,7 @@ class VerifyCodeForm extends StatefulWidget {
   }) : super(key: key);
 
   final VerifyCodeParams params;
-  final PhoneNumberProvider provider;
+  final VerifyCodeProvider provider;
 
   @override
   _VerifyCodeFormState createState() => _VerifyCodeFormState();
@@ -46,6 +46,8 @@ class _VerifyCodeFormState extends State<VerifyCodeForm> {
   @override
   void initState() {
     super.initState();
+    widget.provider.signInWithCredentialCallback = _goto;
+    widget.provider.params = widget.params;
 
     Future.delayed(Duration(milliseconds: 250), () => _startCountDownTimer());
   }
@@ -56,6 +58,17 @@ class _VerifyCodeFormState extends State<VerifyCodeForm> {
     _countDownTimer.cancel();
 
     super.dispose();
+  }
+
+
+  void _goto() {
+    print('go to main NUMBER FORM');
+
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      SelectedMunicipalityPage.id,
+      ModalRoute.withName(SelectedMunicipalityPage.id),
+    );
   }
 
   void _startCountDownTimer() {
@@ -84,6 +97,20 @@ class _VerifyCodeFormState extends State<VerifyCodeForm> {
   }
 
   void _sigIn() async {
+    final provider = widget.provider;
+
+    if (provider.currentState is Loading) return;
+
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      await provider.signInWithSMSCode(_code);
+
+      _process(provider);
+    }
+  }
+
+  /*void _sigIn() async {
     print(widget.params.authMethod);
     final provider = widget.provider;
 
@@ -107,7 +134,7 @@ class _VerifyCodeFormState extends State<VerifyCodeForm> {
 
       _process(provider);
     }
-  }
+  }*/
 
   void _process(PhoneNumberAuthProvider provider) {
     if (provider.currentState is Error) {

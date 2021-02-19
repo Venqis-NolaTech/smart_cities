@@ -101,12 +101,14 @@ class AuthRepositoryImpl implements AuthRepository {
       if (firebaseUser != null) {
         final firebaseToken = (await firebaseUser.getIdToken());
 
-        final photoURL = await UserUtils.uploadUserPhoto(
-          firebaseStorage,
-          firebaseUser.uid,
-          photo,
-        );
-        userRegisterRequest.photoUrl= photoURL;
+        if(photo!=null) {
+          final photoURL = await UserUtils.uploadUserPhoto(
+            firebaseStorage,
+            firebaseUser.uid,
+            photo,
+          );
+          userRegisterRequest.photoUrl = photoURL;
+        }
 
         print('==============  USUARIO A REGISTRAR  =====================');
         print(UserRegisterRequestModel.fromEntity(userRegisterRequest).toJson());

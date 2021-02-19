@@ -5,6 +5,7 @@ import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/phone_number/widgets/tittle_app_bar_login.dart';
 import 'package:smart_cities/src/features/auth/presentation/register/pages/register_page.dart';
+import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
@@ -31,46 +32,50 @@ class VerifyCodePage extends StatefulWidget {
 class _VerifyCodePageState extends State<VerifyCodePage> {
   @override
   Widget build(BuildContext context) {
-    print(widget.params.provider.phoneAuthState );
-    print(widget.params.provider.currentState );
 
+    return BaseView<VerifyCodeProvider>(
+      builder: (context, provider, build) {
+        return ModalProgressHUD(
+          inAsyncCall: provider.phoneAuthState == PhoneAuthState.started ||
+              provider.currentState is Loading,
+          child: Scaffold(
+            appBar: AppBar(
+                backgroundColor: AppColors.red,
+                title: tittleAppBarLogin(onRegister:  ()=> Navigator.pushReplacementNamed(context, RegisterPage.id), onLogin: ()=> Navigator.pushReplacementNamed(context, PhoneNumberPage.id)),
+                leading: IconButton(
+                  icon: Icon(MdiIcons.close),
+                  color: AppColors.white,
+                  onPressed: () => Navigator.pop(context),
+                )),
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 24.0, left: 24.0, right: 24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //..._buildBackground(context),
+                    _buildLabel(context),
+                    Spaces.verticalLargest(),
+                    Container(
+                      alignment: Alignment.center,
+                      child: VerifyCodeForm(
+                        params: widget.params,
+                        provider: provider,
+                      ),
+                    ),
+                    Spaces.verticalMedium(),
+                    _buildRegister(context)
 
-    return ModalProgressHUD(
-      inAsyncCall: widget.params.provider.phoneAuthState == PhoneAuthState.started || widget.params.provider.currentState is Loading,
-      child: Scaffold(
-        appBar: AppBar(
-            backgroundColor: AppColors.red,
-            title: tittleAppBarLogin(onRegister:  ()=> Navigator.pushReplacementNamed(context, RegisterPage.id), onLogin: ()=> Navigator.pushReplacementNamed(context, PhoneNumberPage.id)),
-            leading: IconButton(
-              icon: Icon(MdiIcons.close),
-              color: AppColors.white,
-              onPressed: () => Navigator.pop(context),
-            )),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 24.0, left: 24.0, right: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                //..._buildBackground(context),
-                _buildLabel(context),
-                Spaces.verticalLargest(),
-                Container(
-                  alignment: Alignment.center,
-                  child: VerifyCodeForm(
-                    params: widget.params,
-                    provider: widget.params.provider,
-                  ),
+                  ],
                 ),
-                Spaces.verticalMedium(),
-                _buildRegister(context)
-
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
+
+
 
   }
 

@@ -14,17 +14,20 @@ initProvider(GetIt sl) {
     ),
   );
 
-  /*sl.registerFactory(
+  sl.registerFactory(
     () => VerifyCodeProvider(
       firebaseAuth: sl(),
       loginUseCase: sl(),
       userExistUseCase: sl(),
+      registerUserUseCase: sl(),
     ),
-  );*/
+  );
 
   sl.registerFactory(
     () => RegisterProvider(
       registerUserUseCase: sl(),
+      firebaseAuth: sl(),
+      userExistUseCase: sl(),
     ),
   );
 

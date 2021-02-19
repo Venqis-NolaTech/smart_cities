@@ -55,7 +55,6 @@ class PhoneNumberPage extends StatelessWidget {
   ) {
     return PhoneNumberForm(
       provider: provider,
-      authMethod: authMethod,
     );
   }
 }

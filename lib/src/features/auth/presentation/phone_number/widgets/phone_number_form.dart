@@ -22,11 +22,9 @@ class PhoneNumberForm extends StatefulWidget {
   PhoneNumberForm({
     Key key,
     @required this.provider,
-    @required this.authMethod,
   }) : super(key: key);
 
   final PhoneNumberProvider provider;
-  final AuthMethod authMethod;
 
   @override
   _PhoneNumberFormState createState() => _PhoneNumberFormState();
@@ -58,48 +56,30 @@ class _PhoneNumberFormState extends State<PhoneNumberForm> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      provider.authMethod = widget.authMethod;
       provider.countryCode = _countryCode;
-      provider.signInWithCredentialCallback = _gotoMain;
       provider.failureCallback = _showFailure;
       provider.codeSendCallback = _gotoVerifyCode;
       //provider.codeAutoRetrievalTimeoutCallback = _gotoVerifyCode;
 
-      final isPhysicalDevice = await deviceInfo.isPhysicalDevice;
+      /*final isPhysicalDevice = await deviceInfo.isPhysicalDevice;
 
       if (!isPhysicalDevice) {
         _gotoMain();
 
         return;
-      }
+      }*/
 
       bool show = false;
       String message;
 
       final userExist = await provider.userExist(_phoneNumber, '', ''); //este solo aplica para login
-
-      //print('usuario exiiste $userExist');
-      switch (widget.authMethod) {
-        case AuthMethod.login:
-
-          if (userExist) {
-            await provider.sendPhoneNumber(_phoneNumber);
-          } else {
-            show = true;
-            message = S.of(context).userNotExistMessage;
-          }
-
-          break;
-        case AuthMethod.register:
-          if (!userExist) {
-            await provider.sendPhoneNumber(_phoneNumber);
-          } else {
-            show = true;
-            message = S.of(context).allreadyExistMessage;
-          }
-
-          break;
+      if (userExist) {
+        await provider.sendPhoneNumber(_phoneNumber);
+      } else {
+        show = true;
+        message = S.of(context).userNotExistMessage;
       }
+
 
       if (show) {
         showDialog(
@@ -114,40 +94,13 @@ class _PhoneNumberFormState extends State<PhoneNumberForm> {
     }
   }
 
-  void _gotoMain() {
-    print('go to main NUMBER FORM');
-
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      SelectedMunicipalityPage.id,
-      ModalRoute.withName(SelectedMunicipalityPage.id),
-    );
-    /*switch (widget.authMethod) {
-      case AuthMethod.login:
-        Navigator.pushNamedAndRemoveUntil(
-            context, MainPage.id, ModalRoute.withName(PhoneNumberPage.id));
-        break;
-      case AuthMethod.register:
-        Navigator.pushNamed(
-          context,
-          RegisterPage.id,
-          arguments: RegisterPageParams(
-            authCredential: widget.provider.authCredential,
-            phoneNumber: _phoneNumber,
-            countryCode: _countryCode,
-          ),
-        );
-        break;
-    }*/
-  }
 
   void _gotoVerifyCode() {
     final params = VerifyCodeParams(
       phoneNumber: _phoneNumber,
       countryCode: _countryCode,
       actualCode: widget.provider.actualCode,
-      authMethod: widget.authMethod,
-      provider:  widget.provider
+      authMethod: AuthMethod.login,
     );
 
     Navigator.pushNamed(context, VerifyCodePage.id, arguments: params);
@@ -223,12 +176,8 @@ class _PhoneNumberFormState extends State<PhoneNumberForm> {
   Widget _buildNextButton() {
     return RoundedButton(
       color: AppColors.blueBtnRegister,
-      /*colors: <Color>[
-        AppColors.greyButtom.withOpacity(0.45),
-        AppColors.greyButtom,
-      ],*/
       title: S.of(context).nextPage.toUpperCase(),
-      style: kTitleStyle.copyWith(fontFamily: 'Roboto', fontWeight: FontWeight.bold,  color: AppColors.white),
+      style: kTitleStyle.copyWith( fontWeight: FontWeight.bold,  color: AppColors.white),
       onPressed: _sendData,
     );
   }

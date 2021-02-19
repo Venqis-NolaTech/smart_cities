@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
-import 'package:smart_cities/src/features/auth/presentation/phone_number/providers/phone_number_provider.dart';
 import 'package:smart_cities/src/features/auth/presentation/phone_number/widgets/tittle_app_bar_login.dart';
 import 'package:smart_cities/src/features/auth/presentation/pre_login/page/pre_login.dart';
+import 'package:smart_cities/src/features/auth/presentation/register/providers/register_provider.dart';
 import 'package:smart_cities/src/shared/image_utils.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
@@ -33,7 +33,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<PhoneNumberProvider>(
+    return BaseView<RegisterProvider>(
       builder: (context, provider, child) {
         return ModalProgressHUD(
           inAsyncCall: provider.currentState is Loading,
@@ -64,7 +64,7 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserPhoto(BuildContext context, PhoneNumberProvider provider) {
+  Widget _buildUserPhoto(BuildContext context, RegisterProvider provider) {
 
     return Container(
       padding: EdgeInsets.only(top: 16.0),
@@ -104,7 +104,7 @@ class RegisterPage extends StatelessWidget {
 
 
 
-  Widget _buildContentSection(BuildContext context, PhoneNumberProvider provider) {
+  Widget _buildContentSection(BuildContext context, RegisterProvider provider) {
     return RegisterForm(
       provider: provider,
     );
