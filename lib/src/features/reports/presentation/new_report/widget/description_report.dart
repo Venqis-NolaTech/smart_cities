@@ -105,6 +105,10 @@ class DescriptionReport extends StatelessWidget {
     );
   }
 
+  final _descriptionFocus = FocusNode();
+  final _tittleFocus = FocusNode();
+
+
   Widget _buildForm(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
@@ -126,7 +130,11 @@ class DescriptionReport extends StatelessWidget {
                   border: InputBorder.none,
                   hintText: S.of(context).exampleTitle
                 ),
-                textInputAction: TextInputAction.next,
+                focusNode: _tittleFocus,
+                textInputAction: TextInputAction.done,
+                onFieldSubmitted: (val) {
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                },
                 onSaved: (value) {
 
                 },
@@ -147,6 +155,7 @@ class DescriptionReport extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: TextFormField(
+                    focusNode: _descriptionFocus,
                     maxLines: 10,
                     maxLength: 4000,
                     onChanged: (value){
@@ -156,7 +165,10 @@ class DescriptionReport extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: S.of(context).exampleDescription
                     ),
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (val) {
+                      _descriptionFocus.unfocus();
+                    },
                     onSaved: (value) {
                     },
                     style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),

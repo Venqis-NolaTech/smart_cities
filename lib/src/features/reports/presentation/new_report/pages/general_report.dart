@@ -153,6 +153,8 @@ class _NewReportState extends State<NewReport> {
   }
 
   nextStep(CreateReportProvider provider) async {
+    FocusScope.of(context).requestFocus(new FocusNode());
+
     if (_stepIndex == 0) {
       provider.location= provider.provisionalLocation;
     }

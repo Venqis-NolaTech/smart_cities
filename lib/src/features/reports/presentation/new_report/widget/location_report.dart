@@ -10,13 +10,28 @@ import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
 
-class LocationReport extends StatelessWidget {
+class LocationReport extends StatefulWidget {
   final CreateReportProvider provider;
 
   LocationReport({Key key, this.provider}) : super(key: key);
 
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  @override
+  _LocationReportState createState() => _LocationReportState();
+}
+
+class _LocationReportState extends State<LocationReport> {
+  final _numberStreetFocus = FocusNode();
+
+  final _nameStreetFocus = FocusNode();
+
+  @override
+  void dispose() {
+    _numberStreetFocus.dispose();
+    _nameStreetFocus.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,7 +48,7 @@ class LocationReport extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
       child: Form(
-        key: _formKey,
+        key: LocationReport._formKey,
           child: Column(
             children: [
               Row(
@@ -43,14 +58,19 @@ class LocationReport extends StatelessWidget {
               ),
               TextFormField(
                 onChanged: (value){
-                  provider.nameStreet= value;
+                  widget.provider.nameStreet= value;
                 },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: S.of(context).nameStreet,
                   hintStyle: TextStyle(color: AppColors.greyButtom.withOpacity(0.7))
                 ),
-                textInputAction: TextInputAction.next,
+                focusNode: _nameStreetFocus,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+                onFieldSubmitted: (value){
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                },
                 onSaved: (value) {
 
                 },
@@ -64,15 +84,19 @@ class LocationReport extends StatelessWidget {
                 ],
               ),
               TextFormField(
+                focusNode: _numberStreetFocus,
                 onChanged: (value){
-                  provider.numberStreet= value;
+                  widget.provider.numberStreet= value;
                 },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: S.of(context).numberStreet,
                   hintStyle: TextStyle(color: AppColors.greyButtom.withOpacity(0.7))
                 ),
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
+                onFieldSubmitted: (val) {
+                  _numberStreetFocus.unfocus();
+                },
                 onSaved: (value) {
                 },
                 style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),
@@ -84,15 +108,15 @@ class LocationReport extends StatelessWidget {
                 onTap: ()=> Navigator.pushNamed(
                   context,
                   SelectedSectorPage.id,
-                  arguments: provider,
+                  arguments: widget.provider,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(children: [
                     Expanded(
                         child: Text(
-                      provider.selectedSector != null
-                          ? provider.selectedSector.value
+                      widget.provider.selectedSector != null
+                          ? widget.provider.selectedSector.value
                           : S.of(context).sector,
                       style: kTitleStyle.copyWith(
                           color: AppColors.blueBtnRegister),
@@ -106,18 +130,18 @@ class LocationReport extends StatelessWidget {
               InkWell(
                 onTap: () async {
 
-                  if(provider.selectedSector==null){
+                  if(widget.provider.selectedSector==null){
                     showInfo(context);
                     return;
                   }
 
-                  await provider.getNeighborhood();
+                  await widget.provider.getNeighborhood();
 
-                  if(provider.allNeighborhood.isNotEmpty){
+                  if(widget.provider.allNeighborhood.isNotEmpty){
                     Navigator.pushNamed(
                       context,
                       SelectedNeighborhoodPage.id,
-                      arguments: provider,
+                      arguments: widget.provider,
                     );
                   }
 
@@ -127,8 +151,8 @@ class LocationReport extends StatelessWidget {
                   child: Row(children: [
                     Expanded(
                         child: Text(
-                      provider.selectedNeighborhood != null
-                          ? provider.selectedNeighborhood.value
+                      widget.provider.selectedNeighborhood != null
+                          ? widget.provider.selectedNeighborhood.value
                           : S.of(context).neighborhood,
                       style: kTitleStyle.copyWith(
                           color: AppColors.blueBtnRegister),
@@ -147,7 +171,6 @@ class LocationReport extends StatelessWidget {
       ),
     );
   }
-
 
   void showInfo(BuildContext context) {
     showDialog(
