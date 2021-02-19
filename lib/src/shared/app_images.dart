@@ -72,7 +72,7 @@ class AppImagePaths {
   static const dish = '$_basePath/dish.png';// plato
   static const bath = '$_basePath/toilet.png'; // baño
   static const cleanning = '$_basePath/shape.png';
-
+  static const iconCamion= '$_basePath/icon_camion.png';
 
 }
 
@@ -129,6 +129,7 @@ class AppImages {
   static final bath = Image.asset(AppImagePaths.bath);
   static final cleanning = Image.asset(AppImagePaths.cleanning);
 
+  static final iconCamion = Image.asset(AppImagePaths.iconCamion);
 
 
 }

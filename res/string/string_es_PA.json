@@ -300,5 +300,13 @@
     "averageMark": "Calificación promedio",
     "vote": "voto",
     "tapStart": "Toca una estrella para calificar",
-    "reviewCreatedSuccessMessage": "¡Gracias por calificar este lugar!"
+    "reviewCreatedSuccessMessage": "¡Gracias por calificar este lugar!",
+    "route": "Recogida",
+    "seeRoutes": "Ver ruta de recogida",
+    "selectSectorMessage": "Selecciona un sector y un día específico para ver la trayectoria de la recogida de basura que se haya realizado en esa fecha",
+    "selectSector": "Selecciona sector",
+    "selectDay": "Selecciona día",
+    "realTime": "Tiempo Real",
+    "routeSee": "Ver Rutas"
+
 }

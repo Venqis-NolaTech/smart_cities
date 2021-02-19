@@ -26,7 +26,6 @@ class _ReportsPageState extends State<ReportsPage>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _widgetOptions = <Widget>[
       AllReport(),
@@ -49,7 +48,7 @@ class _ReportsPageState extends State<ReportsPage>
         children: _widgetOptions,
       ),
     );
-    ;
+    
   }
 
   Widget _buildAppBar() {
@@ -63,7 +62,6 @@ class _ReportsPageState extends State<ReportsPage>
         IconButton(
             onPressed: () async {
               await Navigator.pushNamed(context, FilterReportPage.id);
-              //TODO ACTUALIZAR NUEVAMENTE LISTADO CON LOS FILTROS MODIFICADOS
             },
             icon: Icon(
               Icons.tune,
