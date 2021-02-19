@@ -134,16 +134,16 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                   : widget.decoration,
               style: widget.style,
               textInputAction: widget.textInputAction,
-              obscureText: _obscureText,
+              //obscureText: _obscureText,
             )
           ),
-          GestureDetector(
+          /*GestureDetector(
               onTap: _toggle,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: _obscureText ? AppImages.eyeOff : AppImages.eye,
               )
-          )
+          )*/
 
 
         ],
