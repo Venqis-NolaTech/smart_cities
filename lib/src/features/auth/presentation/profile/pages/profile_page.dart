@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:smart_cities/src/features/auth/presentation/profile/widgets/profile_form_content.dart';
+import 'package:smart_cities/src/features/auth/presentation/base/widgets/user_photo.dart';
 
-import '../../../../../../generated/i18n.dart';
+
 import '../../../../../shared/app_colors.dart';
-import '../../../../../shared/app_images.dart';
 import '../../../../../shared/components/base_view.dart';
 import '../../../../../shared/provider/view_state.dart';
 import '../providers/profile_provider.dart';
-import '../widgets/profile_content.dart';
+import 'package:smart_cities/src/shared/spaces.dart';
 
 class ProfilePage extends StatelessWidget {
   static const id = "profile_page";
@@ -16,66 +17,59 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height -
-        (kToolbarHeight + kBottomNavigationBarHeight * 1.5);
+    var screenHeght= MediaQuery.of(context).size.height;
 
-    return BaseView<ProfileProvider>(
+     return BaseView<ProfileProvider>(
       onProviderReady: (provider) => provider.getProfile(),
-      builder: (context, provider, child) {
+      builder: (context, provider, child){
+
         final isLoading = provider.currentState is Loading ||
             provider.profileState is Loading;
+
 
         return ModalProgressHUD(
           inAsyncCall: isLoading,
           child: Scaffold(
-            appBar: AppBar(
-              title: Text(S.of(context).menuProfileTitle),
-            ),
-            body: SafeArea(
-              child: Stack(
-                children: [
-                  _buildBackground(context, screenHeight),
-                  _buildContent(provider, screenHeight),
+            body: Column(
+              children: [
+
+                Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Container(height: screenHeght*0.2, color: AppColors.red),
+                        Container(
+                          height: screenHeght*0.05, 
+                          width: double.infinity,
+                          color: AppColors.greyButtom.withOpacity(0.2),
+                          child: Text('Tu Info'),)
+                      ],
+                    ),
+
+                    Container(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          Spaces.verticalLargest(),
+                          UserPhoto(provider: provider)
+                        ],
+                      ),
+                    )
                 ],
-              ),
-            ),
-          ),
+                ),
+
+                ProfileFormContent(provider: provider),
+            ],
+            )
+        ),
         );
+
+
+
       },
+
     );
   }
 
-  Widget _buildBackground(BuildContext context, double screenHeight) {
-    return Container(
-      height: screenHeight,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Flexible(
-            flex: 1,
-            child: Image.asset(
-              AppImagePaths.defaultImage,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Flexible(
-            flex: 2,
-            child: Container(
-              color: AppColors.midnightBlue70,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildContent(ProfileProvider provider, double screenHeight) {
-    return Container(
-      height: screenHeight,
-      child: ProfileContent(
-        provider: provider,
-      ),
-    );
-  }
 }
