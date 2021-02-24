@@ -55,12 +55,17 @@ class ProfilePage extends StatelessWidget {
                           ],
                         ),
                       ),
+
+                      SafeArea(
+                          child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(Icons.arrow_back, color: AppColors.white,),
+                      ))
                     ],
                   ),
 
                   ProfileFormContent(
                     provider: provider,
-                    onSend: null,
                     ),
               ],
               ),

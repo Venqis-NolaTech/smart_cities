@@ -4,6 +4,7 @@ import 'package:smart_cities/src/core/util/validator.dart';
 import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
+import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
@@ -16,12 +17,10 @@ import '../../../../../di/injection_container.dart' as di;
 class ProfileFormContent extends StatefulWidget {
   ProfileFormContent({
     Key key,
-    @required this.provider, 
-    @required this.onSend,
+    @required this.provider,
   }) : super(key: key);
 
   final ProfileProvider provider;
-  final Function onSend;
 
   @override
   _ProfileFormContentState createState() => _ProfileFormContentState();
@@ -33,9 +32,6 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
   final _emailTextController = TextEditingController();
   final _streetTextController = TextEditingController();
   final _numberTextController = TextEditingController();
-
-  final _sectorTextController = TextEditingController();
-
   final _validator = di.sl<Validator>();
   final _formKey = GlobalKey<FormState>();
 
@@ -44,7 +40,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
     _fullNameTextController.dispose();
     _emailTextController.dispose();
     _phoneNumberTextController.dispose();
-    _sectorTextController.dispose();
+
     _streetTextController.dispose();
     _numberTextController.dispose();
 
@@ -71,6 +67,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
       _streetTextController.text = user.street;
       
       _numberTextController.text = user.number;
+
     }
   }
 
@@ -79,8 +76,27 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Spaces.verticalSmallest(),
           _buildContent(widget.provider),
+          //Spaces.verticalSmallest(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(S.of(context).report, style: kSmallestTextStyle.copyWith(
+                  color: AppColors.blueBtnRegister.withOpacity(0.2)), textAlign: TextAlign.left),
+                Spaces.verticalSmall(),
+
+                widget.provider.user.reportNumber!= null ? Text('${widget.provider.user.reportNumber} ${S.of(context).reportCreated}',
+                    style: kNormalStyle.copyWith(color: AppColors.red), textAlign: TextAlign.left,)
+                : Container(),
+              ],
+            ),
+          ),
+          Spaces.verticalSmall(),
           btnIniciar(context, widget.provider)
         ],
       ),
@@ -90,15 +106,16 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
 
   Widget _buildContent(ProfileProvider provider) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
             controller: _fullNameTextController,
             textInputAction: TextInputAction.next,
             enabled: provider.editMode,
             onSaved: (value) {
-              //widget.provider.fullName = value;
+              provider.fullName = value;
             },
             decoration: new InputDecoration(
               hintText: '${S.of(context).nameAndLastNames}*',
@@ -112,7 +129,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
             decoration: new InputDecoration(
               labelText: S.of(context).phoneNumber,
             ),
-            enabled: provider.editMode,
+            enabled: false,
             style: kNormalStyle,
           ),
 
@@ -136,27 +153,34 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
             style: kNormalStyle,
           ),
 
-          InkWell(
+          InkWell(      
             onTap: () async {
-              
+              //SelectedSectorPage
+              var result= await Navigator.pushNamed(context, SelectSectorPage.id);
+              print('sector seleccionado $result');
+              if(result!=null)
+                provider.sector= result;
+
+
             },
-            child: TextFormField(
-              controller: _sectorTextController,
-              textInputAction: TextInputAction.next,
-              enabled: provider.editMode,
-              validator: (value) {
-                return null;
-              },
-              onSaved: (value) {
-            
-            
-              },
-              decoration: new InputDecoration(
-                labelText: '${S.of(context).sector}*',
-              ),
-              style: kNormalStyle.copyWith(
-                color: Colors.white,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Spaces.verticalSmall(),
+                Text(S.of(context).sector, style: kSmallestTextStyle.copyWith(
+                  color: AppColors.blueBtnRegister.withOpacity(0.2)), textAlign: TextAlign.left),
+                Spaces.verticalSmall(),
+
+                Text(
+                  provider.sector!= null ? provider.sector.value : '',
+                  style: kNormalStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Spaces.verticalSmall(),
+                Divider()
+              ],
             ),
           ),
 

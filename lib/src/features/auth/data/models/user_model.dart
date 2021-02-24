@@ -16,9 +16,14 @@ class UserModel extends User {
       String email,
       String photoURL,
       String dni,
+      String street,
+      String number,
       CatalogItem municipality,
       CatalogItem province,
-      CatalogItem city})
+      CatalogItem city,
+      CatalogItem sector,
+      int reportNumber
+      })
       : super(
             id: id,
             uid: uid,
@@ -31,9 +36,13 @@ class UserModel extends User {
             email: email,
             photoURL: photoURL,
             dni: dni,
+            street: street,
+            number: number,
             municipality: municipality,
             province: province,
-            city: city);
+            city: city,
+            reportNumber: reportNumber,
+            sector: sector);
 
   // Json
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +60,9 @@ class UserModel extends User {
       email: user['email'],
       photoURL: user['photoURL'],
       dni: user['dni'],
+      street: user['street'],
+      number: user['number'],
+      reportNumber: user['reportNumber'],
       municipality: user['municipality'] != null
           ? CatalogItemModel.fromJson(user['municipality'])
           : null,
@@ -59,6 +71,10 @@ class UserModel extends User {
           : null,
       city:
           user['city'] != null ? CatalogItemModel.fromJson(user['city']) : null,
+      sector: user['sector'] != null
+          ? CatalogItemModel.fromJson(user['sector'])
+          : null,
+
     );
   }
 
@@ -76,26 +92,35 @@ class UserModel extends User {
         'email': email,
         'photoURL': photoURL,
         'dni': dni,
+        'street': street,
+        'number': number,
         'municipality': municipality != null
             ? CatalogItemModel.fromEntity(municipality).toJson()
             : null,
         'province': province != null
             ? CatalogItemModel.fromEntity(province).toJson()
             : null,
-        'city': city != null ? CatalogItemModel.fromEntity(city).toJson() : null
+        'city': city != null ? CatalogItemModel.fromEntity(city).toJson() : null,
+        'reportNumber': reportNumber,
+
+        'sector': sector != null
+            ? CatalogItemModel.fromEntity(sector).toJson()
+            : null,
       }
     };
   }
 
   Map<String, dynamic> toJsonRequest() {
     return {
-      'profession': profession,
       'firstName': firstName,
       'lastName': lastName,
       'nickName': nickName,
       'email': email,
       'photoURL': photoURL,
-      'municipality': municipality.key,
+      'municipality': municipality!= null ? municipality.key : null,
+      'street': street,
+      'number': number,
+      'sector': sector!= null ? sector.key : null
       //'province': province.key,
     };
   }
@@ -114,9 +139,13 @@ class UserModel extends User {
       email: user.email,
       photoURL: user.photoURL,
       dni: user.dni,
+      street: user.street,
+      number: user.number,
       municipality: user.municipality,
       province: user.province,
       city: user.city,
+      reportNumber: user.reportNumber,
+      sector: user.sector
     );
   }
 }

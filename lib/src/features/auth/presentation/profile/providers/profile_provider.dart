@@ -61,6 +61,18 @@ class ProfileProvider extends BaseProvider {
     _municipality = newValue;
   }
 
+  
+  CatalogItem _sector;
+  CatalogItem get sector => _sector;
+
+  set sector(CatalogItem newValue) {
+    _sector= newValue;
+    print('nuevo sector');
+    notifyListeners();
+  }
+
+
+
 
   User _user = currentUser;
   User get user => _user;
@@ -94,6 +106,8 @@ class ProfileProvider extends BaseProvider {
       (user) {
         _user = user;
         _municipality= user.municipality?.key;
+        _sector= user.sector;
+
 
         profileState = Loaded();
       },
@@ -112,6 +126,8 @@ class ProfileProvider extends BaseProvider {
           (failure) => state = Error(failure: failure),
           (user) {
         _user = user;
+        _municipality= user.municipality?.key;
+
         state = Loaded();
       },
     );
@@ -124,9 +140,13 @@ class ProfileProvider extends BaseProvider {
     final params = User(
       firstName: nameParsed.first,
       lastName: nameParsed.last,
-      street: street,
-      number: number,
-      email: email
+      nickName: fullName,
+      street: street ?? user.street,
+      number: number?? user.number,
+      email: email ?? user.email,
+      sector: sector,
+      municipality: user.municipality,
+      photoURL: user.photoURL
     );
 
     if (!_validDataChanged(params)) {
@@ -138,12 +158,15 @@ class ProfileProvider extends BaseProvider {
 
     state = Loading();
 
-    final failureOrUser = await editProfileUseCase(_user);
+    final failureOrUser = await editProfileUseCase(params);
 
     failureOrUser.fold(
       (failure) => state = Error(failure: failure),
       (user) {
         _user = user;
+
+        refreshProfileUseCase(user);
+        currentUser= user;
 
         state = Loaded();
       },
@@ -168,10 +191,18 @@ class ProfileProvider extends BaseProvider {
 
   bool _validDataChanged(User params) {
   
+    if(_sector!=null &&  _user.sector== null)
+      return true;
+
+      
+    if(_sector!=null && _sector.key != _user.sector?.key)
+      return true;
 
     return !(_user.street == params.street &&
         _user.number == params.number &&
-        _user.email == params.email
+        _user.email == params.email &&
+        _user.firstName == params.firstName &&
+        _user.lastName == params.lastName 
         );
   }
 

@@ -18,6 +18,9 @@ import 'package:smart_cities/src/features/reports/presentation/new_report/provid
 import 'package:smart_cities/src/features/reports/presentation/report_comments/pages/report_comments_page.dart';
 import 'package:smart_cities/src/features/reports/presentation/report_details/pages/report_details_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/pages/profile_page.dart';
+import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
+
+
 
 import 'src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
 import 'src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
@@ -175,7 +178,12 @@ class AppRoute {
         routePath: ProfilePage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => ProfilePage()),
       )
-
+  
+      ..define(
+        routePath: SelectSectorPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) => SelectSectorPage()),
+      )
+  
 
     ;
 
