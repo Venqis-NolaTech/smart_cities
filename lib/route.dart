@@ -1,5 +1,4 @@
 import 'package:smart_cities/src/features/auth/presentation/selected_municipality/page/selected_municipality_page.dart';
-import 'package:smart_cities/src/features/auth/presentation/validate/page/validate_account_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
@@ -74,10 +73,6 @@ class AppRoute {
           final params = arguments as NewReportParams;
           return NewReport(params: params);
         }),
-      )
-      ..define(
-        routePath: ValidateAccountPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => ValidateAccountPage()),
       )
       ..define(
         routePath: SelectedSectorPage.id,

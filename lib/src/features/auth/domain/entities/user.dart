@@ -17,6 +17,8 @@ class User extends Equatable {
   final String email;
   final String photoURL;
   final String dni;
+  final String street;
+  final String number;
   //final String birthDate;
   CatalogItem municipality;
   CatalogItem province;
@@ -36,6 +38,8 @@ class User extends Equatable {
       this.photoURL,
       this.email,
       this.dni,
+      this.street,
+      this.number,
       //this.birthDate,
       this.municipality,
       this.province,

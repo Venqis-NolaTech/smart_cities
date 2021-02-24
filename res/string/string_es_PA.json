@@ -304,5 +304,7 @@
     "transport": "Transporte",
     "paymentMethod": "Método de Pago",
     "newPoll": "Crear Encuesta",
-    "chat": "Chat"
+    "chat": "Chat",
+    "street": "Calle",
+    "save": "Guardar Cambios"
 }

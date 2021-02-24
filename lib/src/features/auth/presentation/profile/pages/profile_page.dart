@@ -30,36 +30,40 @@ class ProfilePage extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: isLoading,
           child: Scaffold(
-            body: Column(
-              children: [
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
 
-                Stack(
-                  children: [
-                    Column(
-                      children: [
-                        Container(height: screenHeght*0.2, color: AppColors.red),
-                        Container(
-                          height: screenHeght*0.05, 
-                          width: double.infinity,
-                          color: AppColors.greyButtom.withOpacity(0.2),
-                          child: Text('Tu Info'),)
-                      ],
-                    ),
-
-                    Container(
-                      width: double.infinity,
-                      child: Column(
+                  Stack(
+                    children: [
+                      Column(
                         children: [
-                          Spaces.verticalLargest(),
-                          UserPhoto(provider: provider)
+                          Container(height: screenHeght*0.2, color: AppColors.red),
+                          Container(
+                            height: screenHeght*0.05,
+                            width: double.infinity,
+                            color: AppColors.greyButtom.withOpacity(0.2))
                         ],
                       ),
-                    )
-                ],
-                ),
 
-                ProfileFormContent(provider: provider),
-            ],
+                      Container(
+                        width: double.infinity,
+                        child: Column(
+                          children: [
+                            Spaces.verticalLargest(),
+                            UserPhoto(provider: provider)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  ProfileFormContent(
+                    provider: provider,
+                    onSend: null,
+                    ),
+              ],
+              ),
             )
         ),
         );

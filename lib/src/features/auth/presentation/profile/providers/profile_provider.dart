@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/validate_email_use_case.dart';
+import 'package:smart_cities/src/shared/user_utils.dart';
 
 import '../../../../../../app.dart';
 import '../../../../../core/entities/catalog_item.dart';
@@ -46,9 +47,10 @@ class ProfileProvider extends BaseProvider {
 
   //String lastName;
   //String firstName;
-  //String nickName;
-  //String email;
-  //String photoUrl;
+  String fullName;
+  String email;
+  String street;
+  String number;
 
   String _municipality;
 
@@ -116,10 +118,15 @@ class ProfileProvider extends BaseProvider {
   }
 
   Future<void> editProfile() async {
+    final nameParsed = UserUtils.parseNames(fullName);
 
-    /*
+    
     final params = User(
-      municipality: municipality
+      firstName: nameParsed.first,
+      lastName: nameParsed.last,
+      street: street,
+      number: number,
+      email: email
     );
 
     if (!_validDataChanged(params)) {
@@ -128,8 +135,6 @@ class ProfileProvider extends BaseProvider {
       return;
     }
 
-    if(_user.municipality != params.municipality)
-      _user.municipality= params.municipality;
 
     state = Loading();
 
@@ -142,7 +147,7 @@ class ProfileProvider extends BaseProvider {
 
         state = Loaded();
       },
-    );*/
+    );
   }
 
   Future<void> _updatePhoto() async {
@@ -162,13 +167,12 @@ class ProfileProvider extends BaseProvider {
   }
 
   bool _validDataChanged(User params) {
-    return !(_user.municipality == params.municipality);
+  
 
-
-    /*return !(_user.firstName == params.firstName &&
-        _user.lastName == params.lastName &&
-        _user.email == params.email &&
-    _user.municipality == params.municipality);*/
+    return !(_user.street == params.street &&
+        _user.number == params.number &&
+        _user.email == params.email
+        );
   }
 
   Future<void> validateEmail() async {
