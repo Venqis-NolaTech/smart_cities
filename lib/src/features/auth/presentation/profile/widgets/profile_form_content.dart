@@ -118,19 +118,25 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
               provider.fullName = value;
             },
             decoration: new InputDecoration(
-              hintText: '${S.of(context).nameAndLastNames}*',
+              labelText: S.of(context).nameAndLastNames,
+              focusColor: AppColors.blueBtnRegister,
+              hoverColor: AppColors.blueBtnRegister,
+              labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
             ),
-            style: kNormalStyle,
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
           Spaces.verticalSmall(),
 
           TextFormField(
             controller: _phoneNumberTextController,
-            decoration: new InputDecoration(
-              labelText: S.of(context).phoneNumber,
-            ),
             enabled: false,
-            style: kNormalStyle,
+            decoration: new InputDecoration(
+                labelText: S.of(context).phoneNumber,
+                focusColor: AppColors.blueBtnRegister,
+                hoverColor: AppColors.blueBtnRegister,
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+            ),
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
 
 
@@ -147,14 +153,17 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
               widget.provider.email = value;
             },
             decoration: new InputDecoration(
-              labelText: S.of(context).email,
+                labelText: S.of(context).email,
+                focusColor: AppColors.blueBtnRegister,
+                hoverColor: AppColors.blueBtnRegister,
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
             ),
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
             enabled: provider.editMode,
-            style: kNormalStyle,
           ),
 
           InkWell(      
-            onTap: () async {
+            onTap: provider.editMode ? () async {
               //SelectedSectorPage
               var result= await Navigator.pushNamed(context, SelectSectorPage.id);
               print('sector seleccionado $result');
@@ -162,7 +171,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
                 provider.sector= result;
 
 
-            },
+            } : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -175,11 +184,11 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
                   provider.sector!= null ? provider.sector.value : '',
                   style: kNormalStyle.copyWith(
                     color: AppColors.blueBtnRegister,
-                    fontWeight: FontWeight.bold
+                    //fontWeight: FontWeight.bold
                   ),
                 ),
                 Spaces.verticalSmall(),
-                Divider()
+                Container(height: 0.7, color: AppColors.blueBtnRegister,)
               ],
             ),
           ),
@@ -193,11 +202,14 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
             onSaved: (value) {
               widget.provider.street = value;
             },
-            decoration: new InputDecoration(
-              labelText: S.of(context).street,
-            ),
             enabled: provider.editMode,
-            style: kNormalStyle,
+            decoration: new InputDecoration(
+                labelText: S.of(context).street,
+                focusColor: AppColors.blueBtnRegister,
+                hoverColor: AppColors.blueBtnRegister,
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+            ),
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
 
 
@@ -210,11 +222,14 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
             onSaved: (value) {
               widget.provider.number = value;
             },
-            decoration: new InputDecoration(
-              labelText: S.of(context).numberStreet,
-            ),
             enabled: provider.editMode,
-            style: kNormalStyle,
+            decoration: new InputDecoration(
+                labelText: S.of(context).numberStreet,
+                focusColor: AppColors.blueBtnRegister,
+                hoverColor: AppColors.blueBtnRegister,
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+            ),
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
 
 
@@ -277,6 +292,10 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
         builder: (context) {
           return InfoAlertDialog(
             message: message,
+            onConfirm: () {
+              if (!provider.editMode)
+                Navigator.pop(context);
+            },
           );
         });
   }
