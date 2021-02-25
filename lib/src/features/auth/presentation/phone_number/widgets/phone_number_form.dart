@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_cities/src/features/auth/presentation/selected_municipality/page/selected_municipality_page.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 

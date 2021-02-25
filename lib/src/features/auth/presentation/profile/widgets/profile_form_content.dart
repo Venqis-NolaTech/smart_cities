@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/core/util/validator.dart';
 import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
-import 'package:smart_cities/src/features/auth/presentation/base/widgets/user_photo.dart';
+import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
+import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
+
+import '../../../../../shared/components/info_alert_dialog.dart';
 import '../../../../../di/injection_container.dart' as di;
 
 
@@ -19,7 +22,6 @@ class ProfileFormContent extends StatefulWidget {
 
   final ProfileProvider provider;
 
-
   @override
   _ProfileFormContentState createState() => _ProfileFormContentState();
 }
@@ -28,9 +30,8 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
   final _fullNameTextController = TextEditingController();
   final _phoneNumberTextController = TextEditingController();
   final _emailTextController = TextEditingController();
-  final _addressTextController = TextEditingController();
-  final _sectorTextController = TextEditingController();
-
+  final _streetTextController = TextEditingController();
+  final _numberTextController = TextEditingController();
   final _validator = di.sl<Validator>();
   final _formKey = GlobalKey<FormState>();
 
@@ -39,8 +40,9 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
     _fullNameTextController.dispose();
     _emailTextController.dispose();
     _phoneNumberTextController.dispose();
-    _sectorTextController.dispose();
-    _addressTextController.dispose();
+
+    _streetTextController.dispose();
+    _numberTextController.dispose();
 
     super.dispose();
   }
@@ -61,7 +63,10 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
       _emailTextController.text = user.email;
 
       _phoneNumberTextController.text = user.phoneNumber;
-
+      
+      _streetTextController.text = user.street;
+      
+      _numberTextController.text = user.number;
 
     }
   }
@@ -70,54 +75,68 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Container(
-        child: Scrollbar(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(top: kToolbarHeight),
-              child: Stack(
-                children: [
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Spaces.verticalSmallest(),
+          _buildContent(widget.provider),
+          //Spaces.verticalSmallest(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(S.of(context).report, style: kSmallestTextStyle.copyWith(
+                  color: AppColors.blueBtnRegister.withOpacity(0.2)), textAlign: TextAlign.left),
+                Spaces.verticalSmall(),
 
-                  _buildContent(),
-
-                ],
-              ),
+                widget.provider.user.reportNumber!= null ? Text('${widget.provider.user.reportNumber} ${S.of(context).reportCreated}',
+                    style: kNormalStyle.copyWith(color: AppColors.red), textAlign: TextAlign.left,)
+                : Container(),
+              ],
             ),
           ),
-        ),
+          Spaces.verticalSmall(),
+          btnIniciar(context, widget.provider)
+        ],
       ),
-
-
     );
   }
 
 
-  Widget _buildContent() {
+  Widget _buildContent(ProfileProvider provider) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
             controller: _fullNameTextController,
             textInputAction: TextInputAction.next,
-            enabled: false,
+            enabled: provider.editMode,
             onSaved: (value) {
-              //widget.provider.fullName = value;
+              provider.fullName = value;
             },
             decoration: new InputDecoration(
-              hintText: '${S.of(context).nameAndLastNames}*',
+              labelText: S.of(context).nameAndLastNames,
+              focusColor: AppColors.blueBtnRegister,
+              hoverColor: AppColors.blueBtnRegister,
+              labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
             ),
-            style: kNormalStyle,
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
           Spaces.verticalSmall(),
 
           TextFormField(
             controller: _phoneNumberTextController,
-            decoration: new InputDecoration(
-              labelText: S.of(context).phoneNumber,
-            ),
             enabled: false,
-            style: kNormalStyle,
+            decoration: new InputDecoration(
+                labelText: S.of(context).phoneNumber,
+                focusColor: AppColors.blueBtnRegister,
+                hoverColor: AppColors.blueBtnRegister,
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+            ),
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
 
 
@@ -131,40 +150,154 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
               return null;
             },
             onSaved: (value) {
-              //widget.provider.email = value;
+              widget.provider.email = value;
             },
             decoration: new InputDecoration(
-              labelText: S.of(context).email,
+                labelText: S.of(context).email,
+                focusColor: AppColors.blueBtnRegister,
+                hoverColor: AppColors.blueBtnRegister,
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
             ),
-            enabled: false,
-            style: kNormalStyle,
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
+            enabled: provider.editMode,
           ),
 
-          Container(alignment: Alignment.bottomLeft, child: Text('* tu cuenta no esta validad', style: kSmallestTextStyle.copyWith(color: AppColors.red), textAlign: TextAlign.start)),
+          InkWell(      
+            onTap: provider.editMode ? () async {
+              //SelectedSectorPage
+              var result= await Navigator.pushNamed(context, SelectSectorPage.id);
+              print('sector seleccionado $result');
+              if(result!=null)
+                provider.sector= result;
+
+
+            } : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Spaces.verticalSmall(),
+                Text(S.of(context).sector, style: kSmallestTextStyle.copyWith(
+                  color: AppColors.blueBtnRegister.withOpacity(0.2)), textAlign: TextAlign.left),
+                Spaces.verticalSmall(),
+
+                Text(
+                  provider.sector!= null ? provider.sector.value : '',
+                  style: kNormalStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    //fontWeight: FontWeight.bold
+                  ),
+                ),
+                Spaces.verticalSmall(),
+                Container(height: 0.7, color: AppColors.blueBtnRegister,)
+              ],
+            ),
+          ),
 
           TextFormField(
-            controller: _sectorTextController,
+            controller: _streetTextController, //calle
             textInputAction: TextInputAction.next,
-            enabled: false,
             validator: (value) {
-              if (!_validator.isEmail(value)) {
-                return S.of(context).invaliEmailMessage;
-              }
               return null;
             },
             onSaved: (value) {
-              //widget.provider.email = value;
+              widget.provider.street = value;
             },
+            enabled: provider.editMode,
             decoration: new InputDecoration(
-              labelText: '${S.of(context).sector}*',
+                labelText: S.of(context).street,
+                focusColor: AppColors.blueBtnRegister,
+                hoverColor: AppColors.blueBtnRegister,
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
             ),
-            style: kNormalStyle.copyWith(
-              color: Colors.white,
-            ),
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
+
+
+          TextFormField(
+            controller: _numberTextController, //calle
+            textInputAction: TextInputAction.next,
+            validator: (value) {
+              return null;
+            },
+            onSaved: (value) {
+              widget.provider.number = value;
+            },
+            enabled: provider.editMode,
+            decoration: new InputDecoration(
+                labelText: S.of(context).numberStreet,
+                focusColor: AppColors.blueBtnRegister,
+                hoverColor: AppColors.blueBtnRegister,
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+            ),
+            style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
+          ),
+
+
 
         ],
       ),
     );
   }
+
+
+
+   Widget btnIniciar(BuildContext context, ProfileProvider provider){
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: RoundedButton(
+            color: AppColors.blueBtnRegister,
+            title: !provider.editMode ? S.of(context).edit.toUpperCase() : S.of(context).save.toUpperCase(),
+            style: kTitleStyle.copyWith(fontWeight: FontWeight.bold,  color: AppColors.white),
+            onPressed: () async {
+    
+              if(provider.editMode){
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
+
+                  await provider.editProfile();
+
+                  _proccess(context, provider);
+                }
+
+
+              }else
+                provider.editMode = true;
+
+
+            }
+        )
+    );
+  }
+
+  
+  void _proccess(BuildContext context, ProfileProvider provider) {
+    final currentState = provider.currentState;
+
+    if (currentState is NoChanged) {
+      provider.editMode = false;
+
+      return;
+    }
+
+    String message = S.of(context).saveDataMessage;
+
+    if (currentState is Error) {
+      message = S.of(context).unexpectedErrorMessage;
+    } else {
+      provider.editMode = false;
+    }
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return InfoAlertDialog(
+            message: message,
+            onConfirm: () {
+              if (!provider.editMode)
+                Navigator.pop(context);
+            },
+          );
+        });
+  }
+
 }

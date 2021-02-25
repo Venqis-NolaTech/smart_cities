@@ -19,7 +19,6 @@ import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:smart_cities/src/features/auth/domain/entities/user.dart';
 
-import 'package:smart_cities/src/features/auth/presentation/validate/widget/confirmation_validate_account.dart';
 
 class NewReportParams{
   final double latitude;
@@ -121,23 +120,21 @@ class _NewReportState extends State<NewReport> {
                         SummaryReport(provider: provider)
                       ],
                     ),
-                    currentState is Error && failure is UserNotFoundFailure
-                        ? ConfirmationAccount()
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              BottomNavigationReport(
-                                textOnBack: _stepIndex == 0
-                                    ? ' '
-                                    : S.of(context).back.toUpperCase(),
-                                textOnNext: _stepIndex == _lengthIndex
-                                    ? S.of(context).finalize.toUpperCase()
-                                    : S.of(context).nextPage.toUpperCase(),
-                                onBack: previewStep,
-                                onNext: () => nextStep(provider),
-                              )
-                            ],
-                          )
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        BottomNavigationReport(
+                          textOnBack: _stepIndex == 0
+                              ? ' '
+                              : S.of(context).back.toUpperCase(),
+                          textOnNext: _stepIndex == _lengthIndex
+                              ? S.of(context).finalize.toUpperCase()
+                              : S.of(context).nextPage.toUpperCase(),
+                          onBack: previewStep,
+                          onNext: () => nextStep(provider),
+                        )
+                      ],
+                    )
                   ],
                 )
             ),

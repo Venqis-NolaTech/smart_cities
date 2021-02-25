@@ -17,10 +17,15 @@ class User extends Equatable {
   final String email;
   final String photoURL;
   final String dni;
+  final String street;
+  final String number;
   //final String birthDate;
   CatalogItem municipality;
   CatalogItem province;
   CatalogItem city;
+
+  CatalogItem sector;
+  final int reportNumber;
 
   User(
       {this.id,
@@ -36,10 +41,15 @@ class User extends Equatable {
       this.photoURL,
       this.email,
       this.dni,
+      this.street,
+      this.number,
       //this.birthDate,
       this.municipality,
       this.province,
-      this.city});
+      this.city,
+      this.reportNumber,
+      this.sector
+      });
 
   String get fullName => '$firstName $lastName';
 
