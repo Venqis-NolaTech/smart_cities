@@ -19,6 +19,12 @@ import 'package:smart_cities/src/shared/spaces.dart';
 class SelectedMunicipalityPage extends StatefulWidget {
   static const id = "selected_municipality_page";
 
+  static pushNavigate(BuildContext context, {replace = false}) {
+    replace
+        ? Navigator.pushReplacementNamed(context, id)
+        : Navigator.pushNamed(context, id);
+  }
+
   @override
   _SelectedMunicipalityPageState createState() => _SelectedMunicipalityPageState();
 }
@@ -29,7 +35,7 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
   Widget build(BuildContext context) {
 
     return BaseView<ProfileProvider>(
-      onProviderReady: (provider) => provider.getProfile(),
+      onProviderReady: (provider) => provider.getProfile(municipalitys: true),
         builder: (context, provider, child) {
 
           final isLoading = provider.currentState is Loading ||
@@ -111,15 +117,15 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
   List<Widget> _generateViewsMunicipality(BuildContext context, ProfileProvider provider) {
     //print('listado de municipios ${municipalitys.length}');
 
-    if(municipalitys!=null)
-      return List<Widget>.generate(municipalitys.length, (index) {
+    if(provider.municipalitys!=null)
+      return List<Widget>.generate(provider.municipalitys.length, (index) {
 
-        var selected= provider.municipality == municipalitys[index].key;
+        var selected= provider.municipality == provider.municipalitys[index].key;
 
         return CustomItemList(
           selected: selected,
-          onTap: () => onTapMunicipality(provider, municipalitys[index]),
-          title: municipalitys[index].value,
+          onTap: () => onTapMunicipality(provider, provider.municipalitys[index]),
+          title: provider.municipalitys[index].value,
           isDivider: true,
         );
       });

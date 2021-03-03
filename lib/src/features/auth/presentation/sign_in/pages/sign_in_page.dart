@@ -4,58 +4,41 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/src/features/auth/presentation/phone_number/widgets/tittle_app_bar_login.dart';
 import 'package:smart_cities/src/features/auth/presentation/pre_login/page/pre_login.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pages/register_page.dart';
+import 'package:smart_cities/src/shared/app_colors.dart';
 
-import '../../../../../shared/app_colors.dart';
 import '../../../../../shared/components/base_view.dart';
 import '../../../../../shared/provider/view_state.dart';
-import '../../base/providers/phone_number_auth_provider.dart';
-import '../providers/phone_number_provider.dart';
-import '../widgets/phone_number_form.dart';
+import '../providers/sign_in_provider.dart';
+import '../widgets/sign_in_form.dart';
 
-class PhoneNumberPage extends StatelessWidget {
-  static const id = "phone_number_page";
+class SignInPage extends StatelessWidget {
+  static const id = "sign_in_page";
 
-  PhoneNumberPage({
-    Key key,
-    @required this.authMethod,
-  }) : super(key: key);
+  static pushNavigate(BuildContext context) {
+    Navigator.pushNamed(context, id);
+  }
 
-  final AuthMethod authMethod;
+  const SignInPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<PhoneNumberProvider>(
+    return BaseView<SignInProvider>(
       builder: (context, provider, child) {
         return ModalProgressHUD(
           inAsyncCall: provider.currentState is Loading,
           child: Scaffold(
-            backgroundColor: AppColors.white,
-            resizeToAvoidBottomInset: false,
             appBar: AppBar(
                 backgroundColor: AppColors.red,
-                title: tittleAppBarLogin(onLogin: null,onRegister: ()=> Navigator.pushReplacementNamed(context, RegisterPage.id)),
+                title: tittleAppBarLogin(onLogin: null, onRegister: ()=> Navigator.pushReplacementNamed(context, RegisterPage.id)),
                 leading: IconButton(
                   icon: Icon(MdiIcons.close),
                   color: AppColors.white,
-                  onPressed: () => Navigator.pushNamedAndRemoveUntil(context, PreLogin.id, ModalRoute.withName(PhoneNumberPage.id)),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(context, PreLogin.id, ModalRoute.withName(SignInPage.id)),
                 )),
-            body: _buildContentSection(
-              context,
-              provider,
-            ),
+            body: SignInForm(provider: provider),
           ),
         );
       },
     );
   }
-
-  Widget _buildContentSection(
-    BuildContext context,
-    PhoneNumberProvider provider,
-  ) {
-    return PhoneNumberForm(
-      provider: provider,
-    );
-  }
 }
-

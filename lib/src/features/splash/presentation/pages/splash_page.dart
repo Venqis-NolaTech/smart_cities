@@ -14,6 +14,12 @@ import '../../../../shared/provider/view_state.dart';
 import '../providers/splash_provider.dart';
 
 class SplashPage extends StatefulWidget {
+  static const id = "splash_page";
+
+  static pushNavigate(BuildContext context) =>
+      Navigator.pushNamedAndRemoveUntil(context, id, (route) => false);
+
+
   @override
   _SplashPageState createState() => _SplashPageState();
 }

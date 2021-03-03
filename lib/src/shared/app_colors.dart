@@ -46,7 +46,8 @@ class AppColors {
   static const backgroundDark = Color(0xFF767680);
   static const backgroundLight = Color(0xFFF0F1F2);
 
-
+  static const blueFacebook = Color(0xFF425BB4);
+  static const blueGoogle = Color(0xFF2B69E8);
   
   static const backgroudBlue= Color(0xFFF6F7F8);
 }

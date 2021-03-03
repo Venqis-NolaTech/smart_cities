@@ -59,7 +59,7 @@ class PhoneNumberProvider extends PhoneNumberAuthProvider {
   @override
   Future<void> signInWithCredential(
       AuthCredential authCredential, Function callback) async {
-    if (authMethod == AuthMethod.register) {
+    /*if (authMethod == AuthMethod.register) {
 
       print('credenciales '+authCredential.toString());
 
@@ -121,6 +121,6 @@ class PhoneNumberProvider extends PhoneNumberAuthProvider {
         state = Loaded();
         callback();
       },
-    );
+    );*/
   }
 }

@@ -11,6 +11,13 @@ import '../widgets/main_bottom_navigation_bar.dart';
 class MainPage extends StatefulWidget {
   static const id = "main_page";
 
+
+  static pushNavigate(BuildContext context, {replace = false}) {
+    replace
+        ? Navigator.pushReplacementNamed(context, id)
+        : Navigator.pushNamed(context, id);
+  }
+
   MainPage({
     Key key,
   }) : super(key: key);

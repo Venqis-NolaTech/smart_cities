@@ -4,7 +4,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/phone_number/widgets/tittle_app_bar_login.dart';
-import 'package:smart_cities/src/features/auth/presentation/register/pages/register_page.dart';
+import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pages/register_page.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';

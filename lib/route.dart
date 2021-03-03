@@ -1,4 +1,5 @@
 import 'package:smart_cities/src/features/auth/presentation/selected_municipality/page/selected_municipality_page.dart';
+import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pages/register_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
@@ -19,13 +20,14 @@ import 'package:smart_cities/src/features/reports/presentation/report_comments/p
 import 'package:smart_cities/src/features/reports/presentation/report_details/pages/report_details_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/pages/profile_page.dart';
 import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
+import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.dart';
 
 
 
 import 'src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
 import 'src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
 import 'src/features/auth/presentation/pre_login/page/pre_login.dart';
-import 'src/features/auth/presentation/register/pages/register_page.dart';
+import 'src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
 import 'src/features/auth/presentation/verify_code/pages/verify_code_page.dart';
 import 'src/features/auth/presentation/verify_code/providers/verify_code_provider.dart';
 import 'src/features/welcome/presentation/page/welcome_page.dart';
@@ -38,6 +40,10 @@ class AppRoute {
       ..define(
         routePath: WelcomePage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => WelcomePage()),
+      )
+      ..define(
+        routePath: SplashPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) => SplashPage()),
       )
       ..define(
         routePath: PreLogin.id,
@@ -183,7 +189,10 @@ class AppRoute {
         routePath: SelectSectorPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => SelectSectorPage()),
       )
-  
+      ..define(
+        routePath: SignInPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) => SignInPage()),
+      )
 
     ;
 

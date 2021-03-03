@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/get_municipality_use_case.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/logout_use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/validate_email_use_case.dart';
 import 'package:smart_cities/src/shared/user_utils.dart';
 
@@ -25,7 +27,9 @@ class ProfileProvider extends BaseProvider {
     @required this.editProfileUseCase,
     @required this.updateProfilePhotoUseCase,
     @required this.refreshProfileUseCase,
-    @required this.validateEmailUseCase
+    @required this.validateEmailUseCase,
+    @required this.logoutUseCase,
+    @required this.getMunicipalityUseCase,
   });
 
   final GetProfileUseCase getProfileUseCase;
@@ -33,6 +37,8 @@ class ProfileProvider extends BaseProvider {
   final UpdateProfilePhotoUseCase updateProfilePhotoUseCase;
   final RefreshProfileUseCase refreshProfileUseCase;
   final ValidateEmailUseCase validateEmailUseCase;
+  final LogoutUseCase logoutUseCase;
+  final GetMunicipalityUseCase getMunicipalityUseCase;
 
 
   ViewState _profileState = Idle();
@@ -71,7 +77,13 @@ class ProfileProvider extends BaseProvider {
     notifyListeners();
   }
 
+  List<CatalogItem> _municipalitys=[];
+  List<CatalogItem> get municipalitys => _municipalitys;
 
+  set municipalitys(List<CatalogItem> newValue) {
+    _municipalitys= newValue;
+    notifyListeners();
+  }
 
 
   User _user = currentUser;
@@ -96,8 +108,13 @@ class ProfileProvider extends BaseProvider {
 
 
 
-  void getProfile() async {
+  void getProfile({bool municipalitys= false}) async {
     profileState = Loading();
+
+    if(municipalitys)
+      await getMunicipalitys();
+
+
 
     final failureOrUser = await getProfileUseCase(NoParams());
 
@@ -112,6 +129,21 @@ class ProfileProvider extends BaseProvider {
         profileState = Loaded();
       },
     );
+  }
+
+
+  Future getMunicipalitys() async {
+
+    final failureOrProvinces = await getMunicipalityUseCase(NoParams());
+
+    failureOrProvinces.fold(
+          (_) {},
+          (data) {
+        municipalitys = data;
+        print('guardando el listado de municipios');
+      },
+    );
+
   }
 
 
@@ -221,4 +253,15 @@ class ProfileProvider extends BaseProvider {
       },
     );*/
   }
+
+
+
+  Future logout() async {
+    state = Loading();
+
+    await logoutUseCase(NoParams());
+
+    state = Loaded();
+  }
+
 }

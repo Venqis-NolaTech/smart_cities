@@ -6,14 +6,16 @@ import '../../../../core/error/failure.dart';
 import '../../../../core/usecases/use_case.dart';
 import '../repositories/auth_repository.dart';
 
-class UserExistUseCase extends UseCase<bool, UserExistParam> {
+class UserExistUseCase extends UseCase<bool, String> {
   UserExistUseCase({@required this.authRepository});
 
   final AuthRepository authRepository;
 
   @override
-  Future<Either<Failure, bool>> call(UserExistParam params, {Callback callback}) async {
-    final failure = await authRepository.existUser(params.phoneNumber, params.email, params.dni);
+  Future<Either<Failure, bool>> call(String params, {Callback callback}) async {
+    //final failure = await authRepository.existUser(params.phoneNumber, params.email, params.dni);
+    //return failure == null ? Right(true) : Left(failure);
+    final failure = await authRepository.existUser(params);
     return failure == null ? Right(true) : Left(failure);
   }
 }

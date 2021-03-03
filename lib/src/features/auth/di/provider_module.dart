@@ -1,9 +1,10 @@
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
+import 'package:smart_cities/src/features/auth/presentation/sign_in/providers/sign_in_provider.dart';
+import 'package:smart_cities/src/features/auth/presentation/sign_up/register/providers/register_provider.dart';
 import 'package:smart_cities/src/features/select_sector/provider/select_sector_provider.dart';
 
 import 'package:get_it/get_it.dart';
 import '../presentation/phone_number/providers/phone_number_provider.dart';
-import '../presentation/register/providers/register_provider.dart';
 import '../presentation/verify_code/providers/verify_code_provider.dart';
 
 
@@ -29,8 +30,8 @@ initProvider(GetIt sl) {
   sl.registerFactory(
     () => RegisterProvider(
       registerUserUseCase: sl(),
-      firebaseAuth: sl(),
-      userExistUseCase: sl(),
+      //firebaseAuth: sl(),
+      //userExistUseCase: sl(),
     ),
   );
 
@@ -41,6 +42,8 @@ initProvider(GetIt sl) {
       refreshProfileUseCase: sl(),
       updateProfilePhotoUseCase: sl(),
       validateEmailUseCase: sl(),
+      logoutUseCase: sl(),
+      getMunicipalityUseCase: sl(),
     ),
   );
 
@@ -50,4 +53,10 @@ initProvider(GetIt sl) {
           loggedUserUseCase: sl(),
     ),
   );
+
+  sl.registerFactory(() => SignInProvider(
+    signInUserWithGoogleUseCase: sl(),
+    signInUserWithFacebookUseCase: sl(),
+    signInWithEmailUseCase: sl()
+  ));
 }

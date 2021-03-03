@@ -49,6 +49,8 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resValue "string", "facebook_app_id", "281472566655180"
+        resValue "string", "fb_login_protocol_scheme", "fb281472566655180"
     }
 
     buildTypes {
@@ -101,6 +103,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.google.firebase:firebase-core:18.0.0'
     implementation 'com.google.android.gms:play-services-basement:17.5.0'
+    //implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 }
 

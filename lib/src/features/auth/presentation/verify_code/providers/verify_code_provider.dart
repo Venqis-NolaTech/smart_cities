@@ -52,7 +52,7 @@ class VerifyCodeProvider extends PhoneNumberAuthProvider {
   }
 
   Future<void> _register(AuthCredential credential, Function callback) async {
-    final params = RegisterParams(
+    /*inal params = RegisterParams(
       credential: credential,
       userRegisterRequest: _params.request,
     );
@@ -72,7 +72,7 @@ class VerifyCodeProvider extends PhoneNumberAuthProvider {
 
         callback();
       },
-    );
+    );*/
   }
 
   Future<void> _login(AuthCredential credential, Function callback) async {

@@ -4,8 +4,10 @@ import 'package:connectivity/connectivity.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,7 +52,8 @@ initExternal(GetIt sl) async {
   //sl.registerLazySingleton<http.Client>(() => http.Client());
   sl.registerLazySingleton(() => GoogleMapsPlaces(
       apiKey: FlavorConfig?.instance?.values?.googlePlacesApiKey ?? ""));
-
+  sl.registerLazySingleton(() => FacebookAuth.instance);
+  sl.registerLazySingleton(() => GoogleSignIn(scopes: ['email']));
   //TODO: only test.
   // sl.registerLazySingleton<http.Client>(() =>
   //     HttpClientWithInterceptor.build(interceptors: [HttpLogginInterceptor()]));
