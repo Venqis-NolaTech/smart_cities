@@ -67,7 +67,7 @@ class SplashProvider extends BaseProvider {
       state= Loaded(value: currentUser);
 
     }else{
-      await _initializeRemoteParams();
+      //await _initializeRemoteParams();
       await _checkPermission();
       state= Loaded();
       if (_callback != null) {
@@ -87,7 +87,7 @@ class SplashProvider extends BaseProvider {
     failureOrProvinces.fold(
       (_) {},
       (data) {
-        municipalitys = data;
+        //municipalitys = data;
         print('guardando el listado de municipios');
       },
     );

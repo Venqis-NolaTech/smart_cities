@@ -12,7 +12,7 @@ import 'src/shared/app_colors.dart';
 //Map<String, String> authHeaders;
 //Map<String, dynamic> remoteParams;
 User currentUser;
-List<CatalogItem> municipalitys;
+//List<CatalogItem> municipalitys;
 
 class App extends StatelessWidget {
   @override
