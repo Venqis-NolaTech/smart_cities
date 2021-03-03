@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/logout_use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/validate_email_use_case.dart';
 import 'package:smart_cities/src/shared/user_utils.dart';
 
@@ -25,7 +26,8 @@ class ProfileProvider extends BaseProvider {
     @required this.editProfileUseCase,
     @required this.updateProfilePhotoUseCase,
     @required this.refreshProfileUseCase,
-    @required this.validateEmailUseCase
+    @required this.validateEmailUseCase,
+    @required this.logoutUseCase,
   });
 
   final GetProfileUseCase getProfileUseCase;
@@ -33,6 +35,7 @@ class ProfileProvider extends BaseProvider {
   final UpdateProfilePhotoUseCase updateProfilePhotoUseCase;
   final RefreshProfileUseCase refreshProfileUseCase;
   final ValidateEmailUseCase validateEmailUseCase;
+  final LogoutUseCase logoutUseCase;
 
 
   ViewState _profileState = Idle();
@@ -221,4 +224,15 @@ class ProfileProvider extends BaseProvider {
       },
     );*/
   }
+
+
+
+  Future logout() async {
+    state = Loading();
+
+    await logoutUseCase(NoParams());
+
+    state = Loaded();
+  }
+
 }

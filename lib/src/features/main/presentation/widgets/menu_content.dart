@@ -4,8 +4,10 @@ import 'package:smart_cities/src/features/auth/presentation/profile/pages/profil
 import 'package:smart_cities/src/features/auth/presentation/base/widgets/user_photo.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/page/places_category_page.dart';
+import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/custom_item_list.dart';
+import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
 
@@ -36,7 +38,16 @@ class MenuContent extends StatelessWidget {
     widget.addAll([
       Spaces.verticalLarge(),
       UserPhoto(provider: provider),
-      Spaces.verticalSmall()
+      Spaces.verticalSmall(),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          provider.user?.nickName ?? '',
+          style: kBigTitleStyle.copyWith(
+            color: AppColors.white,
+          ),
+        ),
+      ),
     ]);
 
     options.forEach((key, value) {
@@ -48,6 +59,12 @@ class MenuContent extends StatelessWidget {
           textStyle: textStyle));
     });
 
+    widget.add(CustomItemList(
+        title: S.of(context).logout,
+        onTap: ()=> _onLogoutPressed(context),
+        selected: false,
+        isDivider: false,
+        textStyle: textStyle));
 
       return SingleChildScrollView(
         child: Column(
@@ -57,6 +74,13 @@ class MenuContent extends StatelessWidget {
 
 
       );
+  }
+
+
+  void _onLogoutPressed(BuildContext context) async {
+    await provider.logout();
+
+    SplashPage.pushNavigate(context);
   }
 
 }

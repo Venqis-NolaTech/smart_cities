@@ -42,6 +42,7 @@ initProvider(GetIt sl) {
       refreshProfileUseCase: sl(),
       updateProfilePhotoUseCase: sl(),
       validateEmailUseCase: sl(),
+      logoutUseCase: sl()
     ),
   );
 

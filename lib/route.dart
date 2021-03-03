@@ -20,6 +20,7 @@ import 'package:smart_cities/src/features/reports/presentation/report_comments/p
 import 'package:smart_cities/src/features/reports/presentation/report_details/pages/report_details_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/pages/profile_page.dart';
 import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
+import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.dart';
 
 
 
@@ -39,6 +40,10 @@ class AppRoute {
       ..define(
         routePath: WelcomePage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => WelcomePage()),
+      )
+      ..define(
+        routePath: SplashPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) => SplashPage()),
       )
       ..define(
         routePath: PreLogin.id,
