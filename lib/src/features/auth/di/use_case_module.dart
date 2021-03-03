@@ -1,6 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/get_municipality_use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/get_user_validate_use_case.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/signin_with_email_use_case.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/signin_with_facebook_use_case.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/signin_with_google_use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/validate_email_use_case.dart';
 
 import '../domain/usecases/edit_profile_use_case.dart';
@@ -122,6 +125,28 @@ initUseCase(GetIt sl) {
   sl.registerLazySingleton(
         () => GetUserValidateUseCase(
         firebaseAuth: sl(),
+    ),
+  );
+
+
+  sl.registerLazySingleton(
+        () => SignInWithGoogleUseCase(
+          userRepository: sl(),
+          authRepository: sl()
+    ),
+  );
+
+
+  sl.registerLazySingleton(
+        () => SignInWithFacebookUseCase(
+        userRepository: sl(),
+        authRepository: sl()
+    ),
+  );
+
+  sl.registerLazySingleton(
+        () => SignInWithEmailUseCase(
+        authRepository: sl()
     ),
   );
 }

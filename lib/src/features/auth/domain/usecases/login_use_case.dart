@@ -18,7 +18,7 @@ class LoginUseCase implements UseCase<User, LoginUseCaseParams> {
   @override
   Future<Either<Failure, User>> call(LoginUseCaseParams params,
       {Callback callback}) async {
-    final result = await authRepository.login(
+    /*final result = await authRepository.login(
       params.authCredential,
       params.countryCode,
     );
@@ -26,7 +26,7 @@ class LoginUseCase implements UseCase<User, LoginUseCaseParams> {
     return result.fold(
       (error) => Left(error),
       (userLogged) => Right(userLogged),
-    );
+    );*/
   }
 }
 

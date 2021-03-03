@@ -19,6 +19,12 @@ import 'package:smart_cities/src/shared/spaces.dart';
 class SelectedMunicipalityPage extends StatefulWidget {
   static const id = "selected_municipality_page";
 
+  static pushNavigate(BuildContext context, {replace = false}) {
+    replace
+        ? Navigator.pushReplacementNamed(context, id)
+        : Navigator.pushNamed(context, id);
+  }
+
   @override
   _SelectedMunicipalityPageState createState() => _SelectedMunicipalityPageState();
 }

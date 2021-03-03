@@ -149,6 +149,7 @@
     "loginWithoutQccount": "Acceder sin cuenta",
     "forgotPassword": "¿Olvidó la contraseña?",
     "login": "Iniciar Sesión",
+    "loginWith": "Iniciar Sesión con",
     "loginAccountFacebook": "ACCEDE CON FACEBOOK",
     "register": "Registrarme",
     "dontHaveAccount": "¿No tienes una cuenta?",
@@ -314,5 +315,12 @@
     "chat": "Chat",
     "street": "Calle",
     "save": "Guardar Cambios",
-    "reportCreated": "Reportes creados"
+    "reportCreated": "Reportes creados",
+    "accessWithFacebook": "Inicia sessión con Facebook",
+    "accessWithGoogle": "Inicia sessión con Google",
+    "or": "o",
+    "passwordInvalidMessage": "La contraseña debe ser mayor o igual a 6 carácteres.",
+    "emailInvalidFormatMessage": "Por favor ingrese un correo valido",
+    "emailAlreadyInUseMessage": "El correo ya esta siendo usado por otra cuenta.",
+    "wrongEmailOrPasswordMessage": "Correo o contraseña incorrecta."
 }

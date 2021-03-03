@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pages/register_page.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 
@@ -12,7 +13,6 @@ import '../../../../../shared/components/phone_number_text_field.dart';
 import '../../../../../shared/provider/view_state.dart';
 import '../../../../../shared/spaces.dart';
 import '../../base/providers/phone_number_auth_provider.dart';
-import '../../register/pages/register_page.dart';
 import '../../verify_code/pages/verify_code_page.dart';
 import '../../verify_code/providers/verify_code_provider.dart';
 import '../providers/phone_number_provider.dart';

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -5,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart' as fAuth;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../core/error/exception.dart';
@@ -15,18 +18,21 @@ import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/user_local_repository.dart';
 import '../datasources/remote/auth_data_source.dart';
 import '../datasources/remote/user_data_source.dart';
-import '../models/user_model.dart';
 
-class FirebaseAuthErrorCode {
+class AuthErrorCode {
   static const ERROR_USER_DISABLED = "ERROR_USER_DISABLED";
   static const ERROR_INVALID_CREDENTIAL = "ERROR_INVALID_CREDENTIAL";
   static const ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL =
       "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL";
+
+  static const ERROR_ACCOUNT_ALREADY_REGISTERED = "User is already registered";
 }
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({
     @required this.firebaseAuth,
+    @required this.facebookAuth,
+    @required this.googleSignIn,
     @required this.firebaseStorage,
     @required this.authDataSource,
     @required this.userDataSource,
@@ -34,66 +40,99 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   final fAuth.FirebaseAuth firebaseAuth;
+  final FacebookAuth facebookAuth;
+  final GoogleSignIn googleSignIn;
   final FirebaseStorage firebaseStorage;
   final AuthDataSource authDataSource;
   final UserDataSource userDataSource;
   final UserLocalRepository userLocalRepository;
 
   @override
-  Future<Failure> existUser(String phoneNumber, String email, String dni) async {
+  Future<Failure> existUser(String phoneNumber) async {
     try {
-      final exist = await authDataSource.userExist(phoneNumber, email, dni);
-
-      if(exist['register_firebase'] == true )
-        return UserExistFailure();
-
-      if(exist['register_dni'] == true )
-        return DniExistFailure();
-
-      if(exist['register_email'] == true )
-        return EmailExistFailure();
-
-      return null;
-      //return exist == true ? null : UserNotFoundFailure();
+      final exist = await authDataSource.userExist(phoneNumber);
+      return exist == true ? null : UserNotFoundFailure();
     } catch (e, s) {
-      return _handlerFailure(e, s);
+      return _handleFailure(e, s);
     }
   }
 
   @override
-  Future<Either<Failure, User>> login(
-      fAuth.AuthCredential credential, String countryCode) async {
+  Future<Either<Failure, User>> signInWithEmail({
+    @required String email,
+    @required String password,
+  }) async {
     try {
-      final result = await firebaseAuth.signInWithCredential(credential);
+      final result = await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
       var firebaseUser = result?.user;
 
       if (firebaseUser != null) {
         final firebaseToken = (await firebaseUser.getIdToken());
-        print('firebase token $firebaseToken');
-        print('countryCode $countryCode');
 
-        final success = await authDataSource.login(
-          firebaseToken: firebaseToken,
-          countryCode: countryCode,
-        );
-
-        return Right(await _saveUser(success));
+        return Right(await _handleUser(firebaseToken));
       }
     } catch (e, s) {
-      return Left(_handlerFailure(e, s));
+      return Left(_handleFailure(e, s));
     }
 
     return Left(UnexpectedFailure());
   }
 
   @override
-  Future<Either<Failure, User>> register(
-    fAuth.AuthCredential credential,
-    File photo, {
-    @required UserRegisterRequest userRegisterRequest,
-  }) async {
+  Future<Either<Failure, User>> signInWithFacebook() async {
     try {
+      final facebookLoginResult = await facebookAuth.login();
+
+      final credential = fAuth.FacebookAuthProvider.credential(
+        facebookLoginResult.token,
+      );
+
+      final result = await firebaseAuth.signInWithCredential(credential);
+
+      var firebaseUser = result?.user;
+
+      if (firebaseUser != null) {
+        final userData = await facebookAuth.getUserData();
+
+        final firebaseToken = (await firebaseUser.getIdToken());
+
+        final fbNames = userData['name']?.toString()?.split(" ") ?? [];
+
+        return Right(
+          await _handleUser(
+            firebaseToken,
+            request: {
+              'firstName': fbNames?.first ?? "",
+              'lastName': fbNames?.last ?? "",
+              'email': userData['email'] ?? "",
+              'registerMethod': "FACEBOOK",
+            },
+          ),
+        );
+      }
+    } catch (e, s) {
+      return Left(_handleFailure(e, s));
+    }
+
+    return Left(UnexpectedFailure());
+  }
+
+  @override
+  Future<Either<Failure, User>> signInWithGoogle() async {
+    try {
+      final googleResult = await googleSignIn.signIn();
+
+      final googleAuth = await googleResult.authentication;
+
+      final credential = fAuth.GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
       final result = await firebaseAuth.signInWithCredential(credential);
 
       var firebaseUser = result?.user;
@@ -101,29 +140,71 @@ class AuthRepositoryImpl implements AuthRepository {
       if (firebaseUser != null) {
         final firebaseToken = (await firebaseUser.getIdToken());
 
-        if(photo!=null) {
+        final googleNames = googleResult?.displayName?.split(" ") ?? [];
+
+        return Right(
+          await _handleUser(
+            firebaseToken,
+            request: {
+              'firstName': googleNames?.first ?? "",
+              'lastName': googleNames?.last ?? "",
+              'email': googleResult.email ?? "",
+              'registerMethod': "GOOGLE",
+            },
+          ),
+        );
+      }
+    } catch (e, s) {
+      return Left(_handleFailure(e, s));
+    }
+
+    return Left(UnexpectedFailure());
+  }
+
+  @override
+  Future<Either<Failure, User>> register({
+    File photo,
+    @required String firstName,
+    @required String lastName,
+    @required String email,
+    @required String password,
+  }) async {
+    try {
+      final Map<String, dynamic> request = {
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'password': password,
+        'registerMethod': "EMAIL",
+      };
+
+      final result = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      var firebaseUser = result?.user;
+
+      if (firebaseUser != null) {
+        final firebaseToken = (await firebaseUser.getIdToken());
+
+        if (photo != null) {
           final photoURL = await UserUtils.uploadUserPhoto(
             firebaseStorage,
             firebaseUser.uid,
             photo,
           );
-          userRegisterRequest.photoUrl = photoURL;
+
+          request.addAll({'photoURL': photoURL});
         }
 
-        print('==============  USUARIO A REGISTRAR  =====================');
-        print(UserRegisterRequestModel.fromEntity(userRegisterRequest).toJson());
-        print('==============  TOKEN  =====================');
-        print(firebaseToken);
-
-        final success = await authDataSource.register(
-          firebaseToken,
-          UserRegisterRequestModel.fromEntity(userRegisterRequest),
-        );
+        final success =
+            await authDataSource.register(firebaseToken, request: request);
 
         return Right(await _saveUser(success));
       }
     } catch (e, s) {
-      return Left(_handlerFailure(e, s));
+      return Left(_handleFailure(e, s));
     }
 
     return Left(UnexpectedFailure());
@@ -135,6 +216,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
     if (success == true) {
       firebaseAuth.signOut();
+      facebookAuth.logOut();
+      googleSignIn.signOut();
 
       return null;
     }
@@ -143,6 +226,19 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   // ---- private methods ---- //
+  Future<User> _handleUser(
+    String firebaseToken, {
+    Map<String, dynamic> request,
+  }) async {
+    final isRegisted = await authDataSource.validation(firebaseToken);
+
+    final success = !isRegisted
+        ? (await authDataSource.register(firebaseToken, request: request))
+        : (await authDataSource.login(firebaseToken));
+
+    return await _saveUser(success);
+  }
+
   Future<User> _saveUser(bool success) async {
     if (success) {
       final user = await userDataSource.getProfile();
@@ -164,20 +260,24 @@ class AuthRepositoryImpl implements AuthRepository {
     );
   }
 
-  Failure _handlerFailure(e, StackTrace s) {
+  Failure _handleFailure(e, StackTrace s) {
     if (e is PlatformException) {
       switch (e.code) {
-        case FirebaseAuthErrorCode.ERROR_INVALID_CREDENTIAL:
+        case AuthErrorCode.ERROR_INVALID_CREDENTIAL:
           return InvalidCredentialFailure();
-        case FirebaseAuthErrorCode.ERROR_USER_DISABLED:
+        case AuthErrorCode.ERROR_USER_DISABLED:
           return UserDisabledFailure();
-        case FirebaseAuthErrorCode
-            .ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL:
+        case AuthErrorCode.ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL:
           return AccountExistWithDiferentCredentialFailure();
         default:
           FirebaseCrashlytics.instance.recordError(e, s);
           return UnexpectedFailure();
       }
+    } else if (e is BadRequestException) {
+      final value = json.decode(e.toString());
+
+      if (value['message'] == AuthErrorCode.ERROR_ACCOUNT_ALREADY_REGISTERED)
+        return AccountExistWithDiferentCredentialFailure();
     }
 
     FirebaseCrashlytics.instance.recordError(e, s);

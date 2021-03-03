@@ -15,6 +15,8 @@ initRepository(GetIt sl) {
       userLocalRepository: sl(),
       firebaseStorage: sl(),
       userDataSource: sl(),
+      facebookAuth: sl(),
+      googleSignIn: sl(),
     ),
   );
 

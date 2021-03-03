@@ -1,17 +1,16 @@
 import 'dart:convert';
 
-import 'package:smart_cities/src/core/models/response_model.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../core/api/public_http_client.dart';
-import '../../../../../core/util/flavor_config.dart';
-import '../../models/user_model.dart';
+import '../../../../../core/entities/response_model.dart';
 import '../local/user_data_source.dart';
 
 abstract class AuthDataSource {
-  Future<bool> login({String firebaseToken, String countryCode});
-  Future<bool> register(String firebaseToken, UserRegisterRequestModel request);
-  Future<Map<String, dynamic>> userExist(String phoneNumber, String email, String dni);
+  Future<bool> login(String firebaseToken);
+  Future<bool> register(String firebaseToken, {Map<String, dynamic> request});
+  Future<bool> userExist(String phoneNumber);
+  Future<bool> validation(String firebaseToken);
 }
 
 class AuthDataSourceImpl extends AuthDataSource {
@@ -26,10 +25,9 @@ class AuthDataSourceImpl extends AuthDataSource {
   //String get baseApiUrl => FlavorConfig.instance?.values?.baseApiUrl ?? "";
 
   @override
-  Future<bool> login({String firebaseToken, String countryCode}) async {
+  Future<bool> login(String firebaseToken) async {
     var payload = json.encode({
       'firebaseToken': '$firebaseToken',
-      'countryCode': '$countryCode',
     });
 
     final response = await publicHttpClient.post('/api/auth/login',
@@ -43,15 +41,16 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<bool> register(String firebaseToken,
-      UserRegisterRequestModel userRegisterRequest) async {
-    var payload = json.encode({
-      'firebaseToken': '$firebaseToken',
-      'payload': userRegisterRequest.toJson(),
-    });
+  Future<bool> register(
+    String firebaseToken, {
+    Map<String, dynamic> request,
+  }) async {
+    final Map<String, dynamic> payload = {'firebaseToken': '$firebaseToken'};
 
-    final response = await publicHttpClient
-        .post('/api/auth/register', body: payload);
+    if (request != null && request.isNotEmpty)
+      payload.addAll({'payload': request});
+
+    final response = await publicHttpClient.post('/api/auth/register', body: json.encode(payload));
 
     var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
@@ -61,12 +60,10 @@ class AuthDataSourceImpl extends AuthDataSource {
   }
 
   @override
-  Future<Map<String, dynamic>> userExist(String phoneNumber,  String email, String dni) async {
+  Future<bool> userExist(String phoneNumber) async {
     var payload = json.encode(
       {
         'phoneNumber': '$phoneNumber',
-        'email': email,
-        'dni': dni
       },
     );
 
@@ -77,14 +74,30 @@ class AuthDataSourceImpl extends AuthDataSource {
 
     var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
-    return body.data;
+    return body.data['register_firebase'] ?? false;
+  }
+
+  @override
+  Future<bool> validation(String firebaseToken) async {
+    var payload = json.encode(
+      {
+        'firebaseToken': '$firebaseToken',
+      },
+    );
+
+    var response = await publicHttpClient.post(
+      '/api/auth/validation',
+      body: payload,
+    );
+
+    var body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return body.data['register'] ?? false;
   }
 
   // private methods --
   void _setTokes(ResponseModel<Map<String, dynamic>> body) {
     if (body.success) {
-      print('=======TOKEN==========');
-      print(body.data['token']);
       userLocalDataSource.setRefreshToken(body.data['refreshToken']);
       userLocalDataSource.setToken(body.data['token']);
     }

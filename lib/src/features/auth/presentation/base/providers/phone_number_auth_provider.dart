@@ -57,7 +57,7 @@ abstract class PhoneNumberAuthProvider extends BaseProvider {
   );
 
   Future<bool> userExist(String phoneNumber, String dni, String email) async {
-    state = Loading();
+    /*state = Loading();
 
     final failureOrExist = await userExistUseCase(UserExistParam(email: email, dni: dni, phoneNumber: phoneNumber));
 
@@ -72,7 +72,7 @@ abstract class PhoneNumberAuthProvider extends BaseProvider {
         state = Loaded();
         return false;
       },
-    );
+    );*/
   }
 
   Future<void> resendCode(String phoneNumber) {

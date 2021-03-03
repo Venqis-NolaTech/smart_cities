@@ -18,15 +18,54 @@ class RegisterUserUseCase extends UseCase<User, RegisterParams> {
   @override
   Future<Either<Failure, User>> call(RegisterParams params,
       {Callback callback}) {
+
     return authRepository.register(
+      photo: params.photo,
+      firstName: params.firstName,
+      lastName: params.lastName,
+      email: params.email,
+      password: params.password,
+    );
+
+    /*return authRepository.register(
       params.credential,
       params.photo,
       userRegisterRequest: params.userRegisterRequest,
-    );
+    );*/
   }
 }
-
 class RegisterParams extends Equatable {
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String password;
+  final String dni;
+  final String phoneNumber;
+  final String countryCode;
+  final File photo;
+
+  RegisterParams({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.password,
+
+    this.dni,
+    this.phoneNumber,
+    this.countryCode,
+    this.photo
+  });
+
+  @override
+  List<Object> get props => [
+    firstName,
+    lastName,
+    email,
+    password,
+  ];
+}
+
+/*class RegisterParams extends Equatable {
   final fAuth.AuthCredential credential;
   final File photo;
   final UserRegisterRequest userRegisterRequest;
@@ -43,4 +82,4 @@ class RegisterParams extends Equatable {
         photo,
         userRegisterRequest,
       ];
-}
+}*/
