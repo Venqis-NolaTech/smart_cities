@@ -87,7 +87,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(S.of(context).report, style: kSmallestTextStyle.copyWith(
-                  color: AppColors.blueBtnRegister.withOpacity(0.2)), textAlign: TextAlign.left),
+                  color: AppColors.blueBtnRegister), textAlign: TextAlign.left),
                 Spaces.verticalSmall(),
 
                 widget.provider.user.reportNumber!= null ? Text('${widget.provider.user.reportNumber} ${S.of(context).reportCreated}',
@@ -121,13 +121,13 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
               labelText: S.of(context).nameAndLastNames,
               focusColor: AppColors.blueBtnRegister,
               hoverColor: AppColors.blueBtnRegister,
-              labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+              labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister)
             ),
             style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
           Spaces.verticalSmall(),
 
-          TextFormField(
+          /*TextFormField(
             controller: _phoneNumberTextController,
             enabled: false,
             decoration: new InputDecoration(
@@ -137,7 +137,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
                 labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
             ),
             style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
-          ),
+          ),*/
 
 
           TextFormField(
@@ -156,7 +156,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
                 labelText: S.of(context).email,
                 focusColor: AppColors.blueBtnRegister,
                 hoverColor: AppColors.blueBtnRegister,
-                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister)
             ),
             style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
             enabled: provider.editMode,
@@ -207,7 +207,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
                 labelText: S.of(context).street,
                 focusColor: AppColors.blueBtnRegister,
                 hoverColor: AppColors.blueBtnRegister,
-                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister)
             ),
             style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
@@ -227,7 +227,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
                 labelText: S.of(context).numberStreet,
                 focusColor: AppColors.blueBtnRegister,
                 hoverColor: AppColors.blueBtnRegister,
-                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.2))
+                labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister.withOpacity(0.8))
             ),
             style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
           ),
