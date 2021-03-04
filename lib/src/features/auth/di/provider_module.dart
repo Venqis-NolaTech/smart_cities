@@ -57,6 +57,7 @@ initProvider(GetIt sl) {
   sl.registerFactory(() => SignInProvider(
     signInUserWithGoogleUseCase: sl(),
     signInUserWithFacebookUseCase: sl(),
-    signInWithEmailUseCase: sl()
+    signInWithEmailUseCase: sl(), 
+    deviceInfo: sl()
   ));
 }

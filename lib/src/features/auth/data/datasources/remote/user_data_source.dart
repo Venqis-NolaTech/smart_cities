@@ -106,7 +106,7 @@ class UserDataSourceImpl extends UserDataSource {
 
     final uri = Uri.https(authority, '/api/utils/getparam', payload);
 
-    final response = await publicHttpClient.get(uri);
+    final response = await publicHttpClient.getUri(uri);
 
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 

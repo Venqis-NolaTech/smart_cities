@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:devicelocale/devicelocale.dart';
 import 'package:meta/meta.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/get_municipality_use_case.dart';
@@ -67,7 +68,7 @@ class SplashProvider extends BaseProvider {
       state= Loaded(value: currentUser);
 
     }else{
-      //await _initializeRemoteParams();
+      await _initializeRemoteParams();
       await _checkPermission();
       state= Loaded();
       if (_callback != null) {
@@ -80,9 +81,21 @@ class SplashProvider extends BaseProvider {
   }
 
 
-  Future _initializeRemoteParams() async {
+  Future<void> _initializeRemoteParams() async {
+    final lang = await Devicelocale.currentLocale;
 
-    final failureOrProvinces = await getMunicipalityUseCase(NoParams());
+    final failureOrParams = await getParamsUseCase(
+      lang.split(RegExp(r'[_|-]')).first,
+    );
+
+    await failureOrParams.fold(
+      (_) {},
+      (params) => remoteParams = params,
+    );
+
+
+
+    /*final failureOrProvinces = await getMunicipalityUseCase(NoParams());
 
     failureOrProvinces.fold(
       (_) {},
@@ -90,7 +103,7 @@ class SplashProvider extends BaseProvider {
         //municipalitys = data;
         print('guardando el listado de municipios');
       },
-    );
+    );*/
 
   }
 

@@ -23,6 +23,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<SignInProvider>(
+      onProviderReady: (provider) => provider.checkHideSocialLogin(),
       builder: (context, provider, child) {
         return ModalProgressHUD(
           inAsyncCall: provider.currentState is Loading,

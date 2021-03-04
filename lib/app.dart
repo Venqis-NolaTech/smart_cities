@@ -10,7 +10,7 @@ import 'src/features/splash/presentation/pages/splash_page.dart';
 import 'src/shared/app_colors.dart';
 
 //Map<String, String> authHeaders;
-//Map<String, dynamic> remoteParams;
+Map<String, dynamic> remoteParams;
 User currentUser;
 //List<CatalogItem> municipalitys;
 

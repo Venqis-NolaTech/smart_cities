@@ -37,4 +37,10 @@ class DeviceInfo {
     AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
     return androidInfo.version.sdkInt;
   }
+
+  Future<int> buildNumber() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    return int.parse(packageInfo.buildNumber);
+  }
 }

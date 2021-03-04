@@ -143,13 +143,14 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
                   Spaces.verticalSmall(),
                   _buildPasswordTextField(),
                   Spaces.verticalLarge(),
-                  //_buildLoginButton(),
-                  Spaces.verticalLarge(),
+                  _buildLoginButton(),
+                  ..._buildSocialLogin(),
+                  /*Spaces.verticalLarge(),
                   _buildOrLabel(),
                   Spaces.verticalLarge(),
                   _buildFacebookButton(),
                   Spaces.verticalMedium(),
-                  _buildGoogleButton(),
+                  _buildGoogleButton(),*/
                   _buildNoHaveAccountButton(),
                 ],
               ),
@@ -222,6 +223,21 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
     );
   }
 
+  List<Widget> _buildSocialLogin() {
+    final isHideSocialLogin = _provider.isHideSocialLogin;
+
+    if (isHideSocialLogin) return [];
+
+    return [
+      Spaces.verticalLarge(),
+      _buildOrLabel(),
+      Spaces.verticalLarge(),
+      _buildFacebookButton(),
+      Spaces.verticalMedium(),
+      _buildGoogleButton(),
+    ];
+  }
+
   Widget _buildLoginButton() {
     return RoundedButton(
       title: S.of(context).login,
@@ -252,7 +268,7 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
         MdiIcons.facebook,
         color: Colors.white,
       ),
-      color: AppColors.blueBtnRegister,
+      color: AppColors.blueFacebook,
       style: kNormalStyle.copyWith(
         color: AppColors.white,
       ),
