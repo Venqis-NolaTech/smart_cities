@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:smart_cities/src/features/places/di/places_di.dart';
+import 'package:smart_cities/src/features/route/di/route_di.dart';
 
 import '../features/auth/di/auth_di.dart';
 import '../features/blog/di/blog_di.dart';
@@ -19,6 +20,7 @@ init() async {
   initReportModule(sl);
   initBlogModule(sl);
   initPlacesModule(sl);
+  initRouteModule(sl);
 
   await initExternal(sl);
 }
