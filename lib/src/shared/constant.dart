@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 
 import 'app_colors.dart';
 
@@ -112,3 +113,30 @@ const kDNIMasks = [
   '1AV-xxxx-xxxxx',
   '1PI-xxxx-xxxxx',
 ];
+
+
+
+/*******************************/
+
+
+void showInfoDialog(
+    String message,
+    BuildContext context, {
+      String confirmTitle,
+      String cancelTitle,
+      bool cancelAction = false,
+      Function onConfirm,
+    }) {
+  showDialog(
+    context: context,
+    builder: (context) => InfoAlertDialog(
+      message: message,
+      confirmTitle: confirmTitle,
+      cancelTitle: cancelTitle,
+      cancelAction: cancelAction,
+      onConfirm: () {
+        if (onConfirm != null) onConfirm();
+      },
+    ),
+  );
+}

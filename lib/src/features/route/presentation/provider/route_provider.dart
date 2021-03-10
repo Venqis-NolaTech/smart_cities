@@ -23,6 +23,12 @@ class RouteProvider extends BaseProvider{
     notifyListeners();
   }
 
+  bool validate() {
+    if(selectedSector== null && selectedDate==null)
+      return false;
+    return true;
+  }
+
 
 
 

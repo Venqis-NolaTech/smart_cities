@@ -127,7 +127,6 @@
 
 
     "menuAboutUsTitle": "¿Quienes Somos?",
-    "menuAboutUsDescription": "Información general de la defensoría ",
 
     "menuReportsAndStatisticsTitle": "Informes",
     "menuReportsAndStatisticsDescription": "Colaboración al desarrollo de diferentes proyectos de interés general.",
@@ -322,5 +321,8 @@
     "passwordInvalidMessage": "La contraseña debe ser mayor o igual a 6 carácteres.",
     "emailInvalidFormatMessage": "Por favor ingrese un correo valido",
     "emailAlreadyInUseMessage": "El correo ya esta siendo usado por otra cuenta.",
-    "wrongEmailOrPasswordMessage": "Correo o contraseña incorrecta."
+    "wrongEmailOrPasswordMessage": "Correo o contraseña incorrecta.",
+    "menuAboutUsDescription": "Información general",
+    "dayRoute": "Día de recogida",
+    "change": "Cambiar"
 }

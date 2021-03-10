@@ -13,8 +13,8 @@ import 'package:smart_cities/src/shared/components/rounded_button.dart';
 
 class LocationSeeRoute extends StatelessWidget {
   final RouteProvider provider;
-
-  const LocationSeeRoute({Key key, this.provider}) : super(key: key);
+  final Function onSeeRoute;
+  const LocationSeeRoute({Key key, @required this.provider, @required this.onSeeRoute}) : super(key: key);
 
 
   String _dateTimeFormatted(BuildContext context, DateTime time) =>
@@ -89,7 +89,7 @@ class LocationSeeRoute extends StatelessWidget {
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: provider.selectedDate,
+        initialDate: DateTime.now(),
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
     if (picked != null && picked != provider.selectedDate)
@@ -104,12 +104,14 @@ class LocationSeeRoute extends StatelessWidget {
             color: AppColors.blueBtnRegister,
             title: S.of(context).routeSee.toUpperCase(),
             style: kTitleStyle.copyWith(fontWeight: FontWeight.bold,  color: AppColors.white),
-            onPressed: () {
-
-
-
+            onPressed: (){
+              if(provider.validate())
+                onSeeRoute();
+              else
+                showInfoDialog(S.of(context).completeData, context);
             }
         )
     );
   }
+
 }

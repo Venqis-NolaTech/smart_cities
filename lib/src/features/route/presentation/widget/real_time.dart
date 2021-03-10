@@ -1,45 +1,106 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_google_maps/flutter_google_maps.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_cities/src/features/route/presentation/provider/route_provider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:smart_cities/src/features/route/presentation/widget/card_route.dart';
+
+import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 
-class RealTime extends StatelessWidget {
-  GoogleMap _googleMap;
-  static const _mapZoom = 11.0;
-  final _key = GlobalKey<GoogleMapStateBase>();
+import '../../../../../app.dart';
 
-  RealTime({Key key}) : super(key: key);
+class RealTime extends StatefulWidget {
+  final RouteProvider provider;
+  RealTime({Key key, this.provider}) : super(key: key);
+
+  @override
+  _RealTimeState createState() => _RealTimeState();
+}
+
+class _RealTimeState extends State<RealTime> {
+  GoogleMap _googleMap;
+  static const _mapZoom = 13.0;
+
+  Completer<GoogleMapController> _mapController = Completer();
+
+  Map<PolygonId, Polygon> polygons = <PolygonId, Polygon>{};
+  Map<PolylineId, Polyline> polylines = <PolylineId, Polyline>{};
+
+  int _polygonIdCounter = 0;
+  int _polylineIdCounter = 0;
+
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _buildDataMap();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
 
-        _buildMap()
+        _buildMap(),
+
+
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: FloatingActionButton(
+                  backgroundColor: AppColors.white,
+                  child: Icon(
+                    MdiIcons.crosshairsGps,
+                    color: AppColors.blueBtnRegister,
+                  ),
+                  onPressed: () {}),
+            ),
+            CardOptionRoute(
+              selectedDate: DateTime.now(),
+              selectedSector: currentUser.municipality,
+              isMunicipality: true,
+              onChange: (){
+
+              },
+            ),
+          ],
+        ),
+
       ],
-     
+
     );
   }
 
 
   Widget _buildMap() {
 
+    if(polygons.isEmpty && polylines.isEmpty)
+      return Container();
 
-    if (_googleMap == null) {
+
+    if(_googleMap==null) {
       _googleMap = GoogleMap(
-        key: _key,
-        initialPosition: GeoCoord(
-            /*location != null ? location.latitude :*/ kDefaultLocation.latitude,
-            /*location != null ? location.longitude :*/ kDefaultLocation.longitude),
-        initialZoom: _mapZoom,
-        mobilePreferences: const MobileMapPreferences(
-          trafficEnabled: true,
-          myLocationButtonEnabled: false,
-          zoomControlsEnabled: false,
-          mapToolbarEnabled: false,
+        initialCameraPosition: CameraPosition(
+          target: kDefaultLocation,
+          zoom: _mapZoom,
         ),
-        webPreferences: WebMapPreferences(
-          fullscreenControl: true,
-        ),
+        myLocationEnabled: true,
+        myLocationButtonEnabled: false,
+        zoomControlsEnabled: false,
+        mapToolbarEnabled: false,
+        polygons: Set<Polygon>.of(polygons.values),
+        polylines: Set<Polyline>.of(polylines.values),
+        onMapCreated: (controller) {
+          _mapController.complete(controller);
+        },
         onTap: (_) {
 
         },
@@ -47,5 +108,90 @@ class RealTime extends StatelessWidget {
     }
 
     return _googleMap;
+  }
+
+
+  // solo para simular datos de momento
+  void _add() {
+    final int polygonCount = polygons.length;
+
+    if (polygonCount == 12) {
+      return;
+    }
+
+    final String polygonIdVal = 'polygon_id_$_polygonIdCounter';
+    final PolygonId polygonId = PolygonId(polygonIdVal);
+
+    final Polygon polygon = Polygon(
+      polygonId: polygonId,
+      consumeTapEvents: true,
+      strokeColor: AppColors.strokeColorMap,
+      strokeWidth: 1,
+      fillColor: AppColors.fillColorMap.withOpacity(0.3),
+      points: _createPoints(),
+      onTap: () {
+
+      },
+    );
+
+    polygons[polygonId] = polygon;
+    _polygonIdCounter++;
+  }
+  // solo para simular datos de momento
+  void _addPolyline() {
+    final int polylineCount = polylines.length;
+
+    if (polylineCount == 12) {
+      return;
+    }
+
+    final String polylineIdVal = 'polyline_id_$_polylineIdCounter';
+    _polylineIdCounter++;
+    final PolylineId polylineId = PolylineId(polylineIdVal);
+
+    final Polyline polyline = Polyline(
+      polylineId: polylineId,
+      consumeTapEvents: true,
+      color: AppColors.fillColorMap,
+      width: 5,
+      points: _createPointsLine(),
+      onTap: () {
+
+      },
+    );
+    polylines[polylineId] = polyline;
+  }
+
+  // solo para simular datos de momento
+  List<LatLng> _createPointsLine() {
+    final List<LatLng> points = <LatLng>[];
+
+    points.add(_createLatLng(8.98889, -79.55123)); //
+    points.add(_createLatLng(8.99665, -79.55926)); //
+    points.add(_createLatLng(9.00322, -79.54441)); //
+    points.add(_createLatLng(8.99851, -79.53814)); //
+    points.add(_createLatLng(8.9969, -79.54308));
+    return points;
+  }
+
+  // solo para simular datos de momento
+  List<LatLng> _createPoints() {
+    final List<LatLng> points = <LatLng>[];
+
+    points.add(_createLatLng(8.97983, -79.51386)); //
+    points.add(_createLatLng(8.94829, -79.57737)); //
+    points.add(_createLatLng(8.97966, -79.56072)); //
+    points.add(_createLatLng(8.9844, -79.58578)); //
+    points.add(_createLatLng(9.00322, -79.54441));
+    return points;
+  }
+
+  LatLng _createLatLng(double lat, double lng) {
+    return LatLng(lat, lng);
+  }
+
+  _buildDataMap() {
+    _addPolyline();
+    _add();
   }
 }
