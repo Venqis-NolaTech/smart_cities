@@ -15,9 +15,10 @@ class CardOptionRoute extends StatelessWidget {
   final Function onChange;
   final DateTime selectedDate;
   final CatalogItem selectedSector;
-  bool isMunicipality= false;
+  final String textButtom;
+  bool isMunicipality;
 
-  CardOptionRoute({Key key, this.isMunicipality, @required this.selectedSector,  @required this.selectedDate, @required this.onChange}) : super(key: key);
+  CardOptionRoute({Key key, this.isMunicipality, @required this.selectedSector,  @required this.selectedDate, @required this.onChange, this.textButtom}) : super(key: key);
 
   String _dateTimeFormatted(DateTime time) =>
       DateFormat('d MMMM y')
@@ -61,7 +62,7 @@ class CardOptionRoute extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
           child: Text(
-            isMunicipality ? S.of(context).selectSector : S.of(context).change,//S.of(context).menuAboutUsDescription,
+            isMunicipality ? S.of(context).selectSector : textButtom,//
             textAlign: TextAlign.center,
             style: kNormalStyle.copyWith(color: Colors.white),
           ),

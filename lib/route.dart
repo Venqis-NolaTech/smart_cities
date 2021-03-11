@@ -19,6 +19,9 @@ import 'package:smart_cities/src/features/reports/presentation/new_report/provid
 import 'package:smart_cities/src/features/reports/presentation/report_comments/pages/report_comments_page.dart';
 import 'package:smart_cities/src/features/reports/presentation/report_details/pages/report_details_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/pages/profile_page.dart';
+import 'package:smart_cities/src/features/route/presentation/rate_service/page/rate_service_page.dart';
+import 'package:smart_cities/src/features/route/presentation/report_lack_collection/page/report_lack_collection_page.dart';
+import 'package:smart_cities/src/features/route/presentation/when_take_out_trash/page/take_out_trash_page.dart';
 import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.dart';
 
@@ -193,7 +196,27 @@ class AppRoute {
         routePath: SignInPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => SignInPage()),
       )
-
+      ..define(
+        routePath: WhenTakeOutTrashPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          //final provider = arguments as GeneralReportProvider;
+          return WhenTakeOutTrashPage();
+        }),
+      )
+      ..define(
+        routePath: ReportLackCollectionPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          //final provider = arguments as GeneralReportProvider;
+          return ReportLackCollectionPage();
+        }),
+      )
+      ..define(
+        routePath: RateServicePage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          //final provider = arguments as GeneralReportProvider;
+          return RateServicePage();
+        }),
+      )
     ;
 
   }

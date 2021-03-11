@@ -1,29 +1,27 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/provider/route_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:smart_cities/src/features/route/presentation/provider/route_provider.dart';
-import 'package:smart_cities/src/features/route/presentation/widget/card_route.dart';
-import 'package:smart_cities/src/shared/constant.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/widget/card_route.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/widget/route_options_modal.dart';
+import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
+import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
+import 'package:smart_cities/src/shared/constant.dart';
 
 
-class MapSeeRoute extends StatefulWidget {
-  final RouteProvider provider;
-  static const _mapZoom = 13.0;
-  final Function onChange;
-  //final _key = GlobalKey<GoogleMapStateBase>();
-
-  MapSeeRoute({Key key, @required this.provider, @required this.onChange}) : super(key: key);
+class RealTime extends StatefulWidget {
+  RealTime({Key key}) : super(key: key);
 
   @override
-  _MapSeeRouteState createState() => _MapSeeRouteState();
+  _RealTimeState createState() => _RealTimeState();
 }
 
-class _MapSeeRouteState extends State<MapSeeRoute> {
+class _RealTimeState extends State<RealTime> {
   GoogleMap _googleMap;
+  static const _mapZoom = 13.0;
 
   Completer<GoogleMapController> _mapController = Completer();
 
@@ -32,6 +30,8 @@ class _MapSeeRouteState extends State<MapSeeRoute> {
 
   int _polygonIdCounter = 0;
   int _polylineIdCounter = 0;
+
+
 
   @override
   void initState() {
@@ -42,40 +42,71 @@ class _MapSeeRouteState extends State<MapSeeRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        _buildMap(),
-        /*FutureBuilder(
-          future: _buildDataMap(),
-          initialData: null,
-          builder: (context, snapshot) {
-            return _buildMap();
-          },
-        ),*/
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: FloatingActionButton(
-                  backgroundColor: AppColors.white,
-                  child: Icon(
-                    MdiIcons.crosshairsGps,
-                    color: AppColors.blueBtnRegister,
+
+    return BaseView<RouteProvider>(
+        builder: (context, provider, child ) {
+          final currentState = provider.currentState;
+
+
+          return Stack(
+            children: [
+
+              _buildMap(),
+
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: FloatingActionButton(
+                        backgroundColor: AppColors.white,
+                        child: Icon(
+                          MdiIcons.crosshairsGps,
+                          color: AppColors.blueBtnRegister,
+                        ),
+                        onPressed: () {}),
                   ),
-                  onPressed: () {}),
-            ),
-            CardOptionRoute(
-              selectedDate: widget.provider.selectedDate,
-              selectedSector: widget.provider.selectedSector,
-              onChange: widget.onChange,
-            ),
-          ],
-        ),
-      ],
+                  CardOptionRoute(
+                    selectedDate: DateTime.now(),
+                    selectedSector: provider.realTimeSector,
+                    isMunicipality: provider.isMunicipality,
+                    textButtom: S.of(context).menuAboutUsDescription,
+                    onChange: () async {
+                      if(provider.isMunicipality){
+                        await changeSector(context, provider);
+                      }else{
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return RouteOptionsModal();
+                          },
+                        );
+                      }
+
+
+                    },
+                  ),
+                ],
+              ),
+
+            ],
+
+          );
+
+        }
     );
   }
+
+  Future changeSector(BuildContext context, RouteProvider provider) async {
+     var result= await Navigator.pushNamed(context, SelectSectorPage.id);
+    print('sector seleccionado $result');
+    if(result!=null) {
+      provider.realTimeSector = result;
+    }
+  }
+
 
   Widget _buildMap() {
 
@@ -87,7 +118,7 @@ class _MapSeeRouteState extends State<MapSeeRoute> {
       _googleMap = GoogleMap(
         initialCameraPosition: CameraPosition(
           target: kDefaultLocation,
-          zoom: MapSeeRoute._mapZoom,
+          zoom: _mapZoom,
         ),
         myLocationEnabled: true,
         myLocationButtonEnabled: false,

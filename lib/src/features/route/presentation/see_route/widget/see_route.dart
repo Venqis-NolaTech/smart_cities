@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-import 'package:smart_cities/src/features/route/presentation/provider/route_provider.dart';
-import 'package:smart_cities/src/features/route/presentation/widget/location_see_route.dart';
-import 'package:smart_cities/src/features/route/presentation/widget/map_see_route.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/provider/route_provider.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/widget/location_see_route.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/widget/map_see_route.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
@@ -36,11 +36,7 @@ class _SeeRouteState extends State<SeeRoute> {
                 index: _stepIndex,
                 children: [
                   LocationSeeRoute(provider: provider, onSeeRoute: onSeeRoute),
-                  MapSeeRoute(provider: provider, onChange: (){
-                    setState(() {
-                      _stepIndex = 0;
-                    });
-                  },),
+                  MapSeeRoute(provider: provider),
                 ],
               ),
 

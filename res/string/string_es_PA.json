@@ -324,5 +324,18 @@
     "wrongEmailOrPasswordMessage": "Correo o contraseña incorrecta.",
     "menuAboutUsDescription": "Información general",
     "dayRoute": "Día de recogida",
-    "change": "Cambiar"
+    "change": "Cambiar",
+    "changeSector": "Cambiar Sector",
+    "takeOutTrash": "Cuándo debes sacar la basura",
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miercoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sábado",
+    "sunday": "Domingo",
+
+    "reportTakeOutTrash": "Reportar falta de recolección de basura",
+    "rateService": "Valorar servicio",
+    "whenTakeOutTrash": "Cúando sacar la basura"
 }

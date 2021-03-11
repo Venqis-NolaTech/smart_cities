@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:smart_cities/src/features/route/presentation/widget/real_time.dart';
-import 'package:smart_cities/src/features/route/presentation/widget/see_route.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/widget/real_time.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/widget/see_route.dart';
 
 
 
-import '../../../../../generated/i18n.dart';
-import '../../../../shared/app_colors.dart';
-import '../../../../shared/components/tab_bar_container.dart';
+import '../../../../../../generated/i18n.dart';
+import '../../../../../shared/app_colors.dart';
+import '../../../../../shared/components/tab_bar_container.dart';
 
 
 

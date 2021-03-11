@@ -1,27 +1,30 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
+import 'package:smart_cities/generated/i18n.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_cities/src/features/route/presentation/provider/route_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:smart_cities/src/features/route/presentation/widget/card_route.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/provider/route_provider.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/widget/card_route.dart';
+import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 
-import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
+import 'package:smart_cities/src/shared/app_colors.dart';
 
-import '../../../../../app.dart';
 
-class RealTime extends StatefulWidget {
+class MapSeeRoute extends StatefulWidget {
   final RouteProvider provider;
-  RealTime({Key key, this.provider}) : super(key: key);
+  static const _mapZoom = 13.0;
+
+  MapSeeRoute({Key key, @required this.provider}) : super(key: key);
 
   @override
-  _RealTimeState createState() => _RealTimeState();
+  _MapSeeRouteState createState() => _MapSeeRouteState();
 }
 
-class _RealTimeState extends State<RealTime> {
+class _MapSeeRouteState extends State<MapSeeRoute> {
   GoogleMap _googleMap;
-  static const _mapZoom = 13.0;
 
   Completer<GoogleMapController> _mapController = Completer();
 
@@ -30,9 +33,6 @@ class _RealTimeState extends State<RealTime> {
 
   int _polygonIdCounter = 0;
   int _polylineIdCounter = 0;
-
-
-
 
   @override
   void initState() {
@@ -45,10 +45,14 @@ class _RealTimeState extends State<RealTime> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-
         _buildMap(),
-
-
+        /*FutureBuilder(
+          future: _buildDataMap(),
+          initialData: null,
+          builder: (context, snapshot) {
+            return _buildMap();
+          },
+        ),*/
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -64,21 +68,25 @@ class _RealTimeState extends State<RealTime> {
                   onPressed: () {}),
             ),
             CardOptionRoute(
-              selectedDate: DateTime.now(),
-              selectedSector: currentUser.municipality,
-              isMunicipality: true,
-              onChange: (){
+              selectedDate: widget.provider.selectedDate,
+              selectedSector: widget.provider.selectedSector,
+              isMunicipality: false,
+              textButtom: S.of(context).change,
+              onChange: ()async {
 
-              },
+                var result= await Navigator.pushNamed(context, SelectSectorPage.id);
+                print('sector seleccionado $result');
+                if(result!=null) {
+                  widget.provider.selectedSector = result;
+                }
+
+              }
             ),
           ],
         ),
-
       ],
-
     );
   }
-
 
   Widget _buildMap() {
 
@@ -90,7 +98,7 @@ class _RealTimeState extends State<RealTime> {
       _googleMap = GoogleMap(
         initialCameraPosition: CameraPosition(
           target: kDefaultLocation,
-          zoom: _mapZoom,
+          zoom: MapSeeRoute._mapZoom,
         ),
         myLocationEnabled: true,
         myLocationButtonEnabled: false,
@@ -194,4 +202,5 @@ class _RealTimeState extends State<RealTime> {
     _addPolyline();
     _add();
   }
+
 }
