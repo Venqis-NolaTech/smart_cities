@@ -24,6 +24,7 @@ import 'package:smart_cities/src/features/route/presentation/report_lack_collect
 import 'package:smart_cities/src/features/route/presentation/when_take_out_trash/page/take_out_trash_page.dart';
 import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.dart';
+import 'package:smart_cities/src/core/entities/catalog_item.dart';
 
 
 
@@ -206,7 +207,7 @@ class AppRoute {
       ..define(
         routePath: ReportLackCollectionPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          //final provider = arguments as GeneralReportProvider;
+          //final selectedSector = arguments as CatalogItem;
           return ReportLackCollectionPage();
         }),
       )

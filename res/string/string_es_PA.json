@@ -337,5 +337,13 @@
 
     "reportTakeOutTrash": "Reportar falta de recolección de basura",
     "rateService": "Valorar servicio",
-    "whenTakeOutTrash": "Cúando sacar la basura"
+    "whenTakeOutTrash": "Cúando sacar la basura",
+    "notTakeOutTrash": "Falta de Recolección",
+    "rememberTakeOutTrash": "Hoy toca recogida de basura en tu sector. ¡Recuerda sacarla a tiempo!",
+    "reportDone": "Su reporte será procesado en un período de 24 horas",
+    "thankInfo": "Agradecemos la informacion suministrada",
+    "reportSend": "Su reporte por falta de recolección ha sido enviado",
+    "reportSendMessage": "¡Tus comentarios nos ayudan a mejorar nuestro distrito!",
+    "valoracionServiceMessage": "Tu basura está siendo recogida por un contratista. Déjanos saber como evalúas el servicio en tu sector para sugerir mejoras.",
+    "rateServiceSector":"Valora el servicio en tu sector"
 }

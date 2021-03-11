@@ -74,6 +74,7 @@ class AppImagePaths {
   static const cleanning = '$_basePath/shape.png';
   static const camionIcon = '$_basePath/camion_icon.png';
 
+  static const iconTrash = '$_basePath/trash.png';
 
 }
 
@@ -131,6 +132,7 @@ class AppImages {
   static final cleanning = Image.asset(AppImagePaths.cleanning);
   static final camionIcon = Image.asset(AppImagePaths.camionIcon);
 
+  static final iconTrash = Image.asset(AppImagePaths.iconTrash);
 
 
 }
