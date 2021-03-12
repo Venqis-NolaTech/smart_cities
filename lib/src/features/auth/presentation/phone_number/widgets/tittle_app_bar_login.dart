@@ -20,7 +20,7 @@ class tittleAppBarLogin extends StatelessWidget {
             onPressed: onRegister,
             child: Text(S.of(context).register,
                 style: TextStyle(
-                    color: AppColors.white.withOpacity(0.5),
+                    color: onRegister !=null ? AppColors.white.withOpacity(0.5) :  AppColors.white,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.bold)
             )
@@ -30,7 +30,7 @@ class tittleAppBarLogin extends StatelessWidget {
                 onPressed: onLogin,
                 child: Text(S.of(context).login,
                     style: TextStyle(
-                        color: AppColors.white,
+                        color: onLogin !=null ? AppColors.white.withOpacity(0.5) :  AppColors.white,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.bold)
                 )
