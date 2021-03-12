@@ -147,6 +147,37 @@ class _MapSeeRouteState extends State<MapSeeRoute> {
   }
   // solo para simular datos de momento
   void _addPolyline() {
+    final String polylineIdVal = 'polyline_id_$_polylineIdCounter';
+    _polylineIdCounter++;
+    final PolylineId polylineId = PolylineId(polylineIdVal);
+
+    final Polyline polyline = Polyline(
+      polylineId: polylineId,
+      consumeTapEvents: true,
+      color: AppColors.fillColorMap,
+      width: 2,
+      points: _createPointsLine(),
+      onTap: () {
+
+      },
+    );
+    polylines[polylineId] = polyline;
+  }
+
+
+  List<LatLng> _createPointsLine() {
+    final List<LatLng> points = <LatLng>[];
+
+    points.add(_createLatLng(8.98889, -79.55123)); //
+    points.add(_createLatLng(8.99665, -79.55926)); //
+    points.add(_createLatLng(9.00322, -79.54441)); //
+    points.add(_createLatLng(8.99851, -79.53814)); //
+    points.add(_createLatLng(8.9969, -79.54308));
+
+    return points;
+  }
+
+  void _addPolyline2() {
     final int polylineCount = polylines.length;
 
     if (polylineCount == 12) {
@@ -161,8 +192,8 @@ class _MapSeeRouteState extends State<MapSeeRoute> {
       polylineId: polylineId,
       consumeTapEvents: true,
       color: AppColors.fillColorMap,
-      width: 5,
-      points: _createPointsLine(),
+      width: 2,
+      points: _createPointsLine2(),
       onTap: () {
 
       },
@@ -170,27 +201,24 @@ class _MapSeeRouteState extends State<MapSeeRoute> {
     polylines[polylineId] = polyline;
   }
 
-  // solo para simular datos de momento
-  List<LatLng> _createPointsLine() {
+  List<LatLng> _createPointsLine2() {
     final List<LatLng> points = <LatLng>[];
-
-    points.add(_createLatLng(8.98889, -79.55123)); //
-    points.add(_createLatLng(8.99665, -79.55926)); //
-    points.add(_createLatLng(9.00322, -79.54441)); //
-    points.add(_createLatLng(8.99851, -79.53814)); //
-    points.add(_createLatLng(8.9969, -79.54308));
+    points.add(_createLatLng(8.96297, -79.5416));
+    points.add(_createLatLng(8.96687, -79.54469));
+    points.add(_createLatLng(8.97043, -79.54066));
+    points.add(_createLatLng(8.97619, -79.53911));
     return points;
   }
-
   // solo para simular datos de momento
   List<LatLng> _createPoints() {
     final List<LatLng> points = <LatLng>[];
-
-    points.add(_createLatLng(8.97983, -79.51386)); //
-    points.add(_createLatLng(8.94829, -79.57737)); //
-    points.add(_createLatLng(8.97966, -79.56072)); //
-    points.add(_createLatLng(8.9844, -79.58578)); //
     points.add(_createLatLng(9.00322, -79.54441));
+    points.add(_createLatLng(8.9844, -79.58578));
+    points.add(_createLatLng(8.97465, -79.58175));
+    points.add(_createLatLng(8.97423, -79.5681));
+    points.add(_createLatLng(8.96016, -79.54501));
+    points.add(_createLatLng(8.97983, -79.51386));
+
     return points;
   }
 
@@ -200,6 +228,7 @@ class _MapSeeRouteState extends State<MapSeeRoute> {
 
   _buildDataMap() {
     _addPolyline();
+    _addPolyline2();
     _add();
   }
 
