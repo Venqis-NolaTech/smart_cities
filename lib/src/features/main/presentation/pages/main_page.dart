@@ -3,7 +3,7 @@ import 'package:smart_cities/src/features/home/presentation/page/home_page.dart'
 import 'package:smart_cities/src/features/main/presentation/widgets/menu_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/pages/payments_page.dart';
 import 'package:smart_cities/src/features/reports/presentation/tab_report/pages/resports_page.dart';
-import 'package:smart_cities/src/features/route/presentation/pages/route_page.dart';
+import 'package:smart_cities/src/features/route/presentation/see_route/pages/route_page.dart';
 
 import '../widgets/main_bottom_navigation_bar.dart';
 

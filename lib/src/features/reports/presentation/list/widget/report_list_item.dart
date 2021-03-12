@@ -199,7 +199,7 @@ class ReportListItem extends StatelessWidget {
 
   Widget _buildRightContent(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
+      child: InkWell(
         onTap: onFollow,
         child: Container(
           decoration: BoxDecoration(

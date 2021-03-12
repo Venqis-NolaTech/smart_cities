@@ -46,6 +46,8 @@ class AuthDataSourceImpl extends AuthDataSource {
     Map<String, dynamic> request,
   }) async {
     final Map<String, dynamic> payload = {'firebaseToken': '$firebaseToken'};
+    print('---- firebaseToken -------');
+    print('$firebaseToken');
 
     if (request != null && request.isNotEmpty)
       payload.addAll({'payload': request});
@@ -99,7 +101,11 @@ class AuthDataSourceImpl extends AuthDataSource {
   void _setTokes(ResponseModel<Map<String, dynamic>> body) {
     if (body.success) {
       userLocalDataSource.setRefreshToken(body.data['refreshToken']);
+      print('---- refreshToken -------');
+      print(body.data['refreshToken']);
       userLocalDataSource.setToken(body.data['token']);
+      print('---- token -------');
+      print(body.data['token']);
     }
   }
   // -- private methods

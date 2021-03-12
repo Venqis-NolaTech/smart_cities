@@ -50,4 +50,8 @@ class AppColors {
   static const blueGoogle = Color(0xFF2B69E8);
   
   static const backgroudBlue= Color(0xFFF6F7F8);
+
+  static const strokeColorMap = Color(0xFF4D4D4D);
+  static const fillColorMap = Color(0xFF636363);
+
 }
