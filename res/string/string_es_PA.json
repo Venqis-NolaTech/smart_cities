@@ -344,6 +344,16 @@
     "thankInfo": "Agradecemos la informacion suministrada",
     "reportSend": "Su reporte por falta de recolección ha sido enviado",
     "reportSendMessage": "¡Tus comentarios nos ayudan a mejorar nuestro distrito!",
-    "valoracionServiceMessage": "Tu basura está siendo recogida por un contratista. Déjanos saber como evalúas el servicio en tu sector para sugerir mejoras.",
-    "rateServiceSector":"Valora el servicio en tu sector"
+    "rateServiceMessage": "Tu basura está siendo recogida por un contratista. Déjanos saber como evalúas el servicio en tu sector para sugerir mejoras.",
+    "rateServiceSector":"Valora el servicio en tu sector",
+
+
+    "veryGood": "Muy Bueno",
+    "good": "Bueno",
+    "regular": "Regular",
+    "bad": "Malo",
+    "veryBad": "Muy Malo",
+
+    "titleOkRate": "Gracias por tu valoración"
+
 }
