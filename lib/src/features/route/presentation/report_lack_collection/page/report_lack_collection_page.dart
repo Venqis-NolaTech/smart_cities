@@ -52,7 +52,7 @@ class _ReportLackCollectionPageState extends State<ReportLackCollectionPage> {
 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15.0),
-                    child: HeaderRoute(tittle: S.of(context).report, widget: buildHeader(context),),
+                    child: HeaderRoute(tittle: S.of(context).reportSingle, widget: buildHeader(context),),
                   ),
                   Spaces.verticalLarge(),
                   _buildSelectSector(context),

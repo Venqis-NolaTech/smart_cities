@@ -12,8 +12,9 @@ class RouteOptionsModal extends StatelessWidget {
     fontWeight:  FontWeight.bold,
   );
   final Function changeSector;
+  final Function onSelectSector;
 
-  RouteOptionsModal({Key key, this.changeSector}) : super(key: key);
+  RouteOptionsModal({Key key, this.changeSector, this.onSelectSector}) : super(key: key);
 
 
   @override
@@ -35,7 +36,8 @@ class RouteOptionsModal extends StatelessWidget {
       },
       S.of(context).whenTakeOutTrash: (){
         Navigator.pop(context);
-        Navigator.pushNamed(context, ReportLackCollectionPage.id);
+        //Navigator.pushNamed(context, ReportLackCollectionPage.id);
+        onSelectSector();
       },
       S.of(context).cancel: ()=> Navigator.pop(context)
     };

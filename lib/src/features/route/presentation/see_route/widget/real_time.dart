@@ -7,6 +7,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:smart_cities/src/features/route/presentation/see_route/widget/card_route.dart';
 import 'package:smart_cities/src/features/route/presentation/see_route/widget/route_options_modal.dart';
 import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
+import 'package:smart_cities/src/features/route/presentation/when_take_out_trash/page/take_out_trash_page.dart';
+
+
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
@@ -80,8 +83,13 @@ class _RealTimeState extends State<RealTime> {
                         showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return RouteOptionsModal();
-                          },
+                        return RouteOptionsModal(
+                          changeSector: ()=>changeSector(context, provider),
+                          onSelectSector: (){
+                            Navigator.pushNamed(context, WhenTakeOutTrashPage.id, arguments:provider.realTimeSector);
+                          }
+                        );
+                      },
                         );
                       }
 

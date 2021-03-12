@@ -200,8 +200,8 @@ class AppRoute {
       ..define(
         routePath: WhenTakeOutTrashPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          //final provider = arguments as GeneralReportProvider;
-          return WhenTakeOutTrashPage();
+          final selectedSector = arguments as CatalogItem;
+          return WhenTakeOutTrashPage(sector: selectedSector,);
         }),
       )
       ..define(
