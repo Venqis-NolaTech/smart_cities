@@ -355,6 +355,12 @@
     "veryBad": "Muy Malo",
 
     "titleOkRate": "Gracias por tu valoración",
-    "messageTrash": "Sacar la basura fuera del horario establecido está penado por la ley 120-99."
-
+    "messageTrash": "Sacar la basura fuera del horario establecido está penado por la ley 120-99.",
+    "myAccounts": "Mis Cuentas",
+    "linkedAccounts": "Cuentas Vinculadas",
+    "nextPayment": "Próximo Pago",
+    "messageLinkedAccounts": "No tienes ninguna cuenta vinculada, por favor conecta tu cuenta para acceder a todos tus datos y tener una mejor experiencia de pago",
+    "connectAccount": "Conectar Cuenta",
+    "multiplePayments": "Pagos Multiples",
+    "card": "Tarjetas"
 }

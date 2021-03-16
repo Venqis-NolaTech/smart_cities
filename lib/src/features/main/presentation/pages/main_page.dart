@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/src/features/home/presentation/page/home_page.dart';
 import 'package:smart_cities/src/features/main/presentation/widgets/menu_page.dart';
-import 'package:smart_cities/src/features/payments/presentation/pages/payments_page.dart';
+import 'package:smart_cities/src/features/payments/presentation/linked_accounts/pages/linked_accounts.dart';
 import 'package:smart_cities/src/features/reports/presentation/tab_report/pages/resports_page.dart';
 import 'package:smart_cities/src/features/route/presentation/see_route/pages/route_page.dart';
 
@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage> {
       HomePage(),
       RoutePage(),
       ReportsPage(onBackPress: onBackPressReport),
-      PaymentsPage(),
+      LinkedAccountsPayment(),
       MenuPage()
     ];
 
