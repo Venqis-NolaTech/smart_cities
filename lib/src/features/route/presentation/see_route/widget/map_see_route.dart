@@ -9,6 +9,7 @@ import 'package:smart_cities/src/features/route/presentation/see_route/provider/
 import 'package:smart_cities/src/features/route/presentation/see_route/widget/card_route.dart';
 import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 
+import 'package:smart_cities/src/shared/spaces.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 
@@ -67,21 +68,25 @@ class _MapSeeRouteState extends State<MapSeeRoute> {
                   ),
                   onPressed: () {}),
             ),
-            CardOptionRoute(
-              selectedDate: widget.provider.selectedDate,
-              selectedSector: widget.provider.selectedSector,
-              isMunicipality: false,
-              textButtom: S.of(context).change,
-              onChange: ()async {
+            Padding(
+              padding: EdgeInsets.only(bottom: 30),
+              child: CardOptionRoute(
+                selectedDate: widget.provider.selectedDate,
+                selectedSector: widget.provider.selectedSector,
+                isMunicipality: false,
+                textButtom: S.of(context).change,
+                onChange: ()async {
 
-                var result= await Navigator.pushNamed(context, SelectSectorPage.id);
-                print('sector seleccionado $result');
-                if(result!=null) {
-                  widget.provider.selectedSector = result;
+                  var result= await Navigator.pushNamed(context, SelectSectorPage.id);
+                  print('sector seleccionado $result');
+                  if(result!=null) {
+                    widget.provider.selectedSector = result;
+                  }
+
                 }
-
-              }
+              ),
             ),
+
           ],
         ),
       ],

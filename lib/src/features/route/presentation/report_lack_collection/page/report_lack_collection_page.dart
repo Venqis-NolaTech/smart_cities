@@ -24,6 +24,8 @@ class ReportLackCollectionPage extends StatefulWidget {
 class _ReportLackCollectionPageState extends State<ReportLackCollectionPage> {
   DateTime  selectedDate;
   CatalogItem  selectedSector;
+  int _stepIndex = 0;
+
 
   String _dateTimeFormatted(BuildContext context, DateTime time) =>
       DateFormat('d MMMM y')
@@ -90,6 +92,20 @@ class _ReportLackCollectionPageState extends State<ReportLackCollectionPage> {
     );
   }
 
+  Widget _buildOptionSelect(){
+    return Column(
+      children: [
+        _buildSelectSector(context),
+        Spaces.verticalMedium(),
+        Divider(),
+        Spaces.verticalLarge(),
+        _buildSelectDay(context),
+        Spaces.verticalMedium(),
+        Divider(),
+      ],
+    );
+  }
+
   Widget buildHeader(BuildContext context){
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -104,14 +120,18 @@ class _ReportLackCollectionPageState extends State<ReportLackCollectionPage> {
   Widget _buildSelectSector(BuildContext context){
     return InkWell(
       onTap: ()async {
-        var result= await Navigator.pushNamed(context, SelectSectorPage.id);
+
+        setState(() {
+          _stepIndex=1;
+        });
+        /*var result= await Navigator.pushNamed(context, SelectSectorPage.id);
         print('sector seleccionado $result');
         if(result!=null) {
           selectedSector = result;
           setState(() {
 
           });
-        }
+        }*/
       },
       child: Row(
         children: [

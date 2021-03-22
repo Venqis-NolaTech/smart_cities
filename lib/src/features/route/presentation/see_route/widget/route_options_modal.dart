@@ -56,11 +56,17 @@ class RouteOptionsModal extends StatelessWidget {
         isDivider: true,
         textStyle: textStyle.copyWith(color: AppColors.primaryText)));
 
-    return Container(
-      color: AppColors.white,
-      child: SingleChildScrollView(
-        child: Column(
-          children: widget,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(18.0),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: widget,
+          ),
         ),
       ),
     );

@@ -31,21 +31,53 @@ class CardOptionRoute extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.only(right: 15, left: 15, top: 8, bottom: 15),
+          padding: const EdgeInsets.only(right: 15, left: 15, top: 15, bottom: 15),
+          child: isMunicipality ? _buildMunicipality(context)
+          : _buildSector(context)
+        ),
+      ),
+    );
+  }
+  Widget _buildSector(BuildContext context){
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(MdiIcons.mapMarker, color: AppColors.blueBtnRegister.withOpacity(0.7),),
+        Spaces.horizontalSmall(),
+        Expanded(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              buildSector(),
-              Row(
-                children: [
-                  !isMunicipality ? buildSchedule(context) : Container(),
-                  Expanded(child: btnIniciar(context))
-                ],
-              ),
+
+              Text(selectedSector!=null ? selectedSector.value : '',
+                  style: kTitleStyle.copyWith(
+                      color: AppColors.blueBtnRegister)),
+              Spaces.verticalSmall(),
+
+              buildSchedule(context)
+
+
             ],
           ),
         ),
-      ),
+
+        btnIniciar(context)
+      ],
+    );
+  }
+  Widget _buildMunicipality(BuildContext context){
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        buildSector(),
+        Spaces.verticalSmall(),
+        Row(
+          children: [
+            Expanded(child: btnIniciar(context)),
+          ],
+        )
+      ],
     );
   }
 
@@ -60,7 +92,7 @@ class CardOptionRoute extends StatelessWidget {
             color: AppColors.blueBtnRegister
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0),
           child: Text(
             isMunicipality ? S.of(context).selectSector : textButtom,//
             textAlign: TextAlign.center,
@@ -72,26 +104,21 @@ class CardOptionRoute extends StatelessWidget {
   }
 
   Widget buildSchedule(BuildContext context){
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              S.of(context).dayRoute,
-              style: kNormalStyle.copyWith(
-                  color: AppColors.blueBtnRegister.withOpacity(0.5)),
-            ),
-            Spaces.verticalSmallest(),
-            Text(_dateTimeFormatted(selectedDate ?? DateTime.now()),
-              style: kNormalStyle.copyWith(
-                color: AppColors.blueBtnRegister),)
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          S.of(context).dayRoute,
+          style: kNormalStyle.copyWith(
+              color: AppColors.blueBtnRegister.withOpacity(0.5)),
         ),
-      ),
+        Spaces.verticalSmallest(),
+        Text(_dateTimeFormatted(selectedDate ?? DateTime.now()),
+          style: kNormalStyle.copyWith(
+            color: AppColors.blueBtnRegister),)
+      ],
     );
   }
 
@@ -99,9 +126,10 @@ class CardOptionRoute extends StatelessWidget {
     return Row(
       children: [
         Icon(MdiIcons.mapMarker, color: AppColors.blueBtnRegister.withOpacity(0.7),),
+        Spaces.horizontalSmall(),
         Expanded(
             child: Text(selectedSector!=null ? selectedSector.value : '',
-                style: kNormalStyle.copyWith(
+                style: kTitleStyle.copyWith(
                     color: AppColors.blueBtnRegister))),
         IconButton(icon: Icon(MdiIcons.dotsHorizontal), onPressed: null)
       ],

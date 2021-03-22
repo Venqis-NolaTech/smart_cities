@@ -343,7 +343,7 @@
     "reportDone": "Su reporte será procesado en un período de 24 horas",
     "thankInfo": "Agradecemos la informacion suministrada",
     "reportSend": "Su reporte por falta de recolección ha sido enviado",
-    "reportSendMessage": "¡Tus comentarios nos ayudan a mejorar nuestro distrito!",
+    "reportSendMessage": "¡Tus comentarios nos ayudan a mejorar tu ciudad!",
     "rateServiceMessage": "Tu basura está siendo recogida por un contratista. Déjanos saber como evalúas el servicio en tu sector para sugerir mejoras.",
     "rateServiceSector":"Valora el servicio en tu sector",
 
@@ -365,5 +365,7 @@
     "emailConfirmationYetDescripcion": "Revisa tu correo electrónico para completar tu registro.",
 
     "emailConfirmationYetTitle": "Aún no has confirmado tu registro",
-    "sendEmailConfirmationTitle": "Confirma tu registro"
+    "sendEmailConfirmationTitle": "Confirma tu registro",
+    "selectRateInvalid": "Valora el servicio para continuar"
+
 }
