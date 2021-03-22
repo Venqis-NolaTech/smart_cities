@@ -22,7 +22,9 @@ class UserModel extends User {
       CatalogItem province,
       CatalogItem city,
       CatalogItem sector,
-      int reportNumber
+      int reportNumber,
+      bool emailVerified,
+      String lastSignInTime,
       })
       : super(
             id: id,
@@ -42,7 +44,10 @@ class UserModel extends User {
             province: province,
             city: city,
             reportNumber: reportNumber,
-            sector: sector);
+            sector: sector,
+            emailVerified: emailVerified,
+            lastSignInTime: lastSignInTime,
+  );
 
   // Json
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -75,6 +80,9 @@ class UserModel extends User {
           ? CatalogItemModel.fromJson(user['sector'])
           : null,
 
+      emailVerified: user['emailVerified'],
+      lastSignInTime: user['lastSignInTime'],
+
     );
   }
 
@@ -106,6 +114,8 @@ class UserModel extends User {
         'sector': sector != null
             ? CatalogItemModel.fromEntity(sector).toJson()
             : null,
+        'emailVerified': emailVerified ?? false,
+        'lastSignInTime': lastSignInTime ?? DateTime.now().toIso8601String(),
       }
     };
   }
@@ -145,7 +155,9 @@ class UserModel extends User {
       province: user.province,
       city: user.city,
       reportNumber: user.reportNumber,
-      sector: user.sector
+      sector: user.sector,
+      emailVerified: user.emailVerified,
+      lastSignInTime: user.lastSignInTime,
     );
   }
 }

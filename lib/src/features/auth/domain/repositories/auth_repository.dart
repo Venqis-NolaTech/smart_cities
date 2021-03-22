@@ -26,5 +26,9 @@ abstract class AuthRepository {
     @required String password,
   });
 
+  Future<Failure> sendPasswordResetEmail(String email);
+
+  Future<Failure> sendEmailVerification();
+
   Future<void> logout();
 }

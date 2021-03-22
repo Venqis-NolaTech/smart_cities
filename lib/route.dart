@@ -1,3 +1,5 @@
+import 'package:smart_cities/src/features/auth/presentation/forgot_password/pages/forgot_password_page.dart';
+import 'package:smart_cities/src/features/auth/presentation/profile/pages/email_confirmation_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/selected_municipality/page/selected_municipality_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pages/register_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
@@ -209,6 +211,20 @@ class AppRoute {
         handler: AppRouteHandler(handlerFunc: (arguments) {
           //final selectedSector = arguments as CatalogItem;
           return ReportLackCollectionPage();
+        }),
+      )
+      ..define(
+        routePath: ForgotPasswordPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final args = arguments as ForgotPasswordPageArgs ?? ForgotPasswordPageArgs();
+          return ForgotPasswordPage(args: args);
+        }),
+      )
+      ..define(
+        routePath: EmailConfirmationPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final args = arguments as EmailConfirmationPageArgs ??  EmailConfirmationPageArgs();
+          return EmailConfirmationPage(args: args);
         }),
       )
       ..define(

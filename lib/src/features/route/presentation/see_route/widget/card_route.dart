@@ -60,7 +60,7 @@ class CardOptionRoute extends StatelessWidget {
             color: AppColors.blueBtnRegister
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
           child: Text(
             isMunicipality ? S.of(context).selectSector : textButtom,//
             textAlign: TextAlign.center,

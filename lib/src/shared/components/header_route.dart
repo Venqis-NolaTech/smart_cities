@@ -24,9 +24,10 @@ class HeaderRoute extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 25.00, horizontal: 25),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(tittle, style: kMediumTitleStyle.copyWith(color: AppColors.white, fontWeight: FontWeight.bold)),
+                  Text(tittle, style: kMediumTitleStyle.copyWith(color: AppColors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                   Spaces.verticalLarge(),
                   widget,
                 ],

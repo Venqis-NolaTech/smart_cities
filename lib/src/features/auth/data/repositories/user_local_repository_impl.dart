@@ -77,4 +77,56 @@ class UserLocalRepositoryImpl implements UserLocalRepository {
   Future<bool> clear() {
     return userLocalDataSource.clear();
   }
+
+  @override
+  Either<Failure, DateTime> getTimeSentEmailConfirmation() {
+    try {
+      final acepted = userLocalDataSource.getTimeSentEmailConfirmation();
+      return Right(acepted);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(e, s);
+
+      return Left(UnexpectedFailure());
+    }
+  }
+
+
+  @override
+  Either<Failure, bool> getUserRequestAcepted() {
+    try {
+      final acepted = userLocalDataSource.getUserRequestAcepted();
+      return Right(acepted);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(e, s);
+
+      return Left(UnexpectedFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> setTimeSentEmailConfirmation(
+      DateTime time) async {
+    try {
+      final success =
+      await userLocalDataSource.setTimeSentEmailConfirmation(time);
+      return Right(success);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(e, s);
+
+      return Left(UnexpectedFailure());
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, bool>> setUserRequestAcepted(bool value) async {
+    try {
+      final success = await userLocalDataSource.setUserRequestAcepted(value);
+      return Right(success);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(e, s);
+
+      return Left(UnexpectedFailure());
+    }
+  }
 }

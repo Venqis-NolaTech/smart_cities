@@ -8,6 +8,12 @@ abstract class UserLocalRepository {
   Either<Failure, User> getCurrentUser();
   Either<Failure, String> getToken();
 
+  Future<Either<Failure, bool>> setUserRequestAcepted(bool value);
+  Either<Failure, bool> getUserRequestAcepted();
+
+  Future<Either<Failure, bool>> setTimeSentEmailConfirmation(DateTime time);
+  Either<Failure, DateTime> getTimeSentEmailConfirmation();
+
   Future<Either<Failure, Position>> getCurrentLocation();
 
   Future<bool> clear();

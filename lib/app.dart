@@ -13,11 +13,14 @@ import 'src/shared/app_colors.dart';
 Map<String, dynamic> remoteParams;
 User currentUser;
 //List<CatalogItem> municipalitys;
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class App extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

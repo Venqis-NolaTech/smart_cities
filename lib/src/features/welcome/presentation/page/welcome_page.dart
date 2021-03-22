@@ -1,4 +1,4 @@
-import 'package:smart_cities/src/features/auth/presentation/pre_login/page/pre_login.dart';
+import 'package:smart_cities/src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
 import 'package:smart_cities/src/features/welcome/presentation/widget/step_view.dart';
 import 'package:smart_cities/src/features/welcome/presentation/widget/welcome_content.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -151,7 +151,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
 
   void _onPressSkip() {
-    Navigator.pushNamedAndRemoveUntil(context, PreLogin.id, ModalRoute.withName(PreLogin.id));
+    Navigator.pushNamedAndRemoveUntil(context, SignInPage.id, ModalRoute.withName(WelcomePage.id));
   }
 
   void _onPressNext() {
@@ -161,7 +161,7 @@ class _WelcomePageState extends State<WelcomePage> {
         curve: Curves.fastOutSlowIn,
       );
     } else if (_stepIndex == (length- 1)) {
-      Navigator.pushNamedAndRemoveUntil(context, PreLogin.id, ModalRoute.withName(PreLogin.id));
+      Navigator.pushNamedAndRemoveUntil(context, SignInPage.id, ModalRoute.withName(WelcomePage.id));
     }
   }
 

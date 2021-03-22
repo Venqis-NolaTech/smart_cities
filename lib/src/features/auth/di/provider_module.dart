@@ -1,3 +1,5 @@
+import 'package:smart_cities/src/features/auth/presentation/forgot_password/providers/forgot_password_provider.dart';
+import 'package:smart_cities/src/features/auth/presentation/profile/providers/email_verification_provider.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_in/providers/sign_in_provider.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_up/register/providers/register_provider.dart';
@@ -59,5 +61,13 @@ initProvider(GetIt sl) {
     signInUserWithFacebookUseCase: sl(),
     signInWithEmailUseCase: sl(), 
     deviceInfo: sl()
+  ));
+
+  sl.registerFactory(() => ForgotPasswordProvider(
+      forgotPasswordUseCase: sl()
+  ));//
+
+  sl.registerFactory(() => EmailConfirmationProvider(
+      sendEmailVerificationUseCase: sl()
   ));
 }

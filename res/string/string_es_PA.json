@@ -355,6 +355,15 @@
     "veryBad": "Muy Malo",
 
     "titleOkRate": "Gracias por tu valoración",
-    "messageTrash": "Sacar la basura fuera del horario establecido está penado por la ley 120-99."
+    "messageTrash": "Sacar la basura fuera del horario establecido está penado por la ley 120-99.",
+    "noHaveAccount": "¿No tienes cuenta? ",
+    "emailNotExistMessage": "No existe una cuenta registrada con este correo.",
+    "recoveryPasswordMessage": "Hemos enviado a su correo electrónico un enlace con los pasos para recuperar su contraseña.",
+    "forgotPasswordMessage": "Escriba su correo electrónico y le enviaremos los pasos a para recuperer su contraseña.",
 
+    "sendEmailConfirmationDescripcion": "Hemos enviado un correo electrónico a tu correo para completar tu registro.",
+    "emailConfirmationYetDescripcion": "Revisa tu correo electrónico para completar tu registro.",
+
+    "emailConfirmationYetTitle": "Aún no has confirmado tu registro",
+    "sendEmailConfirmationTitle": "Confirma tu registro"
 }

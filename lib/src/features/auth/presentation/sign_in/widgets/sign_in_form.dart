@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:smart_cities/src/features/auth/presentation/forgot_password/pages/forgot_password_page.dart';
+import 'package:smart_cities/src/features/auth/presentation/profile/pages/email_confirmation_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pages/register_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/selected_municipality/page/selected_municipality_page.dart';
+import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
+import 'package:smart_cities/src/shared/components/auth_buttons.dart';
 
+import '../../../../../../app.dart';
 import '../../../../../../generated/i18n.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../../shared/app_colors.dart';
@@ -30,7 +35,6 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
   _SignInFormState(this._provider);
 
   final SignInProvider _provider;
-
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
 
@@ -83,7 +87,12 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
     final currentState = provider.currentState;
 
     if (currentState is Loaded) {
-      SelectedMunicipalityPage.pushNavigate(context);
+      if (currentUser.emailVerified) {
+        _gotoMain();
+      } else {
+        _gotoEmailConfirmation();
+      }
+      //SelectedMunicipalityPage.pushNavigate(context);
     } else if (currentState is Error) {
       final failureType = currentState.failure.runtimeType;
 
@@ -111,6 +120,26 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
       );
     }
   }
+
+  void _gotoEmailConfirmation() {
+    EmailConfirmationPage.pushNavigate(
+      context,
+      replace: true,
+      args: EmailConfirmationPageArgs(
+        onPressed: null,
+      ),
+    );
+  }
+
+  void _gotoMain() {
+
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      SelectedMunicipalityPage.id,
+      ModalRoute.withName(SelectedMunicipalityPage.id),
+    );
+  }
+
 
   void _fieldFocusChange(FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
@@ -145,13 +174,10 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
                   Spaces.verticalLarge(),
                   _buildLoginButton(),
                   ..._buildSocialLogin(),
-                  /*Spaces.verticalLarge(),
-                  _buildOrLabel(),
                   Spaces.verticalLarge(),
-                  _buildFacebookButton(),
-                  Spaces.verticalMedium(),
-                  _buildGoogleButton(),*/
                   _buildNoHaveAccountButton(),
+                  Spaces.verticalLarge(),
+                  _buildBottom()
                 ],
               ),
             ),
@@ -303,11 +329,83 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
             children: [
               TextSpan(
                 text: S.of(context).register,
-                style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister, fontWeight: FontWeight.bold)
+                style: kNormalStyle.copyWith(color: AppColors.blue, fontWeight: FontWeight.bold)
               ),
             ]),
       ),
       onPressed: () => RegisterPage.pushNavigate(context, replace: true),
     );
   }
+
+  Widget _buildBottom() {
+    return WithoutAccountAndForgetPasswordButton(
+      withoutAccountOnPressed: () =>  MainPage.pushNavigate(context),
+      forgetPasswordOnPressed: () => ForgotPasswordPage.pushNavigate(
+        context,
+        args: ForgotPasswordPageArgs(
+          anonymousUser: false,
+        ),
+      ),
+    );
+  }
+
+  Widget btnLoginWithoutQccount(BuildContext context) {
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+
+        FlatButton(
+          child: Text(
+              S.of(context).loginWithoutQccount,
+              style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister, fontWeight: FontWeight.bold)
+          ),
+          onPressed: (){
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              MainPage.id,
+              ModalRoute.withName(MainPage.id),
+            );
+          },
+
+        ),
+
+        FlatButton(
+          child: Text(
+              S.of(context).forgotPassword,
+              style: kNormalStyle.copyWith(color: AppColors.primaryText, fontWeight: FontWeight.w400)
+          ),
+          onPressed: () {
+
+          },
+
+        ),
+
+
+
+
+      ],
+    );
+
+
+    /*return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: RoundedButton(
+          color: AppColors.white,
+          borderColor: AppColors.white,
+          elevation: 0,
+          title: S.of(context).loginWithoutQccount,
+          style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.primaryTextLight,),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              MainPage.id,
+              ModalRoute.withName(MainPage.id),
+            );
+          }
+      ),
+    );*/
+  }
+
+
 }
