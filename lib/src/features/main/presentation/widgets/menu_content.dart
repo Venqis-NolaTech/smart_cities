@@ -3,6 +3,7 @@ import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/pages/profile_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/base/widgets/user_photo.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
+import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/places/presentation/places_list/page/places_category_page.dart';
 import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
@@ -27,7 +28,7 @@ class MenuContent extends StatelessWidget {
     final Map<String, String> options= {
       S.of(context).menuProfileTitle: ProfilePage.id,
       S.of(context).places: PlacesCategoryPage.id,
-      S.of(context).news: '',
+      S.of(context).news:  BlogPage.id,
       S.of(context).transport: '',
       S.of(context).paymentMethod: '',
       S.of(context).pickup: '',

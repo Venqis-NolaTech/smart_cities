@@ -94,7 +94,7 @@ class _PlacesPageState extends State<PlacesPage>
       bottom: TabBarContainer(
         color: AppColors.white,
         tabBar: TabBar(
-          isScrollable: true,
+          isScrollable: false,
           labelColor: AppColors.blueBtnRegister,
           unselectedLabelColor: AppColors.blueBtnRegister.withAlpha(100),
           indicatorColor: AppColors.blueBtnRegister,

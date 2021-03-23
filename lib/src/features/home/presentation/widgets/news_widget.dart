@@ -6,6 +6,8 @@ import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
 class FeatureNews extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

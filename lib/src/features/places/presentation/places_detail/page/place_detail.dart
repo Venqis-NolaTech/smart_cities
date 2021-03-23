@@ -116,9 +116,10 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   _buildNewReview(),
                   Spaces.verticalLarge(),
                   InkWell(
-                      onTap: () => Navigator.pushNamed(
-                          context, PlaceCommentPage.id,
-                          arguments: _place),
+                      onTap: () async {
+                        await Navigator.pushNamed(context, PlaceCommentPage.id, arguments: _place);
+                        provider.getPlaceById(widget.place.id);
+                        },
                       child: PlaceContentComment(place: _place)),
                   Spaces.verticalLarge(),
                   btnNewReport(),

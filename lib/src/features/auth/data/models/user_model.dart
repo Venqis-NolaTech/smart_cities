@@ -80,7 +80,7 @@ class UserModel extends User {
           ? CatalogItemModel.fromJson(user['sector'])
           : null,
 
-      emailVerified: user['emailVerified'],
+      emailVerified: user['emailVerified'] ?? false,
       lastSignInTime: user['lastSignInTime'],
 
     );

@@ -31,7 +31,7 @@ class CardOptionRoute extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.only(right: 15, left: 15, top: 15, bottom: 15),
+          padding: const EdgeInsets.only(right: 15.0, left: 15.0, top: 15, bottom: 15),
           child: isMunicipality ? _buildMunicipality(context)
           : _buildSector(context)
         ),
@@ -39,30 +39,46 @@ class CardOptionRoute extends StatelessWidget {
     );
   }
   Widget _buildSector(BuildContext context){
+
+    print('ancho  '+MediaQuery.of(context).size.width.toString());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(MdiIcons.mapMarker, color: AppColors.blueBtnRegister.withOpacity(0.7),),
         Spaces.horizontalSmall(),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+          child: Wrap(
+            direction: MediaQuery.of(context).size.width > 320 ? Axis.horizontal : Axis.vertical,
+            spacing: 10.0,
+            alignment: WrapAlignment.center,
+            //runAlignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
 
-              Text(selectedSector!=null ? selectedSector.value : '',
-                  style: kTitleStyle.copyWith(
-                      color: AppColors.blueBtnRegister)),
-              Spaces.verticalSmall(),
+                  Text(selectedSector!=null ? selectedSector.value : '',
+                      style: kTitleStyle.copyWith(
+                          color: AppColors.blueBtnRegister)),
+                  Spaces.verticalSmall(),
 
-              buildSchedule(context)
+                  buildSchedule(context)
 
 
-            ],
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: btnIniciar(context),
+              )
+
+            ] ,
           ),
         ),
 
-        btnIniciar(context)
+
       ],
     );
   }
@@ -86,6 +102,7 @@ class CardOptionRoute extends StatelessWidget {
     return InkWell(
       onTap: onChange,
       child: Container(
+        width: MediaQuery.of(context).size.width*0.5,
         decoration: BoxDecoration(
             border: Border.all(color: AppColors.blueBtnRegister),
             borderRadius: BorderRadius.circular(25),
@@ -131,7 +148,7 @@ class CardOptionRoute extends StatelessWidget {
             child: Text(selectedSector!=null ? selectedSector.value : '',
                 style: kTitleStyle.copyWith(
                     color: AppColors.blueBtnRegister))),
-        IconButton(icon: Icon(MdiIcons.dotsHorizontal), onPressed: null)
+        //IconButton(icon: Icon(MdiIcons.dotsHorizontal), onPressed: null)
       ],
     );
   }

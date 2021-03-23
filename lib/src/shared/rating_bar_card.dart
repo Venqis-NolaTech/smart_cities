@@ -20,7 +20,7 @@ class RantingBarCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-              backgroundColor: AppColors.greyButtom.withOpacity(0.05),
+              backgroundColor: AppColors.greyButtom.withOpacity(0.03),
               child: Container(
                 padding: EdgeInsets.only(top: 24.0, bottom: 24.0),
                 child: Column(

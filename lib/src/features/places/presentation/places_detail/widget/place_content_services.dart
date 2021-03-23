@@ -30,21 +30,18 @@ class PlaceContentService extends StatelessWidget {
           onTap: () => Navigator.pushNamed(context, SchedulePlacePage.id, arguments: place),
           leading: Icon(MdiIcons.clockTimeThreeOutline, color: AppColors.blueBtnRegister),
           title: Text(S.of(context).scheduleSite, style: kNormalStyle.copyWith(
-                            fontWeight: FontWeight.bold,
                             color: AppColors.blueBtnRegister)),
         ),
         Divider(),
         ListTile(
           leading: Icon(MdiIcons.bookOpen, color: AppColors.blueBtnRegister),
           title: Text(S.of(context).reserve, style: kNormalStyle.copyWith(
-                            fontWeight: FontWeight.bold,
                             color: AppColors.blueBtnRegister)),
         ),
         Divider(),
         ListTile(
           leading: Icon(MdiIcons.calendarMonth, color: AppColors.blueBtnRegister),
           title: Text(S.of(context).events, style: kNormalStyle.copyWith(
-                            fontWeight: FontWeight.bold,
                             color: AppColors.blueBtnRegister)),
         ),
         Divider(),
@@ -53,8 +50,7 @@ class PlaceContentService extends StatelessWidget {
           child: Text(
             S.of(context).services,
             textAlign: TextAlign.start,
-            style: kTitleStyle.copyWith(
-                fontWeight: FontWeight.bold,
+            style: kNormalStyle.copyWith(
                 color: AppColors.blueButton),
           ),
         ),
@@ -123,17 +119,18 @@ class PlaceContentService extends StatelessWidget {
   Widget _buildIcon(Widget  image, String text){
      return CustomCard(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-      backgroundColor: AppColors.blueLight.withOpacity(0.09),
+      backgroundColor: AppColors.blueLight.withOpacity(0.03),
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
       child: Column(
         children: [
-          image,
+          Container(
+            height: 30,
+              child: image),
           Spaces.verticalMedium(),
           Flexible(child: Text(text, maxLines: 2, 
           textAlign: TextAlign.center, 
-           style: TextStyle(
-                    color: AppColors.blueBtnRegister,
-                    fontWeight: FontWeight.bold) )
+           style: kSmallTextStyle.copyWith(
+               color: AppColors.blueBtnRegister))
           )
         ],
       ),
