@@ -70,50 +70,73 @@ class WhenTakeOutTrashPage extends StatelessWidget {
     List<Widget> childrens=[];
 
     //agregar Lunes
-    childrens.add(_buildCard(S.of(context).monday, 'Horario 9:00 am'));
+    childrens.add(_buildCard(S.of(context).monday, 'Horario 9:00 am', context));
     //agregar Martes
-    childrens.add(_buildCard(S.of(context).tuesday, 'Horario 9:00 am'));
+    childrens.add(_buildCard(S.of(context).tuesday, 'Horario 10:00 am', context));
     //agregar Miercoles
-    childrens.add(_buildCard(S.of(context).wednesday, 'Horario 9:00 am'));
+    childrens.add(_buildCard(S.of(context).wednesday, 'Horario 10:00 am', context));
     //agregar Jueves
-    childrens.add(_buildCard(S.of(context).thursday, 'Horario 9:00 am'));
+    childrens.add(_buildCard(S.of(context).thursday, 'No recogida de basura', context));
     //agregar Viernes
-    childrens.add(_buildCard(S.of(context).friday, 'Horario 9:00 am'));
+    childrens.add(_buildCard(S.of(context).friday, 'Horario 10:00 am', context));
     //agregar Sabado
-    childrens.add(_buildCard(S.of(context).saturday, 'Horario 9:00 am'));
+    childrens.add(_buildCard(S.of(context).saturday, 'Horario 10:00 am', context));
     //agregar Domingo
-    childrens.add(_buildCard(S.of(context).sunday, 'Horario 9:00 am'));
+    childrens.add(_buildCard(S.of(context).sunday, 'No recogida de basura', context));
 
-    return  GridView.count(
-      physics: NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      shrinkWrap: true,
-      childAspectRatio: 1.5,
+
+    return Wrap(
+      direction: Axis.horizontal,
+      alignment: WrapAlignment.center,
+      //spacing: 8.0,
       children: childrens,
     );
+
+    /*return  Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GridView.count(
+          physics: NeverScrollableScrollPhysics(),
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          childAspectRatio: 1.5,
+          children: childrens,
+        ),
+
+        _buildCard(S.of(context).sunday, 'No recogida de basura')
+
+
+
+
+      ],
+    );*/
 
   }
 
 
-  Widget _buildCard(String title, String schedule){
+  Widget _buildCard(String title, String schedule, BuildContext context){
     return CustomCard(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       backgroundColor: Colors.white,
-      padding: EdgeInsets.only(top: 12.0),
-      child: Column(
-        children: [
-          Flexible(child: Text(title, maxLines: 2,
-              textAlign: TextAlign.center,
-              style: kTitleStyle.copyWith(
-                  color: AppColors.blueBtnRegister,
-                  fontWeight: FontWeight.bold) )),
-          Spaces.verticalMedium(),
-          Flexible(child: Text(schedule, maxLines: 2,
-              textAlign: TextAlign.center,
-              style: kTitleStyle.copyWith(
-                  color: AppColors.blueBtnRegister) )
-          )
-        ],
+      padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+      child: Container(
+        width:  MediaQuery.of(context).size.width / 2.7,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(child: Text(title, maxLines: 2,
+                textAlign: TextAlign.center,
+                style: kTitleStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.bold) )),
+            Spaces.verticalMedium(),
+            Flexible(child: Text(schedule, maxLines: 2,
+                textAlign: TextAlign.center,
+                style: kTitleStyle.copyWith(
+                    color: AppColors.blueBtnRegister) )
+            )
+          ],
+        ),
       ),
     );
 

@@ -33,28 +33,6 @@ class NewReviewPage extends StatelessWidget {
     return BaseView<NewReviewProvider>(builder: (context, provider, child) {
       final currentState = provider.currentState;
 
-      /*if (currentState is Error) {
-        //var failure = currentState.failure;
-
-        Future.delayed(
-          Duration(milliseconds: 250),
-          () async {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return InfoAlertDialog(
-                  textAlign: TextAlign.center,
-                  message: S.of(context).unexpectedErrorMessage,
-                  onConfirm: () {},
-                );
-              },
-            );
-          },
-        );
-      }*/
-
-
-
       return ModalProgressHUD(
         inAsyncCall: currentState is Loading,
         child: Scaffold(
@@ -65,23 +43,21 @@ class NewReviewPage extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              Spaces.verticalLarge(),
-
-             Container( padding: EdgeInsets.only(left: 24.0, right: 24.0), 
-             child: PlaceTitleHeader(place: params.place)),
-
-              Container(
-                  padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 48),
-                  child: RantingBarCard(
-                      initialRating: params.ranting ?? 5,
-                      onRatingUpdate: (ranting) => provider.qualification = ranting,
-                      ignoreGestures: false)
-                      ),
-
-              _buildForm(context, provider),
-              btnIniciar(context, provider)
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Spaces.verticalMedium(),
+                      Container(
+                          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+                          child: PlaceTitleHeader(place: params.place)),
+                      Container(
+                          padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 15),
+                          child: RantingBarCard(
+                              initialRating: params.ranting ?? 5,
+                              onRatingUpdate: (ranting) =>
+                                  provider.qualification = ranting,
+                              ignoreGestures: false)),
+                    _buildForm(context, provider),
+                    btnIniciar(context, provider)
             ]),
           ),
         ),
@@ -104,7 +80,7 @@ class NewReviewPage extends StatelessWidget {
                 ],
               ),
               TextFormField(
-                maxLines: 2,
+                maxLines: 1,
                 onChanged: (value) {
                   provider.title = value;
                 },
@@ -114,7 +90,7 @@ class NewReviewPage extends StatelessWidget {
                 style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),
               ),
               Divider(),
-              Spaces.verticalMedium(),
+              Spaces.verticalSmall(),
               Row(
                 children: [
                   Text(S.of(context).review,
