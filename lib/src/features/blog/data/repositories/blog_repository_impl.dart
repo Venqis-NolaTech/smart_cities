@@ -90,5 +90,16 @@ class BlogRepositoryImpl extends BlogRepository {
       }
     }
   }
-  // -- private methods
+
+  @override
+  Future<Either<Failure, PostListings>> getPostFeature(
+      {PostKind kind, int page, int count}) =>
+      _process(
+            () => blogDataSource.getFeaturePosts(
+          kind: kind,
+          page: page,
+          count: count,
+        ),
+      );
+
 }

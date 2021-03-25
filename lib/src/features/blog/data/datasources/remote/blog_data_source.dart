@@ -37,6 +37,14 @@ abstract class BlogDataSource {
   Future<PostTrainingModel> getPostTrainingDetail(String postId);
 
   Future<PostModel> like(String postId);
+
+
+  Future<PostListingsModel> getFeaturePosts({
+    PostKind kind,
+    int page,
+    int count,
+  });
+
 }
 
 class BlogDataSourceImpl extends BlogDataSource {
@@ -181,6 +189,33 @@ class BlogDataSourceImpl extends BlogDataSource {
     //final uri = Uri.https(authority, urlPath, queryParams);
 
     return client.get(urlPath, headers: queryParams);
+  }
+
+  @override
+  Future<PostListingsModel> getFeaturePosts({PostKind kind, int page, int count}) async {
+
+    final queryParams = Map<String, String>();
+
+    if (kind != null) {
+      queryParams['kind'] = '${kind.value}';
+    }
+
+    if (page != null && count != null) {
+      queryParams['page'] = '$page';
+      queryParams['count'] = '$count';
+      queryParams['isFeatured'] = 'true';
+    }
+
+    final response = await _getRequest(
+        '/api/notice/notice',
+        queryParams,
+        publicHttpClient
+    );
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return PostListingsModel.fromJson(body.data);
+
   }
 
   // -- private methods
