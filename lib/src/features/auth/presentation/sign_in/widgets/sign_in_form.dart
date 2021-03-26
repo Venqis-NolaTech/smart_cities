@@ -339,7 +339,7 @@ class _SignInFormState extends State<SignInForm> with BaseForm {
 
   Widget _buildBottom() {
     return WithoutAccountAndForgetPasswordButton(
-      withoutAccountOnPressed: () =>  MainPage.pushNavigate(context),
+      withoutAccountOnPressed: () =>  MainPage.pushNavigate(context, replace: true),
       forgetPasswordOnPressed: () => ForgotPasswordPage.pushNavigate(
         context,
         args: ForgotPasswordPageArgs(

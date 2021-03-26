@@ -325,8 +325,9 @@
     "menuAboutUsDescription": "Información general",
     "dayRoute": "Día de recogida",
     "change": "Cambiar",
-    "changeSector": "Cambiar Sector",
+    "changeSector": "Cambiar Corregimiento",
     "takeOutTrash": "Saca la basura",
+
     "monday": "Lunes",
     "tuesday": "Martes",
     "wednesday": "Miercoles",
@@ -339,13 +340,13 @@
     "rateService": "Valorar servicio",
     "whenTakeOutTrash": "Cúando debes sacar la basura",
     "notTakeOutTrash": "Falta de Recolección",
-    "rememberTakeOutTrash": "Hoy toca recogida de basura en tu sector. ¡Recuerda sacarla a tiempo!",
+    "rememberTakeOutTrash": "Hoy toca recogida de basura en tu corregimiento. ¡Recuerda sacarla a tiempo!",
     "reportDone": "Su reporte será procesado en un período de 24 horas",
     "thankInfo": "Agradecemos la informacion suministrada",
     "reportSend": "Su reporte por falta de recolección ha sido enviado",
     "reportSendMessage": "¡Tus comentarios nos ayudan a mejorar tu ciudad!",
-    "rateServiceMessage": "Tu basura está siendo recogida por un contratista. Déjanos saber como evalúas el servicio en tu sector para sugerir mejoras.",
-    "rateServiceSector":"Valora el servicio en tu sector",
+    "rateServiceMessage": "Tu basura está siendo recogida por un contratista. Déjanos saber como evalúas el servicio en tu corregimiento para sugerir mejoras.",
+    "rateServiceSector":"Valora el servicio en tu corregimiento",
 
 
     "veryGood": "Muy Bueno",
@@ -368,6 +369,23 @@
     "sendEmailConfirmationTitle": "Confirma tu registro",
     "selectRateInvalid": "Valora el servicio para continuar",
     "noticeFeatureds": "Noticias Destacadas",
-    "seeAlls": "Ver todas"
+    "seeAlls": "Ver todas",
+    "completeYourPerfil": "Completa el perfil con tu corregimiento y conoce cuando sacar la basura",
+    "noPickupToday": "Hoy no hay recogida de basura en tu corregimiento",
+    "letUsKnow" : "¡Déjanos saber!",
+    "addSector" : "Agregar Corregimiento",
+    "incidentSectorQuestion": "¿Alguna incidencia en tu corregimiento?",
 
+    "january": "Enero",
+    "february": "Febrero",
+    "march": "Marzo",
+    "april": "Abril",
+    "may": "Mayo",
+    "june": "Junio",
+    "july": "Julio",
+    "august" : "Agosto",
+    "september": "Septiembre",
+    "october": "Octubre",
+    "november": "Noviembre",
+    "december": "Diciembre"
 }

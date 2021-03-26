@@ -12,6 +12,7 @@ import 'package:smart_cities/src/shared/components/firebase_storage_image.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
+import 'package:smart_cities/src/core/util/date_util.dart';
 
 
 class FeatureNews extends StatefulWidget {
@@ -60,7 +61,7 @@ class _FeatureNewsState extends State<FeatureNews> {
             children: [
               Row(
                 children: [
-                  Text('NOVIEMBRE',
+                  Text(strfTime(DateTime.now(), context),
                       textAlign: TextAlign.start,
                       style: kSmallestTextStyle.copyWith(
                         color: AppColors.blueBtnRegister,

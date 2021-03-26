@@ -151,7 +151,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
 
   void _onPressSkip() {
-    Navigator.pushNamedAndRemoveUntil(context, SignInPage.id, ModalRoute.withName(WelcomePage.id));
+    Navigator.pushReplacementNamed(context, SignInPage.id);
   }
 
   void _onPressNext() {
@@ -161,7 +161,7 @@ class _WelcomePageState extends State<WelcomePage> {
         curve: Curves.fastOutSlowIn,
       );
     } else if (_stepIndex == (length- 1)) {
-      Navigator.pushNamedAndRemoveUntil(context, SignInPage.id, ModalRoute.withName(WelcomePage.id));
+      Navigator.pushReplacementNamed(context, SignInPage.id);
     }
   }
 
