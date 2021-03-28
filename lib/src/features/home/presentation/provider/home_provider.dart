@@ -4,28 +4,22 @@ import 'package:smart_cities/src/features/auth/domain/usecases/logged_user_use_c
 import 'package:smart_cities/src/shared/provider/base_provider.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
+import '../../../../../app.dart';
+
 
 
 
 class HomeProvider extends BaseProvider {
   final LoggedUserUseCase loggedUserUseCase;
 
-  bool isLogged;
+  bool isLogged= currentUser == null ? false : true;
 
   HomeProvider({@required this.loggedUserUseCase});
 
   void loadData() async {
     state = Loading();
 
-    if(isLogged==null) {
-      final logged = await loggedUserUseCase(NoParams());
-      await logged.fold((failure) {
-        isLogged = false;
-      }, (user) {
-        if (user != null) isLogged = true;
-        isLogged = false;
-      });
-    }
+
 
   }
 

@@ -37,7 +37,9 @@ class _MainPageState extends State<MainPage> {
       RoutePage(),
       ReportsPage(onBackPress: onBackPressReport),
       PaymentsPage(),
-      MenuPage()
+      MenuPage(
+        onFunctionPickup: onFunctionPickup,
+      )
     ];
 
     super.initState();
@@ -74,5 +76,10 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _selectedIndex=0;
     });
+  }
+
+
+  void onFunctionPickup() {
+    moveTo(1);
   }
 }

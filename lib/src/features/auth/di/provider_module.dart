@@ -46,6 +46,7 @@ initProvider(GetIt sl) {
       validateEmailUseCase: sl(),
       logoutUseCase: sl(),
       getMunicipalityUseCase: sl(),
+      loggedUserUseCase: sl(),
     ),
   );
 

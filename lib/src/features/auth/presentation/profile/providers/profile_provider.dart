@@ -109,30 +109,19 @@ class ProfileProvider extends BaseProvider {
     notifyListeners();
   }
 
-  bool isLogged;
+  bool isLogged= currentUser == null ? false : true;
 
 
   void getProfile({bool municipalitys= false}) async {
+    if(!isLogged)
+      return;
+
     profileState = Loading();
-
-
-    if(isLogged==null) {
-      final logged = await loggedUserUseCase(NoParams());
-      await logged.fold((failure) {
-        isLogged = false;
-      }, (user) {
-        if (user != null) isLogged = true;
-        isLogged = false;
-      });
-    }
 
 
 
     if(municipalitys)
       await getMunicipalitys();
-
-    if(!isLogged)
-      return;
 
 
     final failureOrUser = await getProfileUseCase(NoParams());
@@ -143,7 +132,6 @@ class ProfileProvider extends BaseProvider {
         _user = user;
         _municipality= user.municipality?.key;
         _sector= user.sector;
-
 
         profileState = Loaded();
       },
