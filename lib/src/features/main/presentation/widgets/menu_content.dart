@@ -68,10 +68,13 @@ class MenuContent extends StatelessWidget {
 
       return Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: widget
+          Container(
+            padding: EdgeInsets.only(bottom: 80.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: widget
+              ),
             ),
           ),
         Column(

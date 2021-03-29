@@ -133,8 +133,6 @@ class ProfileProvider extends BaseProvider {
         _user = user;
         _municipality= user.municipality?.key;
         _sector= user.sector;
-
-        profileState = Loaded();
       },
     );
   }
@@ -145,10 +143,11 @@ class ProfileProvider extends BaseProvider {
     final failureOrProvinces = await getMunicipalityUseCase(NoParams());
 
     failureOrProvinces.fold(
-          (_) {},
+          (failure) => profileState = Error(failure: failure),
           (data) {
         municipalitys = data;
         print('guardando el listado de municipios');
+        profileState = Loaded();
       },
     );
 
@@ -268,6 +267,8 @@ class ProfileProvider extends BaseProvider {
     state = Loading();
 
     await logoutUseCase(NoParams());
+    currentUser= null;
+    municipalityOptional= null;
 
     state = Loaded();
   }

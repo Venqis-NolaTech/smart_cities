@@ -94,6 +94,7 @@ class PlaceItem extends StatelessWidget {
                   child: Text(
                     place.aboutTitle ?? '',
                     maxLines: 2,
+                    textAlign: TextAlign.left,
                     style: kNormalStyle.copyWith(
                         color: AppColors.blueBtnRegister),
                   ),

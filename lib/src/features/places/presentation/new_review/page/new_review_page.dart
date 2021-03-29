@@ -52,6 +52,7 @@ class NewReviewPage extends StatelessWidget {
                       Container(
                           padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 15),
                           child: RantingBarCard(
+                              subtitle: S.of(context).tapStart,
                               initialRating: params.ranting ?? 5,
                               onRatingUpdate: (ranting) =>
                                   provider.qualification = ranting,

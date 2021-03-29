@@ -36,6 +36,7 @@ class RatingItem extends StatelessWidget {
             ),
           ),
         ),
+          Spaces.horizontalMedium(),
           /*Expanded(
             child: Stack(
               children: [

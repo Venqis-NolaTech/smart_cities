@@ -107,7 +107,8 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     padding: EdgeInsets.only(left: 24.0, right: 24.0),
                     child: RantingBarCard(
                       initialRating: 5,
-                      ignoreGestures: false, 
+                      ignoreGestures: false,
+                      subtitle: null,
                       onRatingUpdate: (ranting) =>  Navigator.pushNamed(context, NewReviewPage.id, arguments: NewReviewParams(place: _place, ranting: ranting)),
                     ),
                   ),
@@ -207,8 +208,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
           Text(
             S.of(context).writeReview,
             textAlign: TextAlign.start,
-            style: kTitleStyle.copyWith(
-                fontWeight: FontWeight.bold, color: AppColors.blueButton),
+            style: kTitleStyle.copyWith( color: AppColors.blueButton),
           ),
         ],
       ),

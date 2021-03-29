@@ -33,6 +33,7 @@ class InfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        color: AppColors.background,
         constraints: BoxConstraints(minHeight: height),
         padding: EdgeInsets.all(24.0),
         child: Column(

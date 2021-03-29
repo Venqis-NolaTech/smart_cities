@@ -9,7 +9,7 @@ class RouteProvider extends BaseProvider{
 
   bool isMunicipality= currentUser!=null && currentUser.sector!=null ? false : true;
 
-  CatalogItem _realTimeSector= currentUser!=null ? currentUser.sector : municipality;
+  CatalogItem _realTimeSector= currentUser!=null ? currentUser.sector : municipalityOptional;
   CatalogItem get realTimeSector => _realTimeSector;
 
   set realTimeSector(CatalogItem value) {

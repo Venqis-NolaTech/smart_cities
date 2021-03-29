@@ -22,9 +22,9 @@ class GetSectoresUseCase extends UseCase<List<CatalogItem>, NoParams> {
 
   @override
   Future<Either<Failure, List<CatalogItem>>> call(NoParams params, {callback}) async  {
-
-    return await userRepository.getSectores(currentUser!=null ? currentUser.municipality.key : municipality.key);
-
+    return await userRepository.getSectores(currentUser != null
+        ? currentUser.municipality.key
+        : municipalityOptional.key);
 
     /*final failureOrUser = userLocalRepository.getCurrentUser();
 

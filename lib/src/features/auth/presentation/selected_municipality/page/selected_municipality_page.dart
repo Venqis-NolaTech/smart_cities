@@ -10,6 +10,8 @@ import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/custom_item_list.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
+import 'package:smart_cities/src/shared/components/info_view.dart';
+import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
@@ -32,10 +34,16 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
     return BaseView<ProfileProvider>(
       onProviderReady: (provider) => provider.getProfile(municipalitys: true),
         builder: (context, provider, child) {
+          final currentState = provider.currentState;
 
-          final isLoading = provider.currentState is Loading ||
+          final isLoading = currentState is Loading ||
               provider.profileState is Loading;
 
+
+          if (provider.profileState is Error || currentState is Error) {
+            print('ocurrio un error inesperado');
+            _buildErrorView(context, provider);
+          }
 
           return ModalProgressHUD(
             inAsyncCall: isLoading,
@@ -123,7 +131,7 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
       _process(provider);
       //await provider.editProfile();
     }else {
-      municipality = item;
+      municipalityOptional = item;
       Navigator.pushReplacementNamed(context, MainPage.id);
     }
 
@@ -172,6 +180,30 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
     );
   }
 
+
+
+  Widget _buildErrorView(BuildContext context, ProfileProvider provider) {
+    return InfoView(
+      height: MediaQuery.of(context).size.height*0.7,
+      image: AppImages.iconMessage,
+      title: S.of(context).unexpectedErrorMessage,
+      titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
+      descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
+      child: btnTryAgain(provider),
+    );
+  }
+
+  Widget btnTryAgain(ProfileProvider provider) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: RoundedButton(
+            color: AppColors.blueBtnRegister,
+            title: S.of(context).tryAgain,
+            style: kTitleStyle.copyWith(color: AppColors.white),
+            onPressed: () => provider.getProfile(municipalitys: true)
+        )
+    );
+  }
 
 
 }

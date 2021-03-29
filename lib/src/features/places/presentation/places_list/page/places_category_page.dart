@@ -114,11 +114,10 @@ class _PlacesCategoryPageState extends State<PlacesCategoryPage> {
 
   Widget _buildErrorView(BuildContext context, Failure failure, PlacesProvider provider) {
     return InfoView(
-      height: MediaQuery.of(context).size.height*0.7,
+      height: MediaQuery.of(context).size.height,
       image: AppImages.iconMessage,
-      title: S.of(context).empyteReport,
+      title: S.of(context).unexpectedErrorMessage,
       titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
-      description: S.of(context).unexpectedErrorMessage,
       descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
       child: btnTryAgain(provider),
     );

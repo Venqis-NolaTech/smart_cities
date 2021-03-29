@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
+import 'package:smart_cities/src/core/error/failure.dart';
 import 'package:smart_cities/src/features/reports/presentation/new_report/widget/category_item.dart';
 import 'package:smart_cities/src/features/select_sector/provider/select_sector_provider.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
+import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/features/reports/presentation/new_report/widget/header_search.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:smart_cities/src/shared/components/info_view.dart';
+import 'package:smart_cities/src/shared/components/rounded_button.dart';
+import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
 
@@ -70,6 +75,11 @@ class _SelectedSectorPageState extends State<SelectSectorPage> {
           );
         }
 
+        if (currentState is Error) {
+          final failure = currentState.failure;
+
+          return _buildErrorView(context, failure, provider);
+        }
 
 
         return ModalProgressHUD(
@@ -97,9 +107,6 @@ class _SelectedSectorPageState extends State<SelectSectorPage> {
 
       }
     );
-
-
-
 
 
 
@@ -173,5 +180,27 @@ class _SelectedSectorPageState extends State<SelectSectorPage> {
   }
 
 
+  Widget _buildErrorView(BuildContext context, Failure failure, SelectSectorProvider provider) {
+    return InfoView(
+      height: MediaQuery.of(context).size.height,
+      image: AppImages.iconMessage,
+      title: S.of(context).unexpectedErrorMessage,
+      titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
+      descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
+      child: btnTryAgain(provider),
+    );
+  }
+
+  Widget btnTryAgain(SelectSectorProvider provider) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: RoundedButton(
+            color: AppColors.blueBtnRegister,
+            title: S.of(context).tryAgain,
+            style: kTitleStyle.copyWith(color: AppColors.white),
+            onPressed: () => provider.loadData()
+        )
+    );
+  }
 }
 
