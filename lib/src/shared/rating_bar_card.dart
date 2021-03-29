@@ -11,16 +11,18 @@ class RantingBarCard extends StatelessWidget {
   final Function(double) onRatingUpdate;
   final double initialRating;
   final bool ignoreGestures;
+  final String subtitle;
 
   RantingBarCard({Key key, 
    @required this.onRatingUpdate, 
-   @required this.initialRating, 
-   this.ignoreGestures= true}) : super(key: key);
+   @required this.initialRating,
+   @required this.subtitle,
+    this.ignoreGestures= true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-              backgroundColor: AppColors.greyButtom.withOpacity(0.05),
+              backgroundColor: AppColors.greyButtom.withOpacity(0.03),
               child: Container(
                 padding: EdgeInsets.only(top: 24.0, bottom: 24.0),
                 child: Column(
@@ -54,13 +56,13 @@ class RantingBarCard extends StatelessWidget {
 
                     Spaces.verticalSmall(),
 
-                    Text(
-                      S.of(context).tapStart,
+                    subtitle!=null ? Text(
+                      subtitle,
                       textAlign: TextAlign.start,
                       style: kSmallTextStyle.copyWith(
                         color: AppColors.blueBtnRegister,
                       ),
-                    ),
+                    ) : Container(),
 
                   ],
                 ),

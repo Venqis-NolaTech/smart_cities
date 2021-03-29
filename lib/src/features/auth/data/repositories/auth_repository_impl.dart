@@ -29,6 +29,8 @@ class AuthErrorCode {
 }
 
 class AuthRepositoryImpl implements AuthRepository {
+  static const int _SEND_EMAIL_VERIFICATION_TIME = 12;
+
   AuthRepositoryImpl({
     @required this.firebaseAuth,
     @required this.facebookAuth,
@@ -282,6 +284,42 @@ class AuthRepositoryImpl implements AuthRepository {
 
     FirebaseCrashlytics.instance.recordError(e, s);
     return UnexpectedFailure();
+  }
+
+  @override
+  Future<Failure> sendEmailVerification() async {
+    try {
+      final sentTime =
+      (userLocalRepository.getTimeSentEmailConfirmation()).fold(
+            (_) => null,
+            (time) => time,
+      );
+
+      final allowSend = sentTime == null ||
+          sentTime.difference(DateTime.now()).inHours >=
+              _SEND_EMAIL_VERIFICATION_TIME;
+
+      if (allowSend) {
+        userLocalRepository.setTimeSentEmailConfirmation(DateTime.now());
+
+        await firebaseAuth.currentUser.sendEmailVerification();
+      }
+
+      return null;
+    } catch (e, s) {
+      return _handleFailure(e, s);
+    }
+  }
+
+
+  @override
+  Future<Failure> sendPasswordResetEmail(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      return null;
+    } catch (e, s) {
+      return _handleFailure(e, s);
+    }
   }
   // ---- private methods ---- //
 }

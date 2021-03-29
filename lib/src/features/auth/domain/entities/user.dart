@@ -23,6 +23,8 @@ class User extends Equatable {
   CatalogItem municipality;
   CatalogItem province;
   CatalogItem city;
+  final bool emailVerified;
+  final String lastSignInTime;
 
   CatalogItem sector;
   final int reportNumber;
@@ -48,7 +50,9 @@ class User extends Equatable {
       this.province,
       this.city,
       this.reportNumber,
-      this.sector
+      this.sector,
+      this.emailVerified,
+      this.lastSignInTime,
       });
 
   String get fullName => '$firstName $lastName';

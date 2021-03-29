@@ -7,10 +7,11 @@ import '../../../../../../app.dart';
 class RouteProvider extends BaseProvider{
 
 
-  bool isMunicipality= true;
+  bool isMunicipality= currentUser!=null && currentUser.sector!=null ? false : true;
 
-  CatalogItem _realTimeSector= currentUser.municipality;
+  CatalogItem _realTimeSector= currentUser!=null ? currentUser.sector : municipalityOptional;
   CatalogItem get realTimeSector => _realTimeSector;
+
   set realTimeSector(CatalogItem value) {
     _realTimeSector=value;
     isMunicipality= false;

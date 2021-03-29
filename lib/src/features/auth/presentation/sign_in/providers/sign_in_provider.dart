@@ -36,7 +36,7 @@ class SignInProvider extends BaseProvider {
   }
 
   void checkHideSocialLogin() async {
-    final String jsonStr = remoteParams['hide_social_login'];
+    final String jsonStr = remoteParams['hide_social_login'] ?? null;
 
     if (jsonStr== null || jsonStr.isEmpty) return;
 

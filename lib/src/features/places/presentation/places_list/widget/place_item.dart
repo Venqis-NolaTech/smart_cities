@@ -73,6 +73,7 @@ class PlaceItem extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -94,6 +95,7 @@ class PlaceItem extends StatelessWidget {
                   child: Text(
                     place.aboutTitle ?? '',
                     maxLines: 2,
+                    textAlign: TextAlign.left,
                     style: kNormalStyle.copyWith(
                         color: AppColors.blueBtnRegister),
                   ),

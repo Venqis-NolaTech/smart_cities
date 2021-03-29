@@ -20,32 +20,23 @@ class SelectSectorProvider extends BaseProvider {
   Future loadData() async {
     state = Loading();
 
-    final logged = await loggedUserUseCase(NoParams());
+    var result = await getSectoresUseCase(NoParams());
 
-    await logged.fold(
-      (failure) {
+    await result?.fold(
+          (failure) {
+        print('fallo al actualizar sectores');
         state = Error(failure: failure);
       },
-      (user) async {
-        if (user != null) {
-          var result = await getSectoresUseCase(NoParams());
-
-          await result?.fold(
-            (failure) {
-              print('fallo al actualizar sectores');
-            },
-            (list) async {
-              if (list != null) {
-                allSectores = list;
-                print('actualizada listado de sectores');
-                notifyListeners();
-              }
-
-               state = Loaded();
-            },
-          );
+          (list) async {
+        if (list != null) {
+          allSectores = list;
+          print('actualizada listado de sectores');
+          notifyListeners();
         }
+
+        state = Loaded();
       },
     );
+
   }
 }

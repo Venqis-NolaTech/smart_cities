@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/logged_user_use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/get_municipality_use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/logout_use_case.dart';
 import 'package:smart_cities/src/features/auth/domain/usecases/validate_email_use_case.dart';
@@ -30,6 +31,7 @@ class ProfileProvider extends BaseProvider {
     @required this.validateEmailUseCase,
     @required this.logoutUseCase,
     @required this.getMunicipalityUseCase,
+    @required this.loggedUserUseCase
   });
 
   final GetProfileUseCase getProfileUseCase;
@@ -39,6 +41,7 @@ class ProfileProvider extends BaseProvider {
   final ValidateEmailUseCase validateEmailUseCase;
   final LogoutUseCase logoutUseCase;
   final GetMunicipalityUseCase getMunicipalityUseCase;
+  final LoggedUserUseCase loggedUserUseCase;
 
 
   ViewState _profileState = Idle();
@@ -106,15 +109,21 @@ class ProfileProvider extends BaseProvider {
     notifyListeners();
   }
 
+  bool isLogged= currentUser == null ? false : true;
 
 
   void getProfile({bool municipalitys= false}) async {
+
     profileState = Loading();
 
     if(municipalitys)
       await getMunicipalitys();
 
 
+    if(!isLogged) {
+      profileState = Loaded();
+      return;
+    }
 
     final failureOrUser = await getProfileUseCase(NoParams());
 
@@ -124,9 +133,6 @@ class ProfileProvider extends BaseProvider {
         _user = user;
         _municipality= user.municipality?.key;
         _sector= user.sector;
-
-
-        profileState = Loaded();
       },
     );
   }
@@ -137,10 +143,11 @@ class ProfileProvider extends BaseProvider {
     final failureOrProvinces = await getMunicipalityUseCase(NoParams());
 
     failureOrProvinces.fold(
-          (_) {},
+          (failure) => profileState = Error(failure: failure),
           (data) {
         municipalitys = data;
         print('guardando el listado de municipios');
+        profileState = Loaded();
       },
     );
 
@@ -260,6 +267,8 @@ class ProfileProvider extends BaseProvider {
     state = Loading();
 
     await logoutUseCase(NoParams());
+    currentUser= null;
+    municipalityOptional= null;
 
     state = Loaded();
   }

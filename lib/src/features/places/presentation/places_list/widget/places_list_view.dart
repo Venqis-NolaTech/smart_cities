@@ -80,11 +80,11 @@ class _PlaceListViewState<P extends PaginatedProvider<Place>> extends State<Plac
     if (widget.onProviderReady) {
       if(provider is AllPlacesProvider){
         provider.category= widget.category;
-        provider.municipality= currentUser.municipality.key;
+        provider.municipality= currentUser!=null ? currentUser.municipality.key : municipalityOptional.key;
       }else
       if(provider is NearbyPlacesProvider){
         provider.category= widget.category;
-        provider.municipality= currentUser.municipality.key;
+        provider.municipality= currentUser!=null ? currentUser.municipality.key : municipalityOptional.key;
       }
 
       provider.fetchData();

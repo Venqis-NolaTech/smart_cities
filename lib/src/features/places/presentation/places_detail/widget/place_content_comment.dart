@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
@@ -11,6 +12,7 @@ import '../../../../../shared/components/comment_item_place.dart';
 
 class PlaceContentComment extends StatelessWidget {
   final Place place;
+  final formatter = new NumberFormat("##.#");
 
   PlaceContentComment({Key key, this.place}) : super(key: key);
 
@@ -32,7 +34,7 @@ class PlaceContentComment extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Spaces.horizontalMedium(),
-                Text('${place.rating}', style: kMenuBigTitleStyle.copyWith(color: AppColors.primaryText, fontWeight: FontWeight.bold),),
+                Text('${formatter.format(place.rating).replaceAll(',', '.')}', style: kMenuBigTitleStyle.copyWith(color: AppColors.primaryText, fontWeight: FontWeight.bold),),
                 Spaces.horizontalMedium(),
 
                 Expanded(
@@ -40,7 +42,7 @@ class PlaceContentComment extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(S.of(context).averageMark, style: kNormalStyle.copyWith(color: AppColors.primaryText, fontWeight: FontWeight.bold),),
-                      Text('${place.votes} ${S.of(context).vote}', style: kNormalStyle.copyWith(color: AppColors.primaryText),),
+                      Text('${place.votes.toInt()} ${S.of(context).vote}', style: kNormalStyle.copyWith(color: AppColors.primaryText),),
                     ],
                   ),
                 ),

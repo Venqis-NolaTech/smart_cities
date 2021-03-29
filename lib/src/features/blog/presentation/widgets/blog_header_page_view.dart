@@ -13,9 +13,11 @@ class BlogHeaderPageView extends StatefulWidget {
   const BlogHeaderPageView({
     Key key,
     @required this.posts,
+    @required this.isLogged,
   }) : super(key: key);
 
   final List<Post> posts;
+  final bool isLogged;
 
   @override
   _BlogHeaderPageViewState createState() => _BlogHeaderPageViewState(posts);
@@ -35,7 +37,10 @@ class _BlogHeaderPageViewState extends State<BlogHeaderPageView> {
   void _gotoDetail(Post post) async {
     BlogDetailPage.pushNavigate(
       context,
-      args: BlogDetailPageArgs(post: post),
+      args: BlogDetailPageArgs(
+          post: post,
+          isVisibleLiked: widget.isLogged ?? false
+      ),
     );
   }
 

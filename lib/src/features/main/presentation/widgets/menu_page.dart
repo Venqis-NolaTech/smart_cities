@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -11,11 +12,15 @@ import 'package:smart_cities/src/shared/provider/view_state.dart';
 
 
 class MenuPage extends StatelessWidget {
+  final Function onFunctionPickup;
+
+  MenuPage({Key key, @required this.onFunctionPickup}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height -
         (kToolbarHeight + kBottomNavigationBarHeight * 1.5);
-
 
 
     return BaseView<ProfileProvider>(
@@ -57,9 +62,10 @@ class MenuPage extends StatelessWidget {
 
   Widget _buildContent(ProfileProvider provider, double screenHeight) {
     return Container(
-      height: screenHeight,
+      //height: screenHeight,
       child: MenuContent(
         provider: provider,
+        onFunctionPickup: onFunctionPickup,
       ),
     );
   }

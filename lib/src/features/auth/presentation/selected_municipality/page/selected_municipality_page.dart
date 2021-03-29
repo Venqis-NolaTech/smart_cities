@@ -10,19 +10,17 @@ import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/custom_item_list.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
+import 'package:smart_cities/src/shared/components/info_view.dart';
+import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
+import '../../../../../../app.dart';
+
 
 class SelectedMunicipalityPage extends StatefulWidget {
   static const id = "selected_municipality_page";
-
-  static pushNavigate(BuildContext context, {replace = false}) {
-    replace
-        ? Navigator.pushReplacementNamed(context, id)
-        : Navigator.pushNamed(context, id);
-  }
 
   @override
   _SelectedMunicipalityPageState createState() => _SelectedMunicipalityPageState();
@@ -36,10 +34,16 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
     return BaseView<ProfileProvider>(
       onProviderReady: (provider) => provider.getProfile(municipalitys: true),
         builder: (context, provider, child) {
+          final currentState = provider.currentState;
 
-          final isLoading = provider.currentState is Loading ||
+          final isLoading = currentState is Loading ||
               provider.profileState is Loading;
 
+
+          if (provider.profileState is Error || currentState is Error) {
+            print('ocurrio un error inesperado');
+            _buildErrorView(context, provider);
+          }
 
           return ModalProgressHUD(
             inAsyncCall: isLoading,
@@ -60,26 +64,12 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
                                 S.of(context).welcome.toUpperCase(),
                                 style: kMediumTitleStyle.copyWith(
                                   color: AppColors.white,
-                                  fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            UserPhoto(provider: provider),
-                            Spaces.verticalSmall(),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                provider.user?.firstName ?? '',
-                                style: kTitleStyle.copyWith(
-                                  fontSize: 35.0,
-                                  color: AppColors.primaryText.withOpacity(0.5),
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                            _buildProfile(provider),
                             Spaces.verticalSmall(),
                             Container(
                               color: AppColors.red,
@@ -89,7 +79,6 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
                                 child: Text(S.of(context).selectedMunicipality,
                                     style: kMediumTitleStyle.copyWith(
                                       color: Colors.white,
-                                      fontFamily: 'Roboto',
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textAlign: TextAlign.center),
@@ -137,9 +126,15 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
       provider.municipality=item.key;
       //Navigator.pushReplacementNamed(context, MainPage.id);
     });
-    await provider.updateMunicipio(item);
-    _process(provider);
-    //await provider.editProfile();
+    if(provider.isLogged){
+      await provider.updateMunicipio(item);
+      _process(provider);
+      //await provider.editProfile();
+    }else {
+      municipalityOptional = item;
+      Navigator.pushReplacementNamed(context, MainPage.id);
+    }
+
   }
 
 
@@ -160,6 +155,55 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
     }
   }
 
+  Widget _buildProfile(ProfileProvider provider) {
+    if(!provider.isLogged)
+      return Container(height: 100,);
+
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        UserPhoto(provider: provider),
+        Spaces.verticalSmall(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            provider.user?.firstName ?? '',
+            style: kTitleStyle.copyWith(
+              fontSize: 35.0,
+              color: AppColors.primaryText.withOpacity(0.5),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+
+
+  Widget _buildErrorView(BuildContext context, ProfileProvider provider) {
+    return InfoView(
+      height: MediaQuery.of(context).size.height*0.7,
+      image: AppImages.iconMessage,
+      title: S.of(context).unexpectedErrorMessage,
+      titleStyle: kMediumTitleStyle.copyWith(color: Colors.grey.shade500),
+      descriptionStyle: kNormalStyle.copyWith(color: Colors.grey.shade500),
+      child: btnTryAgain(provider),
+    );
+  }
+
+  Widget btnTryAgain(ProfileProvider provider) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: RoundedButton(
+            color: AppColors.blueBtnRegister,
+            title: S.of(context).tryAgain,
+            style: kTitleStyle.copyWith(color: AppColors.white),
+            onPressed: () => provider.getProfile(municipalitys: true)
+        )
+    );
+  }
 
 
 }

@@ -18,6 +18,12 @@ abstract class UserLocalDataSource {
   Future<bool> setRefreshToken(String refreshToken);
   String getRefreshToken();
 
+  Future<bool> setUserRequestAcepted(bool value);
+  bool getUserRequestAcepted();
+
+  Future<bool> setTimeSentEmailConfirmation(DateTime time);
+  DateTime getTimeSentEmailConfirmation();
+  
   Future<PositionModel> getCurrentLocation();
 
   Future<bool> clear();
@@ -27,6 +33,8 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   static const CURRENT_USER = 'current_user';
   static const TOKEN = 'token';
   static const REFRESH_TOKEN = 'refresh_token';
+  static const USER_REQUEST_ACEPTED = 'user_request_acepted';
+  static const SENT_EMAIL_CONFIRMATION_TIME = "sent_email_confirmation_time";
 
   UserLocalDataSourceImpl({
     @required this.sharedPreferences,
@@ -93,4 +101,30 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   Future<bool> clear() {
     return sharedPreferences.clear();
   }
+
+  @override
+  DateTime getTimeSentEmailConfirmation() {
+    final time = sharedPreferences.getInt(SENT_EMAIL_CONFIRMATION_TIME) ?? 1;
+
+    if (time > 0) return DateTime.fromMillisecondsSinceEpoch(time);
+
+    return null;
+  }
+
+  @override
+  bool getUserRequestAcepted() {
+    return sharedPreferences.getBool(USER_REQUEST_ACEPTED);
+  }
+
+  @override
+  Future<bool> setTimeSentEmailConfirmation(DateTime time) {
+    return sharedPreferences.setInt(
+        SENT_EMAIL_CONFIRMATION_TIME, time.millisecondsSinceEpoch);
+  }
+
+  @override
+  Future<bool> setUserRequestAcepted(bool value) {
+    return sharedPreferences.setBool(USER_REQUEST_ACEPTED, value);
+  }
+
 }

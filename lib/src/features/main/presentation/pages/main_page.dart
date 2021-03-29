@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_cities/src/features/auth/presentation/profile/pages/profile_page.dart';
 import 'package:smart_cities/src/features/home/presentation/page/home_page.dart';
 import 'package:smart_cities/src/features/main/presentation/widgets/menu_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/pages/payments_page.dart';
@@ -33,11 +34,16 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     _widgetOptions = <Widget>[
-      HomePage(),
+      HomePage(
+        toProfile: ()=> Navigator.pushNamed(context, ProfilePage.id),
+        toRoute: ()=> moveTo(1),
+      ),
       RoutePage(),
       ReportsPage(onBackPress: onBackPressReport),
       PaymentsPage(),
-      MenuPage()
+      MenuPage(
+        onFunctionPickup: onFunctionPickup,
+      )
     ];
 
     super.initState();
@@ -74,5 +80,10 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _selectedIndex=0;
     });
+  }
+
+
+  void onFunctionPickup() {
+    moveTo(1);
   }
 }

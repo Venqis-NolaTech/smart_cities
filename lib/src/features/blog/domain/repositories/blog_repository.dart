@@ -30,4 +30,10 @@ abstract class BlogRepository {
   Future<Either<Failure, PostTraining>> getPostTrainingDetail(String postId);
 
   Future<Either<Failure, Post>> like(String postId);
+
+  Future<Either<Failure, PostListings>> getPostFeature({
+    PostKind kind,
+    int page,
+    int count
+  });
 }

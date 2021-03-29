@@ -68,6 +68,7 @@ class BlogHeader extends SliverPersistentHeaderDelegate {
             )
           : BlogHeaderPageView(
               posts: provider.lastPosts,
+        isLogged: provider.isLogged,
             ),
     );
   }

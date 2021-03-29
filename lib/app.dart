@@ -12,12 +12,16 @@ import 'src/shared/app_colors.dart';
 //Map<String, String> authHeaders;
 Map<String, dynamic> remoteParams;
 User currentUser;
-//List<CatalogItem> municipalitys;
+CatalogItem municipalityOptional;
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class App extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -30,6 +34,7 @@ class App extends StatelessWidget {
         primaryColor: AppColors.blueBtnRegister,
         primaryColorDark: AppColors.blueDark,
         accentColor: AppColors.blueBtnRegister,
+        backgroundColor: AppColors.background,
         toggleableActiveColor: AppColors.blueBtnRegister,
         tabBarTheme: TabBarTheme(
           labelColor: AppColors.blueBtnRegister,

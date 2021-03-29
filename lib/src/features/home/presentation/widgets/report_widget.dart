@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
+import 'package:smart_cities/src/features/home/presentation/provider/home_provider.dart';
+import 'package:smart_cities/src/features/reports/presentation/new_report/pages/general_report.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/constant.dart';
@@ -8,6 +11,10 @@ import 'package:smart_cities/src/shared/spaces.dart';
 
 
 class ReportWidget extends StatelessWidget {
+  final HomeProvider provider;
+
+  ReportWidget({Key key, this.provider}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,7 +48,7 @@ class ReportWidget extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      '¿Has notado incidencia en tu sector?',
+                      S.of(context).incidentSectorQuestion,
                       textAlign: TextAlign.center,
                       style: kNormalStyle.copyWith(
                         color: AppColors.blueBtnRegister,
@@ -59,11 +66,10 @@ class ReportWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '¡Déjanos saber!',
+                    S.of(context).letUsKnow,
                     textAlign: TextAlign.center,
                     style: kNormalStyle.copyWith(
                       color: AppColors.blueBtnRegister,
-                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -73,7 +79,12 @@ class ReportWidget extends StatelessWidget {
               Spaces.verticalMedium(),
 
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  if(provider.isLogged)
+                    Navigator.pushNamed(context, NewReport.id);
+                  else
+                    SignInPage.pushNavigate(context);
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: AppColors.blueLight)),

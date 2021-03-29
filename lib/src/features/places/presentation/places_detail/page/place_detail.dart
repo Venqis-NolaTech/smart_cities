@@ -69,13 +69,12 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
       builder: (context, provider, child) {
         final currentState = provider.currentState;
 
-        if (!_placeLoaded && currentState is Loaded<Place>) {
+        if ( currentState is Loaded<Place>) {
           Future.delayed(
             Duration(milliseconds: 250),
             () => place = currentState.value,
           );
 
-          _placeLoaded = true;
         }
 
         return ModalProgressHUD(
@@ -108,22 +107,24 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                     padding: EdgeInsets.only(left: 24.0, right: 24.0),
                     child: RantingBarCard(
                       initialRating: 5,
-                      ignoreGestures: false, 
+                      ignoreGestures: false,
+                      subtitle: null,
                       onRatingUpdate: (ranting) =>  Navigator.pushNamed(context, NewReviewPage.id, arguments: NewReviewParams(place: _place, ranting: ranting)),
                     ),
                   ),
                   Spaces.verticalSmall(),
-                  _buildNewReview(),
+                  _buildNewReview(provider),
                   Spaces.verticalLarge(),
                   InkWell(
-                      onTap: () => Navigator.pushNamed(
-                          context, PlaceCommentPage.id,
-                          arguments: _place),
+                      onTap: () async {
+                        await Navigator.pushNamed(context, PlaceCommentPage.id, arguments: _place);
+                        provider.getPlaceById(widget.place.id);
+                        },
                       child: PlaceContentComment(place: _place)),
                   Spaces.verticalLarge(),
                   btnNewReport(),
                   Spaces.verticalLarge(),
-                  btnComment(),
+                  btnComment(provider),
                   Spaces.verticalLarge(),
                   btnGetDirection(),
                   Spaces.verticalLarge()
@@ -162,17 +163,19 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
         ));
   }
 
-  Widget btnComment() {
+  Widget btnComment(PlaceDetailsProvider provider) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: RoundedButton(
             color: AppColors.red,
             title: S.of(context).seeComment.toUpperCase(),
             style: kTitleStyle.copyWith(
-                fontWeight: FontWeight.bold,
-                color: AppColors.white),
-            onPressed: () => Navigator.pushNamed(context, PlaceCommentPage.id,
-                arguments: _place)));
+                fontWeight: FontWeight.bold, color: AppColors.white),
+            onPressed: () async {
+              await Navigator.pushNamed(context, PlaceCommentPage.id,
+                  arguments: _place);
+              provider.getPlaceById(widget.place.id);
+            }));
   }
 
   Widget btnGetDirection() {
@@ -189,10 +192,13 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                 LatLng(_place.latitude, _place.longitude))));
   }
 
-  Widget _buildNewReview() {
+  Widget _buildNewReview(PlaceDetailsProvider provider) {
     return InkWell(
-      onTap: () =>
-          Navigator.pushNamed(context, NewReviewPage.id, arguments: NewReviewParams(place: _place)),
+      onTap: () async {
+        await Navigator.pushNamed(context, NewReviewPage.id,
+            arguments: NewReviewParams(place: _place));
+        provider.getPlaceById(widget.place.id);
+      },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -202,8 +208,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
           Text(
             S.of(context).writeReview,
             textAlign: TextAlign.start,
-            style: kTitleStyle.copyWith(
-                fontWeight: FontWeight.bold, color: AppColors.blueButton),
+            style: kTitleStyle.copyWith( color: AppColors.blueButton),
           ),
         ],
       ),

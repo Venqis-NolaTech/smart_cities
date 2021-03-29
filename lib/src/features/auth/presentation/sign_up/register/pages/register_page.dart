@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/src/features/auth/presentation/phone_number/widgets/tittle_app_bar_login.dart';
-import 'package:smart_cities/src/features/auth/presentation/pre_login/page/pre_login.dart';
-import 'package:smart_cities/src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
+import 'package:smart_cities/src/features/auth/presentation/profile/pages/email_confirmation_page.dart';
 import 'package:smart_cities/src/features/auth/presentation/selected_municipality/page/selected_municipality_page.dart';
+import 'package:smart_cities/src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
 import 'package:smart_cities/src/shared/image_utils.dart';
 
 import '../../../../../../../generated/i18n.dart';
@@ -16,6 +16,7 @@ import '../../../../../../shared/provider/view_state.dart';
 import '../../../../../../shared/spaces.dart';
 import '../providers/register_provider.dart';
 import '../widgets/register_form.dart';
+
 
 class RegisterPage extends StatefulWidget {
   static const id = "register_page";
@@ -34,6 +35,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   RegisterProvider _provider;
 
@@ -56,7 +58,8 @@ class _RegisterPageState extends State<RegisterPage> {
     final currentState = _provider.currentState;
 
     if (currentState is Loaded) {
-      SelectedMunicipalityPage.pushNavigate(context, replace: true);
+      _gotoEmailConfirmation();
+      //SelectedMunicipalityPage.pushNavigate(context, replace: true);
     } else if (currentState is Error) {
       final failureType = currentState.failure.runtimeType;
 
@@ -77,12 +80,23 @@ class _RegisterPageState extends State<RegisterPage> {
           errorMessage = S.of(context).unexpectedErrorMessage;
       }
 
-      Scaffold.of(context).showSnackBar(
+      _scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(errorMessage),
         ),
       );
     }
+  }
+
+  void _gotoEmailConfirmation() {
+    EmailConfirmationPage.pushNavigate(
+      context,
+      replace: true,
+      args: EmailConfirmationPageArgs(
+        isSendConfirmation: true,
+        onPressed: null,
+      ),
+    );
   }
 
   @override
@@ -94,13 +108,14 @@ class _RegisterPageState extends State<RegisterPage> {
         return ModalProgressHUD(
           inAsyncCall: provider.currentState is Loading,
           child: Scaffold(
+            key: _scaffoldKey,
               appBar: AppBar(
                   backgroundColor: AppColors.red,
                   title: tittleAppBarLogin(onRegister: null, onLogin: ()=> Navigator.pushReplacementNamed(context, SignInPage.id)),
                   leading: IconButton(
                     icon: Icon(MdiIcons.close),
                     color: AppColors.white,
-                    onPressed: () => Navigator.pushReplacementNamed(context, PreLogin.id),
+                    onPressed: () => Navigator.pop(context),
                   )),
             body: _buildBody(),
           ),

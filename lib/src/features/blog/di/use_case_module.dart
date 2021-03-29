@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:smart_cities/src/features/blog/domain/usecases/get_feature_posts_use_case.dart';
 
 import '../domain/usecases/get_all_posts_use_case.dart';
 import '../domain/usecases/get_general_posts_use_case.dart';
@@ -47,6 +48,12 @@ initUseCase(GetIt sl) {
 
   sl.registerLazySingleton(
     () => LikePostUseCase(
+      blogRepository: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton(
+        () => GetFeaturePostsUseCase(
       blogRepository: sl(),
     ),
   );

@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:smart_cities/src/features/home/di/home_di.dart';
 import 'package:smart_cities/src/features/places/di/places_di.dart';
 import 'package:smart_cities/src/features/route/di/route_di.dart';
 
@@ -21,6 +22,8 @@ init() async {
   initBlogModule(sl);
   initPlacesModule(sl);
   initRouteModule(sl);
+
+  initHomeModule(sl);
 
   await initExternal(sl);
 }

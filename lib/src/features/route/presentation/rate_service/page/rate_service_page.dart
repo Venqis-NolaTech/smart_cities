@@ -97,7 +97,7 @@ class _RateServicePageState extends State<RateServicePage> {
             children: [
               BottomNavigationReport(
                 textOnBack: S.of(context).cancel,
-                textOnNext: ranting!=0 ? S.of(context).send : '',
+                textOnNext: S.of(context).send,
                 onBack: ()=> Navigator.of(context).pop(), //boton cancelar
                 onNext: ()=> onNext(),
               ),
@@ -113,15 +113,26 @@ class _RateServicePageState extends State<RateServicePage> {
   }
 
   void onNext() {
+    var title=S.of(context).titleOkRate;
+    var message=  S.of(context).reportSendMessage;
+    var isError= false;
+
+    if( ranting==0){
+      title= S.of(context).error;
+      message= S.of(context).selectRateInvalid;
+      isError= true;
+    }
 
     showInfoDialog(
-      S.of(context).reportSendMessage,
-      title:  S.of(context).titleOkRate,
+      message,
+      title:  title,
       confirmTitle: S.of(context).ok,
       cancelAction: false,
-      onConfirm: () => Navigator.of(context).pop(),
+      onConfirm: (){
+        if(!isError)
+          Navigator.of(context).pop();
+      },
     );
-
   }
 
   void showInfoDialog(
