@@ -58,6 +58,7 @@ class NewReviewPage extends StatelessWidget {
                                   provider.qualification = ranting,
                               ignoreGestures: false)),
                     _buildForm(context, provider),
+                      Spaces.verticalSmall(),
                     btnIniciar(context, provider)
             ]),
           ),
@@ -85,8 +86,7 @@ class NewReviewPage extends StatelessWidget {
                 onChanged: (value) {
                   provider.title = value;
                 },
-                decoration: InputDecoration(
-                    border: InputBorder.none),
+                decoration: InputDecoration( border: InputBorder.none),
                 textInputAction: TextInputAction.next,
                 style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),
               ),
@@ -107,7 +107,7 @@ class NewReviewPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: TextFormField(
-                    maxLines: 10,
+                    maxLines: 6,
                     maxLength: 4000,
                     onChanged: (value) {
                       provider.comment = value;
