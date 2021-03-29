@@ -14,6 +14,8 @@ import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
+import '../../../../../../app.dart';
+
 
 class SelectedMunicipalityPage extends StatefulWidget {
   static const id = "selected_municipality_page";
@@ -54,26 +56,12 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
                                 S.of(context).welcome.toUpperCase(),
                                 style: kMediumTitleStyle.copyWith(
                                   color: AppColors.white,
-                                  fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            UserPhoto(provider: provider),
-                            Spaces.verticalSmall(),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                provider.user?.firstName ?? '',
-                                style: kTitleStyle.copyWith(
-                                  fontSize: 35.0,
-                                  color: AppColors.primaryText.withOpacity(0.5),
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                            _buildProfile(provider),
                             Spaces.verticalSmall(),
                             Container(
                               color: AppColors.red,
@@ -83,7 +71,6 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
                                 child: Text(S.of(context).selectedMunicipality,
                                     style: kMediumTitleStyle.copyWith(
                                       color: Colors.white,
-                                      fontFamily: 'Roboto',
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textAlign: TextAlign.center),
@@ -131,9 +118,15 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
       provider.municipality=item.key;
       //Navigator.pushReplacementNamed(context, MainPage.id);
     });
-    await provider.updateMunicipio(item);
-    _process(provider);
-    //await provider.editProfile();
+    if(provider.isLogged){
+      await provider.updateMunicipio(item);
+      _process(provider);
+      //await provider.editProfile();
+    }else {
+      municipality = item;
+      Navigator.pushReplacementNamed(context, MainPage.id);
+    }
+
   }
 
 
@@ -152,6 +145,31 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
         },
       );
     }
+  }
+
+  Widget _buildProfile(ProfileProvider provider) {
+    if(!provider.isLogged)
+      return Container(height: 100,);
+
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        UserPhoto(provider: provider),
+        Spaces.verticalSmall(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            provider.user?.firstName ?? '',
+            style: kTitleStyle.copyWith(
+              fontSize: 35.0,
+              color: AppColors.primaryText.withOpacity(0.5),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+      ],
+    );
   }
 
 

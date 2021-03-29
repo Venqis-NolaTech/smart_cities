@@ -1,6 +1,6 @@
+import 'package:meta/meta.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/home/presentation/provider/home_provider.dart';
 import 'package:smart_cities/src/features/home/presentation/widgets/news_widget.dart';
 import 'package:smart_cities/src/features/home/presentation/widgets/payment_widget.dart';
@@ -16,6 +16,11 @@ import 'package:smart_cities/app.dart';
 
 
 class HomePage extends StatelessWidget {
+  final Function toProfile;
+  final Function toRoute;
+
+  HomePage({Key key, @required this.toProfile, @required this.toRoute}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +94,6 @@ class HomePage extends StatelessWidget {
                                           textAlign: TextAlign.left,
                                           style: kTitleStyle.copyWith(
                                             color: AppColors.white,
-                                            fontFamily: 'Roboto',
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
@@ -130,7 +134,10 @@ class HomePage extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(child: ReportWidget(provider: provider)),
-                            Expanded(child: RouteWidget(provider: provider,)),
+                            Expanded(child: RouteWidget(
+                              provider: provider,
+                              onAddSector: toProfile,
+                              onSelectedSector: toRoute) ),
                           ],
                         ),
                         Spaces.verticalMedium(),

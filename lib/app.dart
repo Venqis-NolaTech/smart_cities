@@ -12,7 +12,8 @@ import 'src/shared/app_colors.dart';
 //Map<String, String> authHeaders;
 Map<String, dynamic> remoteParams;
 User currentUser;
-//List<CatalogItem> municipalitys;
+CatalogItem municipality;
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class App extends StatelessWidget {

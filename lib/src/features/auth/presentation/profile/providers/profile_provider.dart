@@ -113,16 +113,17 @@ class ProfileProvider extends BaseProvider {
 
 
   void getProfile({bool municipalitys= false}) async {
-    if(!isLogged)
-      return;
 
     profileState = Loading();
-
-
 
     if(municipalitys)
       await getMunicipalitys();
 
+
+    if(!isLogged) {
+      profileState = Loaded();
+      return;
+    }
 
     final failureOrUser = await getProfileUseCase(NoParams());
 

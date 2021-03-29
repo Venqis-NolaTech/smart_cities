@@ -8,6 +8,8 @@ import 'package:smart_cities/src/features/auth/domain/repositories/user_local_re
 import 'package:smart_cities/src/features/auth/domain/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../app.dart';
+
 
 class GetSectoresUseCase extends UseCase<List<CatalogItem>, NoParams> {
   final UserRepository userRepository;
@@ -21,14 +23,17 @@ class GetSectoresUseCase extends UseCase<List<CatalogItem>, NoParams> {
   @override
   Future<Either<Failure, List<CatalogItem>>> call(NoParams params, {callback}) async  {
 
-    final failureOrUser = userLocalRepository.getCurrentUser();
+    return await userRepository.getSectores(currentUser!=null ? currentUser.municipality.key : municipality.key);
+
+
+    /*final failureOrUser = userLocalRepository.getCurrentUser();
 
     return failureOrUser.fold(
             (failure) => Left(failure),
             (user) async {
               return await userRepository.getSectores(user.municipality.key);
             }
-    );
+    );*/
   }
 
 }
