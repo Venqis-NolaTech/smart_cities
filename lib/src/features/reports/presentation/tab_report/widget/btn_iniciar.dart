@@ -8,21 +8,21 @@ import 'package:smart_cities/src/shared/constant.dart';
 
 
 
-class BtnLogin extends StatelessWidget {
+class ButtonLogin extends StatelessWidget {
+  final Function actionLogin;
+  final String title;
+
+  ButtonLogin({Key key, this.actionLogin, this.title}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: RoundedButton(
             color: AppColors.blueBtnRegister,
-            title: S.of(context).login.toUpperCase(),
+            title: title,
             style: kTitleStyle.copyWith(color: AppColors.white),
-            onPressed:
-                () =>
-            Navigator.pushReplacementNamed(
-              context,
-              PhoneNumberPage.id,
-              arguments: AuthMethod.login,
-            )));
+            onPressed: actionLogin
+        ));
   }
 }

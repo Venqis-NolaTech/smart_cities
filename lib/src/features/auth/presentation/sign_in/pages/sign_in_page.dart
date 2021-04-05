@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
   static const id = "sign_in_page";
 
   static pushNavigate(BuildContext context) {
-    Navigator.pushNamed(context, id);
+    Navigator.pushReplacementNamed(context, id);
   }
 
   const SignInPage({Key key}) : super(key: key);

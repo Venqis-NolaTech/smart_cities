@@ -30,8 +30,6 @@ import 'package:smart_cities/src/core/entities/catalog_item.dart';
 
 
 
-import 'src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
-import 'src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
 import 'src/features/auth/presentation/pre_login/page/pre_login.dart';
 import 'src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
 import 'src/features/auth/presentation/verify_code/pages/verify_code_page.dart';
@@ -59,13 +57,13 @@ class AppRoute {
         routePath: RegisterPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => RegisterPage()),
       )
-      ..define(
+      /*..define(
         routePath: PhoneNumberPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
           final authMethod = arguments as AuthMethod;
           return PhoneNumberPage(authMethod: authMethod);
         }),
-      )
+      )*/
       ..define(
         routePath: VerifyCodePage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {

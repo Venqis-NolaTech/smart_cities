@@ -386,5 +386,17 @@
     "september": "Septiembre",
     "october": "Octubre",
     "november": "Noviembre",
-    "december": "Diciembre"
+    "december": "Diciembre",
+
+
+    "myAccounts": "Mis Cuentas",
+    "linkedAccounts": "Cuentas Vinculadas",
+    "nextPayment": "Próximo Pago",
+    "messageLinkedAccounts": "No tienes ninguna cuenta vinculada, por favor conecta tu cuenta para acceder a todos tus datos y tener una mejor experiencia de pago",
+    "connectAccount": "Conectar Cuenta",
+    "multiplePayments": "Pagos Multiples",
+    "card": "Tarjetas",
+    "userNotFoundMessagePayments": "No tienes ninguna cuenta vinculada, por favor conecta tu cuenta para acceder a todos tus datos y tener una mejor experiencia de pago.",
+    "codeOfSystem": "Código de Sistema",
+    "typeOfAccount": "Tipo de cuenta"
 }
