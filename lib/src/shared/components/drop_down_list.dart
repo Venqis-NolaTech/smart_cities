@@ -33,15 +33,9 @@ class DropDownList<T> extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Text(
-          title,
-          style: kSmallestTextStyle.copyWith(
-            color: Colors.grey.shade600,
-          ),
-        ),
         Material(
           child: Container(
-            margin: EdgeInsets.only(top: 4.0),
+            //margin: EdgeInsets.only(top: 4.0),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.grey.shade600,
@@ -54,7 +48,7 @@ class DropDownList<T> extends StatelessWidget {
             child: ListTile(
               title: Text(
                 itemSelected == null
-                    ? S.of(context).typeReport
+                    ?  S.of(context).selectTypeAccount
                     : itemSelected.toString() ?? "",
                 style: kNormalStyle.copyWith(
                   color: itemSelected == null ? Colors.grey : Colors.black,

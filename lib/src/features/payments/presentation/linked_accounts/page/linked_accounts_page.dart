@@ -3,6 +3,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/core/error/failure.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
+import 'package:smart_cities/src/features/payments/presentation/add_account/page/add_account_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/linked_accounts/provider/payments_provider.dart';
 import 'package:smart_cities/src/features/payments/presentation/linked_accounts/widget/account_list_item.dart';
 import 'package:smart_cities/src/features/payments/presentation/linked_accounts/widget/linked_accounts.dart';
@@ -61,7 +62,7 @@ class _LinkedAccountsPageState extends State<LinkedAccountsPage> {
                 floatingActionButton:
                 currentState is Error && currentState.failure is UserNotFoundFailure ? Container() :
                 FloatingActionButton(
-                  onPressed: () {  },
+                  onPressed: () => AddAccountPage.pushNavigate(context),
                   child: Icon(Icons.add),
                   backgroundColor: AppColors.blueBtnRegister,
                 ) ,

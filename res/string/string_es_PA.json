@@ -156,7 +156,7 @@
     "sendEmail": "ENVIAR CORREO",
     "messageForgotPass" : "Coloca tu correo aquí para que puedas recuperar tu contraseña",
     "usuario" : "Usuario",
-    "crearCuenta" : "CREAR CUENTA",
+
     "cocle": "Coclé",
     "messageStart": "Crea una cuenta nueva o inicia sesión. ¡Empieza a interactuar con tu municipio!",
     "nextPage": "siguiente",
@@ -398,5 +398,20 @@
     "card": "Tarjetas",
     "userNotFoundMessagePayments": "No tienes ninguna cuenta vinculada, por favor conecta tu cuenta para acceder a todos tus datos y tener una mejor experiencia de pago.",
     "codeOfSystem": "Código de Sistema",
-    "typeOfAccount": "Tipo de cuenta"
+    "typeOfAccount": "Tipo de cuenta",
+
+    "addAccount": "Crear una cuenta",
+    "addAccountMessage": "Hola ${name} puedes crear multiples cuentas para el pago de tus obligaciones y servicios bajo un mismo usuario",
+    "typeAccount": "Tipo de cuenta",
+    "selectTypeAccount": "Seleccione tipo de cuenta",
+    "ownerName": "Nombre del propietario",
+    "hintOwnerName": "Nombre y Apellido",
+    "hintPaymentMethod": "Selecciona metodo de pago",
+    "account": "Cuenta",
+
+
+    "detailCard": "Detalle de tarjeta",
+    "numberCard": "Número de tarjeta",
+    "expirationDate": "Fecha de Expiración",
+    "cvv": "cvv"
 }
