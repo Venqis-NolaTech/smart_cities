@@ -51,7 +51,7 @@ class App extends StatelessWidget {
           backgroundColor: Colors.black.withOpacity(0),
         ),
       ),
-      home: MainPage(), //TODO
+      home: SplashPage(), //TODO
       onGenerateRoute: (settings) => AppRouter.appRouter.matchRoute(
         settings.name,
         routeSettings: settings,

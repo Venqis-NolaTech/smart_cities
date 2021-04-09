@@ -3,11 +3,32 @@ import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/core/usecases/use_case.dart';
 
 import 'package:smart_cities/src/features/payments/domain/usescase/get_list_bank_use_case.dart';
+import 'package:smart_cities/src/features/payments/domain/usescase/save_accounts_use_case.dart';
 import 'package:smart_cities/src/shared/provider/base_provider.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
 class AddAccountBankProvider extends BaseProvider{
   final GetListBankUseCase getListBankUseCase;
+  final SaveAccountsUseCase saveAccountsUseCase;
+
+
+  AddAccountBankProvider({
+    @required this.getListBankUseCase,
+    @required this.saveAccountsUseCase,
+  });
+
+
+
+  String holderName;
+
+  String cardNumber = '';
+  String expiryDate = '';
+  String cardHolderName = '';
+  String cvvCode = '';
+
+  String accountNumber= '';
+  String accountHolderName= '';
+
 
 
   List<CatalogItem> listBanks=[];
@@ -34,15 +55,25 @@ class AddAccountBankProvider extends BaseProvider{
     CatalogItem(key: 'ASEO', value: 'Aseo'),
   ];
 
-  CatalogItem _paymentMethodSelected= paymentMethod.first;
+
+  // tipo de cuenta a crear, relacion con typeAccount aseo o arbitrios municipales
+  CatalogItem _typeAccountSelected;
+  CatalogItem get typeAccountSelected => _typeAccountSelected;
+  set typeAccountSelected(CatalogItem value) {
+    _typeAccountSelected=value;
+    notifyListeners();
+  }
+
+  // metodo de pago seleccionado cuenta bancaria o tarjeta
+  CatalogItem _paymentMethodSelected;
   CatalogItem get paymentMethodSelected => _paymentMethodSelected;
   set paymentMethodSelected(CatalogItem value) {
     _paymentMethodSelected=value;
     notifyListeners();
   }
 
-
-  CatalogItem _typeAccountBankSelected= typeAccountBank.first;
+  // tipo de cuenta bancaria, relacion con typeAccountBank
+  CatalogItem _typeAccountBankSelected;
   CatalogItem get typeAccountBankSelected => _typeAccountBankSelected;
   set typeAccountBankSelected(CatalogItem value) {
     _typeAccountBankSelected=value;
@@ -50,10 +81,6 @@ class AddAccountBankProvider extends BaseProvider{
   }
 
 
-
-  AddAccountBankProvider({
-    @required this.getListBankUseCase,
-  });
 
   Future loadData() async {
     state = Loading();
@@ -73,6 +100,36 @@ class AddAccountBankProvider extends BaseProvider{
 
 
   }
+
+  Future sendAccount() async {
+
+    //TODO con tarjeta
+
+    Map<String, dynamic> data={
+      "accountOwner" : holderName,
+      "accountType" : typeAccountSelected.key,
+      "systemCode" : "12345",
+      "paymentMethod" : paymentMethodSelected.key,
+      "paymentOwner": paymentMethodSelected.key == 'BANK ACCOUNT'
+          ? accountHolderName
+          : cardHolderName,
+      "creditCardNumber" : cardNumber,
+      "creditCardExpDate" : expiryDate,
+      "creditCardCVV" : cvvCode
+    };
+
+    state= Loading();
+    var result= await saveAccountsUseCase(CreateAccountParams(data: data));
+
+    result.fold(
+          (failure) => state = Error(failure: failure),
+          (account) => state = Loaded(value: account),
+    );
+
+  }
+
+
+
 
 
 

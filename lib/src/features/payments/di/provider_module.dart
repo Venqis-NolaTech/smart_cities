@@ -9,5 +9,6 @@ initProvider(GetIt sl){
 
   sl.registerFactory(() => AddAccountBankProvider(
     getListBankUseCase: sl(),
+    saveAccountsUseCase: sl(),
   )) ;
 }

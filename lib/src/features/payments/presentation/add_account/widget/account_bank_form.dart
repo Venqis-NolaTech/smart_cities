@@ -81,6 +81,7 @@ class _BankAccountFormState extends State<BankAccountForm> {
     bank = widget.bank;
     typeAccount = widget.typeAccount;
     accountHolderName = widget.accountHolderName;
+    onAccountModelChange= widget.onAccountModelChange;
 
     accountBankModel = AccountBankModel(
       accountNumber: accountNumber,
@@ -100,7 +101,7 @@ class _BankAccountFormState extends State<BankAccountForm> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    createAccountModel();
     _accountHolderNameController.addListener(() {
       setState(() {
         accountHolderName = _accountHolderNameController.text;
@@ -149,6 +150,9 @@ class _BankAccountFormState extends State<BankAccountForm> {
                 decoration: widget.accountHolderNameDecoration,
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
+                onFieldSubmitted: (_) {
+                  accountHolderNode.unfocus();
+                },
                 onEditingComplete: () {
                   onAccountModelChange(accountBankModel);
                 },
@@ -213,6 +217,9 @@ class _BankAccountFormState extends State<BankAccountForm> {
                 decoration: widget.accountNumberDecoration,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.done,
+                onFieldSubmitted: (_){
+                  accountNumberNode.unfocus();
+                },
                 onEditingComplete: () {
                   onAccountModelChange(accountBankModel);
                 },

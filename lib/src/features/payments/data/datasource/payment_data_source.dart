@@ -6,10 +6,13 @@ import 'package:smart_cities/src/core/api/public_http_client.dart';
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/core/entities/response_model.dart';
 import 'package:smart_cities/src/core/models/catalog_item_model.dart';
+import 'package:smart_cities/src/features/payments/data/models/account_model.dart';
+import 'package:smart_cities/src/features/payments/domain/entities/account.dart';
 
 abstract class PaymentDataSource{
   Future<List<CatalogItem>> bankList();
   Future<List<CatalogItem>> listPaymentMethod();
+  Future<Account> createAccount({Map<String, dynamic> request});
 }
 
 
@@ -37,6 +40,14 @@ class PaymentDataSourceImpl implements PaymentDataSource{
     print('listado de metodos de pagos'+response.toString());
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
     return List<CatalogItem>.from(body.data['municipality'].map((x) => CatalogItemModel.fromJson(x)));
+  }
+
+  @override
+  Future<Account> createAccount({Map<String, dynamic> request}) async {
+    final response = await authHttpClient.post('/api/account');
+    print('nueva cuenta '+response.toString());
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+    return AccountModel.fromJson(body.data);
   }
 
 

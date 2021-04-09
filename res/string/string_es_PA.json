@@ -421,6 +421,10 @@
     "hintAccountHolderName": "Nombre del propietario",
 
     "accountBank": "Cuenta Bancaria",
-    "creditCard": "Tajeta de Crédito"
+    "creditCard": "Tajeta de Crédito",
+
+    "createAccount": "Crear Cuenta",
+    "savaChange": "Guardar Cambios",
+    "accountCreatedSuccessMessage": "Nueva cuenta agregada de manera exitosa"
 
 }
