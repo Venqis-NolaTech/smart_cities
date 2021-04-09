@@ -5,7 +5,7 @@ import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/shared/components/masked_text_controller.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 
-import 'credit_card_model.dart';
+import '../../../data/models/credit_card_model.dart';
 
 class CreditCardForm extends StatefulWidget {
   const CreditCardForm({

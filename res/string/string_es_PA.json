@@ -413,5 +413,14 @@
     "detailCard": "Detalle de tarjeta",
     "numberCard": "Número de tarjeta",
     "expirationDate": "Fecha de Expiración",
-    "cvv": "cvv"
+    "cvv": "cvv",
+
+    "bank": "Banco",
+    "numberOfAcccount": "Número de Cuenta",
+    "hintNumberOfAcccount": "*******123456",
+    "hintAccountHolderName": "Nombre del propietario",
+
+    "accountBank": "Cuenta Bancaria",
+    "creditCard": "Tajeta de Crédito"
+
 }
