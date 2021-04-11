@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/masked_text_controller.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 
@@ -295,6 +297,8 @@ class _CreditCardFormState extends State<CreditCardForm> {
                     ),
                   ),
                 ),
+
+                Icon(MdiIcons.informationOutline, color: AppColors.greyButtom.withOpacity(0.2)),
               ],
             ),
 

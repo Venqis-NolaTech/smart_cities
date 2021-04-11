@@ -39,6 +39,24 @@ class PaymentsRepositoryImpl implements PaymentsRepository{
 
   }
 
+
+  @override
+  Future<Either<Failure, List<Account>>> listingAccount() {
+    return _process<List<Account>>(
+          () => paymentDataSource.listAccounts(),
+    );
+
+  }
+
+
+  @override
+  Future<Either<Failure, Account>> detailAccount(String id) {
+    return _process<Account>(
+          () => paymentDataSource.detailAccount(id),
+    );
+
+  }
+
   //--- private methods ---//
   Future<Either<Failure, T>> _process<T>(Future<T> Function() action) async {
     try {

@@ -40,7 +40,7 @@ class AccountModel extends Account{
     accountType: json["accountType"],
     systemCode: json["systemCode"],
     user: json["user"],
-    paymentMethod: PaymentMethodModel.fromJson(json["paymentMethod"]),
+    paymentMethod: !(json["paymentMethod"] is String) ? PaymentMethodModel.fromJson(json["paymentMethod"]) : null,
     createdAt: json["createdAt"],
     updatedAt: json["updatedAt"],
     v: json["__v"],

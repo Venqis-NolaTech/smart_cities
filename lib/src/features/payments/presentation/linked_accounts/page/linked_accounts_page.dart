@@ -3,7 +3,9 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/core/error/failure.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
+import 'package:smart_cities/src/features/payments/domain/entities/account.dart';
 import 'package:smart_cities/src/features/payments/presentation/add_account/page/add_account_page.dart';
+import 'package:smart_cities/src/features/payments/presentation/detail_account/page/detail_account_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/linked_accounts/provider/payments_provider.dart';
 import 'package:smart_cities/src/features/payments/presentation/linked_accounts/widget/account_list_item.dart';
 import 'package:smart_cities/src/features/payments/presentation/linked_accounts/widget/linked_accounts.dart';
@@ -70,6 +72,7 @@ class _LinkedAccountsPageState extends State<LinkedAccountsPage> {
                   child: Column(
                     children: [
                         LinkedAccount(
+                            numAccount: provider.listAccounts.length,
                             height: size.height * 0.3,
                             isLogged: currentState is Error &&
                                     currentState.failure is UserNotFoundFailure
@@ -108,14 +111,14 @@ class _LinkedAccountsPageState extends State<LinkedAccountsPage> {
     SignInPage.pushNavigate(context);
   }
 
-  List<Widget> getList(List<dynamic> accounts){
+    List<Widget> getList(List<Account> accounts){
     return List<Widget>.generate(accounts.length, (index) {
         return AccountItem(
           account: accounts[index],
           isFirst: index == 0,
           isLast: index == accounts.length - 1,
           topAndBottomPaddingEnabled: false,
-          onTap: () => {},
+          onTap: () => DetailAccountPage.pushNavigate(context, replace: false, args: DetailAccountPageArgs(account: accounts[index])) ,
         );
     });
 
@@ -140,9 +143,13 @@ class _LinkedAccountsPageState extends State<LinkedAccountsPage> {
 
   Widget _buildContentList(PaymentsProvider provider, double heigth) {
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: getList([dynamic, dynamic, dynamic, dynamic, dynamic, dynamic]),
-    );
+    if(provider.currentState is Loaded){
+      return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: getList((provider.currentState as Loaded).value)
+      );
+    }else
+      return Container();
+
   }
 }

@@ -5,6 +5,8 @@ import 'package:smart_cities/src/features/payments/presentation/linked_accounts/
 initProvider(GetIt sl){
   sl.registerFactory(() => PaymentsProvider(
     loggedUserUseCase: sl(),
+    getLinkedAccountUseCase: sl(),
+    getDetailAccountUseCase: sl(),
   )) ;
 
   sl.registerFactory(() => AddAccountBankProvider(

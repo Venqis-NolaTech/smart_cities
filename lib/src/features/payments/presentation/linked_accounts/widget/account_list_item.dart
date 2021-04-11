@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/features/payments/domain/entities/account.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/custom_card.dart';
 import 'package:smart_cities/src/shared/constant.dart';
@@ -7,7 +8,7 @@ import 'package:smart_cities/src/shared/spaces.dart';
 
 
 class AccountItem extends StatelessWidget {
-  final dynamic account;
+  final Account account;
   final Function onTap;
   final bool topAndBottomPaddingEnabled;
   final bool isFirst;
@@ -33,6 +34,7 @@ class AccountItem extends StatelessWidget {
         left: 16.0,
         right: 16.0,
       ),
+      onTap: onTap,
       child: Padding(
         padding: EdgeInsets.all(15.0),
         child: Column(
@@ -40,7 +42,7 @@ class AccountItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
 
-            Text('NAHOMI SANCHEZ', style: kTitleStyle.copyWith(
+            Text(account.accountOwner, style: kTitleStyle.copyWith(
                 color: AppColors.primaryText,
                 fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left),
@@ -50,15 +52,15 @@ class AccountItem extends StatelessWidget {
                 Expanded(
                     child: Text(S.of(context).codeOfSystem,
                         style: kNormalStyle)),
-                Text('1212123', style: kNormalStyle)
+                Text(account.systemCode, style: kNormalStyle)
               ],
             ),
             Spaces.verticalSmall(),
             Row(
               children: [
                 Expanded(
-                    child: Text(S.of(context).codeOfSystem, style: kNormalStyle)),
-                Text('Arbitrios municipales', style: kNormalStyle)
+                    child: Text(S.of(context).typeAccount, style: kNormalStyle)),
+                Text(account.accountType, style: kNormalStyle)
               ],
             ),
 

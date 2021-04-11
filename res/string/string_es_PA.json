@@ -425,6 +425,11 @@
 
     "createAccount": "Crear Cuenta",
     "savaChange": "Guardar Cambios",
-    "accountCreatedSuccessMessage": "Nueva cuenta agregada de manera exitosa"
-
+    "accountCreatedSuccessMessage": "Nueva cuenta agregada de manera exitosa",
+    "balanceToDate": "Balance a la Fecha",
+    "payment": "Pagar",
+    "previousInvoices": "Facturas Anteriores",
+    "messageAddCreditCard": "Tu cuenta no tiene ninguna tarjeta vinculada. Agrega los detalles debajo.",
+    "saveCard": "Guardar tarjeta",
+    "noteSaveCard": "Nota: Por cuestiones de seguridad el CVV se introduce cada vez que realizamos el pago"
 }

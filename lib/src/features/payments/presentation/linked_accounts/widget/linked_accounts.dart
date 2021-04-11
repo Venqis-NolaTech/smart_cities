@@ -10,7 +10,8 @@ import 'package:smart_cities/src/shared/spaces.dart';
 class LinkedAccount extends StatelessWidget {
   final bool isLogged;
   final double height;
-  LinkedAccount({Key key, this.isLogged, this.height}) : super(key: key);
+  final int numAccount;
+  LinkedAccount({Key key, this.numAccount,  this.isLogged, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class LinkedAccount extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Spaces.verticalSmall(),
-            Text('0', style: kMenuBigTitleStyle.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),),
+            Text(numAccount.toString(), style: kMenuBigTitleStyle.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),),
             Spaces.verticalSmall(),
             Text(S.of(context).linkedAccounts, style: kNormalStyle.copyWith(color: AppColors.white),),
             Spaces.verticalSmall(),

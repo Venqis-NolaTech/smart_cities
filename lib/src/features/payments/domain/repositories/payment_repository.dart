@@ -9,6 +9,8 @@ abstract class PaymentsRepository {
 
   Future<Either<Failure, Account>> createAccount({Map<String, dynamic> request});
 
+  Future<Either<Failure, List<Account>>> listingAccount();
 
+  Future<Either<Failure, Account>> detailAccount(String id);
 }
 

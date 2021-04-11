@@ -13,6 +13,8 @@ abstract class PaymentDataSource{
   Future<List<CatalogItem>> bankList();
   Future<List<CatalogItem>> listPaymentMethod();
   Future<Account> createAccount({Map<String, dynamic> request});
+  Future<List<Account>> listAccounts();
+  Future<Account> detailAccount(String id);
 }
 
 
@@ -57,6 +59,22 @@ class PaymentDataSourceImpl implements PaymentDataSource{
     return AccountModel.fromJson(body.data);
   }
 
+  @override
+  Future<List<Account>> listAccounts() async {
+    var response= await authHttpClient.get('/api/account');
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+    return List<Account>.from(body.data['data'].map((x) => AccountModel.fromJson(x)));
+    //return PostListingsModel.fromJson(body.data);
+  }
+
+  @override
+  Future<Account> detailAccount(String id) async  {
+    final response = await authHttpClient.get('/api/account/$id');
+    print('detalle de cuenta '+response.toString());
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+    return AccountModel.fromJson(body.data);
+  }
+  
 
   
 
