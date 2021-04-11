@@ -44,7 +44,14 @@ class PaymentDataSourceImpl implements PaymentDataSource{
 
   @override
   Future<Account> createAccount({Map<String, dynamic> request}) async {
-    final response = await authHttpClient.post('/api/account');
+    print('agregando cuenta cuenta '+request.toString());
+
+
+    final response = await authHttpClient.post(
+        '/api/account',
+        body: request);
+
+
     print('nueva cuenta '+response.toString());
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
     return AccountModel.fromJson(body.data);

@@ -29,7 +29,7 @@ abstract class BaseDioClient {
 
     _instance = Dio();
     _instance.options.baseUrl = _apiBaseUrl;
-    _instance.options.connectTimeout = 12000;
+    _instance.options.connectTimeout = 120000;
 
     _instance.options.headers = {
       "Content-Type": "application/json",

@@ -7,6 +7,13 @@ import 'package:smart_cities/src/features/payments/domain/usescase/save_accounts
 import 'package:smart_cities/src/shared/provider/base_provider.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
+
+
+class DataKey{
+  static const BANK_ACCOUNT = "BANK ACCOUNT";
+  static const CREDITCARD = "CREDITCARD";
+
+}
 class AddAccountBankProvider extends BaseProvider{
   final GetListBankUseCase getListBankUseCase;
   final SaveAccountsUseCase saveAccountsUseCase;
@@ -41,8 +48,8 @@ class AddAccountBankProvider extends BaseProvider{
 
 
   static final List<CatalogItem> paymentMethod=[
-    CatalogItem(key: 'BANK ACCOUNT', value: 'Cuenta Bancaria'),
-    CatalogItem(key: 'CREDITCARD', value: 'Tarjeta de Crédito'),
+    CatalogItem(key: DataKey.BANK_ACCOUNT, value: 'Cuenta Bancaria'),
+    CatalogItem(key: DataKey.CREDITCARD, value: 'Tarjeta de Crédito'),
   ];
 
   static final List<CatalogItem> typeAccountBank=[
@@ -103,20 +110,39 @@ class AddAccountBankProvider extends BaseProvider{
 
   Future sendAccount() async {
 
-    //TODO con tarjeta
+    //TODO envio con tarjeta
+    Map<String, dynamic> data;
 
-    Map<String, dynamic> data={
-      "accountOwner" : holderName,
-      "accountType" : typeAccountSelected.key,
-      "systemCode" : "12345",
-      "paymentMethod" : paymentMethodSelected.key,
-      "paymentOwner": paymentMethodSelected.key == 'BANK ACCOUNT'
-          ? accountHolderName
-          : cardHolderName,
-      "creditCardNumber" : cardNumber,
-      "creditCardExpDate" : expiryDate,
-      "creditCardCVV" : cvvCode
-    };
+    if(paymentMethodSelected.key == DataKey.CREDITCARD){
+      data={
+        "accountOwner" : holderName,
+        "accountType" : typeAccountSelected.key,
+        "systemCode" : "12345",
+        "paymentMethod" : paymentMethodSelected.key,
+        "paymentOwner": paymentMethodSelected.key == 'BANK ACCOUNT'
+            ? accountHolderName
+            : cardHolderName,
+        "creditCardNumber" : cardNumber,
+        "creditCardExpDate" : expiryDate,
+        "creditCardCVV" : cvvCode
+      };
+    }else{
+
+      data={
+        "accountOwner" : holderName,
+        "accountType" : typeAccountSelected.key,
+        "systemCode" : "123456",
+        "paymentMethod" : paymentMethodSelected.key,
+        "paymentOwner": paymentMethodSelected.key == DataKey.BANK_ACCOUNT
+            ? accountHolderName
+            : cardHolderName,
+        "bank" :  bankSelected.key,
+        "bankType" : typeAccountBankSelected.key,
+        "bankNumber" : accountNumber
+      };
+
+    }
+
 
     state= Loading();
     var result= await saveAccountsUseCase(CreateAccountParams(data: data));

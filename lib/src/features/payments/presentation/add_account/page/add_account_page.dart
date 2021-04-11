@@ -109,7 +109,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                         Spaces.verticalSmall(),
 
                         provider.paymentMethodSelected==null ? Container() :
-                        provider.paymentMethodSelected.key == "CREDITCARD" ?
+                        provider.paymentMethodSelected.key == DataKey.CREDITCARD ?
                         buildCreditCardForm(provider) :
                         buildBankAccountForm(context, provider),
                         Spaces.verticalSmall(),
@@ -142,7 +142,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
     return CreditCardForm(
       formKey: _formKey,
       obscureCvv: true,
-      obscureNumber: true,
+      obscureNumber: false,
       cardNumber: provider.cardNumber,
       cvvCode: provider.cvvCode,
       cardHolderName: provider.cardHolderName,
@@ -225,7 +225,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
             Spaces.verticalSmall(),
             TextFormField(
               onChanged: (value){
-                //widget.provider.nameStreet= value;
+                provider.holderName= value;
               },
               decoration: InputDecoration(
                   border: OutlineInputBorder(
