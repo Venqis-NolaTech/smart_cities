@@ -23,57 +23,36 @@ class ReportWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-
-                  Image.asset(AppImagePaths.iconReport),
-                  Spaces.horizontalSmall(),
-                  Text(
-                    S.of(context).report,
-                    textAlign: TextAlign.center,
-                    style: kMediumTitleStyle.copyWith(
-                      color: AppColors.blueBtnRegister,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-
+              buildHeaderReport(context),
               Spaces.verticalMedium(),
 
-              Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      S.of(context).incidentSectorQuestion,
-                      textAlign: TextAlign.center,
-                      style: kNormalStyle.copyWith(
-                        color: AppColors.blueBtnRegister,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+              Flexible(
+                child: Text(
+                  S.of(context).incidentSectorQuestion,
+                  textAlign: TextAlign.center,
+                  style: kNormalStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
+                ),
               ),
 
 
               Spaces.verticalMedium(),
 
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    S.of(context).letUsKnow,
-                    textAlign: TextAlign.center,
-                    style: kNormalStyle.copyWith(
-                      color: AppColors.blueBtnRegister,
-                      fontWeight: FontWeight.bold,
-                    ),
+              Flexible(
+                child: Text(
+                  S.of(context).letUsKnow,
+                  textAlign: TextAlign.center,
+                  style: kNormalStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
               ),
 
               Spaces.verticalMedium(),
@@ -105,5 +84,24 @@ class ReportWidget extends StatelessWidget {
     );
 
 
+  }
+
+  Row buildHeaderReport(BuildContext context) {
+    return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+
+                Image.asset(AppImagePaths.iconReport),
+                Spaces.horizontalSmall(),
+                Text(
+                  S.of(context).report,
+                  textAlign: TextAlign.center,
+                  style: kMediumTitleStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            );
   }
 }

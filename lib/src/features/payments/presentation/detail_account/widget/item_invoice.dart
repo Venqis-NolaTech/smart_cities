@@ -27,12 +27,12 @@ class ItemInvoice extends StatelessWidget {
                   children: [
                     Text('ID 1213144', style: kMediumTitleStyle.copyWith(color: AppColors.black)),
                     Spaces.verticalSmall(),
-                    Text('Noviembre 28, 2018 12:20 PM', style: kNormalStyle),
+                    Text('Noviembre 28, 2018 12:20 PM', style: kNormalStyle.copyWith(color:AppColors.primaryTextLight )),
                   ],
                 ),
               ),
 
-              Text('\$ 200.00', style: kBigTitleStyle.copyWith(color: AppColors.black),),
+              Text('\$200.00', style: kBigTitleStyle.copyWith(color: AppColors.primaryTextLight),),
 
             ],
           ),

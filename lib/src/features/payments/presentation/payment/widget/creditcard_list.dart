@@ -9,15 +9,22 @@ import 'package:smart_cities/src/shared/spaces.dart';
 
 import '../../../../../../app.dart';
 
-class CreditCardList extends StatelessWidget {
+class CreditCardList extends StatefulWidget {
   final List<dynamic> creditCardList;
   final AddAccountBankProvider provider;
 
   final Function addCard;
   final Function payment;
 
-  const CreditCardList({Key key, this.creditCardList, this.provider, this.addCard, this.payment}) : super(key: key);
 
+  CreditCardList({Key key, this.creditCardList, this.provider, this.addCard, this.payment}) : super(key: key);
+
+  @override
+  _CreditCardListState createState() => _CreditCardListState();
+}
+
+class _CreditCardListState extends State<CreditCardList> {
+  int indexSlected=1;
   @override
   Widget build(BuildContext context) {
 
@@ -29,19 +36,26 @@ class CreditCardList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHeader(),
-            Text(S.of(context).linkedCards.toUpperCase(), style: kTitleStyle),
-            Spaces.verticalMedium(),
+            Container(
+              width: double.infinity,
+              color: AppColors.greyButtom.withOpacity(0.2),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(S.of(context).linkedCards.toUpperCase(),
+                      textAlign: TextAlign.center,
+                      style: kTitleStyle),
+                )),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: getList(creditCardList),
+              children: getList(widget.creditCardList),
             ),
-            Spaces.verticalMedium(),
+            Spaces.verticalLarge(),
             _buildButtomAddCard(context),
             Spaces.verticalMedium(),
             _buildButtomPayment(context)
           ]
       ),
-    );;
+    );
 
 
 
@@ -56,7 +70,7 @@ class CreditCardList extends StatelessWidget {
           elevation: 0,
           title: S.of(context).addCard.toUpperCase(),
           style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.blueBtnRegister),
-          onPressed: addCard
+          onPressed: widget.addCard,
       ),
     );
 
@@ -67,17 +81,16 @@ class CreditCardList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 60),
       child: RoundedButton(
           color: AppColors.blueBtnRegister,
-          borderColor: AppColors.white,
+          //borderColor: AppColors.white,
           elevation: 0,
           title: S.of(context).payment.toUpperCase(),
           style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.white),
-          onPressed: payment
+          onPressed: widget.payment
       ),
     );
 
 
   }
-
 
   Widget _buildHeader(){
     return Container(
@@ -99,7 +112,8 @@ class CreditCardList extends StatelessWidget {
   List<Widget> getList(List<dynamic> list){
     return List<Widget>.generate(list.length, (index) {
       return ItemCreditCard(
-        background: (index%2) != 0 ? Colors.white : AppColors.greyButtom.withOpacity(0.2),
+        isSelected: index== indexSlected,
+        background: (index%2) != 0 ? AppColors.greyButtom.withOpacity(0.2) : Colors.white ,
         onTap: () => {} ,
       );
     });

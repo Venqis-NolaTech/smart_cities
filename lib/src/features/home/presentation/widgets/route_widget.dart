@@ -23,88 +23,50 @@ class RouteWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-
-                  Image.asset(AppImagePaths.iconRoute),
-                  Spaces.horizontalSmall(),
-                  Text(
-                    S.of(context).route,
-                    textAlign: TextAlign.center,
-                    style: kMediumTitleStyle.copyWith(
-                      color: AppColors.blueBtnRegister,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+              buildHeaderRoute(context),
               Spaces.verticalMedium(),
 
-              Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      //TODO pendiente para validar con recogida y el sector
-                      !provider.isLogged ? S.of(context).completeYourPerfil : S.of(context).noPickupToday,
-                      textAlign: TextAlign.center,
-                      style: kNormalStyle.copyWith(
-                        color: AppColors.blueBtnRegister,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+              Flexible(
+                child: Text(
+                  //TODO pendiente para validar con recogida y el sector
+                  !provider.isLogged ? S.of(context).completeYourPerfil : S.of(context).noPickupToday,
+                  textAlign: TextAlign.center,
+                  style: kNormalStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.w400,
                   ),
-
-                  provider.isLogged && provider.sector!=null ?
-                  Flexible(
-                    child: Text(
-                      provider.sector.value,
-                      textAlign: TextAlign.center,
-                      style: kNormalStyle.copyWith(
-                        color: AppColors.blueBtnRegister,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ) : Container(),
-
-                ],
-              ),
-
-
-              Spaces.verticalMedium(),
-
-              Visibility(
-                visible: false,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      S.of(context).letUsKnow,
-                      textAlign: TextAlign.center,
-                      style: kNormalStyle.copyWith(
-                        color: AppColors.blueBtnRegister,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
                 ),
               ),
 
               Spaces.verticalMedium(),
 
+              provider.isLogged && provider.sector!=null ?
+              Flexible(
+                child: Text(
+                  provider.sector.value,
+                  textAlign: TextAlign.center,
+                  style: kNormalStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ) : Container(),
+
+
+              Spaces.verticalMedium(),
               FlatButton(
-                onPressed: (){
-                  if(provider.isLogged){
-                    if(provider.sector!=null ) // ir a recogida
+                onPressed: () {
+                  if (provider.isLogged) {
+                    if (provider.sector != null) // ir a recogida
                       onSelectedSector();
                     else //ir al perfil para completar datos
                       onAddSector();
-                  }else
+                  } else
                     SignInPage.pushNavigate(context);
-
-
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
@@ -118,11 +80,29 @@ class RouteWidget extends StatelessWidget {
                   ),
                 ),
               )
-
             ],
           ),
         ),
       ),
     );
+  }
+
+  Row buildHeaderRoute(BuildContext context) {
+    return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+
+                Image.asset(AppImagePaths.iconRoute),
+                Spaces.horizontalSmall(),
+                Text(
+                  S.of(context).route,
+                  textAlign: TextAlign.center,
+                  style: kMediumTitleStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            );
   }
 }

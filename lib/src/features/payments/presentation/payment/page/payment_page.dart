@@ -52,7 +52,8 @@ class _PaymentPageState extends State<PaymentPage> {
               index: _stepIndex,
               children: [
                 AddCreditCard(provider: provider, payment: moveToPayment),
-                CreditCardList(provider: provider, creditCardList: [dynamic, dynamic, dynamic]),
+                CreditCardList(provider: provider, creditCardList: [dynamic, dynamic, dynamic],
+                addCard: moveAddCard, payment: ()=> Navigator.pop(context)),
 
               ],
             ),
@@ -80,4 +81,12 @@ class _PaymentPageState extends State<PaymentPage> {
       _stepIndex=1;
     });
   }
+
+  void moveAddCard(){
+    setState(() {
+      _stepIndex=0;
+    });
+  }
+
+
 }
