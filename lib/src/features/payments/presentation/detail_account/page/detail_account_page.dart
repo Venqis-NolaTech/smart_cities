@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/payments/domain/entities/account.dart';
-import 'package:smart_cities/src/features/payments/presentation/add_creditcard/page/add_creditcard_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/detail_account/widget/item_invoice.dart';
 import 'package:smart_cities/src/features/payments/presentation/linked_accounts/provider/payments_provider.dart';
 import 'package:smart_cities/src/features/payments/presentation/linked_accounts/widget/account_list_item.dart';
+import 'package:smart_cities/src/features/payments/presentation/payment/page/payment_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
@@ -165,7 +165,7 @@ class DetailAccountPage extends StatelessWidget {
           title: S.of(context).payment.toUpperCase(),
           style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.white),
           onPressed: () async {
-            AddCreditCardPage.pushNavigate(context, replace: false);
+            PaymentPage.pushNavigate(context, replace: false);
             /*Navigator.pushNamedAndRemoveUntil(
               context,
               MainPage.id,

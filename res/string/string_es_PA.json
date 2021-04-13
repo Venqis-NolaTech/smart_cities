@@ -431,5 +431,7 @@
     "previousInvoices": "Facturas Anteriores",
     "messageAddCreditCard": "Tu cuenta no tiene ninguna tarjeta vinculada. Agrega los detalles debajo.",
     "saveCard": "Guardar tarjeta",
-    "noteSaveCard": "Nota: Por cuestiones de seguridad el CVV se introduce cada vez que realizamos el pago"
+    "noteSaveCard": "Nota: Por cuestiones de seguridad el CVV se introduce cada vez que realizamos el pago",
+    "linkedCards": "Tarjetas viculadas a esta cuenta",
+    "addCard": "Utilizar otra tarjeta"
 }

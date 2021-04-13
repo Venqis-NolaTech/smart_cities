@@ -111,7 +111,7 @@ class _LinkedAccountsPageState extends State<LinkedAccountsPage> {
     SignInPage.pushNavigate(context);
   }
 
-    List<Widget> getList(List<Account> accounts){
+  List<Widget> getList(List<Account> accounts){
     return List<Widget>.generate(accounts.length, (index) {
         return AccountItem(
           account: accounts[index],

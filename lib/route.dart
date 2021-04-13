@@ -6,8 +6,8 @@ import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_pa
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/add_account/page/add_account_page.dart';
-import 'package:smart_cities/src/features/payments/presentation/add_creditcard/page/add_creditcard_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/detail_account/page/detail_account_page.dart';
+import 'package:smart_cities/src/features/payments/presentation/payment/page/payment_page.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
 import 'package:smart_cities/src/features/places/presentation/new_review/page/new_review_page.dart';
 import 'package:smart_cities/src/features/places/presentation/place_schedule/page/place_schedule_page.dart';
@@ -253,10 +253,10 @@ class AppRoute {
 
 
       ..define(
-        routePath: AddCreditCardPage.id,
+        routePath: PaymentPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
           //final args = arguments as DetailAccountPageArgs;
-          return AddCreditCardPage();
+          return PaymentPage();
         }),
       )
     ;
