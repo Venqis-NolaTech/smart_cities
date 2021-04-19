@@ -148,6 +148,10 @@ class _AddAccountPageState extends State<AddAccountPage> {
       cardHolderName: provider.cardHolderName,
       expiryDate: provider.expiryDate,
       themeColor: Colors.blue,
+      cardHolderDecoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        hintText: S.of(context).ownerName,
+      ),
       cardNumberDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         hintText: S.of(context).numberCard,
@@ -159,9 +163,6 @@ class _AddAccountPageState extends State<AddAccountPage> {
       cvvCodeDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         hintText: S.of(context).cvv,
-      ),
-      cardHolderDecoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       onCreditCardModelChange: (creditCardModel) => onCreditCardModelChange(creditCardModel, provider),
     );

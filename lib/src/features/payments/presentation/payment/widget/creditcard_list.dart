@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:smart_cities/src/shared/components/custom_card.dart';
 import 'package:smart_cities/src/features/payments/presentation/add_account/provider/add_account_provider.dart';
 import 'package:smart_cities/src/features/payments/presentation/payment/widget/item_card.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
@@ -35,7 +37,8 @@ class _CreditCardListState extends State<CreditCardList> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(context),
+            _buildHeaderUser(),
             Container(
               width: double.infinity,
               color: AppColors.greyButtom.withOpacity(0.2),
@@ -92,7 +95,32 @@ class _CreditCardListState extends State<CreditCardList> {
 
   }
 
-  Widget _buildHeader(){
+
+  Widget _buildHeader(BuildContext context) {
+    return CustomCard(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+        child: Row(
+          children: [
+
+            Icon(MdiIcons.informationOutline, color: AppColors.blueFacebook),
+            Spaces.horizontalMedium(),
+            Expanded(
+              child: Text(
+                S.of(context).messagePayment,
+                textAlign: TextAlign.start,
+                style: kNormalStyle.copyWith(color: AppColors.primaryText),
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    );
+
+  }
+
+  Widget _buildHeaderUser(){
     return Container(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),

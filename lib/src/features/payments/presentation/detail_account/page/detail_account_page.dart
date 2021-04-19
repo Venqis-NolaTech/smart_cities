@@ -74,7 +74,7 @@ class DetailAccountPage extends StatelessWidget {
                       children: [
                         Container(
                           color: AppColors.greyButtom,
-                          height: screenHeight*0.2),
+                          height: screenHeight*0.4),
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,7 +97,7 @@ class DetailAccountPage extends StatelessWidget {
 
                     _btnPayment(context, provider),
                     Spaces.verticalLarge(),
-                    Text(S.of(context).previousInvoices.toUpperCase(), style: kTitleStyle.copyWith(),),
+                    Text(S.of(context).previousInvoices.toUpperCase(), style: kTitleStyle.copyWith(color: AppColors.primaryText),),
                     Spaces.verticalMedium(),
                     _buildContentList()
 
@@ -160,7 +160,7 @@ class DetailAccountPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 60),
       child: RoundedButton(
           color: AppColors.blueBtnRegister,
-          borderColor: AppColors.white,
+          borderColor: AppColors.blueBtnRegister,
           elevation: 0,
           title: S.of(context).payment.toUpperCase(),
           style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.white),
@@ -186,7 +186,7 @@ class DetailAccountPage extends StatelessWidget {
   List<Widget> getList(List<dynamic> invoices){
     return List<Widget>.generate(invoices.length, (index) {
       return ItemInvoice(
-        background: (index%2) != 0 ? Colors.white : AppColors.greyButtom.withOpacity(0.2),
+        background: (index%2) != 0 ? Colors.white : AppColors.greyButtom.withOpacity(0.05),
         onTap: (){
 
         },

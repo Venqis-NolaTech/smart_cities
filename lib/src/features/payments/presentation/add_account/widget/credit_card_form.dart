@@ -6,6 +6,8 @@ import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/masked_text_controller.dart';
 import 'package:smart_cities/src/shared/constant.dart';
+import 'package:smart_cities/src/shared/spaces.dart';
+
 
 import '../../../data/models/credit_card_model.dart';
 
@@ -225,12 +227,12 @@ class _CreditCardFormState extends State<CreditCardForm> {
                 },
               ),
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    margin: const EdgeInsets.only(left: 16, top: 8, right: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              margin: const EdgeInsets.only(left: 16, top: 8, right: 16),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
                     child: TextFormField(
                       controller: _expiryDateController,
                       cursorColor: widget.cursorColor ?? themeColor,
@@ -264,11 +266,8 @@ class _CreditCardFormState extends State<CreditCardForm> {
                       },
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    margin: const EdgeInsets.only(left: 16, top: 8, right: 16),
+                  Spaces.horizontalSmall(),
+                  Expanded(
                     child: TextFormField(
                       obscureText: widget.obscureCvv,
                       focusNode: cvvFocusNode,
@@ -296,10 +295,13 @@ class _CreditCardFormState extends State<CreditCardForm> {
                       },
                     ),
                   ),
-                ),
 
-                Icon(MdiIcons.informationOutline, color: AppColors.greyButtom.withOpacity(0.2)),
-              ],
+                  Spaces.horizontalSmall(),
+
+                  Icon(
+                      MdiIcons.informationOutline, color: AppColors.greyButtom.withOpacity(0.2)),
+                ],
+              ),
             ),
 
           ],

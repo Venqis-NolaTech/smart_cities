@@ -433,5 +433,6 @@
     "saveCard": "Guardar tarjeta",
     "noteSaveCard": "Nota: Por cuestiones de seguridad el CVV se introduce cada vez que realizamos el pago",
     "linkedCards": "Tarjetas viculadas a esta cuenta",
-    "addCard": "Utilizar otra tarjeta"
+    "addCard": "Utilizar otra tarjeta",
+    "messagePayment": "Puedes elegir otro metodo de pago de los que ya has agregado"
 }

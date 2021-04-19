@@ -30,9 +30,9 @@ class AddCreditCard extends StatelessWidget {
           buildCreditCardForm(provider, context),
           Spaces.verticalSmall(),
           _buildBottom(context),
+          Spaces.verticalLarge(),
+          _buildButtomPayment(context),
           Spaces.verticalMedium(),
-          _buildButtomPayment(context)
-
 
         ],
       ),
@@ -43,7 +43,7 @@ class AddCreditCard extends StatelessWidget {
   Widget _buildHeader(BuildContext context) {
     return CustomCard(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         child: Row(
           children: [
 
@@ -84,7 +84,7 @@ class AddCreditCard extends StatelessWidget {
                 Text(
                   S.of(context).noteSaveCard,
                   textAlign: TextAlign.start,
-                  style: kNormalStyle.copyWith(color: AppColors.primaryText),
+                  style: kNormalStyle.copyWith(color: AppColors.primaryTextLight.withOpacity(0.5)),
                 )
               ],
             ),
@@ -94,7 +94,7 @@ class AddCreditCard extends StatelessWidget {
             onChanged: (bool value) {
 
             },
-            value: true,
+            value: false,
           )
 
 
@@ -137,8 +137,8 @@ class AddCreditCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(currentUser.nickName, style: kMediumTitleStyle.copyWith(color: AppColors.black, fontWeight:FontWeight.bold )),
-                  Spaces.verticalSmall(),
-                  Text('ID 12143124234', style: kNormalStyle),
+                  Spaces.verticalSmallest(),
+                  Text('ID 12143124234', style: kNormalStyle.copyWith(color: AppColors.primaryTextLight)),
                 ],
               ),
             ),
@@ -166,6 +166,10 @@ class AddCreditCard extends StatelessWidget {
       cardHolderName: provider.cardHolderName,
       expiryDate: provider.expiryDate,
       themeColor: Colors.blue,
+      cardHolderDecoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        hintText: S.of(context).ownerName,
+      ),
       cardNumberDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         hintText: S.of(context).numberCard,
@@ -177,9 +181,6 @@ class AddCreditCard extends StatelessWidget {
       cvvCodeDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         hintText: S.of(context).cvv,
-      ),
-      cardHolderDecoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       onCreditCardModelChange: (creditCardModel) => {},
     );
