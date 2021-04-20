@@ -162,7 +162,7 @@ class DetailAccountPage extends StatelessWidget {
           color: AppColors.blueBtnRegister,
           borderColor: AppColors.blueBtnRegister,
           elevation: 0,
-          title: S.of(context).payment.toUpperCase(),
+          title: S.of(context).toPay.toUpperCase(),
           style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.white),
           onPressed: () async {
             PaymentPage.pushNavigate(context, replace: false);

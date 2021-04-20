@@ -86,7 +86,7 @@ class _CreditCardListState extends State<CreditCardList> {
           color: AppColors.blueBtnRegister,
           //borderColor: AppColors.white,
           elevation: 0,
-          title: S.of(context).payment.toUpperCase(),
+          title: S.of(context).toPay.toUpperCase(),
           style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.white),
           onPressed: widget.payment
       ),

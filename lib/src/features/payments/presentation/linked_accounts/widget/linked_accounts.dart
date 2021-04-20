@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/features/payments/presentation/multiple_payments/page/multiple_payments_page.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
@@ -55,17 +56,19 @@ class LinkedAccount extends StatelessWidget {
   }
 
   Widget _buildButtomStart(BuildContext context) {
-    return RoundedButton(
-      minWidth: 50,
-        color: Colors.transparent,
-        borderColor: AppColors.white,
-        title: S.of(context).multiplePayments.toUpperCase(),
-        style: kNormalStyle.copyWith(
-            fontWeight: FontWeight.w400,
-            color: AppColors.white),
-        onPressed: (){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 60),
+      child: RoundedButton(
+        minWidth: 50,
+          color: Colors.transparent,
+          borderColor: AppColors.white,
+          title: S.of(context).multiplePayments.toUpperCase(),
+          style: kNormalStyle.copyWith(
+              fontWeight: FontWeight.w400,
+              color: AppColors.white),
+          onPressed: () => MultiplePaymentsPage.pushNavigate(context)
 
-        }
+      ),
     ) ;
   }
 
