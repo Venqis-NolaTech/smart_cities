@@ -42,6 +42,7 @@ class _PaymentPageState extends State<PaymentPage> {
         builder: (context, provider, child) {
 
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               backgroundColor: AppColors.red,
               title: Text(S.of(context).card),

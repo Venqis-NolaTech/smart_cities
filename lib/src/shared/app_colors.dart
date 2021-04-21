@@ -4,7 +4,7 @@ class AppColors {
   static const blue = Color(0xFF1B4295);
   static const blueLight = Color(0xFF96ADD3);
   static const blueDark = Color(0xFF003464);
-  static const blueButton = Color(0xFF007AFF);
+  static const blueButton = Color(0xFF339CFF);
   static const red = Color(0xFFAA2020);
   static const redDark = Color(0xFF750024);
   static const yellow = Color(0xFFFBAE24);

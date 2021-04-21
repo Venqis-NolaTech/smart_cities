@@ -32,32 +32,45 @@ class _CreditCardListState extends State<CreditCardList> {
 
 
 
-    return SingleChildScrollView(
-      child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(context),
-            _buildHeaderUser(),
-            Container(
-              width: double.infinity,
-              color: AppColors.greyButtom.withOpacity(0.2),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Text(S.of(context).linkedCards.toUpperCase(),
-                      textAlign: TextAlign.center,
-                      style: kTitleStyle),
-                )),
-            Column(
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: getList(widget.creditCardList),
-            ),
-            Spaces.verticalLarge(),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(context),
+                _buildHeaderUser(),
+                Container(
+                  width: double.infinity,
+                  color: AppColors.greyButtom.withOpacity(0.2),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: Text(S.of(context).linkedCards.toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: kTitleStyle),
+                    )),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: getList(widget.creditCardList),
+                ),
+                Spaces.verticalLarge(),
+
+              ]
+          ),
+        ),
+
+
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Spaces.verticalSmall(),
             _buildButtomAddCard(context),
             Spaces.verticalMedium(),
             _buildButtomPayment(context)
-          ]
-      ),
+          ],
+        )
+      ],
     );
 
 
@@ -69,10 +82,10 @@ class _CreditCardListState extends State<CreditCardList> {
       padding: const EdgeInsets.symmetric(horizontal: 60),
       child: RoundedButton(
           color: AppColors.white,
-          borderColor: AppColors.blueBtnRegister,
+          borderColor: AppColors.blueButton,
           elevation: 0,
           title: S.of(context).addCard.toUpperCase(),
-          style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.blueBtnRegister),
+          style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.blueButton),
           onPressed: widget.addCard,
       ),
     );

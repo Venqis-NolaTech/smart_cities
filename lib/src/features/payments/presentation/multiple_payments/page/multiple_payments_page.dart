@@ -51,6 +51,14 @@ class _MultiplePaymentsPageState extends State<MultiplePaymentsPage> {
         title: Text(S.of(context).payments),
         centerTitle: true,
         backgroundColor: AppColors.red,
+        actions: [
+          FlatButton(
+              onPressed: _onBackPressed,
+              child: Text(
+                S.of(context).cancel,
+                style: kSmallTextStyle.copyWith(color: AppColors.white),
+              ))
+        ],
       ),
       body: Stack(
         children: [
@@ -92,27 +100,38 @@ class _MultiplePaymentsPageState extends State<MultiplePaymentsPage> {
           ),
 
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+
+              Container(
+                height: 1,
+                color: Colors.grey.shade300,
+              ),
+              Spaces.verticalSmall(),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                child: Row(
+
                   children: [
                     Expanded(
-                      child: Text('TOTAL'),
+                      child: Text('TOTAL', style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.primaryText),),
                     ),
 
-                    Text('\$1,234')
+                    Text('\$1,234', style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.primaryText),)
                   ],
                 ),
+              ),
 
-                Spaces.horizontalSmall(),
+              Spaces.verticalSmall(),
 
-                _btnPayment()
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _btnPayment(),
+              )
 
-              ],
-            ),
+            ],
           )
         ],
       ),
@@ -139,18 +158,22 @@ class _MultiplePaymentsPageState extends State<MultiplePaymentsPage> {
     return CustomCard(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-        child: Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-
-            Icon(MdiIcons.informationOutline, color: AppColors.blueFacebook),
-            Spaces.horizontalMedium(),
-            Expanded(
-              child: Text(
-                S.of(context).messageMultiplePayment,
-                textAlign: TextAlign.start,
-                style: kNormalStyle.copyWith(color: AppColors.primaryText),
-              ),
+            Text(
+              S.of(context).multiplePayments.toUpperCase(),
+              textAlign: TextAlign.start,
+              style: kTitleStyle.copyWith(   color: AppColors.primaryText),
             ),
+            Spaces.verticalSmall(),
+            Text(
+              S.of(context).messageMultiplePayment,
+              textAlign: TextAlign.center,
+              style: kNormalStyle.copyWith(color: AppColors.primaryText),
+            )
+
+
           ],
         ),
       ),
@@ -165,5 +188,9 @@ class _MultiplePaymentsPageState extends State<MultiplePaymentsPage> {
       );
     });
 
+  }
+
+  void _onBackPressed() {
+    Navigator.pop(context);
   }
 }

@@ -36,6 +36,13 @@ class AddAccountBankProvider extends BaseProvider{
   String accountNumber= '';
   String accountHolderName= '';
 
+  bool _saveCard= false;
+  set saveCard(bool newValue){
+    _saveCard=newValue;
+    notifyListeners();
+  }
+
+  get saveCard=> _saveCard;
 
 
   List<CatalogItem> listBanks=[];

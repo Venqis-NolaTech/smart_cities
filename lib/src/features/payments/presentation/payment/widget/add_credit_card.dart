@@ -21,21 +21,34 @@ class AddCreditCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          _buildHeader(context),
-          _buildCardAccunt(context),
-          Spaces.verticalSmall(),
-          buildCreditCardForm(provider, context),
-          Spaces.verticalSmall(),
-          _buildBottom(context),
-          Spaces.verticalLarge(),
-          _buildButtomPayment(context),
-          Spaces.verticalMedium(),
+    return Stack(
+      children: [
 
-        ],
-      ),
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildHeader(context),
+              _buildCardAccunt(context),
+              Spaces.verticalSmall(),
+              buildCreditCardForm(provider, context),
+              Spaces.verticalSmall(),
+              _buildBottom(context),
+              Spaces.verticalLarge(),
+              Spaces.verticalLarge(),
+
+            ],
+          ),
+        ),
+
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Spaces.verticalSmall(),
+            _buildButtomPayment(context),
+            Spaces.verticalMedium(),
+          ],
+        )
+      ],
     );
   }
 
@@ -92,9 +105,9 @@ class AddCreditCard extends StatelessWidget {
           Spaces.horizontalMedium(),
           Switch(
             onChanged: (bool value) {
-
+              provider.saveCard= value;
             },
-            value: false,
+            value: provider.saveCard,
           )
 
 
