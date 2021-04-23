@@ -318,7 +318,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
     if (currentState is Error) {
       title = S.of(context).unexpectedErrorMessage;
       sucesss = false;
-      image =  Image.asset(AppImagePaths.iconFailed, height: 120);
+      image =  Image.asset(AppImagePaths.iconFailed, height: 150);
     }
 
     showDialog(
