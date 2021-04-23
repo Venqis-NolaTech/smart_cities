@@ -74,6 +74,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       if (firebaseUser != null) {
         final firebaseToken = (await firebaseUser.getIdToken());
+        print("firebase token $firebaseToken");
 
         return Right(await _handleUser(firebaseToken));
       }
@@ -101,6 +102,7 @@ class AuthRepositoryImpl implements AuthRepository {
         final userData = await facebookAuth.getUserData();
 
         final firebaseToken = (await firebaseUser.getIdToken());
+        print("firebase token $firebaseToken");
 
         final fbNames = userData['name']?.toString()?.split(" ") ?? [];
 
@@ -141,7 +143,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       if (firebaseUser != null) {
         final firebaseToken = (await firebaseUser.getIdToken());
-
+        print("firebase token $firebaseToken");
         final googleNames = googleResult?.displayName?.split(" ") ?? [];
 
         return Right(
@@ -243,7 +245,16 @@ class AuthRepositoryImpl implements AuthRepository {
 
   Future<User> _saveUser(bool success) async {
     if (success) {
-      final user = await userDataSource.getProfile();
+      User user = await userDataSource.getProfile();
+
+      final emailVerified = firebaseAuth?.currentUser?.emailVerified;
+      final lastSignInTime =
+          firebaseAuth?.currentUser?.metadata?.lastSignInTime;
+
+      user = user.copy(
+        emailVerified: emailVerified,
+        lastSignInTime: lastSignInTime?.toIso8601String(),
+      );
 
       final userSaved = _eitherFailureOrUser(
         await userLocalRepository.createUser(user),

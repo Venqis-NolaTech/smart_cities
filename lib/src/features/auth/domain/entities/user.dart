@@ -71,6 +71,49 @@ class User extends Equatable {
         photoURL,
         dni
       ];
+
+  User copy({
+    String id,
+    String uid,
+    String phoneNumber,
+    String countryCode,
+    String profession,
+    String firstName,
+    String lastName,
+    String nickName,
+    String email,
+    String photoURL,
+    String dni,
+    String street,
+    String number,
+    CatalogItem municipality,
+    CatalogItem province,
+    CatalogItem city,
+    bool emailVerified,
+    String lastSignInTime,
+    CatalogItem sector,
+    int reportNumber
+  }) =>
+      User(
+        id: id ?? this.id,
+        uid: uid ?? this.uid,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        countryCode: countryCode ?? this.countryCode,
+        profession: profession ?? this.profession,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        nickName: nickName ?? this.nickName,
+        email: email ?? this.email,
+        photoURL: photoURL ?? this.photoURL,
+        dni: dni ?? this.dni,
+        street: street ?? this.street,
+        number: number ?? this.number,
+        municipality: municipality ?? this.municipality,
+        province: province ?? this.province,
+        city: city ?? this.city,
+        emailVerified: emailVerified ?? this.emailVerified,
+        lastSignInTime: lastSignInTime ?? this.lastSignInTime
+      );
 }
 
 // ignore: must_be_immutable

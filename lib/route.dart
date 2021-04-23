@@ -5,6 +5,10 @@ import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pag
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
+import 'package:smart_cities/src/features/payments/presentation/add_account/page/add_account_page.dart';
+import 'package:smart_cities/src/features/payments/presentation/detail_account/page/detail_account_page.dart';
+import 'package:smart_cities/src/features/payments/presentation/multiple_payments/page/multiple_payments_page.dart';
+import 'package:smart_cities/src/features/payments/presentation/payment/page/payment_page.dart';
 import 'package:smart_cities/src/features/places/domain/entities/place.dart';
 import 'package:smart_cities/src/features/places/presentation/new_review/page/new_review_page.dart';
 import 'package:smart_cities/src/features/places/presentation/place_schedule/page/place_schedule_page.dart';
@@ -30,8 +34,6 @@ import 'package:smart_cities/src/core/entities/catalog_item.dart';
 
 
 
-import 'src/features/auth/presentation/base/providers/phone_number_auth_provider.dart';
-import 'src/features/auth/presentation/phone_number/pages/phone_number_page.dart';
 import 'src/features/auth/presentation/pre_login/page/pre_login.dart';
 import 'src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
 import 'src/features/auth/presentation/verify_code/pages/verify_code_page.dart';
@@ -59,13 +61,13 @@ class AppRoute {
         routePath: RegisterPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => RegisterPage()),
       )
-      ..define(
+      /*..define(
         routePath: PhoneNumberPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
           final authMethod = arguments as AuthMethod;
           return PhoneNumberPage(authMethod: authMethod);
         }),
-      )
+      )*/
       ..define(
         routePath: VerifyCodePage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
@@ -234,6 +236,39 @@ class AppRoute {
           return RateServicePage();
         }),
       )
+      ..define(
+        routePath: AddAccountPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          //final provider = arguments as GeneralReportProvider;
+          return AddAccountPage();
+        }),
+      )
+
+      ..define(
+        routePath: DetailAccountPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final args = arguments as DetailAccountPageArgs;
+          return DetailAccountPage(args: args);
+        }),
+      )
+
+
+      ..define(
+        routePath: PaymentPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          //final args = arguments as DetailAccountPageArgs;
+          return PaymentPage();
+        }),
+      )
+
+      ..define(
+        routePath: MultiplePaymentsPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          //final args = arguments as DetailAccountPageArgs;
+          return MultiplePaymentsPage();
+        }),
+      )
+
     ;
 
   }

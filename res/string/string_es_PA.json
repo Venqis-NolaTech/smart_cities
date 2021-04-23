@@ -156,7 +156,7 @@
     "sendEmail": "ENVIAR CORREO",
     "messageForgotPass" : "Coloca tu correo aquí para que puedas recuperar tu contraseña",
     "usuario" : "Usuario",
-    "crearCuenta" : "CREAR CUENTA",
+
     "cocle": "Coclé",
     "messageStart": "Crea una cuenta nueva o inicia sesión. ¡Empieza a interactuar con tu municipio!",
     "nextPage": "siguiente",
@@ -386,5 +386,55 @@
     "september": "Septiembre",
     "october": "Octubre",
     "november": "Noviembre",
-    "december": "Diciembre"
+    "december": "Diciembre",
+
+
+    "myAccounts": "Mis Cuentas",
+    "linkedAccounts": "Cuentas Vinculadas",
+    "nextPayment": "Próximo Pago",
+    "messageLinkedAccounts": "No tienes ninguna cuenta vinculada, por favor conecta tu cuenta para acceder a todos tus datos y tener una mejor experiencia de pago",
+    "connectAccount": "Conectar Cuenta",
+    "multiplePayments": "Pagos Multiples",
+    "card": "Tarjetas",
+    "userNotFoundMessagePayments": "No tienes ninguna cuenta vinculada, por favor conecta tu cuenta para acceder a todos tus datos y tener una mejor experiencia de pago.",
+    "codeOfSystem": "Código de Sistema",
+    "typeOfAccount": "Tipo de cuenta",
+
+    "addAccount": "Crear una cuenta",
+    "addAccountMessage": "Hola ${name} puedes crear multiples cuentas para el pago de tus obligaciones y servicios bajo un mismo usuario",
+    "typeAccount": "Tipo de cuenta",
+    "selectTypeAccount": "Seleccione tipo de cuenta",
+    "ownerName": "Nombre del propietario",
+    "hintOwnerName": "Nombre y Apellido",
+    "hintPaymentMethod": "Selecciona metodo de pago",
+    "account": "Cuenta",
+
+
+    "detailCard": "Detalle de tarjeta",
+    "numberCard": "Número de tarjeta",
+    "expirationDate": "Fecha de Expiración",
+    "cvv": "cvv",
+
+    "bank": "Banco",
+    "numberOfAcccount": "Número de Cuenta",
+    "hintNumberOfAcccount": "*******123456",
+    "hintAccountHolderName": "Nombre del propietario",
+
+    "accountBank": "Cuenta Bancaria",
+    "creditCard": "Tajeta de Crédito",
+
+    "createAccount": "Crear Cuenta",
+    "savaChange": "Guardar Cambios",
+    "accountCreatedSuccessMessage": "Nueva cuenta agregada de manera exitosa",
+    "balanceToDate": "Balance a la Fecha",
+    "toPay": "Pagar",
+    "previousInvoices": "Facturas Anteriores",
+    "messageAddCreditCard": "Tu cuenta no tiene ninguna tarjeta vinculada. Agrega los detalles debajo.",
+    "saveCard": "Guardar tarjeta",
+    "noteSaveCard": "Nota: Por cuestiones de seguridad el CVV se introduce cada vez que realizamos el pago",
+    "linkedCards": "Tarjetas viculadas a esta cuenta",
+    "addCard": "Utilizar otra tarjeta",
+    "messagePayment": "Puedes elegir otro metodo de pago de los que ya has agregado",
+    "messageMultiplePayment": "Tienes varios pagos pendientes. Elige la cuenta que quieres saldar o presion la \"Seleccionar todo\" y ponte al día con todos tus pagos",
+    "payments": "Pagos"
 }

@@ -2,6 +2,7 @@ import 'package:smart_cities/src/shared/components/app_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 
 import 'generated/i18n.dart';
 import 'src/core/entities/catalog_item.dart';
@@ -50,7 +51,7 @@ class App extends StatelessWidget {
           backgroundColor: Colors.black.withOpacity(0),
         ),
       ),
-      home: SplashPage(),
+      home: SplashPage(), //TODO
       onGenerateRoute: (settings) => AppRouter.appRouter.matchRoute(
         settings.name,
         routeSettings: settings,

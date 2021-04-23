@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../../generated/i18n.dart';
 import '../constant.dart';
+import '../app_colors.dart';
+
 
 class DropDownList<T> extends StatelessWidget {
   DropDownList({
@@ -10,9 +12,11 @@ class DropDownList<T> extends StatelessWidget {
     @required this.items,
     @required this.itemSelected,
     @required this.onSelected,
+    @required this.hintTitle
   }) : super(key: key);
 
   final String title;
+  final String hintTitle;
   final List<T> items;
   final T itemSelected;
   final Function(T) onSelected;
@@ -33,15 +37,9 @@ class DropDownList<T> extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Text(
-          title,
-          style: kSmallestTextStyle.copyWith(
-            color: Colors.grey.shade600,
-          ),
-        ),
         Material(
           child: Container(
-            margin: EdgeInsets.only(top: 4.0),
+            //margin: EdgeInsets.only(top: 4.0),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.grey.shade600,
@@ -54,13 +52,13 @@ class DropDownList<T> extends StatelessWidget {
             child: ListTile(
               title: Text(
                 itemSelected == null
-                    ? S.of(context).typeReport
+                    ?  hintTitle
                     : itemSelected.toString() ?? "",
                 style: kNormalStyle.copyWith(
                   color: itemSelected == null ? Colors.grey : Colors.black,
                 ),
               ),
-              trailing: Icon(Icons.arrow_forward_ios),
+              trailing: Icon(MdiIcons.chevronRight),
               onTap: () => _showDialog(context),
             ),
           ),
@@ -134,7 +132,7 @@ class _DropDownListDialog<T> extends StatelessWidget {
   Widget _buildListTitle(T item, bool isSelected) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      color: isSelected ? Colors.blue : Colors.transparent,
+      color: isSelected ? AppColors.red : Colors.transparent,
       child: Text(
         item.toString(),
         style: kNormalStyle.copyWith(
