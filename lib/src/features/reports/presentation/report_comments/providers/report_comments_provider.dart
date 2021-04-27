@@ -32,7 +32,7 @@ class ReportCommentsProvider extends PaginatedProvider<ReportComment> {
   }
 
   @override
-  Future<Either<Failure, PageData<ReportComment>>> get processRequest async {
+  Future<Either<Failure, PageData<ReportComment>>> processRequest() async {
     final params = CommentsParams(
       _reportId,
       page: page,

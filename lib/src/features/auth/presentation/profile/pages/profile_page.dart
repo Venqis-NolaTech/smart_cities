@@ -13,6 +13,13 @@ import 'package:smart_cities/src/shared/spaces.dart';
 class ProfilePage extends StatelessWidget {
   static const id = "profile_page";
 
+  static pushNavigate(BuildContext context, {replace = false}) {
+    replace
+        ? Navigator.pushReplacementNamed(context, id)
+        : Navigator.pushNamed(context, id);
+  }
+
+
   ProfilePage({Key key}) : super(key: key);
 
   @override

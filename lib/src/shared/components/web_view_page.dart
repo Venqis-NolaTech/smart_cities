@@ -29,6 +29,14 @@ class WebViewPage extends StatefulWidget {
 
   final WebViewArgs args;
 
+
+  static Future<T> pushNavigate<T extends Object>(
+      BuildContext context, {
+      WebViewArgs args,
+      }) =>
+      Navigator.pushNamed(context, id, arguments: args);
+
+
   @override
   _WebViewPageState createState() => _WebViewPageState();
 }

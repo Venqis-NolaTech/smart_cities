@@ -5,15 +5,19 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../core/error/failure.dart';
-import 'base_provider.dart';
+import '../../features/auth/domain/usecases/logged_user_use_case.dart';
+import 'current_user_provider.dart';
 import 'view_state.dart';
 
-abstract class PaginatedProvider<T> extends BaseProvider {
+abstract class PaginatedProvider<T> extends CurrentUserProvider {
   @protected
   var items = <T>[];
 
   @protected
-  final controller = StreamController<List<T>>.broadcast();
+  final controller = StreamController<List<T>>();
+
+  PaginatedProvider({LoggedUserUseCase loggedUserUseCase})
+      : super(loggedUserUseCase: loggedUserUseCase);
 
   Stream<List<T>> get stream => controller.stream;
 
@@ -81,7 +85,7 @@ abstract class PaginatedProvider<T> extends BaseProvider {
   }
 
   @protected
-  Future<Either<Failure, PageData<T>>> get processRequest;
+  Future<Either<Failure, PageData<T>>> processRequest();
 
   void fetchData() async {
     if (_isLoading || (_totalPage > 0 && _page + 1 > _totalPage)) return;
@@ -94,7 +98,7 @@ abstract class PaginatedProvider<T> extends BaseProvider {
 
     _page++;
 
-    final failureOrListings = await processRequest;
+    final failureOrListings = await processRequest();
 
     failureOrListings.fold(
       (failure) {

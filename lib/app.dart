@@ -2,7 +2,6 @@ import 'package:smart_cities/src/shared/components/app_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 
 import 'generated/i18n.dart';
 import 'src/core/entities/catalog_item.dart';
@@ -10,10 +9,11 @@ import 'src/features/auth/domain/entities/user.dart';
 import 'src/features/splash/presentation/pages/splash_page.dart';
 import 'src/shared/app_colors.dart';
 
-//Map<String, String> authHeaders;
+
 Map<String, dynamic> remoteParams;
 User currentUser;
 CatalogItem municipalityOptional;
+Map<String, String> authHeaders;
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -37,6 +37,9 @@ class App extends StatelessWidget {
         accentColor: AppColors.blueBtnRegister,
         backgroundColor: AppColors.background,
         toggleableActiveColor: AppColors.blueBtnRegister,
+        appBarTheme: AppBarTheme(
+          color: AppColors.red,
+        ),
         tabBarTheme: TabBarTheme(
           labelColor: AppColors.blueBtnRegister,
           unselectedLabelColor: AppColors.blueBtnRegister.withAlpha(100),

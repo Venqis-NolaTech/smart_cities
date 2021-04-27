@@ -29,6 +29,15 @@ abstract class UserDataSource {
 
   Future<List<CatalogItem>> getNeighborhood(String keySector);
 
+  Future<UserListingsModel> searchUserByName({
+    int page,
+    int count,
+    String criteria,
+    String channelId,
+    bool inChannel,
+  });
+
+
 }
 
 class UserDataSourceImpl extends UserDataSource {
@@ -153,5 +162,47 @@ class UserDataSourceImpl extends UserDataSource {
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
     return List<CatalogItem>.from(body.data['sector'].map((x) => CatalogItemModel.fromJson(x)));
   }
+
+
+  @override
+  Future<UserListingsModel> searchUserByName({
+    int page,
+    int count,
+    String criteria,
+    String channelId,
+    bool inChannel,
+  }) async {
+    final queryParams = {
+      "criteria": criteria ?? "",
+      "container": channelId ?? "",
+      "in": inChannel.toString() ?? 'false',
+    };
+
+    if (page != null && count != null) {
+      queryParams['page'] = '$page';
+      queryParams['count'] = '$count';
+    }
+
+    final authority = baseApiUrl.replaceAll('https://', '');
+    final uri = Uri.https(authority, '/api/user/search', queryParams);
+
+    final response = await authHttpClient.getUri(uri);
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return UserListingsModel.fromJson(body.data);
+  }
+
+
+  /*Future<Response> _getRequest(
+      String urlPath,
+      Map<String, String> queryParams,
+      BaseDioClient client,
+      ) {
+    //final authority = baseApiUrl.replaceAll(RegExp(r'https://|http://'), '');
+    //final uri = Uri.https(authority, urlPath, queryParams);
+
+    return client.get(urlPath, headers: queryParams);
+  }*/
 
 }

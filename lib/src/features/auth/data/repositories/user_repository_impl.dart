@@ -142,5 +142,29 @@ class UserRepositoryImpl implements UserRepository {
     }
 
   }
-  // -- private methods
+
+  @override
+  Future<Either<Failure, UserListingsModel>> searchUserByName({
+    int page,
+    int count,
+    String criteria,
+    String channelId,
+    bool inChannel,
+  }) async {
+    try {
+      final listings = await userDataSource.searchUserByName(
+        page: page,
+        count: count,
+        criteria: criteria,
+        channelId: channelId,
+        inChannel: inChannel,
+      );
+
+      return listings.users!=null && listings.users.isNotEmpty
+          ? Right(listings)
+          : Left(UserNotFoundFailure());
+    } catch (e, s) {
+      return Left(_handleFailure(e, s));
+    }
+  }
 }

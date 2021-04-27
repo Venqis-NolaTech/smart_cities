@@ -10,6 +10,8 @@ import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
+import 'package:smart_cities/src/features/surveys/presentation/list/pages/surveys_page.dart';
+
 
 
 class MenuContent extends StatelessWidget {
@@ -165,7 +167,7 @@ class MenuContent extends StatelessWidget {
 
     widget.add(ItemList(
         title: S.of(context).newPoll,
-        onTap: null,
+        onTap: ()=>   Navigator.pushNamed(context, SurveysPage.id),
         textStyle: textStyle));
 
     widget.add(ItemList(

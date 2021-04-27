@@ -4,6 +4,7 @@ import 'package:smart_cities/src/features/auth/presentation/selected_municipalit
 import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pages/register_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
+import 'package:smart_cities/src/features/channels/domain/entities/channel.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/add_account/page/add_account_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/detail_account/page/detail_account_page.dart';
@@ -31,6 +32,8 @@ import 'package:smart_cities/src/features/route/presentation/when_take_out_trash
 import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.dart';
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
+import 'package:smart_cities/src/features/surveys/presentation/crud/pages/crud_survey_page.dart';
+import 'package:smart_cities/src/features/surveys/presentation/list/pages/surveys_page.dart';
 
 
 
@@ -266,6 +269,21 @@ class AppRoute {
         handler: AppRouteHandler(handlerFunc: (arguments) {
           //final args = arguments as DetailAccountPageArgs;
           return MultiplePaymentsPage();
+        }),
+      )
+
+      ..define(
+        routePath: SurveysPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          return SurveysPage();
+        }),
+      )
+
+      ..define(
+        routePath: CrudSurveyPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final args = arguments as CrudSurveyArgs;
+          return CrudSurveyPage(args: args);
         }),
       )
 
