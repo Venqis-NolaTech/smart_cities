@@ -78,10 +78,10 @@ class AppImagePaths {
   static const iconStar = '$_basePath/star.png';
   static const iconFailed = '$_basePath/img_icon_failed.png';
 
-  static const success = '$_basePath/success.png';
+  //static const success = '$_basePath/success.png';
   //static const failure = '$_basePath/failure.png';
-  static const noConnection = '$_basePath/no_connection.png';
-  static const warning = '$_basePath/warning.png';
+  //static const noConnection = '$_basePath/no_connection.png';
+  //static const warning = '$_basePath/warning.png';
 
 
 /*
@@ -173,10 +173,14 @@ class AppImages {
   static final iconTrash = Image.asset(AppImagePaths.iconTrash);
   static final iconStar = Image.asset(AppImagePaths.iconStar);
   static final iconFailed = Image.asset(AppImagePaths.iconFailed);
+  static final success = Image.asset(AppImagePaths.createComment);
+
+
+
   //static final failure = Image.asset(AppImagePaths.failure);
-  static final warning = Image.asset(AppImagePaths.warning);
-  static final noConnection = Image.asset(AppImagePaths.noConnection);
-  static final success = Image.asset(AppImagePaths.success);
+  //static final warning = Image.asset(AppImagePaths.warning);
+  //static final noConnection = Image.asset(AppImagePaths.noConnection);
+  //static final success = Image.asset(AppImagePaths.success);
 
 
 

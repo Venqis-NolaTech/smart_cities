@@ -8,11 +8,9 @@ import '../../../../../shared/app_images.dart';
 import '../../../../../shared/components/base_view.dart';
 import '../../../../../shared/components/custom_card.dart';
 import '../../../../../shared/components/info_alert_dialog.dart';
-import '../../../../../shared/components/rounded_button.dart';
 import '../../../../../shared/components/search_bar/custom_sliver_app_bar.dart';
 import '../../../../../shared/constant.dart';
 import '../../../../../shared/provider/view_state.dart';
-import '../../../../channels/domain/entities/channel.dart';
 import '../../../domain/entities/survey.dart';
 import '../providers/crud_survey_provider.dart';
 import '../widgets/crud_survey_form.dart';
@@ -81,8 +79,7 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
     bool sucesss = true;
 
     if (currentState is Error) {
-      //TODO
-      image = AppImages.success;
+      image = AppImages.iconFailed;
       message = S.of(context).saveSurveyFailureMessage;
       sucesss = false;
     }
@@ -133,22 +130,24 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
         return WillPopScope(
           onWillPop: () async => await _handleClose(context),
           child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: AppColors.red,
+              title: Text(S.of(context).createSurvey),
+              centerTitle: true,
+              actions: [
+                FlatButton(
+                    onPressed: () => _save(provider),
+                    child: Text(
+                      S.of(context).save.toUpperCase(),
+                      style: kSmallTextStyle.copyWith(color: AppColors.white),
+                    ))
+              ],
+            ),
             body: SafeArea(
               child: ModalProgressHUD(
                 inAsyncCall: provider.currentState is Loading,
                 child: CustomScrollView(
                   slivers: <Widget>[
-                    SliverCustomAppBar(
-                      title: S.of(context).createSurvey,
-                      floating: true,
-                      hidenAvatar: true,
-                      hidenWelcome: true,
-                      hidenMenu: true,
-                      hidenSearch: true,
-                      actions: [
-                        _buildAddButton(context, provider),
-                      ],
-                    ),
                     _buildBody(context, provider),
                   ],
                 ),

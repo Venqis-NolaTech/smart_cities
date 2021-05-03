@@ -466,5 +466,7 @@
     "share": "Compartir",
     "disable": "Desactivar",
     "drafts": "Borradores",
-    "emptySurveyMessage": "Aún no se han cargado encuestas."
+    "emptySurveyMessage": "Aún no se han cargado encuestas.",
+    "titleCreateSurvey": "Crea una encuesta y consulta tu comunidad",
+    "seeSurvey": "Ver encuesta"
 }

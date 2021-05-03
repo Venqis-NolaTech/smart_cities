@@ -79,7 +79,8 @@ class _SurveyListState extends State<SurveyList> {
           return _buildErrorView(provider, failure);
         }
 
-        return Column(
+        return _buildSurveys(_provider);
+        /*return Column(
           children: <Widget>[
             IndexedStack(
               index: currentState is Loading ? 0 : 1,
@@ -92,7 +93,7 @@ class _SurveyListState extends State<SurveyList> {
               ],
             ),
           ],
-        );
+        );*/
       },
     );
   }
@@ -201,7 +202,7 @@ class _SurveyListState extends State<SurveyList> {
   Widget _buildEmptyView() {
     return InfoView(
       title: S.of(context).emptySurveyMessage,
-      image: AppImages.warning,
+      image: AppImages.iconMessage,
     );
   }
 
@@ -210,9 +211,7 @@ class _SurveyListState extends State<SurveyList> {
         ? S.of(context).noConnectionMessage
         : S.of(context).unexpectedErrorMessage;
 
-    Image image = failure is NotConnectionFailure
-        ? AppImages.noConnection
-        : AppImages.warning;
+    Image image = AppImages.iconFailed;
 
     return InfoView(
       title: message,
