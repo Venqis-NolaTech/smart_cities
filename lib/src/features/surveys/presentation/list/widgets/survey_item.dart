@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:smart_cities/src/features/channels/domain/entities/user_display.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/firebase_storage_image.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
 
-import '../../../../../../app.dart';
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
 import '../../../../../shared/constant.dart';
-import '../../../../channels/domain/entities/channel.dart';
 import '../../../domain/entities/survey.dart';
+import '../../../domain/entities/user_display.dart';
+
 
 enum SurveyMenuOption {
   publish,
@@ -23,14 +22,12 @@ enum SurveyMenuOption {
 class SurveyItem extends StatelessWidget {
   const SurveyItem({
     Key key,
-    @required this.permission,
     @required this.survey,
     this.onPressed,
     this.onOptionMenuSelected,
     this.isFirst = false,
   }) : super(key: key);
 
-  final ChannelPermission permission;
   final Survey survey;
   final bool isFirst;
 
@@ -39,20 +36,21 @@ class SurveyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final allowActions = (permission?.createPoll ?? false) &&
-        survey.createdBy.id == currentUser.id;
 
-    return Material(
-      color: survey.public ? Colors.white : AppColors.backgroundLight,
-      child: InkWell(
-        onTap: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(child: _buildContent(context)),
-            allowActions ? _buildPopupMenuButton(context) : Container(),
-          ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      child: Material(
+        color: survey.public ? Colors.white : AppColors.backgroundLight,
+        child: InkWell(
+          onTap: onPressed,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(child: _buildContent(context)),
+              //allowActions ? _buildPopupMenuButton(context) : Container(),
+            ],
+          ),
         ),
       ),
     );
@@ -94,7 +92,7 @@ class SurveyItem extends StatelessWidget {
           ),
 
 
-          _buildButtomSee(context)
+          //_buildButtomSee(context)
 
         ],
       ),

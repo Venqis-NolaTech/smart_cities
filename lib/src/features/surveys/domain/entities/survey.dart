@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'user_display.dart';
 
-import '../../../channels/domain/entities/user_display.dart';
+
 
 enum QuestionType {
   open,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_cities/src/shared/app_colors.dart';
-import 'package:smart_cities/src/shared/constant.dart';
 
 import '../../../../../../app.dart';
 import '../../../../../../generated/i18n.dart';
@@ -14,7 +12,6 @@ import '../../../../../shared/provider/view_state.dart';
 import '../../../domain/entities/survey.dart';
 import '../providers/surveys_provider.dart';
 import 'survey_item.dart';
-import '../../../../../core/util/list_util.dart';
 
 const surveyCallbackUrl = "/finish";
 
@@ -22,11 +19,10 @@ class SurveyList extends StatefulWidget {
   SurveyList({
     Key key,
     @required this.scrollController,
-    @required this.onOptionMenuSelected,
   }) : super(key: key);
 
   final ScrollController scrollController;
-  final Function(SurveyMenuOption, Survey) onOptionMenuSelected;
+
 
   @override
   _SurveyListState createState() => _SurveyListState();
@@ -110,9 +106,9 @@ class _SurveyListState extends State<SurveyList> {
           } else {
             final surveys = snapshot.data;  
        
-            return Row(
-              mainAxisSize: MainAxisSize.min,
-              //crossAxisAlignment: CrossAxisAlignment.stretch,
+            return Column(
+              //mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: _buildList(surveys, provider),
             );
           }
@@ -136,11 +132,9 @@ class _SurveyListState extends State<SurveyList> {
         final survey = surveys[index];
 
         final fileItem = SurveyItem(
-          permission: null,
           survey: survey,
           onPressed: survey.public ? () => _gotoSurveyDetail(survey) : null,
-          onOptionMenuSelected: (option) =>
-              widget.onOptionMenuSelected(option, survey),
+          onOptionMenuSelected: (option) => {},
         );
 
         if (isLast) {

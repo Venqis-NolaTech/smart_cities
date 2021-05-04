@@ -1,6 +1,6 @@
 import '../../../../core/util/list_util.dart';
-import '../../../channels/data/models/user_display_model.dart';
 import '../../domain/entities/survey.dart';
+import '../../data/models/user_display_model.dart';
 
 class SurveyListingsModel extends SurveyListings {
   SurveyListingsModel({
