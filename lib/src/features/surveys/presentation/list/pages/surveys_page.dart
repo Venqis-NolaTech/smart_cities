@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:share/share.dart';
 import 'package:smart_cities/src/features/surveys/presentation/list/widgets/welcome.dart';
@@ -10,9 +9,7 @@ import '../../../../../../app.dart';
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_images.dart';
 import '../../../../../shared/components/base_view.dart';
-import '../../../../../shared/components/custom_card.dart';
 import '../../../../../shared/components/info_alert_dialog.dart';
-import '../../../../../shared/components/search_bar/custom_sliver_app_bar.dart';
 import '../../../../../shared/provider/view_state.dart';
 import '../../../domain/entities/survey.dart';
 import '../../crud/pages/crud_survey_page.dart';
@@ -182,30 +179,26 @@ class _SurveysPageState extends State<SurveysPage> {
             title: Text(S.of(context).surveys),
             centerTitle: true,
           ),
-          body: ModalProgressHUD(
-            inAsyncCall: provider.optionSurveyState is Loading,
-            child:  Column(
-              //controller: _scrollController,
-              children: <Widget>[
+          body: Column(
+            //controller: _scrollController,
+            children: <Widget>[
 
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Welcome(),
-                    _buildActionCreateSurveys()
-                  ],
-                ),
-                Expanded(
-                  child: Container(
-                    color: AppColors.blue.withOpacity(0.2),
-                      child: _buildBody()
-                  ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Welcome(),
+                  _buildActionCreateSurveys()
+                ],
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection : Axis.horizontal,
+                  child: _buildBody()
                 )
-              ],
-            )
-
-
+              )
+                
+            ],
           ),
           /*
 
@@ -222,12 +215,9 @@ class _SurveysPageState extends State<SurveysPage> {
   }
 
   Widget _buildBody() {
-    return Container(
-      color: AppColors.blue.withOpacity(0.2),
-      child: SurveyList(
-        scrollController: _scrollController,
-        onOptionMenuSelected: _onOptionMenuSelected,
-      ),
+    return SurveyList(
+      scrollController: _scrollController,
+      onOptionMenuSelected: _onOptionMenuSelected,
     );
 
 

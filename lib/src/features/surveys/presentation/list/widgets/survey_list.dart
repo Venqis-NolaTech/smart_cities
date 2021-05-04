@@ -5,14 +5,12 @@ import 'package:smart_cities/src/shared/constant.dart';
 import '../../../../../../app.dart';
 import '../../../../../../generated/i18n.dart';
 import '../../../../../core/error/failure.dart';
-import '../../../../../di/injection_container.dart' as di;
 import '../../../../../shared/app_images.dart';
 import '../../../../../shared/components/base_view.dart';
 import '../../../../../shared/components/info_view.dart';
 import '../../../../../shared/components/loading_indicator.dart';
 import '../../../../../shared/components/web_view_page.dart';
 import '../../../../../shared/provider/view_state.dart';
-import '../../../../channels/domain/entities/channel.dart';
 import '../../../domain/entities/survey.dart';
 import '../providers/surveys_provider.dart';
 import 'survey_item.dart';
@@ -76,7 +74,7 @@ class _SurveyListState extends State<SurveyList> {
         if (currentState is Error) {
           final failure = currentState.failure;
 
-          return _buildErrorView(provider, failure);
+          return  _buildErrorView(provider, failure);
         }
 
         return _buildSurveys(_provider);
@@ -102,6 +100,7 @@ class _SurveyListState extends State<SurveyList> {
     return StreamBuilder<List<Survey>>(
       stream: provider.stream,
       builder: (context, snapshot) {
+
         if (snapshot.hasData) {
           if (snapshot.data.isEmpty) {
             if (provider.currentState is Loading || provider.isLoading)
@@ -109,45 +108,12 @@ class _SurveyListState extends State<SurveyList> {
 
             return _buildEmptyView();
           } else {
-            final surveys = snapshot.data;
-
-            final draftList = surveys.where((s) => !s.public).toList();
-            final publicList = surveys.where((s) => s.public).toList();
-
-            final children = List<Widget>();
-
-            final hasDraft = draftList.isNotNullOrNotEmpty;
-            final hasPublic = publicList.isNotNullOrNotEmpty;
-
-            if (hasPublic) {
-              children.add(
-                _buildList(publicList, provider),
-              );
-            }
-
-            if (hasDraft) {
-              if (hasPublic) {
-                children.add(
-                  Container(
-                    color: AppColors.blueDark,
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      S.of(context).drafts,
-                      textAlign: TextAlign.center,
-                      style: kSmallTextStyle.copyWith(color: Colors.white),
-                    ),
-                  ),
-                );
-              }
-
-              children.add(
-                _buildList(draftList, provider),
-              );
-            }
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: children,
+            final surveys = snapshot.data;  
+       
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: _buildList(surveys, provider),
             );
           }
         } else if (snapshot.hasError) {
@@ -163,13 +129,9 @@ class _SurveyListState extends State<SurveyList> {
     return isLoading ? LoadingIndicator() : SizedBox.shrink();
   }
 
-  Widget _buildList(List<Survey> surveys, SurveysProvider provider) {
-    return ListView.separated(
-      primary: false,
-      shrinkWrap: true,
-      itemCount: surveys.length,
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
+  List<Widget> _buildList(List<Survey> surveys, SurveysProvider provider) {
+
+    return List.generate(surveys.length, (index) {
         final bool isLast = index == surveys.length - 1;
         final survey = surveys[index];
 
@@ -192,11 +154,24 @@ class _SurveyListState extends State<SurveyList> {
         }
 
         return fileItem;
+    });
+
+
+
+
+    /*return ListView.separated(
+      physics: NeverScrollableScrollPhysics(),
+      primary: false,
+      shrinkWrap: true,
+      itemCount: surveys.length,
+      padding: EdgeInsets.zero,
+      itemBuilder: (context, index) {
+    
       },
       separatorBuilder: (context, index) {
         return Divider(height: 1.0, color: Colors.grey);
       },
-    );
+    );*/
   }
 
   Widget _buildEmptyView() {

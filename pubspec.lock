@@ -274,13 +274,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.1"
-  file_picker:
-    dependency: "direct main"
-    description:
-      name: file_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.7"
   firebase:
     dependency: transitive
     description:
@@ -426,13 +419,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  flutter_downloader:
-    dependency: "direct main"
-    description:
-      name: flutter_downloader
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.2"
   flutter_facebook_auth:
     dependency: "direct main"
     description:
@@ -522,13 +508,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.0+1"
-  flutter_speed_dial:
-    dependency: "direct main"
-    description:
-      name: flutter_speed_dial
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.5"
   flutter_svg:
     dependency: transitive
     description:
@@ -1160,13 +1139,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19-nullsafety.2"
-  timeline_tile:
-    dependency: "direct main"
-    description:
-      name: timeline_tile
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   timezone:
     dependency: transitive
     description:
