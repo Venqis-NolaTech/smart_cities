@@ -468,5 +468,7 @@
     "drafts": "Borradores",
     "emptySurveyMessage": "Aún no se han cargado encuestas.",
     "titleCreateSurvey": "Crea una encuesta y consulta tu comunidad",
-    "seeSurvey": "Ver encuesta"
+    "seeSurvey": "Ver encuesta",
+    "mySurveys": "Mis Encuestas",
+    "alls": "Todas"
 }

@@ -31,7 +31,7 @@ class CrudSurveyProvider extends BaseProvider {
         key: ObjectId().toHexString(),
         name: "",
         description: "",
-        public: false,
+        public: true,
         steps: List<StepData>(),
       );
 

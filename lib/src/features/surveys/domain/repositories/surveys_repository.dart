@@ -19,4 +19,10 @@ abstract class SurveysRepository {
         int count,
       });
 
+  Future<Either<Failure, SurveyListings>> getMySurveys({
+    int page,
+    int count,
+  });
+
+
 }

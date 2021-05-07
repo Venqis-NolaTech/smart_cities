@@ -25,6 +25,12 @@ abstract class SurveysDataSource {
     int page,
     int count,
   });
+
+  Future<SurveyListingsModel> getMySurveys({
+    int page,
+    int count,
+  });
+
 }
 
 class SurveysDataSourceImpl implements SurveysDataSource {
@@ -115,6 +121,25 @@ class SurveysDataSourceImpl implements SurveysDataSource {
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
     return SurveyModel.fromJson(body.data);
+  }  
+  
+  
+  @override
+  Future<SurveyListingsModel> getMySurveys({int page, int count}) async  {
+
+   final queryParams = Map<String, String>();
+
+    if (page != null && count != null) {
+      queryParams['page'] = '$page';
+      queryParams['count'] = '$count';
+    }
+
+    final response =
+        await _getRequest('/api/poll/my', queryParams, authHttpClient);
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return SurveyListingsModel.fromJson(body.data);
   }
   // -- private methods
 
@@ -130,5 +155,7 @@ class SurveysDataSourceImpl implements SurveysDataSource {
 
     return client.get(urlPath, headers: queryParams);
   }
+
+
 
 }

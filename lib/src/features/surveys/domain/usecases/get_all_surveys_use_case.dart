@@ -6,11 +6,11 @@ import '../../../../core/usecases/use_case.dart';
 import '../entities/survey.dart';
 import '../repositories/surveys_repository.dart';
 
-class GetAllSurveysByChannelUseCase
+class GetAllSurveysUseCase
     extends UseCase<SurveyListings, AllSurveysParams> {
   final SurveysRepository surveysRepository;
 
-  GetAllSurveysByChannelUseCase({@required this.surveysRepository});
+  GetAllSurveysUseCase({@required this.surveysRepository});
 
   @override
   Future<Either<Failure, SurveyListings>> call(AllSurveysParams params,

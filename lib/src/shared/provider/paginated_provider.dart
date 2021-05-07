@@ -29,7 +29,7 @@ abstract class PaginatedProvider<T> extends CurrentUserProvider {
 
   int get page => _page;
 
-  int get count => 8;
+  int get count => 4;
 
   int _totalCount = 0;
 

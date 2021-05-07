@@ -60,6 +60,17 @@ class SurveysRepositoryImpl implements SurveysRepository {
     );
   }
 
+  @override
+  Future<Either<Failure, SurveyListings>> getMySurveys({int page, int count}) {
+    return _process<SurveyListings>(
+          () => surveysDataSource.getMySurveys(
+        page: page,
+        count: count,
+      ),
+    );
+  }
+
+
 
   // private methods --
   Future<Either<Failure, T>> _process<T>(Future<T> Function() action) async {

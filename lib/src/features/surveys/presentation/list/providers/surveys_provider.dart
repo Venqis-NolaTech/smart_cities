@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
+import 'package:smart_cities/src/features/surveys/domain/usecases/get_all_surveys_use_case.dart';
 
 import '../../../../../core/error/failure.dart';
 import '../../../../../shared/provider/paginated_provider.dart';
@@ -8,7 +9,6 @@ import '../../../../auth/domain/usecases/logged_user_use_case.dart';
 import '../../../domain/entities/survey.dart';
 import '../../../domain/usecases/delete_survey_use_case.dart';
 import '../../../domain/usecases/disable_survey_use_case.dart';
-import '../../../domain/usecases/get_all_surveys_by_channel_use_case.dart';
 import '../../../domain/usecases/publish_survey_use_case.dart';
 
 class SurveysProvider extends PaginatedProvider<Survey> {
@@ -20,7 +20,7 @@ class SurveysProvider extends PaginatedProvider<Survey> {
     @required this.deleteSurveyUseCase,
   }) : super(loggedUserUseCase: loggedUserUseCase);
 
-  final GetAllSurveysByChannelUseCase getAllSurveysByChannelUseCase;
+  final GetAllSurveysUseCase getAllSurveysByChannelUseCase;
   final PublishSurveyUseCase publishSurveyUseCase;
   final DisableSurveyUseCase disableSurveyUseCase;
   final DeleteSurveyUseCase deleteSurveyUseCase;

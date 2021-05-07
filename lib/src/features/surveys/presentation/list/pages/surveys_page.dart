@@ -4,7 +4,7 @@ import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
 //import '../../../../../shared/components/info_alert_dialog.dart';
 //import '../../../../../shared/provider/view_state.dart';
-
+import 'package:smart_cities/src/shared/components/tab_bar_container.dart';
 import '../widgets/recents_surveys.dart';
 import '../widgets/all_surveys.dart';
 import '../widgets/my_surveys.dart';
@@ -111,6 +111,36 @@ class _SurveysPageState extends State<SurveysPage>
         backgroundColor: AppColors.red,
         title: Text(S.of(context).surveys),
         centerTitle: true,
+        bottom: TabBarContainer(
+          color: AppColors.white,
+          tabBar: TabBar(
+          isScrollable: false,
+          labelColor: AppColors.blueBtnRegister,
+          unselectedLabelColor: AppColors.blueBtnRegister.withAlpha(100),
+          indicatorColor: AppColors.blueBtnRegister,
+          controller: _tabController,
+          tabs: <Widget>[
+            Tab(
+                child: SizedBox(
+                    width: 120,
+                    child: Text(
+                      S.of(context).createSurvey,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                    ))),
+            Tab(
+                child: SizedBox(
+                    width: 120,
+                    child: Text(S.of(context).mySurveys,
+                        textAlign: TextAlign.center, maxLines: 1))),
+            Tab(
+                child: SizedBox(
+                    width: 120,
+                    child: Text(S.of(context).alls,
+                        textAlign: TextAlign.center, maxLines: 1))),
+          ],
+        )
+        ),
       ),
       body: TabBarView(
         physics: NeverScrollableScrollPhysics(),

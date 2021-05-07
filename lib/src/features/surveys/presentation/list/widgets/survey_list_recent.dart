@@ -15,30 +15,28 @@ import 'survey_item.dart';
 
 const surveyCallbackUrl = "/finish";
 
-class SurveyList extends StatefulWidget {
-  SurveyList({
+class SurveyListRecent extends StatefulWidget {
+  SurveyListRecent({
     Key key,
     @required this.scrollController,
     @required this.provider,
-    @required this.allowActions
   }) : super(key: key);
 
   final ScrollController scrollController;
   final PaginatedProvider provider;
-  final bool allowActions;
 
 
   @override
   _SurveyListState createState() => _SurveyListState();
 }
 
-class _SurveyListState extends State<SurveyList> {
+class _SurveyListState extends State<SurveyListRecent> {
 
   @override
   void initState() {
     super.initState();
 
-    widget.scrollController.addListener(_scrollListener);
+    //widget.scrollController.addListener(_scrollListener);
   }
 
   void _scrollListener() {
@@ -76,7 +74,6 @@ class _SurveyListState extends State<SurveyList> {
 
   Widget _buildSurveys(PaginatedProvider provider) {
 
-
     return StreamBuilder<List<Survey>>(
       stream: provider.stream,
       builder: (context, snapshot) {
@@ -89,10 +86,11 @@ class _SurveyListState extends State<SurveyList> {
             return _buildEmptyView();
           } else {
             final surveys = snapshot.data;
-            
-            return Column(
+
+      
+            return Row(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
               children: _buildList(surveys, provider),
             );
           }
@@ -112,21 +110,19 @@ class _SurveyListState extends State<SurveyList> {
   List<Widget> _buildList(List<Survey> surveys, PaginatedProvider provider) {
 
     return List.generate(surveys.length, (index) {
-        final bool isLast = index == surveys.length - 1;
-        final survey = surveys[index];
 
+        final survey = surveys[index];
 
         final fileItem = SurveyItem(
           survey: survey,
           isFirst: index == 0 || index == 1,
           topAndBottomPaddingEnabled: true,
           isLast: index == surveys.length - 1 || index == surveys.length - 2,
-          allowActions: widget.allowActions,
           onPressed: survey.public ? () => _gotoSurveyDetail(survey) : null,
           onOptionMenuSelected: (option) => {},
         );
 
-        if (isLast) {
+        /*if (isLast) {
           return Wrap(
             key: Key(index.toString()),
             children: [
@@ -134,7 +130,7 @@ class _SurveyListState extends State<SurveyList> {
               _buildLoadingIndicator(provider.isLoading),
             ],
           );
-        }
+        }*/
 
         return fileItem;
     });

@@ -3,13 +3,14 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/firebase_storage_image.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
+import 'package:smart_cities/src/shared/components/custom_card.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
 import '../../../../../shared/constant.dart';
 import '../../../domain/entities/survey.dart';
 import '../../../domain/entities/user_display.dart';
-
+import '../../../../../shared/spaces.dart';
 
 enum SurveyMenuOption {
   publish,
@@ -26,39 +27,47 @@ class SurveyItem extends StatelessWidget {
     this.onPressed,
     this.onOptionMenuSelected,
     this.isFirst = false,
+    this.isLast = false,
+    this.allowActions = false,
+    this.topAndBottomPaddingEnabled = false,
   }) : super(key: key);
 
   final Survey survey;
   final bool isFirst;
-
+  final bool topAndBottomPaddingEnabled;
+  final bool isLast;
+  final bool allowActions;
   final Function onPressed;
   final Function(SurveyMenuOption) onOptionMenuSelected;
 
   @override
   Widget build(BuildContext context) {
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+    return CustomCard(
+      margin: EdgeInsets.only(
+        top: 16.0,
+        bottom: 16.0,
+        left: 16.0,
+        right: 16.0,
+      ),
       child: Material(
-        color: survey.public ? Colors.white : AppColors.backgroundLight,
+        color: Colors.white,
         child: InkWell(
-          onTap: onPressed,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(child: _buildContent(context)),
-              //allowActions ? _buildPopupMenuButton(context) : Container(),
-            ],
-          ),
-        ),
+            onTap: onPressed,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(child: _buildContent(context)),
+                allowActions ? _buildPopupMenuButton(context) : Container(),
+              ],
+            )),
       ),
     );
   }
 
   Widget _buildContent(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+      //padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,20 +75,20 @@ class SurveyItem extends StatelessWidget {
           _buildUserDisplay(context),
 
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
             child: Text(
               survey?.name ?? "",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
               style: kMediumTitleStyle.copyWith(
-                color: AppColors.blueBtnRegister,
+                color: AppColors.blueButton,
               ),
             ),
           ),
 
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Text(
               survey?.description ?? "",
               maxLines: 2,
@@ -91,36 +100,40 @@ class SurveyItem extends StatelessWidget {
             ),
           ),
 
+          //Spaces.verticalSmall(),
 
-          //_buildButtomSee(context)
-
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _buildButtomSee(context),
+            ],
+          )
         ],
       ),
-      /*subtitle: Text(
-        survey?.description,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: kSmallestTextStyle.copyWith(
-          color: AppColors.primaryTextLight,
-        ),
-      ),*/
     );
   }
 
   Widget _buildButtomSee(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60),
+    return FlatButton(
+        onPressed: onPressed,
+        child: Text(
+          S.of(context).seeSurvey.toUpperCase(),
+          style: kNormalStyle.copyWith(
+            color: AppColors.blueBtnRegister,
+            fontWeight: FontWeight.bold,
+          ),
+        ));
+    /*return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: RoundedButton(
-          color: AppColors.greyButtom.withOpacity(0.2),
+          color: AppColors.blueBtnRegister,
           borderColor: AppColors.white,
           elevation: 0,
           title: S.of(context).seeSurvey.toUpperCase(),
           style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.white),
           onPressed: onPressed
       ),
-    );
-
-
+    );*/
   }
 
   Widget _buildPopupMenuButton(BuildContext context) {
@@ -151,7 +164,13 @@ class SurveyItem extends StatelessWidget {
       child: Text(S.of(context).delete),
     );
 
-    if (survey.public) {
+    entry.addAll([
+      shareOption,
+      disableOption,
+      deleteOption
+    ]);
+
+    /*if (survey.public) {
       entry.addAll([
         publishOption,
         shareOption,
@@ -163,7 +182,7 @@ class SurveyItem extends StatelessWidget {
         editOption,
         deleteOption,
       ]);
-    }
+    }*/
 
     return PopupMenuButton(
       icon: Icon(
@@ -184,39 +203,37 @@ class SurveyItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _buildProfile(survey.createdBy),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '${survey.createdBy?.displayName ?? ''}',
-              style: kSmallTextStyle.copyWith(
-                color: AppColors.blueBtnRegister,
-                fontWeight: FontWeight.w400,
-              ),
-              textAlign: TextAlign.start,
-            ),
-          ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Termina en 2h',
-                style: kSmallTextStyle.copyWith(
-                  color: AppColors.blueFacebook,
-                  fontWeight: FontWeight.w400,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${survey.createdBy?.displayName ?? ''}',
+                  style: kSmallTextStyle.copyWith(
+                    color: AppColors.blueBtnRegister,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.start,
                 ),
-                textAlign: TextAlign.right,
-              ),
+                Text(
+                  'Termina en 2h',
+                  style: kSmallTextStyle.copyWith(
+                    color: AppColors.blueButton,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.right,
+                ),
+              ],
             ),
           ),
-
-
         ],
       ),
     );
   }
 
   Widget _buildProfile(UserDisplay user) {
-
     return Container(
       width: 40,
       height: 40,
@@ -233,7 +250,5 @@ class SurveyItem extends StatelessWidget {
         ),
       ),
     );
-
   }
-
 }
