@@ -77,6 +77,43 @@ class AppImagePaths {
   static const iconTrash = '$_basePath/trash.png';
   static const iconStar = '$_basePath/star.png';
   static const iconFailed = '$_basePath/img_icon_failed.png';
+
+  //static const success = '$_basePath/success.png';
+  //static const failure = '$_basePath/failure.png';
+  //static const noConnection = '$_basePath/no_connection.png';
+  //static const warning = '$_basePath/warning.png';
+
+
+/*
+  static const addUser = '$_basePath/add_user.png';
+  static const removeUser = '$_basePath/remove_user.png';
+  static const inviteUser = '$_basePath/invite_user.png';
+
+  static const registerSuccess = '$_basePath/register_success.png';
+  static const registerFailure = '$_basePath/register_failure.png';
+
+  static const background = '$_basePath/background.png';
+
+
+  static const exitChannel = '$_basePath/exit_channel.png';
+  static const acceptedChannel = '$_basePath/accepted_channel.png';
+  static const requestSend = '$_basePath/request_send.png';
+
+  static const placeholder = '$_basePath/placeholder.png';
+  static const myChannelEmptyBackdground =
+      '$_basePath/my_channel_empty_background.png';
+
+  static const excel = '$_basePath/excel.png';
+  static const folder = '$_basePath/folder.png';
+  static const image = '$_basePath/image.png';
+  static const pdf = '$_basePath/pdf.png';
+  static const powerPoint = '$_basePath/power_point.png';
+  static const world = '$_basePath/world.png';
+  static const emptyComments = '$_basePath/empty_comments.png';
+
+
+
+  static const removePost = '$_basePath/remove_post.png';*/
 }
 
 class AppImages {
@@ -136,6 +173,48 @@ class AppImages {
   static final iconTrash = Image.asset(AppImagePaths.iconTrash);
   static final iconStar = Image.asset(AppImagePaths.iconStar);
   static final iconFailed = Image.asset(AppImagePaths.iconFailed);
+  static final success = Image.asset(AppImagePaths.createComment);
 
 
+
+  //static final failure = Image.asset(AppImagePaths.failure);
+  //static final warning = Image.asset(AppImagePaths.warning);
+  //static final noConnection = Image.asset(AppImagePaths.noConnection);
+  //static final success = Image.asset(AppImagePaths.success);
+
+
+
+ /* static final addUser = Image.asset(AppImagePaths.addUser);
+  static final removeUser = Image.asset(AppImagePaths.removeUser);
+  static final inviteUser = Image.asset(AppImagePaths.inviteUser);
+
+
+  static final registerFailure = Image.asset(AppImagePaths.registerFailure);
+  static final registerSuccess = Image.asset(AppImagePaths.registerSuccess);
+
+
+
+  static final background = Image.asset(AppImagePaths.background, fit: BoxFit.cover);
+
+
+
+  static final exitChannel = Image.asset(AppImagePaths.exitChannel);
+  static final acceptedChannel = Image.asset(AppImagePaths.acceptedChannel);
+
+  static final requestSend = Image.asset(AppImagePaths.requestSend);
+  static final placeholder = Image.asset(AppImagePaths.placeholder, fit: BoxFit.cover);
+  static final myChannelEmptyBackdground =
+  Image.asset(AppImagePaths.myChannelEmptyBackdground);
+
+
+  static final excel = Image.asset(AppImagePaths.excel);
+  static final folder = Image.asset(AppImagePaths.folder);
+  static final image = Image.asset(AppImagePaths.image);
+  static final pdf = Image.asset(AppImagePaths.pdf);
+  static final powerPoint = Image.asset(AppImagePaths.powerPoint);
+  static final world = Image.asset(AppImagePaths.world);
+  static final emptyComments = Image.asset(AppImagePaths.emptyComments);
+
+
+  static final removePost = Image.asset(AppImagePaths.removePost);*/
 }

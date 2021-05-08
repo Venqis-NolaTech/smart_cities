@@ -3,6 +3,7 @@ import 'package:smart_cities/src/features/home/di/home_di.dart';
 import 'package:smart_cities/src/features/payments/di/payments_module.dart';
 import 'package:smart_cities/src/features/places/di/places_di.dart';
 import 'package:smart_cities/src/features/route/di/route_di.dart';
+import 'package:smart_cities/src/features/surveys/di/surveys_di.dart';
 
 import '../features/auth/di/auth_di.dart';
 import '../features/blog/di/blog_di.dart';
@@ -26,7 +27,7 @@ init() async {
 
   initHomeModule(sl);
   initPaymentsModule(sl);
-
+  initSurveysModule(sl);
 
   await initExternal(sl);
 }

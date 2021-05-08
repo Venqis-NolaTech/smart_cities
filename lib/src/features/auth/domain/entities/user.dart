@@ -2,6 +2,20 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/entities/catalog_item.dart';
 
+
+
+class UserListings extends Equatable {
+  final int totalCount;
+  final List<User> users;
+
+  UserListings({this.totalCount, this.users});
+
+  @override
+  List<Object> get props => [totalCount, users];
+}
+
+
+
 // ignore: must_be_immutable
 class User extends Equatable {
   final String id;

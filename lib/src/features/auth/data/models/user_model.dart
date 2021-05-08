@@ -2,6 +2,39 @@ import '../../../../core/entities/catalog_item.dart';
 import '../../../../core/models/catalog_item_model.dart';
 import '../../domain/entities/user.dart';
 
+
+class UserListingsModel extends UserListings {
+  UserListingsModel({
+    int totalCount,
+    List<UserModel> users,
+  }) : super(
+    totalCount: totalCount,
+    users: users,
+  );
+
+  factory UserListingsModel.fromJson(Map<String, dynamic> json) {
+    return UserListingsModel(
+      totalCount: json['totalCount'],
+      users: (json['users'] as List)!=null && (json['users'] as List).isNotEmpty
+          ? List<UserModel>.from(
+          json['users'].map((v) => UserModel.fromJson(v)))
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'totalCount': totalCount,
+      'users': users!=null && users.isNotEmpty
+          ? users.map((r) => UserModel.fromEntity(r).toJson()).toList()
+          : null,
+    };
+  }
+}
+
+
+
+
 // ignore: must_be_immutable
 class UserModel extends User {
   UserModel(

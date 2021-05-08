@@ -31,7 +31,7 @@ class GeneralReportProvider extends PaginatedProvider<Report> {
 
 
   @override
-  Future<Either<Failure, PageData<Report>>> get processRequest async {
+  Future<Either<Failure, PageData<Report>>> processRequest() async {
 
     final params = ListingsParams(
         page: page,

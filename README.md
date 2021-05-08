@@ -62,7 +62,7 @@ The RemoteDataSource will perform HTTP GET requests on the API. LocalDataSource 
 
 ## Run command
 
-    - debug dev `flutter run -t lib/main_dev.dart --flavor=dev` 
+    - debug dev `flutter run -t lib/main_dev.dart --flavor=dev`
     
     - release dev `flutter run -t lib/main_dev.dart --release --flavor=dev` 
 

@@ -91,6 +91,10 @@ class ProfileProvider extends BaseProvider {
 
   User _user = currentUser;
   User get user => _user;
+  set user(User newValue){
+    _user= newValue;
+    notifyListeners();
+  }
 
   File _photo;
   File get photo => _photo;
@@ -133,6 +137,7 @@ class ProfileProvider extends BaseProvider {
         _user = user;
         _municipality= user.municipality?.key;
         _sector= user.sector;
+        profileState = Loaded();
       },
     );
   }

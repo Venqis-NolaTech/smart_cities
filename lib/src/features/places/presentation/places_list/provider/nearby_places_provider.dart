@@ -29,7 +29,7 @@ class NearbyPlacesProvider extends PaginatedProvider<Place>{
   final distance = 5000.0;
 
   @override
-  Future<Either<Failure, PageData<Place>>> get processRequest async {
+  Future<Either<Failure, PageData<Place>>> processRequest() async {
     if (currentLocation == null)
       await getCurrentLocation(notify: false);
 

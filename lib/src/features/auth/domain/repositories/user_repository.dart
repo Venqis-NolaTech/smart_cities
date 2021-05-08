@@ -27,4 +27,13 @@ abstract class UserRepository {
 
   Future<Either<Failure, List<CatalogItem>>> getNeighborhood(String keySector);
 
+  Future<Either<Failure, UserListings>> searchUserByName({
+    int page,
+    int count,
+    String criteria,
+    String channelId,
+    bool inChannel,
+  });
+
+
 }

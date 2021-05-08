@@ -16,7 +16,7 @@ class PlaceCommentProvider extends PaginatedProvider<LastComment>{
   String _placeId;
 
   @override
-  Future<Either<Failure, PageData<LastComment>>> get processRequest async  {
+  Future<Either<Failure, PageData<LastComment>>> processRequest() async  {
     
     
     final params = PlaceCommentsParams(

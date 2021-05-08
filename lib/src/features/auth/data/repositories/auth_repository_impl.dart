@@ -240,16 +240,15 @@ class AuthRepositoryImpl implements AuthRepository {
         ? (await authDataSource.register(firebaseToken, request: request))
         : (await authDataSource.login(firebaseToken));
 
-    return await _saveUser(success);
+    return await _saveUser(success, isFacebook: request['registerMethod']=='FACEBOOK');
   }
 
-  Future<User> _saveUser(bool success) async {
+  Future<User> _saveUser(bool success, {bool isFacebook}) async {
     if (success) {
       User user = await userDataSource.getProfile();
 
-      final emailVerified = firebaseAuth?.currentUser?.emailVerified;
-      final lastSignInTime =
-          firebaseAuth?.currentUser?.metadata?.lastSignInTime;
+      final emailVerified = isFacebook ? true : firebaseAuth?.currentUser?.emailVerified;
+      final lastSignInTime = firebaseAuth?.currentUser?.metadata?.lastSignInTime;
 
       user = user.copy(
         emailVerified: emailVerified,

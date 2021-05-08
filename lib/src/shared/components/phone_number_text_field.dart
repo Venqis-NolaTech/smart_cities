@@ -1,7 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_cities/src/shared/app_images.dart';
 
 import '../../../generated/i18n.dart';
 import '../app_colors.dart';
@@ -23,30 +22,24 @@ class PhoneNumberTextFormField extends StatefulWidget {
     this.style,
     this.focusNode,
     this.onFieldSubmitted,
-    this.onChange,
     this.onSaved,
     this.validator,
     this.decoration,
     this.initialContryCode = defaultContryCode,
-    this.controller,
+    this.textController,
     this.showFlag = true,
-    this.showFlagMain = true,
     this.enabled = true,
-    this.textInputAction= TextInputAction.done,
   }) : super(key: key);
 
   final TextStyle style;
   final FocusNode focusNode;
   final ValueChanged<String> onFieldSubmitted;
-  final ValueChanged<String> onChange;
   final FormFieldSetter<PhoneNumberData> onSaved;
   final FormFieldValidator<String> validator;
   final InputDecoration decoration;
   final String initialContryCode;
-  final TextEditingController controller;
-  final TextInputAction textInputAction;
+  final TextEditingController textController;
   final bool showFlag;
-  final bool showFlagMain;
   final bool enabled;
 
   @override
@@ -56,8 +49,6 @@ class PhoneNumberTextFormField extends StatefulWidget {
 
 class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
   String _prefix;
-  bool _obscureText= true;
-
 
   void initState() {
     _prefix = widget.initialContryCode;
@@ -92,7 +83,6 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
             child: CountryCodePicker(
               onChanged: _onCountryChange,
               showFlag: widget.showFlag,
-              showFlagMain: widget.showFlagMain,
               initialSelection: widget.initialContryCode,
               onInit: (value) => _prefix = value.dialCode,
               enabled: widget.enabled,
@@ -106,9 +96,8 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
               keyboardType: TextInputType.phone,
               focusNode: widget.focusNode,
               onFieldSubmitted: widget.onFieldSubmitted,
-              controller: widget.controller,
+              controller: widget.textController,
               enabled: widget.enabled,
-              onChanged: widget.onChange,
               validator: (value) {
                 return widget.validator(value);
               },
@@ -133,29 +122,10 @@ class _PhoneNumberTextFormFieldState extends State<PhoneNumberTextFormField> {
                     )
                   : widget.decoration,
               style: widget.style,
-              textInputAction: widget.textInputAction,
-              //obscureText: _obscureText,
-            )
+            ),
           ),
-          /*GestureDetector(
-              onTap: _toggle,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: _obscureText ? AppImages.eyeOff : AppImages.eye,
-              )
-          )*/
-
-
         ],
       ),
     );
   }
-
-  void _toggle() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-
-
 }

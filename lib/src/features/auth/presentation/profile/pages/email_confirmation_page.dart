@@ -161,7 +161,7 @@ class EmailConfirmationPage extends StatelessWidget {
     Navigator.pushNamedAndRemoveUntil(
       context,
       SelectedMunicipalityPage.id,
-      ModalRoute.withName(EmailConfirmationPage.id),
+      (route) => false,
     );
   }
 }

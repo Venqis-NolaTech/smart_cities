@@ -10,6 +10,8 @@ import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
+import 'package:smart_cities/src/features/surveys/presentation/list/pages/surveys_page.dart';
+
 
 
 class MenuContent extends StatelessWidget {
@@ -127,7 +129,7 @@ class MenuContent extends StatelessWidget {
   }
 
   void _onLogoutPressed(BuildContext context) async {
-    if(provider.isLogged){
+    if(!provider.isLogged){
       SignInPage.pushNavigate(context);
     }else{
       await provider.logout();
@@ -164,8 +166,13 @@ class MenuContent extends StatelessWidget {
         textStyle: textStyle));
 
     widget.add(ItemList(
-        title: S.of(context).newPoll,
-        onTap: null,
+        title: S.of(context).surveys,
+        onTap: (){
+          if(!provider.isLogged){
+            SignInPage.pushNavigate(context);
+          }else
+            Navigator.pushNamed(context, SurveysPage.id);
+        },
         textStyle: textStyle));
 
     widget.add(ItemList(
