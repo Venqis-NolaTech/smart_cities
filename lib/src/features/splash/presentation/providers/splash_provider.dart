@@ -58,7 +58,7 @@ class SplashProvider extends BaseProvider {
     _callback = callback;
 
     await _checkUserIsLogged();
-
+    await _initializeRemoteParams();
     if (currentUser!=null && _callback != null) {
       Future.delayed(
         Duration(milliseconds: 250),
@@ -68,7 +68,7 @@ class SplashProvider extends BaseProvider {
       state= Loaded(value: currentUser);
 
     }else{
-      await _initializeRemoteParams();
+
       await _checkPermission();
       state= Loaded();
       if (_callback != null) {

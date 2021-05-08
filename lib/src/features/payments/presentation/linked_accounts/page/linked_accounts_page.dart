@@ -20,6 +20,10 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 
 class LinkedAccountsPage extends StatefulWidget {
+  final Function onBackPress;
+
+  const LinkedAccountsPage({Key key, this.onBackPress}) : super(key: key);
+
   @override
   _LinkedAccountsPageState createState() => _LinkedAccountsPageState();
 }
@@ -58,7 +62,7 @@ class _LinkedAccountsPageState extends State<LinkedAccountsPage> {
                   leading: IconButton(
                     icon: Icon(MdiIcons.arrowLeft),
                     color: AppColors.white,
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: widget.onBackPress,
                   )
                 ),
                 floatingActionButton:

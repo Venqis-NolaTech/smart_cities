@@ -165,6 +165,7 @@ class NewReviewPage extends StatelessWidget {
     if (currentState is Error) {
       title = S.of(context).unexpectedErrorMessage;
       sucesss = false;
+      image = AppImages.iconFailed;
     }
 
     showDialog(

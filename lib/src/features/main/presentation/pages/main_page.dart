@@ -40,7 +40,9 @@ class _MainPageState extends State<MainPage> {
       ),
       RoutePage(),
       ReportsPage(onBackPress: onBackPressReport),
-      LinkedAccountsPage(),
+      LinkedAccountsPage(
+        onBackPress: onBackPressReport,
+      ),
       MenuPage(
         onFunctionPickup: onFunctionPickup,
       )

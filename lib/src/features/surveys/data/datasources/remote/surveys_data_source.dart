@@ -39,14 +39,13 @@ class SurveysDataSourceImpl implements SurveysDataSource {
 
   SurveysDataSourceImpl({@required this.authHttpClient, @required  this.publicHttpClient, });
 
-  final String _baseApiUrl = FlavorConfig.instance?.values?.baseApiUrl ?? "";
 
   @override
   Future<SurveyModel> createSurvey(SurveyModel survey) async {
     final payload = json.encode(survey.toPayload());
 
     final response = await authHttpClient.post(
-      '$_baseApiUrl/api/poll',
+      '/api/poll',
       body: payload,
     );
 
@@ -58,7 +57,7 @@ class SurveysDataSourceImpl implements SurveysDataSource {
   @override
   Future<bool> deleteSurvey(String surveyId) async {
     final response =
-        await authHttpClient.delete('$_baseApiUrl/api/poll/$surveyId');
+        await authHttpClient.delete('/api/poll/$surveyId');
 
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 
@@ -114,7 +113,7 @@ class SurveysDataSourceImpl implements SurveysDataSource {
 
   Future<SurveyModel> _updateSurvey({String surveyId, String payload}) async {
     final response = await authHttpClient.put(
-      '$_baseApiUrl/api/poll/$surveyId',
+      '/api/poll/$surveyId',
       body: payload,
     );
 

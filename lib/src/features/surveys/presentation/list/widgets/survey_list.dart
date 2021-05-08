@@ -20,12 +20,14 @@ class SurveyList extends StatefulWidget {
     Key key,
     @required this.scrollController,
     @required this.provider,
-    @required this.allowActions
+    @required this.allowActions,
+    @required this.onOptionMenuSelected,
   }) : super(key: key);
 
   final ScrollController scrollController;
   final PaginatedProvider provider;
   final bool allowActions;
+  final Function(SurveyMenuOption, Survey) onOptionMenuSelected;
 
 
   @override
@@ -123,7 +125,8 @@ class _SurveyListState extends State<SurveyList> {
           isLast: index == surveys.length - 1 || index == surveys.length - 2,
           allowActions: widget.allowActions,
           onPressed: survey.public ? () => _gotoSurveyDetail(survey) : null,
-          onOptionMenuSelected: (option) => {},
+          onOptionMenuSelected: (option) => 
+              widget.onOptionMenuSelected(option, survey),
         );
 
         if (isLast) {

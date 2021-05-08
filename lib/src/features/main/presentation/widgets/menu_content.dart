@@ -129,7 +129,7 @@ class MenuContent extends StatelessWidget {
   }
 
   void _onLogoutPressed(BuildContext context) async {
-    if(provider.isLogged){
+    if(!provider.isLogged){
       SignInPage.pushNavigate(context);
     }else{
       await provider.logout();
@@ -166,8 +166,13 @@ class MenuContent extends StatelessWidget {
         textStyle: textStyle));
 
     widget.add(ItemList(
-        title: S.of(context).newPoll,
-        onTap: ()=>   Navigator.pushNamed(context, SurveysPage.id),
+        title: S.of(context).surveys,
+        onTap: (){
+          if(!provider.isLogged){
+            SignInPage.pushNavigate(context);
+          }else
+            Navigator.pushNamed(context, SurveysPage.id);
+        },
         textStyle: textStyle));
 
     widget.add(ItemList(

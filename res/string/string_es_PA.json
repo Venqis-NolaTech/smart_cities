@@ -470,5 +470,11 @@
     "titleCreateSurvey": "Crea una encuesta y consulta tu comunidad",
     "seeSurvey": "Ver encuesta",
     "mySurveys": "Mis Encuestas",
-    "alls": "Todas"
+    "alls": "Todas",
+    "recentsSurveys": "Encuestas Recientes",
+    "settingsSurveys": "Ajustes de encuestas",
+    "surveysTime": "La Encuesta terminará en",
+    "":"Ocultar datos de participantes" ,
+    "shareSurveys":"Otros podrán compartir esta encuesta"
+
 }

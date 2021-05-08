@@ -144,7 +144,7 @@ class AddAccountBankProvider extends BaseProvider{
             ? accountHolderName
             : cardHolderName,
         "bank" :  bankSelected.key,
-        "bankType" : typeAccountBankSelected.key,
+        "bankType" : typeAccountBankSelected.value.toUpperCase(),
         "bankNumber" : accountNumber
       };
 

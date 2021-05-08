@@ -4,8 +4,6 @@ import 'package:smart_cities/src/shared/spaces.dart';
 
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/features/surveys/presentation/list/widgets/welcome.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:smart_cities/src/shared/provider/view_state.dart';
 
 import '../../../../../shared/components/base_view.dart';
 import '../../../../../../generated/i18n.dart';
@@ -47,8 +45,8 @@ class _RecentSurveysState extends State<RecentSurveys> {
           _provider = provider;
 
           return SingleChildScrollView(
+            controller: _scrollController,
             child: Column(
-              //controller: _scrollController,
               children: <Widget>[
                 Column(
                   mainAxisSize: MainAxisSize.min,
@@ -57,7 +55,18 @@ class _RecentSurveysState extends State<RecentSurveys> {
                 ),
                 Container(
                     color: AppColors.blueFacebook.withOpacity(0.2),
-                    child: _buildBody())
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                          child: Text(S.of(context).recentsSurveys, textAlign: TextAlign.start, 
+                          style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister, fontWeight: FontWeight.bold)),
+                        ),
+                        _buildBody(),
+                      ],
+                    ))
               ],
             ),
           );

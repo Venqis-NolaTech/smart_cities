@@ -166,7 +166,7 @@ class SurveyItem extends StatelessWidget {
 
     entry.addAll([
       shareOption,
-      disableOption,
+      //disableOption,
       deleteOption
     ]);
 

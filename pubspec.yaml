@@ -129,6 +129,8 @@ dependencies:
 
   flutter_widget_from_html: ^0.5.1+5
 
+  flutter_xlider: ^3.4.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

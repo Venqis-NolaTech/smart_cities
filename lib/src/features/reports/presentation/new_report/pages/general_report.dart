@@ -256,6 +256,7 @@ class _NewReportState extends State<NewReport> {
     if (currentState is Error) {
       title = S.of(context).unexpectedErrorMessage;
       sucesss = false;
+      image= AppImages.iconFailed;
     }
 
     showDialog(

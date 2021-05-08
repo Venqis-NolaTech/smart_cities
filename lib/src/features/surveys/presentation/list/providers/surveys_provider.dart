@@ -79,23 +79,6 @@ class SurveysProvider extends PaginatedProvider<Survey> {
     );
   }
 
-  Future delete(Survey survey) async {
-    _setOptionSurveyState(Loading());
-
-    final failureOrSucess = await deleteSurveyUseCase(survey.id);
-
-    failureOrSucess.fold(
-      (failure) => _setOptionSurveyState(Error(failure: failure)),
-      (deleted) {
-        if (deleted) {
-          items.remove(survey);
-          controller.sink.add(items);
-        }
-
-        _setOptionSurveyState(Loaded());
-      },
-    );
-  }
 
   @override
   Future<Either<Failure, PageData<Survey>>> processRequest() async {
