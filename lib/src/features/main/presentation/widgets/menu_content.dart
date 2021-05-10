@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/pages/profile_page.dart';
+import 'package:smart_cities/src/features/auth/data/models/user_model.dart';
 import 'package:smart_cities/src/features/auth/presentation/base/widgets/user_photo.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
@@ -11,7 +12,7 @@ import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 import 'package:smart_cities/src/features/surveys/presentation/list/pages/surveys_page.dart';
-
+import 'package:smart_cities/src/features/surveys/presentation/list/pages/recents_surveys_user.dart';
 
 
 class MenuContent extends StatelessWidget {
@@ -170,8 +171,13 @@ class MenuContent extends StatelessWidget {
         onTap: (){
           if(!provider.isLogged){
             SignInPage.pushNavigate(context);
-          }else
-            Navigator.pushNamed(context, SurveysPage.id);
+          }else{
+      
+            if(provider.user.kind== 'USUARIO'){
+              Navigator.pushNamed(context, RecentSurveysUser.id);
+            }else
+              Navigator.pushNamed(context, SurveysPage.id);
+          }
         },
         textStyle: textStyle));
 

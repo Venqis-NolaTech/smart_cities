@@ -36,7 +36,7 @@ class SurveysProvider extends PaginatedProvider<Survey> {
 
 
   void loadData() async {
-    await super.getUser(notify: false);
+    await super.getUser(notify: true);
 
     super.fetchData();
   }

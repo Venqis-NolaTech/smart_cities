@@ -56,7 +56,7 @@ class UserDataSourceImpl extends UserDataSource {
     final response = await authHttpClient.get('/api/user');
 
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
-
+    print(body.toString());
     return UserModel.fromJson(body.data);
   }
 

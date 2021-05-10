@@ -21,7 +21,7 @@ class SurveyList extends StatefulWidget {
     @required this.scrollController,
     @required this.provider,
     @required this.allowActions,
-    @required this.onOptionMenuSelected,
+    this.onOptionMenuSelected,
   }) : super(key: key);
 
   final ScrollController scrollController;
@@ -141,37 +141,6 @@ class _SurveyListState extends State<SurveyList> {
 
         return fileItem;
     });
-
-
-   /* var size = MediaQuery.of(context).size;
-    final double itemHeight = 240;
-    final double itemWidth = size.width / 2;
-
-    return RefreshIndicator(
-      onRefresh: provider.refreshData,
-      child: GridView.count(
-        crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
-        shrinkWrap: true,
-        //controller: widget.scrollController,
-        childAspectRatio: (itemWidth / itemHeight),
-
-        children: listWidget,
-      ),
-    );*/
-
-    /*return ListView.separated(
-      physics: NeverScrollableScrollPhysics(),
-      primary: false,
-      shrinkWrap: true,
-      itemCount: surveys.length,
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
-    
-      },
-      separatorBuilder: (context, index) {
-        return Divider(height: 1.0, color: Colors.grey);
-      },
-    );*/
   }
 
   Widget _buildEmptyView() {

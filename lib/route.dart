@@ -33,6 +33,7 @@ import 'package:smart_cities/src/features/splash/presentation/pages/splash_page.
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/features/surveys/presentation/crud/pages/crud_survey_page.dart';
 import 'package:smart_cities/src/features/surveys/presentation/list/pages/surveys_page.dart';
+import 'package:smart_cities/src/features/surveys/presentation/list/pages/recents_surveys_user.dart';
 import 'package:smart_cities/src/shared/components/web_view_page.dart';
 
 
@@ -278,6 +279,14 @@ class AppRoute {
           return SurveysPage();
         }),
       )
+
+      ..define(
+        routePath: RecentSurveysUser.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          return RecentSurveysUser();
+        }),
+      )
+
 
       ..define(
         routePath: CrudSurveyPage.id,

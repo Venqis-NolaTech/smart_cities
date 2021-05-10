@@ -2,6 +2,7 @@ import '../../../../core/entities/catalog_item.dart';
 import '../../../../core/models/catalog_item_model.dart';
 import '../../domain/entities/user.dart';
 
+enum Kind{ USUARIO, ADMINISTRADOR}
 
 class UserListingsModel extends UserListings {
   UserListingsModel({
@@ -42,6 +43,7 @@ class UserModel extends User {
       String uid,
       String phoneNumber,
       String countryCode,
+      String kind,
       String profession,
       String firstName,
       String lastName,
@@ -64,6 +66,7 @@ class UserModel extends User {
             uid: uid,
             phoneNumber: phoneNumber,
             countryCode: countryCode,
+            kind: kind,
             profession: profession,
             firstName: firstName,
             lastName: lastName,
@@ -91,6 +94,7 @@ class UserModel extends User {
       uid: user['uid'],
       phoneNumber: user['phoneNumber'],
       countryCode: user['countryCode'],
+      kind: user['kind'],
       profession: user["profession"],
       firstName: user['firstName'],
       lastName: user['lastName'],
@@ -126,6 +130,7 @@ class UserModel extends User {
         'uid': uid,
         'phoneNumber': phoneNumber,
         'countryCode': countryCode,
+        'kind': kind,
         'profession': profession,
         'firstName': firstName,
         'lastName': lastName,
@@ -175,6 +180,7 @@ class UserModel extends User {
       uid: user.uid,
       phoneNumber: user.phoneNumber,
       countryCode: user.countryCode,
+      kind: user.kind,
       profession: user.profession,
       firstName: user.firstName,
       lastName: user.lastName,

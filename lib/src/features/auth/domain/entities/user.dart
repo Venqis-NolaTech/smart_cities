@@ -22,6 +22,7 @@ class User extends Equatable {
   final String uid;
   final String phoneNumber;
   final String countryCode;
+  final String kind;
   //final CatalogItem location;
   //final String address;
   final String profession;
@@ -48,6 +49,7 @@ class User extends Equatable {
       this.uid,
       this.phoneNumber,
       this.countryCode,
+      this.kind,
       //this.location,
       //this.address,
       this.profession,
@@ -91,6 +93,7 @@ class User extends Equatable {
     String uid,
     String phoneNumber,
     String countryCode,
+    String kind,
     String profession,
     String firstName,
     String lastName,
@@ -113,6 +116,7 @@ class User extends Equatable {
         uid: uid ?? this.uid,
         phoneNumber: phoneNumber ?? this.phoneNumber,
         countryCode: countryCode ?? this.countryCode,
+        kind: kind ?? this.kind,
         profession: profession ?? this.profession,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,

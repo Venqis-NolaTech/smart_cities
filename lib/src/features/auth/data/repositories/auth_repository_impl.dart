@@ -247,7 +247,11 @@ class AuthRepositoryImpl implements AuthRepository {
     if (success) {
       User user = await userDataSource.getProfile();
 
-      final emailVerified = isFacebook ? true : firebaseAuth?.currentUser?.emailVerified;
+      var emailVerified = firebaseAuth?.currentUser?.emailVerified;
+      if(isFacebook!=null){
+        emailVerified=  isFacebook ? true : false; 
+      }
+
       final lastSignInTime = firebaseAuth?.currentUser?.metadata?.lastSignInTime;
 
       user = user.copy(
