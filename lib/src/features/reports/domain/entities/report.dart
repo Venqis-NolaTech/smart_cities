@@ -42,6 +42,20 @@ extension ReportStatusExtension on ReportStatus {
     return AppImagePaths.openStatus;
   }
 
+  String get iconPathiOS {
+    switch (this) {
+      case ReportStatus.Open:
+        return AppImagePaths.openStatusiOS;
+      case ReportStatus.OnProcess:
+        return AppImagePaths.inProgressStatusiOS;
+      case ReportStatus.Closed:
+        return AppImagePaths.closeStatusiOS;
+      case ReportStatus.SolutionCompleted:
+        return AppImagePaths.closeStatusiOS;
+    }
+    return AppImagePaths.openStatusiOS;
+  }
+
 
   Color get color {
     switch (this) {
@@ -155,7 +169,7 @@ class Report extends Equatable {
       ReportStatusExtension.findByValue(this.status);
 
   String get iconPath => reportStatus.iconPath;
-
+  String get iconPathiOS => reportStatus.iconPathiOS;
 }
 
 class ReportInformer extends Equatable {

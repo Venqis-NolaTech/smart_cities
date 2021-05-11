@@ -20,7 +20,7 @@ class HeaderReport extends StatelessWidget {
     final screenHeight= MediaQuery.of(context).size.height;
 
     return Container(
-      height: screenHeight*0.07,
+      height: screenHeight*0.1,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         color: Colors.white,

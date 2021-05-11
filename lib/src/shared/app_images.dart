@@ -49,7 +49,11 @@ class AppImagePaths {
   static const openStatus = '$_basePath/done_status.png';
   static const inProgressStatus = '$_basePath/in_progress_status.png';
   static const mapIcon = '$_basePath/pin_map.png';
-
+ 
+   static const closeStatusiOS = '$_basePath/close_status_1.png';
+  static const openStatusiOS = '$_basePath/done_status_1.png';
+  static const inProgressStatusiOS = '$_basePath/in_progress_status_1.png';
+  static const mapIconiOS = '$_basePath/pin_map_1.png';
 
   static const iconMessage = '$_basePath/icon_message.png';
   static const iconComment = '$_basePath/comment.png';

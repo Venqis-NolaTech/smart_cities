@@ -8,8 +8,6 @@ import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
-
-
 class ReportWidget extends StatelessWidget {
   final HomeProvider provider;
 
@@ -20,18 +18,18 @@ class ReportWidget extends StatelessWidget {
     return Container(
       //width: screenWidth*0.40,
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+        child: Container(
+          height: 200,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                buildHeaderReport(context),
+                Spaces.verticalMedium(),
 
-              buildHeaderReport(context),
-              Spaces.verticalMedium(),
-
-              Flexible(
-                child: Text(
+                Text(
                   S.of(context).incidentSectorQuestion,
                   textAlign: TextAlign.center,
                   style: kNormalStyle.copyWith(
@@ -39,13 +37,10 @@ class ReportWidget extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-              ),
 
+                Spaces.verticalMedium(),
 
-              Spaces.verticalMedium(),
-
-              Flexible(
-                child: Text(
+                Text(
                   S.of(context).letUsKnow,
                   textAlign: TextAlign.center,
                   style: kNormalStyle.copyWith(
@@ -53,55 +48,57 @@ class ReportWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
 
-              Spaces.verticalMedium(),
-
-              FlatButton(
-                onPressed: () {
-                  if(provider.isLogged)
-                    Navigator.pushNamed(context, NewReport.id);
-                  else
-                    SignInPage.pushNavigate(context);
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: AppColors.blueLight)),
-                child: Text(
-                  S.of(context).newReport,
-                  maxLines: 1,
-                  style: kSmallestTextStyle.copyWith(
-                    color: AppColors.blueLight,
-                    fontWeight: FontWeight.bold,
-                  ),
+                //Spaces.verticalMedium(),
+                Expanded(
+                  child: Container(),
                 ),
-              )
-
-            ],
+                buildFlatButton(context)
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
 
-
+  FlatButton buildFlatButton(BuildContext context) {
+    return FlatButton(
+      onPressed: () {
+        if (provider.isLogged)
+          Navigator.pushNamed(context, NewReport.id);
+        else
+          SignInPage.pushNavigate(context);
+      },
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18.0),
+          side: BorderSide(color: AppColors.blueLight)),
+      child: Text(
+        S.of(context).newReport,
+        maxLines: 1,
+        style: kSmallestTextStyle.copyWith(
+          color: AppColors.blueLight,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 
   Row buildHeaderReport(BuildContext context) {
     return Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-
-                Image.asset(AppImagePaths.iconReport),
-                Spaces.horizontalSmall(),
-                Text(
-                  S.of(context).report,
-                  textAlign: TextAlign.center,
-                  style: kMediumTitleStyle.copyWith(
-                    color: AppColors.blueBtnRegister,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            );
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(AppImagePaths.iconReport),
+        Spaces.horizontalSmall(),
+        Text(
+          S.of(context).report,
+          textAlign: TextAlign.center,
+          style: kMediumTitleStyle.copyWith(
+            color: AppColors.blueBtnRegister,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -1,4 +1,4 @@
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -27,8 +27,9 @@ class ReportDetailsContent extends StatelessWidget {
   }
 
   Future<Marker> _buildMarker() async {
+    
     var markerId = MarkerId(report.id.toString());
-    var icon = await ImageUtil.getImage(report.iconPath, width: 78, height: 78);
+    var icon = await ImageUtil.getImage(Platform.isAndroid ? report.iconPath : report.iconPathiOS, width: 78, height: 78);
 
     return Marker(
       markerId: markerId,
