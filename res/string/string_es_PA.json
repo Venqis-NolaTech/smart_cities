@@ -474,7 +474,7 @@
     "recentsSurveys": "Encuestas Recientes",
     "settingsSurveys": "Ajustes de encuestas",
     "surveysTime": "La Encuesta terminará en",
-    "":"Ocultar datos de participantes" ,
+    "hideMainData":"Ocultar datos de participantes" ,
     "shareSurveys":"Otros podrán compartir esta encuesta"
 
 }
