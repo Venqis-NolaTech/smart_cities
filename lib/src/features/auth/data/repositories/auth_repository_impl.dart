@@ -76,7 +76,12 @@ class AuthRepositoryImpl implements AuthRepository {
         final firebaseToken = (await firebaseUser.getIdToken());
         print("firebase token $firebaseToken");
 
-        return Right(await _handleUser(firebaseToken));
+        return Right(await _handleUser(
+          firebaseToken,
+          request: {
+            'registerMethod': "EMAIL_AND_PASSWORD",
+          },
+        ));
       }
     } catch (e, s) {
       return Left(_handleFailure(e, s));
@@ -240,7 +245,8 @@ class AuthRepositoryImpl implements AuthRepository {
         ? (await authDataSource.register(firebaseToken, request: request))
         : (await authDataSource.login(firebaseToken));
 
-    return await _saveUser(success, isFacebook: request['registerMethod']=='FACEBOOK');
+    return await _saveUser(success,
+        isFacebook: request['registerMethod'] == 'FACEBOOK');
   }
 
   Future<User> _saveUser(bool success, {bool isFacebook}) async {
@@ -248,11 +254,12 @@ class AuthRepositoryImpl implements AuthRepository {
       User user = await userDataSource.getProfile();
 
       var emailVerified = firebaseAuth?.currentUser?.emailVerified;
-      if(isFacebook!=null){
-        emailVerified=  isFacebook ? true : false; 
+      if (isFacebook != null) {
+        emailVerified = isFacebook ? true : false;
       }
 
-      final lastSignInTime = firebaseAuth?.currentUser?.metadata?.lastSignInTime;
+      final lastSignInTime =
+          firebaseAuth?.currentUser?.metadata?.lastSignInTime;
 
       user = user.copy(
         emailVerified: emailVerified,
@@ -304,9 +311,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Failure> sendEmailVerification() async {
     try {
       final sentTime =
-      (userLocalRepository.getTimeSentEmailConfirmation()).fold(
-            (_) => null,
-            (time) => time,
+          (userLocalRepository.getTimeSentEmailConfirmation()).fold(
+        (_) => null,
+        (time) => time,
       );
 
       final allowSend = sentTime == null ||
@@ -324,7 +331,6 @@ class AuthRepositoryImpl implements AuthRepository {
       return _handleFailure(e, s);
     }
   }
-
 
   @override
   Future<Failure> sendPasswordResetEmail(String email) async {

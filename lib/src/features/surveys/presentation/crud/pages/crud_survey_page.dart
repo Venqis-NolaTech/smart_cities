@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:smart_cities/src/shared/components/rounded_button.dart';
+import 'package:smart_cities/src/shared/spaces.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
@@ -8,7 +10,6 @@ import '../../../../../shared/app_images.dart';
 import '../../../../../shared/components/base_view.dart';
 import '../../../../../shared/components/custom_card.dart';
 import '../../../../../shared/components/info_alert_dialog.dart';
-import '../../../../../shared/components/search_bar/custom_sliver_app_bar.dart';
 import '../../../../../shared/constant.dart';
 import '../../../../../shared/provider/view_state.dart';
 import '../../../domain/entities/survey.dart';
@@ -33,14 +34,11 @@ class CrudSurveyPage extends StatefulWidget {
 
   final CrudSurveyArgs args;
 
-
   static Future<T> pushNavigate<T extends Object>(
-      BuildContext context, {
-        CrudSurveyArgs args,
-      }) =>
+    BuildContext context, {
+    CrudSurveyArgs args,
+  }) =>
       Navigator.pushNamed(context, id, arguments: args);
-
-
 
   @override
   _CrudSurveyPageState createState() => _CrudSurveyPageState();
@@ -91,8 +89,7 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
           return InfoAlertDialog(
             image: image,
             message: message,
-            onConfirm: () =>
-                sucesss ? Navigator.pop(context, true) : null,
+            onConfirm: () => sucesss ? Navigator.pop(context, true) : null,
           );
         });
   }
@@ -143,50 +140,62 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
                     ))
               ],
             ),
-            body: SafeArea(
-              child: ModalProgressHUD(
-                inAsyncCall: provider.currentState is Loading,
-                child: CustomScrollView(
-                  slivers: <Widget>[
-                    _buildBody(context, provider),
-                  ],
+            body: Stack(
+              children: [
+                SafeArea(
+                  child: ModalProgressHUD(
+                    inAsyncCall: provider.currentState is Loading,
+                    child: CustomScrollView(
+                      slivers: <Widget>[
+                        _buildBody(context, provider),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                /*Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      
+                      padding: const EdgeInsets.all(12.0),
+                      color: AppColors.white,
+                        child: FlatButton.icon(
+                            onPressed: () {},
+                            icon: Icon(MdiIcons.tune,
+                                color: AppColors.blueBtnRegister),
+                            label: Text('Ajustes'))),
+                    
+                    
+                    Container(
+                      color: AppColors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12),
+                      child: _buildBottom(provider),
+                    )
+                  ],
+                )*/
+              ],
             ),
-          
-            floatingActionButton: FloatingActionButton(
+
+            /*floatingActionButton: FloatingActionButton(
               child: Icon(
                 MdiIcons.plus,
               ),
               onPressed: () => provider.addStep(),
-            ),
+            ),*/
           ),
         );
       },
     );
   }
 
-  Widget _buildAddButton(BuildContext context, CrudSurveyProvider provider) {
-    return FlatButton(
+  Widget _buildBottom(CrudSurveyProvider provider) {
+    return RoundedButton(
+      title: S.of(context).saveSurvey.toUpperCase(),
+      style: kTitleStyle.copyWith(
+          fontWeight: FontWeight.bold, color: AppColors.white),
+      color: AppColors.blueBtnRegister,
       onPressed: () => _save(provider),
-      child: Text( S.of(context).save.toUpperCase(), style: kSmallTextStyle.copyWith(color: AppColors.white),),
     );
-
-    /*return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: Center(
-        child: RoundedButton(
-          color: AppColors.red,
-          height: 30,
-          title: S.of(context).save.toUpperCase(),
-          style: kSmallestTextStyle.copyWith(color: Colors.white),
-          borderRadius: 100,
-          onPressed: () => _save(provider),
-        ),
-      ),
-    );*/
-
-
   }
 
   Widget _buildBody(BuildContext context, CrudSurveyProvider provider) {

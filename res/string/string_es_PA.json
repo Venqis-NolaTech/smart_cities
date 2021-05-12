@@ -475,6 +475,7 @@
     "settingsSurveys": "Ajustes de encuestas",
     "surveysTime": "La Encuesta terminará en",
     "hideMainData":"Ocultar datos de participantes" ,
-    "shareSurveys":"Otros podrán compartir esta encuesta"
+    "shareSurveys":"Otros podrán compartir esta encuesta",
+    "saveSurvey": "Publicar Encuesta"
 
 }
