@@ -15,6 +15,7 @@ import '../../../../../shared/provider/view_state.dart';
 import '../../../domain/entities/survey.dart';
 import '../providers/crud_survey_provider.dart';
 import '../widgets/crud_survey_form.dart';
+import '../widgets/crud_survey_settings.dart';
 
 class CrudSurveyArgs {
   final Survey survey;
@@ -127,17 +128,18 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
         return WillPopScope(
           onWillPop: () async => await _handleClose(context),
           child: Scaffold(
+            resizeToAvoidBottomPadding: false,
             appBar: AppBar(
               backgroundColor: AppColors.red,
               title: Text(S.of(context).createSurvey),
               centerTitle: true,
               actions: [
-                FlatButton(
-                    onPressed: () => _save(provider),
-                    child: Text(
-                      S.of(context).save.toUpperCase(),
-                      style: kSmallTextStyle.copyWith(color: AppColors.white),
-                    ))
+                IconButton(
+                  onPressed: _showSettings,
+                  icon: Icon(
+                    Icons.tune,
+                    color: AppColors.white,
+                ))
               ],
             ),
             body: Stack(
@@ -152,27 +154,27 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
                     ),
                   ),
                 ),
-                /*Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      
-                      padding: const EdgeInsets.all(12.0),
-                      color: AppColors.white,
+                      width: double.infinity,
+                        color: Colors.white,
                         child: FlatButton.icon(
-                            onPressed: () {},
-                            icon: Icon(MdiIcons.tune,
-                                color: AppColors.blueBtnRegister),
-                            label: Text('Ajustes'))),
-                    
-                    
+                            onPressed: _showSettings,
+                            icon: Icon(MdiIcons.tune, color: AppColors.blueButton),
+                            label: Text('Ajustes Encuesta', style: kSmallTextStyle.copyWith(color: AppColors.blueButton),))
+                            ),
+
                     Container(
-                      color: AppColors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12),
+                      width: double.infinity,
+                      color: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 12),
                       child: _buildBottom(provider),
                     )
                   ],
-                )*/
+                )
               ],
             ),
 
@@ -208,7 +210,7 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
         blurRadius: 24,
         padding: const EdgeInsets.only(
           top: 16.0,
-          bottom: kBottomNavigationBarHeight + 24.0,
+          bottom: kBottomNavigationBarHeight + 60.0,
         ),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(24),
@@ -220,5 +222,14 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
         ),
       ),
     );
+  }
+
+  void _showSettings() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return CrudSurveySettings();
+        });
   }
 }
