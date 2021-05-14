@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
+import 'package:smart_cities/src/features/surveys/presentation/crud/providers/crud_survey_provider.dart';
 import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
@@ -8,7 +9,9 @@ import 'package:smart_cities/src/shared/app_colors.dart';
 import '../../../../../../generated/i18n.dart';
 
 class CrudSurveySettings extends StatefulWidget {
-  const CrudSurveySettings({Key key}) : super(key: key);
+  final CrudSurveyProvider provider;
+
+  CrudSurveySettings({Key key, this.provider}) : super(key: key);
 
   @override
   _CrudSurveySettingsState createState() => _CrudSurveySettingsState();
@@ -16,6 +19,15 @@ class CrudSurveySettings extends StatefulWidget {
 
 class _CrudSurveySettingsState extends State<CrudSurveySettings> {
   double _lowerValue = 3;
+
+  bool isHideParticipantData = false;
+  bool isOtherShare = false;
+  @override
+  void initState() {
+    isHideParticipantData = widget.provider.survey.isHideParticipantData;
+    isOtherShare = widget.provider.survey.isOtherShare;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +89,21 @@ class _CrudSurveySettingsState extends State<CrudSurveySettings> {
     );
   }
 
+  String getTextSlider(String value) {
+    switch (value) {
+      case '1.0':
+        return '3 h';
+      case '2.0':
+        return '6 h';
+      case '3.0':
+        return '1 d';
+      case '5.0':
+        return '2 d';
+      default:
+        return value;
+    }
+  }
+
   List<Widget> _buildContentDialog() {
     final widgets = <Widget>[];
 
@@ -96,11 +123,12 @@ class _CrudSurveySettingsState extends State<CrudSurveySettings> {
         child: Container(
             padding: EdgeInsets.all(5),
             child: Text(
-              '${_lowerValue.toInt()}',
+              getTextSlider(_lowerValue.toString()),
               style:
                   kSmallestTextStyle.copyWith(color: AppColors.blueBtnRegister),
             )),
       ),
+      tooltip: FlutterSliderTooltip(format: (String value) => getTextSlider(value)),
       step: FlutterSliderStep(step: 1, // default
           rangeList: [
             FlutterSliderRangeStep(from: 1, to: 2, step: 1),
@@ -125,11 +153,11 @@ class _CrudSurveySettingsState extends State<CrudSurveySettings> {
                     kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister)),
           ),
           Switch(
-            onChanged: (bool value) {
-              //provider.saveCard= value;
-            },
-            value: false,
-          )
+              onChanged: (bool value) {
+                isHideParticipantData = value;
+                setState(() {});
+              },
+              value: isHideParticipantData)
         ],
       )
     ]);
@@ -146,9 +174,10 @@ class _CrudSurveySettingsState extends State<CrudSurveySettings> {
           ),
           Switch(
             onChanged: (bool value) {
-              //provider.saveCard= value;
+              isOtherShare = value;
+              setState(() {});
             },
-            value: false,
+            value: isOtherShare,
           )
         ],
       )
@@ -157,26 +186,26 @@ class _CrudSurveySettingsState extends State<CrudSurveySettings> {
     return widgets;
   }
 
-
   Widget _buildBottomDialog(BuildContext context) {
     final actions = <Widget>[];
 
-
-      actions.add(
-        FlatButton(
-          child: Text( S.of(context).cancel),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      );
-    
+    actions.add(
+      FlatButton(
+        child: Text(S.of(context).cancel),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
 
     actions.add(
       FlatButton(
-        child: Text(S.of(context).done, style: TextStyle(color: AppColors.blueLight)),
+        child: Text(S.of(context).done,
+            style: TextStyle(color: AppColors.blueLight)),
         onPressed: () {
-           Navigator.pop(context);
+          widget.provider.survey.isHideParticipantData = isHideParticipantData;
+          widget.provider.survey.isOtherShare = isOtherShare;
+          Navigator.pop(context);
         },
       ),
     );

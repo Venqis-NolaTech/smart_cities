@@ -33,6 +33,9 @@ class CrudSurveyProvider extends BaseProvider {
         description: "",
         public: true,
         steps: List<StepData>(),
+        expirationDate: "",
+        isOtherShare: true,
+        isHideParticipantData: true
       );
 
       addStep();
@@ -211,6 +214,11 @@ class SurveyData {
   bool public;
   final List<StepData> steps;
 
+  //nuevos campos
+  String expirationDate;
+  bool isHideParticipantData;
+  bool isOtherShare;
+
   SurveyData({
     this.id,
     this.key,
@@ -218,6 +226,9 @@ class SurveyData {
     this.description,
     this.public,
     this.steps,
+    this.expirationDate,
+    this.isOtherShare,
+    this.isHideParticipantData
   });
 
   factory SurveyData.fromEntity(Survey survey) {
@@ -230,6 +241,9 @@ class SurveyData {
       steps: survey.steps.isNotNullOrNotEmpty
           ? survey.steps.map((s) => StepData.fromEntity(s)).toList()
           : [],
+      expirationDate: survey.expirationDate,
+      isHideParticipantData: survey.isHideParticipantData,
+      isOtherShare: survey.isOtherShare    
     );
   }
 
@@ -242,6 +256,9 @@ class SurveyData {
       steps: this.steps.isNotNullOrNotEmpty
           ? this.steps.map((s) => s.toEntity()).toList()
           : [],
+      expirationDate: this.expirationDate,
+      isHideParticipantData: this.isHideParticipantData,
+      isOtherShare: this.isOtherShare
     );
   }
 }

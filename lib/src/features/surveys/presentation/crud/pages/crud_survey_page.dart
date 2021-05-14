@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
-import 'package:smart_cities/src/shared/spaces.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
@@ -135,7 +134,7 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
               centerTitle: true,
               actions: [
                 IconButton(
-                  onPressed: _showSettings,
+                  onPressed: ()=> _showSettings(provider),
                   icon: Icon(
                     Icons.tune,
                     color: AppColors.white,
@@ -161,9 +160,9 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
                       width: double.infinity,
                         color: Colors.white,
                         child: FlatButton.icon(
-                            onPressed: _showSettings,
+                            onPressed: ()=> _showSettings(provider),
                             icon: Icon(MdiIcons.tune, color: AppColors.blueButton),
-                            label: Text('Ajustes Encuesta', style: kSmallTextStyle.copyWith(color: AppColors.blueButton),))
+                            label: Text(S.of(context).settingsSurveys, style: kSmallTextStyle.copyWith(color: AppColors.blueButton),))
                             ),
 
                     Container(
@@ -224,12 +223,14 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
     );
   }
 
-  void _showSettings() {
+  void _showSettings(CrudSurveyProvider provider) {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return CrudSurveySettings();
+          return CrudSurveySettings(
+            provider: provider,
+          );
         });
   }
 }
