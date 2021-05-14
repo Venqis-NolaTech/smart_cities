@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 
@@ -27,13 +28,14 @@ class CrudSurveyProvider extends BaseProvider {
     if (survey != null) {
       _survey = SurveyData.fromEntity(survey);
     } else {
+      var dayExp= DateTime.now().add(Duration(hours: 6));
       _survey = SurveyData(
         key: ObjectId().toHexString(),
         name: "",
         description: "",
         public: true,
         steps: List<StepData>(),
-        expirationDate: "",
+        expirationDate: dayExp.toString(),
         isOtherShare: true,
         isHideParticipantData: true
       );
@@ -143,6 +145,9 @@ class CrudSurveyProvider extends BaseProvider {
 
   // private methods --
   Future<Either<Failure, Survey>> _save(Survey survey) {
+    print('nueva encuesta ${survey.expirationDate}');
+    print('nueva encuesta ${survey.isOtherShare}');
+    print('nueva encuesta ${survey.isHideParticipantData}');
     return createSurveyUseCase(survey);
   }
 

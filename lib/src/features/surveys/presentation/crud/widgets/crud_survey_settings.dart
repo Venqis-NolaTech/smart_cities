@@ -18,7 +18,7 @@ class CrudSurveySettings extends StatefulWidget {
 }
 
 class _CrudSurveySettingsState extends State<CrudSurveySettings> {
-  double _lowerValue = 3;
+  double _lowerValue = 2;
 
   bool isHideParticipantData = false;
   bool isOtherShare = false;
@@ -97,10 +97,23 @@ class _CrudSurveySettingsState extends State<CrudSurveySettings> {
         return '6 h';
       case '3.0':
         return '1 d';
-      case '5.0':
+      case '4.0':
         return '2 d';
       default:
         return value;
+    }
+  }
+
+  Duration getDuration(String value) {
+    switch (value) {
+      case '1.0':
+        return Duration(hours: 3);
+      case '2.0':
+        return Duration(hours: 6);
+      case '3.0':
+        return Duration(days: 1);
+      case '4.0':
+        return Duration(days: 2);
     }
   }
 
@@ -205,6 +218,11 @@ class _CrudSurveySettingsState extends State<CrudSurveySettings> {
         onPressed: () {
           widget.provider.survey.isHideParticipantData = isHideParticipantData;
           widget.provider.survey.isOtherShare = isOtherShare;
+          var day= DateTime.now();
+          print(day);
+          var fiftyDaysFromNow = day.add(getDuration(_lowerValue.toString()));
+          print(fiftyDaysFromNow);
+          widget.provider.survey.expirationDate = fiftyDaysFromNow.toString();
           Navigator.pop(context);
         },
       ),

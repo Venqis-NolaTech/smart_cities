@@ -134,11 +134,11 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
               centerTitle: true,
               actions: [
                 IconButton(
-                  onPressed: ()=> _showSettings(provider),
-                  icon: Icon(
-                    Icons.tune,
-                    color: AppColors.white,
-                ))
+                    onPressed: () => _showSettings(provider),
+                    icon: Icon(
+                      Icons.tune,
+                      color: AppColors.white,
+                    ))
               ],
             ),
             body: Stack(
@@ -155,16 +155,29 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+                      child: FloatingActionButton(
+                        child: Icon(
+                          MdiIcons.plus,
+                        ),
+                        onPressed: () => provider.addStep(),
+                      ),
+                    ),
                     Container(
-                      width: double.infinity,
+                        width: double.infinity,
                         color: Colors.white,
                         child: FlatButton.icon(
-                            onPressed: ()=> _showSettings(provider),
-                            icon: Icon(MdiIcons.tune, color: AppColors.blueButton),
-                            label: Text(S.of(context).settingsSurveys, style: kSmallTextStyle.copyWith(color: AppColors.blueButton),))
-                            ),
-
+                            onPressed: () => _showSettings(provider),
+                            icon: Icon(MdiIcons.tune,
+                                color: AppColors.blueButton),
+                            label: Text(
+                              S.of(context).settingsSurveys,
+                              style: kSmallTextStyle.copyWith(
+                                  color: AppColors.blueButton),
+                            ))),
                     Container(
                       width: double.infinity,
                       color: Colors.white,
@@ -190,12 +203,15 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
   }
 
   Widget _buildBottom(CrudSurveyProvider provider) {
-    return RoundedButton(
-      title: S.of(context).saveSurvey.toUpperCase(),
-      style: kTitleStyle.copyWith(
-          fontWeight: FontWeight.bold, color: AppColors.white),
-      color: AppColors.blueBtnRegister,
-      onPressed: () => _save(provider),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 60.0),
+      child: RoundedButton(
+        title: S.of(context).saveSurvey.toUpperCase(),
+        style: kTitleStyle.copyWith(
+            fontWeight: FontWeight.bold, color: AppColors.white),
+        color: AppColors.blueBtnRegister,
+        onPressed: () => _save(provider),
+      ),
     );
   }
 
@@ -209,7 +225,7 @@ class _CrudSurveyPageState extends State<CrudSurveyPage> {
         blurRadius: 24,
         padding: const EdgeInsets.only(
           top: 16.0,
-          bottom: kBottomNavigationBarHeight + 60.0,
+          bottom: kBottomNavigationBarHeight + 120.0,
         ),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(24),

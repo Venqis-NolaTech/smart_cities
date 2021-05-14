@@ -44,6 +44,7 @@ class SurveysDataSourceImpl implements SurveysDataSource {
   Future<SurveyModel> createSurvey(SurveyModel survey) async {
     final payload = json.encode(survey.toPayload());
 
+    print('payload nueva encuesta ${payload}');
     final response = await authHttpClient.post(
       '/api/poll',
       body: payload,
