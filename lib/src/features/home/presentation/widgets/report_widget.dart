@@ -15,11 +15,14 @@ class ReportWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     var height= MediaQuery.of(context).size.height;
+
+
+
     return Container(
-      //width: screenWidth*0.40,
       child: Card(
         child: Container(
-          height: 200,
+          height: height<600 ? 210 : 180,
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(

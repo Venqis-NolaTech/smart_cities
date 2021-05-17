@@ -17,10 +17,14 @@ class RouteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var height= MediaQuery.of(context).size.height;
+    print('altura $height');
+
     return Container(
       child: Card(
         child: Container(
-          height: 200,
+          height: height<600 ? 210 : 180,
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
@@ -31,7 +35,6 @@ class RouteWidget extends StatelessWidget {
                 Spaces.verticalMedium(),
 
                 Text(
-                  //TODO pendiente para validar con recogida y el sector
                   !provider.isLogged
                       ? S.of(context).completeYourPerfil
                       : S.of(context).noPickupToday,
@@ -83,7 +86,7 @@ class RouteWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(18.0),
           side: BorderSide(color: AppColors.blueLight)),
       child: Text(
-        S.of(context).addSector,
+        S.of(context).addSector2,
         maxLines: 1,
         style: kSmallestTextStyle.copyWith(
           color: AppColors.blueLight,

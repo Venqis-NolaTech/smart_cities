@@ -84,34 +84,33 @@ class EmailConfirmationPage extends StatelessWidget {
     return BaseView<EmailConfirmationProvider>(
       onProviderReady: (provider) => provider.sendEmailVerification(),
       builder: (context, provider, child) {
-        return child;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.red,
-          elevation: 0.0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.clear,
-            ),
-            onPressed: () => _goToMain(context)
-              //args.onPressed,
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.red,
+            elevation: 0.0,
+            leading: IconButton(
+                icon: Icon(
+                  Icons.clear,
+                ),
+                onPressed: () => _goToMain(context)
+                //args.onPressed,
 
+                ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _buildIcon(),
-              _buildTitle(context),
-              _buildDescription(context),
-              Spaces.verticalLargest(),
-              _buildButton(context),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                _buildIcon(),
+                _buildTitle(context),
+                _buildDescription(context),
+                Spaces.verticalLargest(),
+                _buildButton(context),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -152,12 +151,12 @@ class EmailConfirmationPage extends StatelessWidget {
         color: AppColors.blueBtnRegister,
         style: kTitleStyle.copyWith(color: Colors.white),
         elevation: 0.0,
-        onPressed: ()=> _goToMain(context),
+        onPressed: () => _goToMain(context),
       ),
     );
   }
 
-  void _goToMain(BuildContext context){
+  void _goToMain(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(
       context,
       SelectedMunicipalityPage.id,

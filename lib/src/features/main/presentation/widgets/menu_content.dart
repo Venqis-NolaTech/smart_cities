@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/pages/profile_page.dart';
-import 'package:smart_cities/src/features/auth/data/models/user_model.dart';
 import 'package:smart_cities/src/features/auth/presentation/base/widgets/user_photo.dart';
 import 'package:smart_cities/src/features/auth/presentation/profile/providers/profile_provider.dart';
 import 'package:smart_cities/src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
@@ -21,6 +20,7 @@ class MenuContent extends StatelessWidget {
   List<Widget> widget=[];
 
   final Function onFunctionPickup;
+  final Function onFunctionPayment;
 
 
   final textStyle= kTitleStyle.copyWith(
@@ -28,7 +28,7 @@ class MenuContent extends StatelessWidget {
     fontWeight:  FontWeight.bold,
   );
 
-  MenuContent({Key key, this.provider, this.onFunctionPickup}) : super(key: key);
+  MenuContent({Key key, this.provider, this.onFunctionPickup, this.onFunctionPayment}) : super(key: key);
 
 
   @override
@@ -158,7 +158,7 @@ class MenuContent extends StatelessWidget {
 
     widget.add(ItemList(
         title: S.of(context).paymentMethod,
-        onTap: null,
+        onTap: onFunctionPayment,
         textStyle: textStyle));
 
     widget.add(ItemList(

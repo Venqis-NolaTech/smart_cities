@@ -45,6 +45,7 @@ class _MainPageState extends State<MainPage> {
       ),
       MenuPage(
         onFunctionPickup: onFunctionPickup,
+        onFunctionPayment: onFunctionPayment,
       )
     ];
 
@@ -88,4 +89,9 @@ class _MainPageState extends State<MainPage> {
   void onFunctionPickup() {
     moveTo(1);
   }
+
+  void onFunctionPayment() {
+    moveTo(3);
+  }
+  
 }

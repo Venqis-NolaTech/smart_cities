@@ -37,7 +37,6 @@ class PlaceDetailsPage extends StatefulWidget {
 }
 
 class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
-  bool _placeLoaded = false;
   Place _place;
   bool _isDisposed = false;
 
