@@ -158,7 +158,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
       ),
       expiryDateDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-        hintText: S.of(context).expirationDate,
+        hintText: S.of(context).exp,
       ),
       cvvCodeDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
