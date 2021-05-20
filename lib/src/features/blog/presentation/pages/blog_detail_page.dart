@@ -139,7 +139,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
 
   Widget _buildAppBar(BlogDetailProvider provider) {
     return AppBar(
-      title: Text(S.of(context).posts),
+      title: Text(_post.kind.getLabel(context)),
       backgroundColor: AppColors.red,
       actions: [
         IconButton(

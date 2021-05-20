@@ -22,7 +22,7 @@ class ReportWidget extends StatelessWidget {
     return Container(
       child: Card(
         child: Container(
-          height: height<600 ? 210 : 180,
+           height: height<600 ? 230 : 200,
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(

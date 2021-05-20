@@ -61,13 +61,16 @@ class LocationSeeRoute extends StatelessWidget {
         if(result!=null)
           provider.selectedSector= result;
       },
-      child: Row(
-        children: [
-          Icon(MdiIcons.mapMarkerOutline, color: AppColors.blueBtnRegister),
-          Spaces.horizontalLarge(),
-          Expanded(child: Text(provider.selectedSector != null ?  provider.selectedSector.value : S.of(context).selectSector, style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister))),
-          Icon(MdiIcons.chevronRight, color: AppColors.blueBtnRegister)
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Icon(MdiIcons.mapMarkerOutline, color: AppColors.blueBtnRegister),
+            Spaces.horizontalLarge(),
+            Expanded(child: Text(provider.selectedSector != null ?  provider.selectedSector.value : S.of(context).selectSector, style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister))),
+            Icon(MdiIcons.chevronRight, color: AppColors.blueBtnRegister)
+          ],
+        ),
       ),
     );
   }
@@ -75,13 +78,16 @@ class LocationSeeRoute extends StatelessWidget {
   Widget _buildSelectDay(BuildContext context){
     return InkWell(
       onTap: ()=> _selectDate(context),
-      child: Row(
-        children: [
-          Icon(MdiIcons.cameraEnhanceOutline, color: AppColors.blueBtnRegister),
-          Spaces.horizontalLarge(),
-          Expanded(child: Text(provider.selectedDate!= null ? _dateTimeFormatted(context, provider.selectedDate) : S.of(context).selectDay, style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),)),
-          Icon(MdiIcons.chevronRight, color: AppColors.blueBtnRegister)
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Icon(MdiIcons.cameraEnhanceOutline, color: AppColors.blueBtnRegister),
+            Spaces.horizontalLarge(),
+            Expanded(child: Text(provider.selectedDate!= null ? _dateTimeFormatted(context, provider.selectedDate) : S.of(context).selectDay, style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),)),
+            Icon(MdiIcons.chevronRight, color: AppColors.blueBtnRegister)
+          ],
+        ),
       ),
     );
   }

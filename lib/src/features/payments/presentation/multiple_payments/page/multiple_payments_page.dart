@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/payments/presentation/multiple_payments/widget/item_payment.dart';
 import 'package:smart_cities/src/features/payments/presentation/payment/page/payment_page.dart';
@@ -10,10 +9,10 @@ import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/spaces.dart';
 
 class Payment{
-  final bool selected;
-  final String id;
-  final String card;
-  final String total;
+  bool selected;
+  String id;
+  String card;
+  String total;
   Payment({this.selected, this.id, this.card, this.total});
 }
 
@@ -77,11 +76,12 @@ class _MultiplePaymentsPageState extends State<MultiplePaymentsPage> {
                       Checkbox(value: slectAll, onChanged: (value){
                         slectAll= !slectAll;
                         setState(() {
-                          paymentList = [
-                            Payment(selected: slectAll, id: 'ID 1234213', card: 'MC ***3131', total: '1,234'),
-                            Payment(selected: slectAll, id: 'ID 23241', card: 'MC ***3131',total: '200'),
-                            Payment(selected: slectAll, id: 'ID 23499', card: 'MC ***3131', total: '1,314')
-                          ];
+                          setState(() {
+                            paymentList.forEach((element) {
+                              element.selected= true;
+                            });
+                          });
+
                         });
 
                       })
@@ -92,7 +92,7 @@ class _MultiplePaymentsPageState extends State<MultiplePaymentsPage> {
 
                 Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: getList(paymentList),
+                  children: getList(),
                 ),
               ],
             ),
@@ -180,11 +180,16 @@ class _MultiplePaymentsPageState extends State<MultiplePaymentsPage> {
     );
   }
 
-  List<Widget> getList(List<dynamic> list){
-    return List<Widget>.generate(list.length, (index) {
+  List<Widget> getList(){
+    return List<Widget>.generate(paymentList.length, (index) {
       return ItemPayment(
-        payment: list[index],
+        payment: paymentList[index],
         onTap: () => {} ,
+        onSelect: (value){
+          setState(() {
+            paymentList[index].selected= value;
+          });
+        },
       );
     });
 

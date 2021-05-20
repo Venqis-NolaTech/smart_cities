@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_cities/generated/i18n.dart';
+import 'package:smart_cities/src/core/entities/catalog_item.dart';
 import 'package:smart_cities/src/features/route/presentation/see_route/provider/route_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:smart_cities/src/features/route/presentation/see_route/widget/card_route.dart';
@@ -17,17 +19,12 @@ import 'package:smart_cities/src/shared/constant.dart';
 import 'package:smart_cities/src/shared/image_utils.dart';
 
 
-class RealTime extends StatefulWidget {
-  RealTime({Key key}) : super(key: key);
 
-  @override
-  _RealTimeState createState() => _RealTimeState();
-}
-
-class _RealTimeState extends State<RealTime> {
+// ignore: must_be_immutable
+class RealTime extends StatelessWidget {
   GoogleMap _googleMap;
   static const _mapZoom = 15.0;
-
+  RouteProvider provider;
   Completer<GoogleMapController> _mapController = Completer();
 
   Map<PolygonId, Polygon> polygons = <PolygonId, Polygon>{};
@@ -39,21 +36,13 @@ class _RealTimeState extends State<RealTime> {
   int _markersIdCounter = 0;
 
 
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    //_buildDataMap();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
 
     return BaseView<RouteProvider>(
-        builder: (context, provider, child ) {
-          final currentState = provider.currentState;
-
+        builder: (context, provider2, child ) {
+          provider=provider2;
+          print('municipio ${json.encode(provider.realTimeSector)}');
 
           return Stack(
             children: [
@@ -88,13 +77,13 @@ class _RealTimeState extends State<RealTime> {
                     textButtom: S.of(context).menuAboutUsDescription,
                     onChange: () async {
                       if(provider.isMunicipality){
-                        await changeSector(context, provider);
+                        await changeSector(context);
                       }else{
                         showModalBottomSheet(
                           context: context,
                           builder: (context) {
                         return RouteOptionsModal(
-                          changeSector: ()=>changeSector(context, provider),
+                          changeSector: ()=>changeSector(context),
                           onSelectSector: (){
                             Navigator.pushNamed(context, WhenTakeOutTrashPage.id, arguments:provider.realTimeSector);
                           }
@@ -117,9 +106,13 @@ class _RealTimeState extends State<RealTime> {
     );
   }
 
-  Future changeSector(BuildContext context, RouteProvider provider) async {
+  Future changeSector(BuildContext context) async {
      var result= await Navigator.pushNamed(context, SelectSectorPage.id);
     print('sector seleccionado $result');
+     changeSector2(result);
+  }
+
+  Future changeSector2(CatalogItem result) async {
     if(result!=null) {
       provider.realTimeSector = result;
     }
