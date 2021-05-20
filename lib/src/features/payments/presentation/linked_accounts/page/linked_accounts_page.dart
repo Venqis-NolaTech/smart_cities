@@ -68,7 +68,10 @@ class _LinkedAccountsPageState extends State<LinkedAccountsPage> {
                 floatingActionButton:
                 currentState is Error && currentState.failure is UserNotFoundFailure ? Container() :
                 FloatingActionButton(
-                  onPressed: () => AddAccountPage.pushNavigate(context),
+                  onPressed: () async {
+                    await AddAccountPage.pushNavigate(context);
+                    provider.loadData();
+                  },
                   child: Icon(Icons.add),
                   backgroundColor: AppColors.blueBtnRegister,
                 ) ,
