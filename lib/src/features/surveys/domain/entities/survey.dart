@@ -42,7 +42,7 @@ class Survey extends Equatable {
   String expirationDate;
   bool isHideParticipantData;
   bool isOtherShare;
-
+  bool isAnswerByUser;
 
   Survey({
     this.id,
@@ -56,7 +56,8 @@ class Survey extends Equatable {
     this.link,
     this.expirationDate,
     this.isHideParticipantData,
-    this.isOtherShare
+    this.isOtherShare,
+    this.isAnswerByUser
   });
 
   @override

@@ -7,7 +7,6 @@ import 'package:smart_cities/src/core/api/public_http_client.dart';
 
 import '../../../../../core/api/auth_client.dart';
 import '../../../../../core/models/response_model.dart';
-import '../../../../../core/util/flavor_config.dart';
 import '../../models/survey_model.dart';
 
 abstract class SurveysDataSource {
@@ -110,7 +109,7 @@ class SurveysDataSourceImpl implements SurveysDataSource {
     }
 
     final response =
-        await _getRequest('/api/poll/public', queryParams, publicHttpClient);
+        await _getRequest('/api/poll/private', queryParams, authHttpClient);
 
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 

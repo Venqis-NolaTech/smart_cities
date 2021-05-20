@@ -45,8 +45,8 @@ class SurveyModel extends Survey {
     //nuevos campos
     String expirationDate,
     bool isHideParticipantData,
-    bool isOtherShare
-
+    bool isOtherShare,
+    bool isAnswerByUser
   }) : super(
           id: id,
           name: name,
@@ -59,7 +59,8 @@ class SurveyModel extends Survey {
           createdBy: createdBy,
           expirationDate: expirationDate,
           isHideParticipantData: isHideParticipantData,
-          isOtherShare: isOtherShare
+          isOtherShare: isOtherShare,
+          isAnswerByUser: isAnswerByUser
         );
 
   factory SurveyModel.fromJson(Map<String, dynamic> json) {
@@ -81,6 +82,7 @@ class SurveyModel extends Survey {
       expirationDate: json['expirationDate'],
       isHideParticipantData: json['isHideParticipantData'],
       isOtherShare: json['isOtherShare'],
+      isAnswerByUser: json['isAnswerByUser'],
     );
   }
 
@@ -102,7 +104,8 @@ class SurveyModel extends Survey {
 
       'expirationDate': expirationDate,
       'isHideParticipantData': isHideParticipantData,
-      'isOtherShare': isOtherShare
+      'isOtherShare': isOtherShare,
+      'isAnswerByUser': isAnswerByUser
     };
   }
 
@@ -137,6 +140,7 @@ class SurveyModel extends Survey {
       expirationDate: survey.expirationDate,
       isHideParticipantData: survey.isHideParticipantData,
       isOtherShare: survey.isOtherShare,
+      isAnswerByUser: survey.isAnswerByUser
     );
   }
 }

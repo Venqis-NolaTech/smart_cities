@@ -49,7 +49,7 @@ class SurveyItem extends StatelessWidget {
         right: 16.0,
       ),
       child: Material(
-        color: Colors.white,
+        color: survey.isAnswerByUser ? AppColors.background :   AppColors.white,
         child: InkWell(
             onTap: onPressed,
             child: Row(
