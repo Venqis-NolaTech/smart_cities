@@ -37,6 +37,7 @@ class _MainPageState extends State<MainPage> {
       HomePage(
         toProfile: ()=> Navigator.pushNamed(context, ProfilePage.id),
         toRoute: ()=> moveTo(1),
+        moveToPayment: ()=> moveTo(3),
       ),
       RoutePage(),
       ReportsPage(onBackPress: onBackPressReport),

@@ -29,7 +29,8 @@ initProvider(GetIt sl) {
   sl.registerFactory(
         () => CrudSurveyProvider(
       createSurveyUseCase: sl(),
-      editSurveyUseCase: sl(),
+      editSurveyUseCase: sl(), 
+      detailsSurveyUseCase: sl(),
     ),
   );
 

@@ -275,7 +275,6 @@ class _CreditCardFormState extends State<CreditCardForm> {
                   Spaces.horizontalSmall(),
                   Expanded(
                     child: TextFormField(
-                      maxLength: 3,
                       obscureText: widget.obscureCvv,
                       focusNode: cvvFocusNode,
                       controller: _cvvCodeController,

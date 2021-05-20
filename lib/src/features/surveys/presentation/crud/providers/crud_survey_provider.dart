@@ -1,4 +1,5 @@
-import 'dart:convert';
+import 'package:smart_cities/src/features/payments/presentation/detail_account/page/detail_account_page.dart';
+import 'package:smart_cities/src/features/surveys/domain/usecases/get_detail_survey_use_case.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 
@@ -16,29 +17,46 @@ class CrudSurveyProvider extends BaseProvider {
   CrudSurveyProvider({
     @required this.createSurveyUseCase,
     @required this.editSurveyUseCase,
+    @required this.detailsSurveyUseCase,
   });
 
   final CreateSurveyUseCase createSurveyUseCase;
   final EditSurveyUseCase editSurveyUseCase;
+  final DetailsSurveyUseCase detailsSurveyUseCase;
 
   SurveyData _survey;
   SurveyData get survey => _survey;
 
-  void initSurvey({Survey survey}) {
+  void initSurvey({Survey survey}) async  {
     if (survey != null) {
+      //obtener datos complementarios de la encuesta
+
+      state = Loading();
       _survey = SurveyData.fromEntity(survey);
-    } else {
-      var dayExp= DateTime.now().add(Duration(hours: 6));
-      _survey = SurveyData(
-        key: ObjectId().toHexString(),
-        name: "",
-        description: "",
-        public: true,
-        steps: List<StepData>(),
-        expirationDate: dayExp.toString(),
-        isOtherShare: true,
-        isHideParticipantData: true
+
+      Either<Failure, Survey> failureOrSuccess= await detailsSurveyUseCase(DetailsSurveyParams(surveyId: _survey.id));
+    
+      failureOrSuccess.fold(
+        (failure) => state = Error(failure: failure),
+        (surveyP) {
+          _survey = SurveyData.fromEntity(surveyP);
+          state = Loaded<Survey>(value: surveyP);
+        }
       );
+
+
+
+    } else {
+      var dayExp = DateTime.now().add(Duration(hours: 6));
+      _survey = SurveyData(
+          key: ObjectId().toHexString(),
+          name: "",
+          description: "",
+          public: true,
+          steps: List<StepData>(),
+          expirationDate: dayExp.toString(),
+          isOtherShare: true,
+          isHideParticipantData: false);
 
       addStep();
     }
@@ -224,47 +242,44 @@ class SurveyData {
   bool isHideParticipantData;
   bool isOtherShare;
 
-  SurveyData({
-    this.id,
-    this.key,
-    this.name,
-    this.description,
-    this.public,
-    this.steps,
-    this.expirationDate,
-    this.isOtherShare,
-    this.isHideParticipantData
-  });
+  SurveyData(
+      {this.id,
+      this.key,
+      this.name,
+      this.description,
+      this.public,
+      this.steps,
+      this.expirationDate,
+      this.isOtherShare,
+      this.isHideParticipantData});
 
   factory SurveyData.fromEntity(Survey survey) {
     return SurveyData(
-      id: survey.id,
-      key: survey.id,
-      name: survey.name,
-      description: survey.description,
-      public: survey.public,
-      steps: survey.steps.isNotNullOrNotEmpty
-          ? survey.steps.map((s) => StepData.fromEntity(s)).toList()
-          : [],
-      expirationDate: survey.expirationDate,
-      isHideParticipantData: survey.isHideParticipantData,
-      isOtherShare: survey.isOtherShare    
-    );
+        id: survey.id,
+        key: survey.id,
+        name: survey.name,
+        description: survey.description,
+        public: survey.public,
+        steps: survey.steps.isNotNullOrNotEmpty
+            ? survey.steps.map((s) => StepData.fromEntity(s)).toList()
+            : [],
+        expirationDate: survey.expirationDate,
+        isHideParticipantData: survey.isHideParticipantData,
+        isOtherShare: survey.isOtherShare);
   }
 
   Survey toEntity() {
     return Survey(
-      id: this.id,
-      name: this.name,
-      description: this.description,
-      public: this.public,
-      steps: this.steps.isNotNullOrNotEmpty
-          ? this.steps.map((s) => s.toEntity()).toList()
-          : [],
-      expirationDate: this.expirationDate,
-      isHideParticipantData: this.isHideParticipantData,
-      isOtherShare: this.isOtherShare
-    );
+        id: this.id,
+        name: this.name,
+        description: this.description,
+        public: this.public,
+        steps: this.steps.isNotNullOrNotEmpty
+            ? this.steps.map((s) => s.toEntity()).toList()
+            : [],
+        expirationDate: this.expirationDate,
+        isHideParticipantData: this.isHideParticipantData,
+        isOtherShare: this.isOtherShare);
   }
 }
 

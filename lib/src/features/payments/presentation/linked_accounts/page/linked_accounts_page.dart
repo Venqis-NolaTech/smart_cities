@@ -70,7 +70,7 @@ class _LinkedAccountsPageState extends State<LinkedAccountsPage> {
                 FloatingActionButton(
                   onPressed: () async {
                     await AddAccountPage.pushNavigate(context);
-                    provider.loadData();
+                    provider.loadAccount();
                   },
                   child: Icon(Icons.add),
                   backgroundColor: AppColors.blueBtnRegister,

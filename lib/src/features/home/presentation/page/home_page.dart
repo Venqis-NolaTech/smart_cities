@@ -18,8 +18,9 @@ import 'package:smart_cities/app.dart';
 class HomePage extends StatelessWidget {
   final Function toProfile;
   final Function toRoute;
+  final Function moveToPayment;
 
-  HomePage({Key key, @required this.toProfile, @required this.toRoute}) : super(key: key);
+  HomePage({Key key, @required this.toProfile, @required this.toRoute, this.moveToPayment}) : super(key: key);
 
 
   @override
@@ -129,7 +130,7 @@ class HomePage extends StatelessWidget {
                         ),
                         Spaces.verticalMedium(),
 
-                        PaymentWidget(),
+                        PaymentWidget(moveToPayment: moveToPayment),
                         Spaces.verticalMedium(),
                         Row(
                           children: [

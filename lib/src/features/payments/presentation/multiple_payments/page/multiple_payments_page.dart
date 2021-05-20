@@ -78,7 +78,7 @@ class _MultiplePaymentsPageState extends State<MultiplePaymentsPage> {
                         setState(() {
                           setState(() {
                             paymentList.forEach((element) {
-                              element.selected= true;
+                              element.selected= slectAll;
                             });
                           });
 

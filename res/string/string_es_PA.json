@@ -482,6 +482,9 @@
     "numberAccountFailed": "Nuemro de cuenta es inválido",
     "cvvValidationMessage": "Ingrese un CVV válido",    
     "dateValidationMessage": "Ingrese una fecha valida",    
-    "numberValidationMessage": "Ingrese un numero de tarjeta válido"
+    "numberValidationMessage": "Ingrese un numero de tarjeta válido",
+    "anonymous": "Anónimo",
+    "finishedIn": "Termina en ${hours} h",
+    "finished": "Terminada"
 
 }

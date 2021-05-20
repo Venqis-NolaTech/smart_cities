@@ -19,6 +19,8 @@ abstract class SurveysDataSource {
 
   Future<SurveyModel> updateSurvey(String surveyId, SurveyModel survey);
 
+  Future<SurveyModel> detailsSurvey(String surveyId);
+
   Future<bool> deleteSurvey(String surveyId);
 
   Future<SurveyListingsModel> getAllSurveys({
@@ -71,6 +73,18 @@ class SurveysDataSourceImpl implements SurveysDataSource {
 
     return _updateSurvey(surveyId: surveyId, payload: payload);
   }
+
+  @override
+  Future<SurveyModel> detailsSurvey(String surveyId) async {
+    final response = await authHttpClient.get(
+      '/api/poll/$surveyId'
+    );
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return SurveyModel.fromJson(body.data);
+  }  
+  
 
   @override
   Future<SurveyModel> publishSurvey(String surveyId) async {

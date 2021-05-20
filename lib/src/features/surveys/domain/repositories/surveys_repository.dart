@@ -10,6 +10,8 @@ abstract class SurveysRepository {
 
   Future<Either<Failure, Survey>> disableSurvey(String surveyId);
 
+  Future<Either<Failure, Survey>> detailsSurvey(String surveyId);
+
   Future<Either<Failure, Survey>> updateSurvey(String surveyId, Survey survey);
 
   Future<Either<Failure, bool>> deleteSurvey(String surveyId);

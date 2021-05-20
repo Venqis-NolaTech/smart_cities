@@ -5,7 +5,9 @@ import 'package:smart_cities/src/features/surveys/presentation/list/widgets/surv
 import 'package:smart_cities/src/shared/components/base_view.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 
-
+import '../../list/widgets/survey_list.dart';
+import '../../../domain/entities/survey.dart';
+import '../../crud/pages/crud_survey_page.dart';
 
 class AllSurveys extends StatefulWidget {
   AllSurveys({Key key}) : super(key: key);
@@ -69,9 +71,24 @@ class _AllSurveysState extends State<AllSurveys> {
           scrollController: _scrollController,
           provider: _provider,
           allowActions: false,
+          gotoCreateSurvey: (value)=> _gotoCreateSurvey(survey: value),
         ),
       ),
     );
   }
+
+  
+  void _gotoCreateSurvey({Survey survey}) async {
+    final success = await CrudSurveyPage.pushNavigate(
+          context,
+          args: CrudSurveyArgs(
+            survey: survey,
+          ),
+        ) ??
+        false;
+
+    if (success) _provider?.refreshData();
+  }
+
 
 }
