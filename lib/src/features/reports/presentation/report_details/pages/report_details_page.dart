@@ -49,6 +49,8 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
   int indexStack= 0;
   int indexUltimate= 0;
   bool addImage= false;
+  bool isVisible= false;
+
 
   set report(Report newReport) {
     if (_isDisposed) return;
@@ -136,6 +138,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ReportDetailsComment(  //widget para enviar un nuevo comentario
+                        isVisible: isVisible,
                         report: _report,
                         controller: _textController,
                         provider: provider,
@@ -164,6 +167,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
                     setState(() {
                       indexStack=2;
                       addImage= false;
+                      isVisible= true;
                     });
                   }),
                 ) : Container(),
@@ -191,6 +195,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
               if(indexStack!=2)
                 setState(() {
                   addImage= true;
+                  //isVisible= true;
                 });
             },
           ),

@@ -49,7 +49,7 @@ class SurveyItem extends StatelessWidget {
         right: 16.0,
       ),
       child: Material(
-        color: survey.isAnswerByUser ? AppColors.background :   AppColors.white,
+        color: Colors.white, //survey.isAnswerByUser ? AppColors.background :
         child: InkWell(
             onTap: onPressed,
             child: Row(
@@ -101,6 +101,7 @@ class SurveyItem extends StatelessWidget {
 
           //Spaces.verticalSmall(),
 
+          survey.createdBy.id==currentUser.id ? Container(height: 20) :
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -118,7 +119,7 @@ class SurveyItem extends StatelessWidget {
         child: Text(
           S.of(context).seeSurvey.toUpperCase(),
           style: kNormalStyle.copyWith(
-            color: AppColors.blueBtnRegister,
+            color: survey.isAnswerByUser ? AppColors.red : AppColors.blueBtnRegister,
             fontWeight: FontWeight.bold,
           ),
         ));

@@ -10,6 +10,7 @@ class CommentBox extends StatefulWidget {
   CommentBox({
     this.buttonEnabled = false,
     this.inputEnabled = false,
+    this.isVisible= false,
     @required this.textController,
     @required this.onTextChanged,
     @required this.onIsAnonymousChanged,
@@ -19,6 +20,7 @@ class CommentBox extends StatefulWidget {
 
   final bool buttonEnabled;
   final bool inputEnabled;
+  final bool isVisible;
   final TextEditingController textController;
   final Function(String) onTextChanged;
   final Function(bool) onIsAnonymousChanged;
@@ -30,11 +32,12 @@ class CommentBox extends StatefulWidget {
 }
 
 class _CommentBoxState extends State<CommentBox> {
-  bool isVisible = false;
   bool isAnonymous = false;
 
   @override
   Widget build(BuildContext context) {
+    bool isVisible = widget.isVisible;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.0),
       decoration: BoxDecoration(

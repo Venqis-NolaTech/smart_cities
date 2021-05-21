@@ -14,6 +14,7 @@ class ReportDetailsComment extends StatelessWidget {
   ReportDetailsComment({
     Key key,
     @required this.report,
+    this.isVisible= false,
     @required this.controller,
     @required this.provider,
     @required this.addPhotoAction,
@@ -21,6 +22,7 @@ class ReportDetailsComment extends StatelessWidget {
   }) : super(key: key);
 
   final Report report;
+  final bool isVisible;
   final TextEditingController controller;
   final ReportDetailsProvider provider;
   final Function addPhotoAction;
@@ -70,6 +72,7 @@ class ReportDetailsComment extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           CommentBox(
+            isVisible: isVisible,
             textController: controller,
             inputEnabled: isCommetAllow,
             buttonEnabled: provider.comment.isNotNullOrNotEmpty,
