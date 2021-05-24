@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_cities/src/features/reports/presentation/report_details/providers/report_details_provider.dart';
 
 import '../../../generated/i18n.dart';
 import '../app_colors.dart';
@@ -10,7 +11,7 @@ class CommentBox extends StatefulWidget {
   CommentBox({
     this.buttonEnabled = false,
     this.inputEnabled = false,
-    this.isVisible= false,
+    @required this.provider,
     @required this.textController,
     @required this.onTextChanged,
     @required this.onIsAnonymousChanged,
@@ -20,7 +21,7 @@ class CommentBox extends StatefulWidget {
 
   final bool buttonEnabled;
   final bool inputEnabled;
-  final bool isVisible;
+  final ReportDetailsProvider provider;
   final TextEditingController textController;
   final Function(String) onTextChanged;
   final Function(bool) onIsAnonymousChanged;
@@ -36,7 +37,6 @@ class _CommentBoxState extends State<CommentBox> {
 
   @override
   Widget build(BuildContext context) {
-    bool isVisible = widget.isVisible;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.0),
@@ -52,7 +52,7 @@ class _CommentBoxState extends State<CommentBox> {
       child: Column(
         children: [
           Visibility(
-            visible: isVisible,
+            visible: widget.provider.isVisibleComment,
             child: Row(
               children: [
                 Checkbox(
@@ -82,14 +82,14 @@ class _CommentBoxState extends State<CommentBox> {
             children: <Widget>[
               AppImages.iconComment,
               Spaces.horizontalSmall(),
-              !isVisible
+              ! widget.provider.isVisibleComment
                   ? Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           FlatButton(
                               onPressed: () {
-                                isVisible = !isVisible;
+                                widget.provider.isVisibleComment = !widget.provider.isVisibleComment;
                                 setState(() {});
                               },
                               child: Text(S.of(context).comment, style: kNormalStyle.copyWith(
@@ -134,14 +134,14 @@ class _CommentBoxState extends State<CommentBox> {
 
               Spaces.horizontalSmallest(),
               Visibility(
-                visible: isVisible,
+                visible:  widget.provider.isVisibleComment,
                 child: FlatButton(
                     onPressed: widget.buttonEnabled
                         ? () async {
                             bool success = await widget.sendAction();
                             if (success == true) {
                               widget.textController.clear();
-                              isVisible = !isVisible;
+                              widget.provider.isVisibleComment = ! widget.provider.isVisibleComment;
                               setState(() {});
                             }
                           }
