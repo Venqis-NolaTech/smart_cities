@@ -18,7 +18,6 @@ import 'package:smart_cities/src/shared/spaces.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 
-
 class AddAccountPage extends StatefulWidget {
   static const id = "add_account_page";
 
@@ -28,7 +27,6 @@ class AddAccountPage extends StatefulWidget {
         : Navigator.pushNamed(context, id);
   }
 
-
   @override
   _AddAccountPageState createState() => _AddAccountPageState();
 }
@@ -37,27 +35,23 @@ class _AddAccountPageState extends State<AddAccountPage> {
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static GlobalKey<FormState> _formKeyAccount = GlobalKey<FormState>();
 
-
   bool isCvvFocused = false;
 
   final _nameOwner = FocusNode();
 
-  List<CatalogItem> paymentMethod=[];
+  List<CatalogItem> paymentMethod = [];
   CatalogItem paymentMethodSelected;
 
   @override
   Widget build(BuildContext context) {
     return BaseView<AddAccountBankProvider>(
-        onProviderReady: (provider)=> provider.loadData(),
-        builder: (context, provider, child ){
-
-
-
+        onProviderReady: (provider) => provider.loadData(),
+        builder: (context, provider, child) {
           return ModalProgressHUD(
               inAsyncCall: provider.currentState is Loading,
               child: Theme(
                 data: ThemeData(
-                  primaryColor:  Colors.blue.withOpacity(0.8),
+                  primaryColor: Colors.blue.withOpacity(0.8),
                   primaryColorDark: Colors.blue,
                 ),
                 child: Scaffold(
@@ -70,72 +64,59 @@ class _AddAccountPageState extends State<AddAccountPage> {
                           onPressed: _onBackPressed,
                           child: Text(
                             S.of(context).cancel,
-                            style: kSmallTextStyle.copyWith(color: AppColors.white),
+                            style: kSmallTextStyle.copyWith(
+                                color: AppColors.white),
                           ))
                     ],
                   ),
-
                   body: SingleChildScrollView(
                     child: Column(
                       children: [
                         CustomCard(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 12),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   S.of(context).addAccount,
-                                  style: kMediumTitleStyle.copyWith(color: AppColors.primaryText),
+                                  style: kMediumTitleStyle.copyWith(
+                                      color: AppColors.primaryText),
                                 ),
-
                                 Spaces.verticalSmall(),
-
                                 Text(
                                   S.of(context).addAccountMessage('Nahomi'),
                                   textAlign: TextAlign.center,
-                                  style: kNormalStyle.copyWith(color: AppColors.primaryText),
+                                  style: kNormalStyle.copyWith(
+                                      color: AppColors.primaryText),
                                 ),
-
                                 Spaces.verticalSmall(),
                               ],
                             ),
                           ),
                         ),
-
                         Spaces.verticalSmall(),
                         _buildFormAccount(context, provider),
                         Spaces.verticalSmall(),
-
-                        provider.paymentMethodSelected==null ? Container() :
-                        provider.paymentMethodSelected.key == DataKey.CREDITCARD ?
-                        buildCreditCardForm(provider) :
-                        buildBankAccountForm(context, provider),
+                        provider.paymentMethodSelected == null
+                            ? Container()
+                            : provider.paymentMethodSelected.key ==
+                                    DataKey.CREDITCARD
+                                ? buildCreditCardForm(provider)
+                                : buildBankAccountForm(context, provider),
                         Spaces.verticalSmall(),
-                        provider.paymentMethodSelected==null ? Container() :
-                        _btnStart(context, provider),
+                        provider.paymentMethodSelected == null
+                            ? Container()
+                            : _btnStart(context, provider),
                         Spaces.verticalMedium(),
-
                       ],
-
-
                     ),
-
-
-
-
-
-
-                  ) ,
+                  ),
                 ),
-              )
-
-          );
-        }
-    );
-
-
+              ));
+        });
   }
 
   Widget buildCreditCardForm(AddAccountBankProvider provider) {
@@ -158,17 +139,25 @@ class _AddAccountPageState extends State<AddAccountPage> {
       ),
       expiryDateDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-        hintText: S.of(context).expirationDate,
+        hintText: S.of(context).exp,
       ),
       cvvCodeDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         hintText: S.of(context).cvv,
       ),
-      onCreditCardModelChange: (creditCardModel) => onCreditCardModelChange(creditCardModel, provider),
+      onCreditCardModelChange: (creditCardModel) =>
+          onCreditCardModelChange(creditCardModel, provider),
+
+      cvvValidationMessage: S.of(context).cvvValidationMessage,    
+      dateValidationMessage: S.of(context).dateValidationMessage,    
+      numberValidationMessage: S.of(context).numberValidationMessage,    
+ 
+
     );
   }
 
-  Widget buildBankAccountForm(BuildContext context, AddAccountBankProvider provider) {
+  Widget buildBankAccountForm(
+      BuildContext context, AddAccountBankProvider provider) {
     return BankAccountForm(
       formKey: _formKeyAccount,
       accountNumber: provider.accountNumber,
@@ -186,12 +175,14 @@ class _AddAccountPageState extends State<AddAccountPage> {
         //labelText: S.of(context).numberCard,
         hintText: S.of(context).hintNumberOfAcccount,
       ),
-      onAccountModelChange: (creditCardModel)=>onAccountModelChange(creditCardModel, provider),
+      onAccountModelChange: (creditCardModel) =>
+          onAccountModelChange(creditCardModel, provider),
       provider: provider,
     );
   }
 
-  void onCreditCardModelChange(CreditCardModel creditCardModel, AddAccountBankProvider provider) {
+  void onCreditCardModelChange(
+      CreditCardModel creditCardModel, AddAccountBankProvider provider) {
     setState(() {
       provider.cardNumber = creditCardModel.cardNumber;
       provider.expiryDate = creditCardModel.expiryDate;
@@ -201,8 +192,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
     });
   }
 
-
-  void onAccountModelChange(AccountBankModel accountBankModel, AddAccountBankProvider provider) {
+  void onAccountModelChange(
+      AccountBankModel accountBankModel, AddAccountBankProvider provider) {
     setState(() {
       provider.accountNumber = accountBankModel.accountNumber;
       provider.accountHolderName = accountBankModel.accountHolderName;
@@ -211,10 +202,10 @@ class _AddAccountPageState extends State<AddAccountPage> {
     });
   }
 
-  void _onBackPressed() {
-  }
+  void _onBackPressed() {}
 
-  Widget _buildFormAccount(BuildContext context, AddAccountBankProvider provider) {
+  Widget _buildFormAccount(
+      BuildContext context, AddAccountBankProvider provider) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Form(
@@ -225,63 +216,52 @@ class _AddAccountPageState extends State<AddAccountPage> {
             Text(S.of(context).ownerName, style: kNormalStyle),
             Spaces.verticalSmall(),
             TextFormField(
-              onChanged: (value){
-                provider.holderName= value;
+              onChanged: (value) {
+                provider.holderName = value;
               },
               decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0)
-                  ),
+                      borderRadius: BorderRadius.circular(8.0)),
                   hintText: S.of(context).ownerName,
-                  hintStyle: TextStyle(color: AppColors.greyButtom.withOpacity(0.7))
-              ),
+                  hintStyle:
+                      TextStyle(color: AppColors.greyButtom.withOpacity(0.7))),
               focusNode: _nameOwner,
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.done,
-              onFieldSubmitted: (value){
+              onFieldSubmitted: (value) {
                 //FocusScope.of(context).requestFocus(new FocusNode());
               },
-              onSaved: (value) {
-
-              },
+              onSaved: (value) {},
               //style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),
             ),
             Spaces.verticalSmall(),
-
-
             Text(S.of(context).typeOfAccount, style: kNormalStyle),
             Spaces.verticalSmall(),
-
             DropDownList<CatalogItem>(
-              title:'',
+              title: '',
               hintTitle: S.of(context).selectTypeAccount,
               items: AddAccountBankProvider.typeAccount,
               itemSelected: provider.typeAccountSelected,
-              onSelected: (paymentMethod){
-                provider.typeAccountSelected= paymentMethod;
+              onSelected: (paymentMethod) {
+                provider.typeAccountSelected = paymentMethod;
               },
             ),
             Spaces.verticalSmall(),
             Text(S.of(context).paymentMethod, style: kNormalStyle),
             Spaces.verticalSmall(),
             DropDownList<CatalogItem>(
-              title:'',
+              title: '',
               hintTitle: S.of(context).paymentMethod,
               items: AddAccountBankProvider.paymentMethod,
               itemSelected: provider.paymentMethodSelected,
-              onSelected: (paymentMethod){
-                provider.paymentMethodSelected= paymentMethod;
+              onSelected: (paymentMethod) {
+                provider.paymentMethodSelected = paymentMethod;
               },
             ),
-
-
-
           ],
         ),
       ),
     );
-
-
   }
 
   Widget _btnStart(BuildContext context, AddAccountBankProvider provider) {
@@ -292,26 +272,50 @@ class _AddAccountPageState extends State<AddAccountPage> {
           borderColor: AppColors.white,
           elevation: 0,
           title: S.of(context).createAccount,
-          style: kTitleStyle.copyWith( fontWeight: FontWeight.bold, color: AppColors.white),
+          style: kTitleStyle.copyWith(
+              fontWeight: FontWeight.bold, color: AppColors.white),
           onPressed: () async {
-            await provider.sendAccount();
-            _process(provider, context);
+            var validate =
+                provider.paymentMethodSelected.key == DataKey.CREDITCARD
+                    ? _formKey.currentState.validate() 
+                    : _formKeyAccount.currentState.validate()  &&
+                        provider.bankSelected != null &&
+                        provider.typeAccountBankSelected != null;
+
+            if (validate) {
+              await provider.sendAccount();
+              _process(provider, context);
+            } else 
+            if(!validate && provider.paymentMethodSelected.key == DataKey.BANK_ACCOUNT){
+              var title = S.of(context).completeData;
+              var image = AppImages.iconFailed;
+
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return InfoAlertDialog(
+                      image: image ,
+                      title: title,
+                      message: '',
+                      onConfirm: null
+                    );
+                  });
+            }
+
             /*Navigator.pushNamedAndRemoveUntil(
               context,
               MainPage.id,
               ModalRoute.withName(MainPage.id),
             );*/
-          }
-      ),
+          }),
     );
   }
 
-
   void _process(AddAccountBankProvider provider, BuildContext context) {
-
     final currentState = provider.currentState;
 
-    Widget image =  Image.asset(AppImagePaths.createComment, height: 120);
+    Widget image = Image.asset(AppImagePaths.createComment, height: 120);
     String title = S.of(context).accountCreatedSuccessMessage;
     bool sucesss = true;
 
@@ -331,13 +335,10 @@ class _AddAccountPageState extends State<AddAccountPage> {
             message: '',
             onConfirm: sucesss
                 ? () {
-              Navigator.pop(context, true);
-            }
+                    Navigator.pop(context, true);
+                  }
                 : null,
-
           );
         });
   }
-
-
 }

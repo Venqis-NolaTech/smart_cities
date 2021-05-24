@@ -83,7 +83,7 @@ class _CreditCardFormState extends State<CreditCardForm> {
   final MaskedTextController _cardNumberController = MaskedTextController(mask: '0000 0000 0000 0000');
   final TextEditingController _expiryDateController = MaskedTextController(mask: '00/00');
   final TextEditingController _cardHolderNameController = TextEditingController();
-  final TextEditingController _cvvCodeController = MaskedTextController(mask: '0000');
+  final TextEditingController _cvvCodeController = MaskedTextController(mask: '000');
 
   FocusNode cvvFocusNode = FocusNode();
   FocusNode cardNumberNode = FocusNode();
@@ -196,6 +196,12 @@ class _CreditCardFormState extends State<CreditCardForm> {
                 },
                 onEditingComplete: () {
                   onCreditCardModelChange(creditCardModel);
+                },
+                validator: (value){
+                  if (value.isEmpty) {
+                    return S.of(context).requiredField;
+                  } else
+                    return null;
                 },
               ),
             ),

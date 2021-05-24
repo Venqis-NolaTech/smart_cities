@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:smart_cities/src/shared/app_images.dart';
 import 'package:smart_cities/src/shared/components/firebase_storage_image.dart';
-import 'package:smart_cities/src/shared/components/rounded_button.dart';
 import 'package:smart_cities/src/shared/components/custom_card.dart';
 
+import '../../../../../../app.dart';
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
 import '../../../../../shared/constant.dart';
 import '../../../domain/entities/survey.dart';
 import '../../../domain/entities/user_display.dart';
-import '../../../../../shared/spaces.dart';
 
 enum SurveyMenuOption {
   publish,
@@ -50,7 +49,7 @@ class SurveyItem extends StatelessWidget {
         right: 16.0,
       ),
       child: Material(
-        color: Colors.white,
+        color: Colors.white, //survey.isAnswerByUser ? AppColors.background :
         child: InkWell(
             onTap: onPressed,
             child: Row(
@@ -58,7 +57,7 @@ class SurveyItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(child: _buildContent(context)),
-                allowActions ? _buildPopupMenuButton(context) : Container(),
+                _buildPopupMenuButton(context),
               ],
             )),
       ),
@@ -102,6 +101,7 @@ class SurveyItem extends StatelessWidget {
 
           //Spaces.verticalSmall(),
 
+          survey.createdBy.id==currentUser.id ? Container(height: 20) :
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -119,7 +119,7 @@ class SurveyItem extends StatelessWidget {
         child: Text(
           S.of(context).seeSurvey.toUpperCase(),
           style: kNormalStyle.copyWith(
-            color: AppColors.blueBtnRegister,
+            color: survey.isAnswerByUser ? AppColors.red : AppColors.blueBtnRegister,
             fontWeight: FontWeight.bold,
           ),
         ));
@@ -164,11 +164,19 @@ class SurveyItem extends StatelessWidget {
       child: Text(S.of(context).delete),
     );
 
-    entry.addAll([
-      shareOption,
-      //disableOption,
-      deleteOption
-    ]);
+    if (survey.isOtherShare){
+      if(survey.createdBy.id==currentUser.id)
+        entry.addAll([
+          shareOption,
+          //disableOption,
+          deleteOption
+        ]);
+      else
+        entry.addAll([shareOption]);
+    }else
+        if (survey.createdBy.id==currentUser.id)
+          entry.addAll([deleteOption]);
+         
 
     /*if (survey.public) {
       entry.addAll([
@@ -184,6 +192,10 @@ class SurveyItem extends StatelessWidget {
       ]);
     }*/
 
+    if(entry.isEmpty)
+      return Container();
+
+
     return PopupMenuButton(
       icon: Icon(
         MdiIcons.dotsHorizontal,
@@ -197,12 +209,24 @@ class SurveyItem extends StatelessWidget {
   }
 
   Widget _buildUserDisplay(BuildContext context) {
+    print('fecha de expiracion ${survey.name}  ${survey.expirationDate}');
+    //var diferencia= DateTime.now().difference(DateTime.parse(survey.expirationDate)).inHours;
+    var diferencia = DateTime.parse(survey.expirationDate)
+        .difference(DateTime.now())
+        .inHours;
+    print('diferencia en horas ${survey.name}  ${diferencia}');
+
     return Container(
       //padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildProfile(survey.createdBy),
+          survey.isHideParticipantData
+              ? Container(
+                  width: 20,
+                  height: 40,
+                )
+              : _buildProfile(survey.createdBy),
           Expanded(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -210,7 +234,9 @@ class SurveyItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${survey.createdBy?.displayName ?? ''}',
+                  survey.isHideParticipantData
+                      ? S.of(context).anonymous
+                      : '${survey.createdBy?.displayName ?? ''}',
                   style: kSmallTextStyle.copyWith(
                     color: AppColors.blueBtnRegister,
                     fontWeight: FontWeight.w400,
@@ -218,12 +244,15 @@ class SurveyItem extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 Text(
-                  'Termina en 2h',
+                  diferencia < 0
+                      ? S.of(context).finished
+                      : S.of(context).finishedIn(diferencia.toInt()),
                   style: kSmallTextStyle.copyWith(
-                    color: AppColors.blueButton,
+                    color:
+                        diferencia < 0 ? AppColors.red : AppColors.blueButton,
                     fontWeight: FontWeight.w400,
                   ),
-                  textAlign: TextAlign.right,
+                  textAlign: TextAlign.start,
                 ),
               ],
             ),

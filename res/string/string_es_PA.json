@@ -476,6 +476,15 @@
     "surveysTime": "La Encuesta terminará en",
     "hideMainData":"Ocultar datos de participantes" ,
     "shareSurveys":"Otros podrán compartir esta encuesta",
-    "saveSurvey": "Publicar Encuesta"
+    "saveSurvey": "Publicar Encuesta",
+    "addSector2": "Agregar Sector",
+    "exp": "F/Exp.",
+    "numberAccountFailed": "Nuemro de cuenta es inválido",
+    "cvvValidationMessage": "Ingrese un CVV válido",    
+    "dateValidationMessage": "Ingrese una fecha valida",    
+    "numberValidationMessage": "Ingrese un numero de tarjeta válido",
+    "anonymous": "Anónimo",
+    "finishedIn": "Termina en ${hours} h",
+    "finished": "Terminada"
 
 }

@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/core/entities/catalog_item.dart';
-import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
 import 'package:smart_cities/src/shared/components/header_route.dart';
 import 'package:smart_cities/src/shared/constant.dart';
@@ -11,6 +10,9 @@ import 'package:smart_cities/src/shared/spaces.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/features/reports/presentation/new_report/widget/bottom_navigation.dart';
 import 'package:smart_cities/src/shared/components/rounded_button.dart';
+import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
+
+
 
 class ReportLackCollectionPage extends StatefulWidget {
   static const id = "report_lack_collection_page";
@@ -121,17 +123,14 @@ class _ReportLackCollectionPageState extends State<ReportLackCollectionPage> {
     return InkWell(
       onTap: ()async {
 
-        setState(() {
-          _stepIndex=1;
-        });
-        /*var result= await Navigator.pushNamed(context, SelectSectorPage.id);
+        var result= await Navigator.pushNamed(context, SelectSectorPage.id);
         print('sector seleccionado $result');
         if(result!=null) {
           selectedSector = result;
           setState(() {
 
           });
-        }*/
+        }
       },
       child: Row(
         children: [

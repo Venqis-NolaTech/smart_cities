@@ -121,6 +121,7 @@ class WhenTakeOutTrashPage extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
       child: Container(
         width:  MediaQuery.of(context).size.width / 2.7,
+        height: 80,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

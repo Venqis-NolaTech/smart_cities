@@ -11,7 +11,9 @@ class EmailConfirmationProvider extends BaseProvider {
 
   void refresh() => notifyListeners();
 
-  void sendEmailVerification() {
-    sendEmailVerificationUseCase(NoParams());
+  Future<void> sendEmailVerification() async  {
+    var result= await sendEmailVerificationUseCase(NoParams());
+
+    result.fold((l) => print('fallo al enviar correo de validacion'), (r) => 'correo enviado exitosamente');
   }
 }

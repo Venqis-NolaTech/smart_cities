@@ -8,8 +8,9 @@ import 'package:smart_cities/src/shared/spaces.dart';
 class ItemPayment extends StatelessWidget {
   final Payment payment;
   final Function onTap;
+  final Function(bool) onSelect;
 
-  const ItemPayment({Key key, this.payment, this.onTap}) : super(key: key);
+  const ItemPayment({Key key, this.payment, this.onTap, this.onSelect}) : super(key: key);
 
 
   @override
@@ -37,7 +38,7 @@ class ItemPayment extends StatelessWidget {
               Spaces.horizontalSmall(),
               Checkbox(
                 value: payment.selected,
-                onChanged: (value){},
+                onChanged: (value) => onSelect(value),
               )
 
 

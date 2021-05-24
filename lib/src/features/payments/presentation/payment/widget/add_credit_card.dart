@@ -189,13 +189,17 @@ class AddCreditCard extends StatelessWidget {
       ),
       expiryDateDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-        hintText: S.of(context).expirationDate,
+        hintText: S.of(context).exp,
       ),
       cvvCodeDecoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         hintText: S.of(context).cvv,
       ),
       onCreditCardModelChange: (creditCardModel) => {},
+      cvvValidationMessage: S.of(context).cvvValidationMessage,    
+      dateValidationMessage: S.of(context).dateValidationMessage,    
+      numberValidationMessage: S.of(context).numberValidationMessage,    
+
     );
 
   }

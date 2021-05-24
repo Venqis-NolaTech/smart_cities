@@ -44,6 +44,14 @@ class SurveysRepositoryImpl implements SurveysRepository {
   }
 
   @override
+  Future<Either<Failure, Survey>> detailsSurvey(String surveyId) {
+    return _process<Survey>(
+      () => surveysDataSource.detailsSurvey(surveyId),
+    );
+  }
+
+
+  @override
   Future<Either<Failure, bool>> deleteSurvey(String surveyId) {
     return _process<bool>(
       () => surveysDataSource.deleteSurvey(surveyId),

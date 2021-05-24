@@ -10,6 +10,11 @@ import 'package:smart_cities/src/shared/spaces.dart';
 
 
 class PaymentWidget extends StatelessWidget {
+  final Function moveToPayment;
+
+  const PaymentWidget({Key key, this.moveToPayment}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -65,8 +70,8 @@ class PaymentWidget extends StatelessWidget {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: null,
+            InkWell(
+              onTap: moveToPayment,
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18.0),

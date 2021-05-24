@@ -24,7 +24,7 @@ class NewReviewProvider extends BaseProvider{
     final payload = {
       DataKey.RANTING : qualification,
       DataKey.COMMENT: comment,
-      DataKey.TITLE: title
+      DataKey.TITLE: ''
     };
 
     await _createComment(payload);
@@ -55,7 +55,7 @@ class NewReviewProvider extends BaseProvider{
   }
 
   bool validate() {
-    if( title==null || comment==null || qualification==null)
+    if(comment==null || qualification==null)
       return false;
     else 
       return true;

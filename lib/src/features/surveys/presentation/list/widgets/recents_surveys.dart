@@ -96,6 +96,7 @@ class _RecentSurveysState extends State<RecentSurveys> {
           scrollController: _scrollController,
           provider: _provider,
           allowActions: false,
+          gotoCreateSurvey: (value) => _gotoCreateSurvey(survey: value),
         );
   }
 

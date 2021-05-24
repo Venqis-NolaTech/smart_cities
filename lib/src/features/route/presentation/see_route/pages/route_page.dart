@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_cities/src/features/route/presentation/see_route/widget/real_time.dart';
 import 'package:smart_cities/src/features/route/presentation/see_route/widget/see_route.dart';
+import 'package:smart_cities/src/features/select_sector/presentation/page/select_sector_page.dart';
 
 
 
@@ -17,16 +18,16 @@ class RoutePage extends StatefulWidget {
 
 class _RoutePageState extends State<RoutePage>  with SingleTickerProviderStateMixin {
   List<Widget> _widgetOptions;
-
   TabController _tabController;
+  var widget1= RealTime();
+  var widget2= SeeRoute();
+
+
 
   @override
   void initState() { 
     super.initState();
-    _widgetOptions = <Widget>[
-      RealTime(),
-      SeeRoute()
-    ];
+    _widgetOptions = <Widget>[widget1, widget2];
 
     _tabController = TabController(vsync: this, length: _widgetOptions.length);
   }
@@ -54,8 +55,8 @@ class _RoutePageState extends State<RoutePage>  with SingleTickerProviderStateMi
 
         IconButton(
             onPressed: () async {
-              //await Navigator.pushNamed(context, FilterReportPage.id);
-              
+              var result= await Navigator.pushNamed(context, SelectSectorPage.id);
+              widget1.changeSector2(result);
             },
             icon: Icon(
               Icons.tune,

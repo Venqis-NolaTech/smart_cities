@@ -7,7 +7,6 @@ import 'package:smart_cities/src/core/api/public_http_client.dart';
 
 import '../../../../../core/api/auth_client.dart';
 import '../../../../../core/models/response_model.dart';
-import '../../../../../core/util/flavor_config.dart';
 import '../../models/survey_model.dart';
 
 abstract class SurveysDataSource {
@@ -18,6 +17,8 @@ abstract class SurveysDataSource {
   Future<SurveyModel> disableSurvey(String surveyId);
 
   Future<SurveyModel> updateSurvey(String surveyId, SurveyModel survey);
+
+  Future<SurveyModel> detailsSurvey(String surveyId);
 
   Future<bool> deleteSurvey(String surveyId);
 
@@ -44,6 +45,7 @@ class SurveysDataSourceImpl implements SurveysDataSource {
   Future<SurveyModel> createSurvey(SurveyModel survey) async {
     final payload = json.encode(survey.toPayload());
 
+    print('payload nueva encuesta ${payload}');
     final response = await authHttpClient.post(
       '/api/poll',
       body: payload,
@@ -72,6 +74,18 @@ class SurveysDataSourceImpl implements SurveysDataSource {
   }
 
   @override
+  Future<SurveyModel> detailsSurvey(String surveyId) async {
+    final response = await authHttpClient.get(
+      '/api/poll/$surveyId'
+    );
+
+    final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
+
+    return SurveyModel.fromJson(body.data);
+  }  
+  
+
+  @override
   Future<SurveyModel> publishSurvey(String surveyId) async {
     final payload = json.encode({"isPublic": true});
 
@@ -95,7 +109,7 @@ class SurveysDataSourceImpl implements SurveysDataSource {
     }
 
     final response =
-        await _getRequest('/api/poll/public', queryParams, publicHttpClient);
+        await _getRequest('/api/poll/private', queryParams, authHttpClient);
 
     final body = ResponseModel<Map<String, dynamic>>.fromJson(response.data);
 

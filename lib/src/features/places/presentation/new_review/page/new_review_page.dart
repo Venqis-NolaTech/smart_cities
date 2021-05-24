@@ -74,7 +74,7 @@ class NewReviewPage extends StatelessWidget {
           key: _formKey,
           child: Column(
             children: [
-              Row(
+              /*Row(
                 children: [
                   Text(S.of(context).title,
                       style: kTitleStyle.copyWith(
@@ -90,7 +90,7 @@ class NewReviewPage extends StatelessWidget {
                 textInputAction: TextInputAction.next,
                 style: kTitleStyle.copyWith(color: AppColors.blueBtnRegister),
               ),
-              Divider(),
+              Divider(),*/
               Spaces.verticalSmall(),
               Row(
                 children: [

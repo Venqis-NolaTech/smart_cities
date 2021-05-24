@@ -5,7 +5,6 @@ import 'package:smart_cities/generated/i18n.dart';
 import 'package:smart_cities/src/features/surveys/domain/entities/survey.dart';
 import 'package:smart_cities/src/features/surveys/presentation/list/widgets/survey_item.dart';
 import 'package:smart_cities/src/features/surveys/presentation/list/widgets/survey_list.dart';
-import 'package:smart_cities/src/shared/components/custom_card.dart';
 import 'package:smart_cities/src/shared/components/info_alert_dialog.dart';
 import 'package:smart_cities/src/shared/provider/view_state.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
@@ -17,6 +16,8 @@ import '../../../../../shared/app_images.dart';
 import '../../../../../../app.dart';
 import '../../../../../shared/components/base_view.dart';
 import '../providers/my_surveys_provider.dart';
+import '../../crud/pages/crud_survey_page.dart';
+
 
 class MySurveys extends StatefulWidget {
 
@@ -88,14 +89,26 @@ class _MySurveysState extends State<MySurveys> {
             scrollController: _scrollController,
             provider: _provider,
             allowActions: true,
+            gotoCreateSurvey: (value) => _gotoCreateSurvey(survey: value),
             onOptionMenuSelected: _onOptionMenuSelected,
           )
       ),
     );
   }
 
+  void _gotoCreateSurvey({Survey survey}) async {
+    final success = await CrudSurveyPage.pushNavigate(
+          context,
+          args: CrudSurveyArgs(
+            survey: survey,
+          ),
+        ) ??
+        false;
 
-    void _onOptionMenuSelected(SurveyMenuOption option, Survey survey) async {
+    if (success) _provider?.refreshData();
+  }
+
+  void _onOptionMenuSelected(SurveyMenuOption option, Survey survey) async {
 
 
     switch (option) {

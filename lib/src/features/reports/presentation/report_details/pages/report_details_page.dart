@@ -161,10 +161,10 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
                 addImage ? Padding(
                   padding: EdgeInsets.only(top: screenHeight*0.07),
                   child: AddPhotoHeader(takePhoto: (){
-                    setState(() {
-                      indexStack=2;
-                      addImage= false;
-                    });
+                    indexStack=2;
+                    addImage= false;
+                    provider.isVisibleComment= true;
+                    setState(() { });
                   }),
                 ) : Container(),
 
@@ -191,6 +191,7 @@ class _ReportDetailsPageState extends State<ReportDetailsPage> {
               if(indexStack!=2)
                 setState(() {
                   addImage= true;
+                  //isVisible= true;
                 });
             },
           ),

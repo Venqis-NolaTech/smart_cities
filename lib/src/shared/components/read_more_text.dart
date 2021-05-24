@@ -196,7 +196,7 @@ class _ReadMoreTextState extends State<ReadMoreText> {
         textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
         final textSize = textPainter.size;
 
-        print('linkSize $linkSize textSize $textSize');
+        //print('linkSize $linkSize textSize $textSize');
 
         // Get the endIndex of data
         bool linkLongerThanLine = false;

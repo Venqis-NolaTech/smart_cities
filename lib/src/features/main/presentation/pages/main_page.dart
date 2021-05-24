@@ -37,6 +37,7 @@ class _MainPageState extends State<MainPage> {
       HomePage(
         toProfile: ()=> Navigator.pushNamed(context, ProfilePage.id),
         toRoute: ()=> moveTo(1),
+        moveToPayment: ()=> moveTo(3),
       ),
       RoutePage(),
       ReportsPage(onBackPress: onBackPressReport),
@@ -45,6 +46,7 @@ class _MainPageState extends State<MainPage> {
       ),
       MenuPage(
         onFunctionPickup: onFunctionPickup,
+        onFunctionPayment: onFunctionPayment,
       )
     ];
 
@@ -88,4 +90,9 @@ class _MainPageState extends State<MainPage> {
   void onFunctionPickup() {
     moveTo(1);
   }
+
+  void onFunctionPayment() {
+    moveTo(3);
+  }
+  
 }

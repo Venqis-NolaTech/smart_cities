@@ -38,6 +38,12 @@ class Survey extends Equatable {
   final UserDisplay createdBy;
   final String link;
 
+  //nuevos campos
+  String expirationDate;
+  bool isHideParticipantData;
+  bool isOtherShare;
+  bool isAnswerByUser;
+
   Survey({
     this.id,
     this.name,
@@ -48,6 +54,10 @@ class Survey extends Equatable {
     this.steps,
     this.createdBy,
     this.link,
+    this.expirationDate,
+    this.isHideParticipantData,
+    this.isOtherShare,
+    this.isAnswerByUser
   });
 
   @override

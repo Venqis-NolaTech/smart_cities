@@ -60,6 +60,8 @@ class SplashProvider extends BaseProvider {
     await _checkUserIsLogged();
     await _initializeRemoteParams();
     if (currentUser!=null && _callback != null) {
+      
+      await _getToken();
       Future.delayed(
         Duration(milliseconds: 250),
             () => _callback(_initialRoute),
@@ -127,14 +129,14 @@ class SplashProvider extends BaseProvider {
 
   }
 
-  // Future _getToken() async {
-  //   final failureOrSuccess = await getTokenUseCase(NoParams());
+  Future _getToken() async {
+     final failureOrSuccess = await getTokenUseCase(NoParams());
 
-  //   authHeaders = failureOrSuccess.fold(
-  //     (_) => null,
-  //     (token) => {"Authorization": 'Bearer $token'},
-  //   );
-  // }
+     authHeaders = failureOrSuccess.fold(
+       (_) => null,
+       (token) => {"Authorization": 'Bearer $token'},
+     );
+  }
 
   Future _checkPermission() async {
     bool permissionLocationisGranded = await Permission.location.isGranted;

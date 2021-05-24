@@ -53,6 +53,12 @@ class ReportDetailsProvider extends BaseNewReportFormProvider{
     notifyListeners();
   }
 
+  bool _isVisibleComment= false;
+  set isVisibleComment(bool value) {
+    _isVisibleComment = value;
+    notifyListeners();
+  }
+  get isVisibleComment => _isVisibleComment;
 
   @override
   Future<void> refreshData() async {

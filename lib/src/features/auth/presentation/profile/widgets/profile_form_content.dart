@@ -159,7 +159,7 @@ class _ProfileFormContentState extends State<ProfileFormContent> {
                 labelStyle: kSmallTextStyle.copyWith(color: AppColors.blueBtnRegister)
             ),
             style: kNormalStyle.copyWith(color: AppColors.blueBtnRegister),
-            enabled: provider.editMode,
+            enabled: false,
           ),
 
           InkWell(      

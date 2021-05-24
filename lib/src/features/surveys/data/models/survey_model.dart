@@ -42,6 +42,11 @@ class SurveyModel extends Survey {
     String link,
     List<StepModel> steps,
     UserDisplayModel createdBy,
+    //nuevos campos
+    String expirationDate,
+    bool isHideParticipantData,
+    bool isOtherShare,
+    bool isAnswerByUser
   }) : super(
           id: id,
           name: name,
@@ -52,6 +57,10 @@ class SurveyModel extends Survey {
           link: link,
           steps: steps,
           createdBy: createdBy,
+          expirationDate: expirationDate,
+          isHideParticipantData: isHideParticipantData,
+          isOtherShare: isOtherShare,
+          isAnswerByUser: isAnswerByUser
         );
 
   factory SurveyModel.fromJson(Map<String, dynamic> json) {
@@ -70,6 +79,10 @@ class SurveyModel extends Survey {
       createdBy: json['createdBy'] != null
           ? UserDisplayModel.fromJson(json['createdBy'])
           : null,
+      expirationDate: json['expirationDate'],
+      isHideParticipantData: json['isHideParticipantData'],
+      isOtherShare: json['isOtherShare'],
+      isAnswerByUser: json['isAnswerByUser'],
     );
   }
 
@@ -88,6 +101,11 @@ class SurveyModel extends Survey {
       'createdBy': createdBy != null
           ? UserDisplayModel.fromEntity(createdBy).toJson()
           : null,
+
+      'expirationDate': expirationDate,
+      'isHideParticipantData': isHideParticipantData,
+      'isOtherShare': isOtherShare,
+      'isAnswerByUser': isAnswerByUser
     };
   }
 
@@ -100,6 +118,9 @@ class SurveyModel extends Survey {
       'steps': steps.isNotNullOrNotEmpty
           ? steps.map((r) => StepModel.fromEntity(r).toPayload()).toList()
           : null,
+      'expirationDate': expirationDate,
+      'isHideParticipantData': isHideParticipantData,
+      'isOtherShare': isOtherShare
     };
   }
 
@@ -116,6 +137,10 @@ class SurveyModel extends Survey {
           ? survey.steps.map((s) => StepModel.fromEntity(s)).toList()
           : null,
       createdBy: survey.createdBy,
+      expirationDate: survey.expirationDate,
+      isHideParticipantData: survey.isHideParticipantData,
+      isOtherShare: survey.isOtherShare,
+      isAnswerByUser: survey.isAnswerByUser
     );
   }
 }

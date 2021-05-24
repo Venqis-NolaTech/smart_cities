@@ -13,8 +13,9 @@ import 'package:smart_cities/src/shared/provider/view_state.dart';
 
 class MenuPage extends StatelessWidget {
   final Function onFunctionPickup;
+  final Function onFunctionPayment;
 
-  MenuPage({Key key, @required this.onFunctionPickup}) : super(key: key);
+  MenuPage({Key key, @required this.onFunctionPickup, this.onFunctionPayment}) : super(key: key);
 
 
   @override
@@ -66,6 +67,7 @@ class MenuPage extends StatelessWidget {
       child: MenuContent(
         provider: provider,
         onFunctionPickup: onFunctionPickup,
+        onFunctionPayment: onFunctionPayment,
       ),
     );
   }

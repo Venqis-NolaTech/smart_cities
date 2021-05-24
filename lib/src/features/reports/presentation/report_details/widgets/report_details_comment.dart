@@ -70,6 +70,7 @@ class ReportDetailsComment extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           CommentBox(
+            provider: provider,
             textController: controller,
             inputEnabled: isCommetAllow,
             buttonEnabled: provider.comment.isNotNullOrNotEmpty,

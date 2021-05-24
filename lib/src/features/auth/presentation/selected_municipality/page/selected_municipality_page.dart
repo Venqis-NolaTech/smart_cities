@@ -132,6 +132,7 @@ class _SelectedMunicipalityPageState extends State<SelectedMunicipalityPage> {
       //await provider.editProfile();
     }else {
       municipalityOptional = item;
+      print('seteando el municipalityOptional');
       Navigator.pushReplacementNamed(context, MainPage.id);
     }
 

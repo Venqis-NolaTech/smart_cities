@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../generated/i18n.dart';
 import '../../../../../shared/app_colors.dart';
-//import '../../../../../shared/components/info_alert_dialog.dart';
-//import '../../../../../shared/provider/view_state.dart';
 import 'package:smart_cities/src/shared/components/tab_bar_container.dart';
 import '../widgets/recents_surveys.dart';
 import '../widgets/all_surveys.dart';
 import '../widgets/my_surveys.dart';
-import 'package:smart_cities/app.dart';
-import 'package:smart_cities/src/features/auth/data/models/user_model.dart';
 
 
 class SurveysPage extends StatefulWidget {
