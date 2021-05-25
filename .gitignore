@@ -73,6 +73,7 @@ lib/generated_plugin_registrant.dart
 
 # String bundle lang generated
 lib/generated/
+.fvm/
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
