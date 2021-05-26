@@ -130,7 +130,7 @@ dependencies:
   flutter_widget_from_html: ^0.5.1+5
 
   flutter_xlider: ^3.4.0
-
+  home_widget: ^0.0.2
 
 dev_dependencies:
   flutter_test:
