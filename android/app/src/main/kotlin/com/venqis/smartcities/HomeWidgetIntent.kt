@@ -8,7 +8,7 @@ import android.net.Uri
 
 object HomeWidgetLaunchIntent {
 
-    const val HOME_WIDGET_LAUNCH_ACTION = "es.antonborri.home_widget.action.LAUNCH"
+    const val HOME_WIDGET_LAUNCH_ACTION = "com.venqis.smartcities.action.LAUNCH"
 
     fun <T> getActivity(context: Context, activityClass: Class<T>, uri: Uri? = null): PendingIntent where T : Activity {
         val intent = Intent(context, activityClass)

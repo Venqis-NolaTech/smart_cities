@@ -27,7 +27,7 @@ class HomeWidgetPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "home_widget")
-        channel.setMethodCallHandler(this)
+        channel.setMethodCallHandler(this)  
 
         eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "home_widget/updates")
         eventChannel.setStreamHandler(this)
