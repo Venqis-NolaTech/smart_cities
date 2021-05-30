@@ -8,5 +8,6 @@
     android:previewImage="@android:drawable/ic_menu_add"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
-    android:widgetCategory="home_screen">
+    android:widgetCategory="home_screen"
+    android:id="@+id/widget_container">>
 </appwidget-provider>
