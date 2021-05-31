@@ -28,6 +28,10 @@ class AppRouter {
   }
 
   Route<dynamic> matchRoute(String path, {RouteSettings routeSettings}) {
+
+    print('path ${path}');
+
+
     final routeMatched = routes.firstWhere(
       (route) => route.path == path,
       orElse: () => null,
@@ -43,6 +47,7 @@ class AppRouter {
             routeMatched.handler.handlerFunc(routeSettings.arguments),
       );
     }
+
 
     return MaterialPageRoute(
       builder: (context) => Scaffold(
