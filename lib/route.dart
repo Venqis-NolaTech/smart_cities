@@ -38,6 +38,7 @@ import 'package:smart_cities/src/shared/components/web_view_page.dart';
 
 
 
+import 'home_widget/home_widget_page.dart';
 import 'src/features/auth/presentation/pre_login/page/pre_login.dart';
 import 'src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
 import 'src/features/auth/presentation/verify_code/pages/verify_code_page.dart';
@@ -196,7 +197,7 @@ class AppRoute {
         routePath: ProfilePage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => ProfilePage()),
       )
-  
+
       ..define(
         routePath: SelectSectorPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => SelectSectorPage()),
@@ -303,6 +304,16 @@ class AppRoute {
           return WebViewPage(args: args);
         }),
       )
+
+      ..define(
+        routePath: HomeWidgetPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) => HomeWidgetPage()),
+      )
+
+
+
+
+
     ;
 
   }
