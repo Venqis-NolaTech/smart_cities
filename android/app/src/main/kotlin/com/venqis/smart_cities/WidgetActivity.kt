@@ -23,7 +23,7 @@ class WidgetActivity : AppWidgetProvider() {
 
             val intent = FlutterActivity
                 .withNewEngine()
-                .initialRoute("surverys_page")
+                .initialRoute("help_line_page")
                 .build(context)
 
 

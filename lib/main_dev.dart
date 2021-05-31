@@ -37,6 +37,8 @@ void main() async {
   // init routes.
   AppRoute.init();
 
+  SystemChrome.setEnabledSystemUIOverlays([]);
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(App());
