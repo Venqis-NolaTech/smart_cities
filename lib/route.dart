@@ -4,7 +4,7 @@ import 'package:smart_cities/src/features/auth/presentation/selected_municipalit
 import 'package:smart_cities/src/features/auth/presentation/sign_up/register/pages/register_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_detail_page.dart';
 import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart';
-import 'package:smart_cities/src/features/help_line/presentation/page/help_line_page.dart';
+import 'package:smart_cities/src/features/help_line/presentation/page/live_video_streaming_page.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/add_account/page/add_account_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/detail_account/page/detail_account_page.dart';
@@ -67,8 +67,8 @@ class AppRoute {
         handler: AppRouteHandler(handlerFunc: (arguments) => RegisterPage()),
       )
       ..define(
-        routePath: HelpLinePage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => HelpLinePage()),
+        routePath: LiveStreamingPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) => LiveStreamingPage()),
       )
       /*..define(
         routePath: PhoneNumberPage.id,

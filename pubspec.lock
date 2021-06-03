@@ -8,6 +8,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "14.0.0"
+  agora_rtc_engine:
+    dependency: "direct main"
+    description:
+      name: agora_rtc_engine
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.3"
+  agora_rtm:
+    dependency: "direct main"
+    description:
+      name: agora_rtm
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.14"
   analyzer:
     dependency: transitive
     description:
@@ -398,13 +412,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_audio_recorder:
-    dependency: "direct main"
-    description:
-      name: flutter_audio_recorder
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.5"
   flutter_blurhash:
     dependency: transitive
     description:

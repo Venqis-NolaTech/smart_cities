@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_cities/src/shared/app_colors.dart';
 import 'app.dart';
 import 'src/di/injection_container.dart' as di;
 import 'src/core/util/flavor_config.dart';
