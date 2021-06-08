@@ -23,7 +23,7 @@ class WidgetActivity : AppWidgetProvider() {
 
             val intent = FlutterActivity
                 .withNewEngine()
-                .initialRoute("live_streaming_page")
+                .initialRoute("option_help_line_page")
                 .build(context)
 
 

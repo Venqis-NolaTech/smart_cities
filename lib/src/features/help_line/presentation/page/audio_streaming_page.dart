@@ -12,16 +12,16 @@ import 'package:smart_cities/src/shared/spaces.dart';
 
 
 
-class LiveStreamingPage extends StatefulWidget {
-  static const id = "live_streaming_page";
+class AudioStreamingPage extends StatefulWidget {
+  static const id = "audio_streaming_page";
 
-  LiveStreamingPage({Key key}) : super(key: key);
+  AudioStreamingPage({Key key}) : super(key: key);
 
   @override
-  _LiveStreamingPageState createState() => _LiveStreamingPageState();
+  _AudioStreamingPageState createState() => _AudioStreamingPageState();
 }
 
-class _LiveStreamingPageState extends State<LiveStreamingPage> {
+class _AudioStreamingPageState extends State<AudioStreamingPage> {
   bool validatePermission= false;
   RtcEngine _engine;
   bool isJoined = false;
