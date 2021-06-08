@@ -1,13 +1,11 @@
-import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
-import 'package:smart_cities/src/features/help_line/config/agora_config.dart' as config;
+import 'package:smart_cities/src/features/help_line/presentation/widget/circle_painter.dart';
+import 'package:smart_cities/src/features/help_line/presentation/widget/curve_wave.dart';
+import 'package:smart_cities/src/features/help_line/provider/streaming_provider.dart';
 import 'package:smart_cities/src/shared/app_colors.dart';
-import 'package:smart_cities/src/shared/constant.dart';
-import 'package:smart_cities/src/shared/spaces.dart';
+import 'package:smart_cities/src/shared/components/base_view.dart';
 
 
 
@@ -21,70 +19,109 @@ class AudioStreamingPage extends StatefulWidget {
   _AudioStreamingPageState createState() => _AudioStreamingPageState();
 }
 
-class _AudioStreamingPageState extends State<AudioStreamingPage> {
-  bool validatePermission= false;
-  RtcEngine _engine;
-  bool isJoined = false;
-  ClientRole role = ClientRole.Broadcaster;
-  List<int> remoteUid=[];
-  bool isLowAudio = true;
-  bool muted = false;
-  var uid;
+class _AudioStreamingPageState extends State<AudioStreamingPage> with TickerProviderStateMixin {
+
+  AnimationController _controller;
+  StreamingProvider provider;
+
+
 
   @override
   void initState() {
-    // TODO: implement initState
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 2000),
+      vsync: this,
+    )..repeat();
+
     super.initState();
-    initialize();
   }
+
 
   @override
   void dispose() {
+    //_engine?.destroy();
+    _controller.dispose();
+    provider.dispose();
     super.dispose();
-    _engine?.destroy();
   }
 
 
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size.width*0.7;
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          !validatePermission ?
-          Center(
-            child: CircularProgressIndicator(),
-          ): RtcLocalView.SurfaceView(),
+    return BaseView<StreamingProvider>(
+        onProviderReady: (provider) {
+          this.provider = provider;
+          provider.initialize(isVideo: false);
+        },
 
-          _toolbar(),
+        builder: (context, provider, child) {
+          return Scaffold(
+              appBar: AppBar(
+                backgroundColor: AppColors.red,
+                leading: Icon(MdiIcons.close),
+              ),
+              body: Stack(
+                children: [
+                  !provider.isJoined ?
+                  Center(
+                    child: CircularProgressIndicator(),
+                  ):
+                  Center(
+                    child: CustomPaint(
+                      painter: CirclePainter(
+                        _controller,
+                        color: AppColors.red,
+                      ),
+                      child: SizedBox(
+                        width: size * 4.125,
+                        height: size * 4.125,
+                        child: _button(size),
+                      ),
+                    ),
+                  ),
 
-          validatePermission ? Positioned(
-            top: 20,
-            right: 40,
-            child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.red,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: [
-                    Icon(MdiIcons.eyeOutline, color: AppColors.white),
-                    Spaces.horizontalSmall(),
-                    Text('Live', style: kNormalStyle.copyWith(color: AppColors.white),),
-                  ],
-                ),
-              )),
-          ) : Container()
+                  _toolbar()
+                ],
+              )
+          );
 
-        ],
-      )
 
-      ,
+        }
     );
 
+
   }
+
+
+  Widget _button(double size) {
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(size),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              colors: <Color>[
+                AppColors.red,
+                Color.lerp(AppColors.red, Colors.black, .05)
+              ],
+            ),
+          ),
+          child: ScaleTransition(
+              scale: Tween(begin: 0.95, end: 1.0).animate(
+                CurvedAnimation(
+                  parent: _controller,
+                  curve: const CurveWave(),
+                ),
+              ),
+              child: Icon(Icons.speaker_phone, color: AppColors.white, size: 44,)
+          ),
+        ),
+      ),
+    );
+  }
+
 
   Widget _toolbar() {
     return Container(
@@ -94,15 +131,15 @@ class _AudioStreamingPageState extends State<AudioStreamingPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           RawMaterialButton(
-            onPressed: _onToggleMute,
+            onPressed: ()=> provider.onToggleMute(),
             child: Icon(
-              muted ? Icons.mic_off : Icons.mic,
-              color: muted ? Colors.white : Colors.blueAccent,
+              provider.muted ? Icons.mic_off : Icons.mic,
+              color: provider.muted ? Colors.white : Colors.blueAccent,
               size: 20.0,
             ),
             shape: CircleBorder(),
             elevation: 2.0,
-            fillColor: muted ? Colors.blueAccent : Colors.white,
+            fillColor: provider.muted ? Colors.blueAccent : Colors.white,
             padding: const EdgeInsets.all(12.0),
           ),
           RawMaterialButton(
@@ -118,7 +155,7 @@ class _AudioStreamingPageState extends State<AudioStreamingPage> {
             padding: const EdgeInsets.all(15.0),
           ),
           RawMaterialButton(
-            onPressed: _onSwitchCamera,
+            onPressed:  () => provider.onSwitchCamera(),
             child: Icon(
               Icons.switch_camera,
               color: Colors.blueAccent,
@@ -134,98 +171,8 @@ class _AudioStreamingPageState extends State<AudioStreamingPage> {
       ),
     );
   }
-
   void _onCallEnd(BuildContext context) {
     Navigator.pop(context);
-  }
-
-  void _onSwitchCamera() {
-    _engine.switchCamera();
-  }
-
-
-  void _onToggleMute() {
-    setState(() {
-      muted = !muted;
-    });
-    _engine.muteLocalAudioStream(muted);
-  }
-
-  Future<void> initialize() async {
-    await _handleCameraAndMic(Permission.camera);
-    await _handleCameraAndMic(Permission.microphone);
-
-    _engine = await RtcEngine.createWithConfig(RtcEngineConfig(config.appId));
-
-    this._addListener();
-
-    // enable video module and set up video encoding configs
-    await _engine.enableVideo();
-
-    // make this room live broadcasting room
-    await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
-    await this._updateClientRole(role);
-
-    // Set audio route to speaker
-    await _engine.setDefaultAudioRoutetoSpeakerphone(true);
-
-    // start joining channel
-    // 1. Users can only see each other after they join the
-    // same channel successfully using the same app id.
-    // 2. If app certificate is turned on at dashboard, token is needed
-    // when joining channel. The channel name and uid used to calculate
-    // the token has to match the ones used for channel join
-    await _engine.joinChannel(config.token, config.channelId, null, 0, null);
-    setState(() {
-      validatePermission=true;
-    });
-  }
-
-  _updateClientRole(ClientRole role) async {
-    var option;
-    if (role == ClientRole.Broadcaster) {
-      await _engine.setVideoEncoderConfiguration(VideoEncoderConfiguration(
-          dimensions: VideoDimensions(640, 360),
-          frameRate: VideoFrameRate.Fps30,
-          orientationMode: VideoOutputOrientationMode.Adaptative));
-      // enable camera/mic, this will bring up permission dialog for first time
-      await _engine.enableLocalAudio(true);
-      await _engine.enableLocalVideo(true);
-    } else {
-      // You have to provide client role options if set to audience
-      option = ClientRoleOptions(isLowAudio
-          ? AudienceLatencyLevelType.LowLatency
-          : AudienceLatencyLevelType.UltraLowLatency);
-    }
-    await _engine.setClientRole(role, option);
-  }
-
-  Future<void> _handleCameraAndMic(Permission permission) async {
-    final status = await permission.request();
-    print(status);
-  }
-
-  _addListener() {
-    _engine.setEventHandler(RtcEngineEventHandler(warning: (warningCode) {
-      print('Warning ${warningCode}');
-    }, error: (errorCode) {
-      print('Warning ${errorCode}');
-    }, joinChannelSuccess: (channel, uid, elapsed) {
-      print('joinChannelSuccess ${channel} ${uid} ${elapsed}');
-      setState(() {
-        isJoined = true;
-      });
-    }, userJoined: (uid, elapsed) {
-      print('userJoined $uid $elapsed');
-      this.setState(() {
-        remoteUid.add(uid);
-      });
-    }, userOffline: (uid, reason) {
-      print('userOffline $uid $reason');
-      this.setState(() {
-        remoteUid.remove(uid);
-      });
-    }));
   }
 }
 

@@ -7,6 +7,7 @@ import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart
 import 'package:smart_cities/src/features/help_line/presentation/page/audio_streaming_page.dart';
 import 'package:smart_cities/src/features/help_line/presentation/page/live_video_streaming_page.dart';
 import 'package:smart_cities/src/features/help_line/presentation/page/option_help_line_page.dart';
+import 'package:smart_cities/src/features/help_line/provider/streaming_provider.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/add_account/page/add_account_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/detail_account/page/detail_account_page.dart';
@@ -70,11 +71,17 @@ class AppRoute {
       )
       ..define(
         routePath: LiveStreamingPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => LiveStreamingPage()),
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final params = arguments as StreamingProvider;
+          return LiveStreamingPage();
+        }),
       )
       ..define(
         routePath: AudioStreamingPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => AudioStreamingPage()),
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          final params = arguments as StreamingProvider;
+          return AudioStreamingPage();
+        }),
       )
 
       ..define(
