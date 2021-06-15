@@ -10,7 +10,6 @@ import 'src/features/auth/domain/entities/user.dart';
 import 'src/features/splash/presentation/pages/splash_page.dart';
 import 'src/shared/app_colors.dart';
 
-
 Map<String, dynamic> remoteParams;
 User currentUser;
 CatalogItem municipalityOptional;
@@ -19,7 +18,6 @@ Map<String, String> authHeaders;
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class App extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
