@@ -56,6 +56,7 @@ class App extends StatelessWidget {
         ),
       ),
       home: OptionHelpLinePage(), //TODO
+      //home: SplashPage(), //TODO
       onGenerateRoute: (settings) => AppRouter.appRouter.matchRoute(
         settings.name,
         routeSettings: settings,

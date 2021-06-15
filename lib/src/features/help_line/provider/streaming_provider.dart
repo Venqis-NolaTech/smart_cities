@@ -8,10 +8,12 @@ const appId = "a6e6f01685ed48bca67ccc6dd51d46f3";
 
 /// Please refer to https://docs.agora.io/en/Agora%20Platform/token
 const token =
-    "006a6e6f01685ed48bca67ccc6dd51d46f3IADexFcj9x8K/ScxmCQgoNe0V68a8FHaD4PQ0r4SPpZU87XcKcYAAAAAEADGEkMQG/bAYAEAAQAP9sBg";
+    "006a6e6f01685ed48bca67ccc6dd51d46f3IABOzmYIGzG5Gc5e2jR12xQyBtZ5rP8dpMecYm/Lfdbq0mgs5bibjtJtIgBK0bgawTbJYAQAAQDANslgAgDANslgAwDANslgBADANslg";
 
 /// Your channel ID
-const channelId = "smart_cities";
+const channelId = "smart_cities_video";
+
+const uid = 3;
 
 class StreamingProvider extends BaseProvider{
 
@@ -66,7 +68,7 @@ class StreamingProvider extends BaseProvider{
     // 2. If app certificate is turned on at dashboard, token is needed
     // when joining channel. The channel name and uid used to calculate
     // the token has to match the ones used for channel join
-    await _engine.joinChannel(token, channelId, null, 0, null);
+    await _engine.joinChannel(token, channelId, null, uid, null);
   }
 
 
