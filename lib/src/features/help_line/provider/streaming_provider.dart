@@ -8,12 +8,12 @@ const appId = "a6e6f01685ed48bca67ccc6dd51d46f3";
 
 /// Please refer to https://docs.agora.io/en/Agora%20Platform/token
 const token =
-    "006a6e6f01685ed48bca67ccc6dd51d46f3IADWB11UX1ZBf5828IsfVsKcjzR3MAQFHL0X8UOV8cvD62gs5bjUgD5IIgC0phOg3k7KYAQAAQDeTspgAgDeTspgAwDeTspgBADeTspg";
+    "006a6e6f01685ed48bca67ccc6dd51d46f3IACh0jCvDaGGz+0fZwcLFAuLt0uiBcK8q2UbNa0307NnxNHAX9zTrYavIgC0phOguWDKYAQAAQC4YMpgAgC4YMpgAwC4YMpgBAC4YMpg";
 
 /// Your channel ID
-const channelId = "smart_cities_video";
+const channelId = "smart_cities_audio";
 
-const uid = 16;
+const uid = 18;
 
 class StreamingProvider extends BaseProvider{
 
