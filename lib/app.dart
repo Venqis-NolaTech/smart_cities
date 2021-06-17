@@ -53,8 +53,8 @@ class App extends StatelessWidget {
           backgroundColor: Colors.black.withOpacity(0),
         ),
       ),
-      home: OptionHelpLinePage(), //TODO
-      //home: SplashPage(), //TODO
+      //home: OptionHelpLinePage(), //TODO
+      home: SplashPage(), //TODO
       onGenerateRoute: (settings) => AppRouter.appRouter.matchRoute(
         settings.name,
         routeSettings: settings,
