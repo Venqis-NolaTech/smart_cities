@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "817935113816-73irh5i7ovrbtjrqf51u053ra294lchv.apps.googleusercontent.com",
+          "client_id": "817935113816-mc9fps1f2oq7fadpopsfurms2562arr3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.venqis.smartcities.develop",
-            "certificate_hash": "bfb009f70401b63475238bd459d67b0387e2af4e"
+            "certificate_hash": "0c3e3b4cf959b1c8306aff7158227db4b14a2c2d"
           }
         },
         {
@@ -38,6 +38,13 @@
             {
               "client_id": "817935113816-pt2p15lcub06cs531u6b68r9bcr4jpeq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "817935113816-jbal383hqgj35f5btu865pnag4miju2n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.venqis.smartcities.develop"
+              }
             }
           ]
         }

@@ -34,7 +34,7 @@ class App extends StatelessWidget {
         primaryColor: AppColors.blueBtnRegister,
         primaryColorDark: AppColors.blueDark,
         accentColor: AppColors.blueBtnRegister,
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.backgroundLight,
         toggleableActiveColor: AppColors.blueBtnRegister,
         appBarTheme: AppBarTheme(
           color: AppColors.red,

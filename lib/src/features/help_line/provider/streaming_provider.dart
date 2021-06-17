@@ -1,24 +1,34 @@
 import 'package:agora_rtc_engine/rtc_engine.dart';
-import 'package:smart_cities/src/shared/provider/base_provider.dart';
+import 'package:meta/meta.dart';
+import 'package:smart_cities/src/features/auth/domain/usecases/logged_user_use_case.dart';
+import 'package:smart_cities/src/features/help_line/domain/entities/streaming.dart';
+import 'package:smart_cities/src/features/help_line/domain/usescase/get_data_streaming_use_case.dart';
+import 'package:smart_cities/src/shared/provider/current_user_provider.dart';
+import 'package:smart_cities/src/shared/provider/view_state.dart';
 
 
 
-/// Get your own App ID at https://dashboard.agora.io/
+/*
 const appId = "a6e6f01685ed48bca67ccc6dd51d46f3";
 
-/// Please refer to https://docs.agora.io/en/Agora%20Platform/token
 const token =
     "006a6e6f01685ed48bca67ccc6dd51d46f3IACh0jCvDaGGz+0fZwcLFAuLt0uiBcK8q2UbNa0307NnxNHAX9zTrYavIgC0phOguWDKYAQAAQC4YMpgAgC4YMpgAwC4YMpgBAC4YMpg";
 
-/// Your channel ID
 const channelId = "smart_cities_audio";
 
-const uid = 18;
+const uid = 18;*/
 
-class StreamingProvider extends BaseProvider{
+class StreamingProvider extends CurrentUserProvider{
+
+  final GetDataStreamingUseCase getDataStreamingUseCase;
+
+  StreamingProvider({@required  this.getDataStreamingUseCase, @required LoggedUserUseCase loggedUserUseCase}) : super(loggedUserUseCase: loggedUserUseCase);
+
+  final String canalVideo='smart_cities_video';
+  final String canalAudio='smart_cities_audio';
+
 
   bool _isJoined = false;
-
   set isJoined(bool newValue){
     _isJoined=newValue;
     notifyListeners();
@@ -26,51 +36,45 @@ class StreamingProvider extends BaseProvider{
   get isJoined=> _isJoined;
 
   bool _muted = false;
-
   set muted(bool newValue){
     _muted=newValue;
     notifyListeners();
   }
   get muted=> _muted;
 
-
-
   ClientRole role = ClientRole.Broadcaster;
-  List<int> remoteUid=[];
   RtcEngine _engine;
   bool isLowAudio = true;
 
 
-  Future<void> initialize({bool isVideo}) async {
+  Future initialize({bool isVideo}) async {
+    state = Loading();
 
-    _engine = await RtcEngine.createWithConfig(RtcEngineConfig(appId));
+    var result= await getDataStreamingUseCase(GetDataStreamingParams(canal: isVideo ? canalVideo : canalAudio ));
+    result.fold(
+          (failure) => state = Error(failure: failure),
+          (valueData) => connectLive(valueData, isVideo),
+    );
 
+  }
+
+  Future connectLive(Streaming valueData, bool isVideo) async {
+    _engine = await RtcEngine.createWithConfig(RtcEngineConfig(valueData.appId));
     this._addListener();
-
     if(isVideo)
-      // enable video module and set up video encoding configs
       await _engine.enableVideo();
     else
-      await _engine.enableAudio();
+    await _engine.enableAudio();
 
-
-
-    // make this room live broadcasting room
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
     await this._updateClientRole(role);
 
     // Set audio route to speaker
     await _engine.setDefaultAudioRoutetoSpeakerphone(true);
 
-    // start joining channel
-    // 1. Users can only see each other after they join the
-    // same channel successfully using the same app id.
-    // 2. If app certificate is turned on at dashboard, token is needed
-    // when joining channel. The channel name and uid used to calculate
-    // the token has to match the ones used for channel join
-    await _engine.joinChannel(token, channelId, null, uid, null);
-  }
+    await _engine.joinChannel(valueData.token, valueData.channel, null, valueData.uid, null);
 
+  }
 
   _addListener() {
     _engine.setEventHandler(RtcEngineEventHandler(warning: (warningCode) {
@@ -82,10 +86,8 @@ class StreamingProvider extends BaseProvider{
       isJoined = true;
     }, userJoined: (uid, elapsed) {
       print('userJoined $uid $elapsed');
-      remoteUid.add(uid);
     }, userOffline: (uid, reason) {
       print('userOffline $uid $reason');
-      remoteUid.add(uid);
     }));
   }
 
@@ -122,12 +124,11 @@ class StreamingProvider extends BaseProvider{
 
   @override
   void dispose() {
-    super.dispose();
     _engine?.destroy();
-
   }
 
 
 }
+
 
 

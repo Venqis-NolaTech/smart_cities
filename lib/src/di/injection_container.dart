@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:smart_cities/src/features/help_line/di/streaming_di.dart';
+import 'package:smart_cities/src/features/help_line/di/streaming_module.dart';
 import 'package:smart_cities/src/features/home/di/home_di.dart';
 import 'package:smart_cities/src/features/payments/di/payments_module.dart';
 import 'package:smart_cities/src/features/places/di/places_di.dart';
