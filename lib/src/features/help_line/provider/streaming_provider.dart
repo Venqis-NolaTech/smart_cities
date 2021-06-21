@@ -22,10 +22,12 @@ class StreamingProvider extends CurrentUserProvider{
 
   final GetDataStreamingUseCase getDataStreamingUseCase;
 
-  StreamingProvider({@required  this.getDataStreamingUseCase, @required LoggedUserUseCase loggedUserUseCase}) : super(loggedUserUseCase: loggedUserUseCase);
+  StreamingProvider(
+      {@required this.getDataStreamingUseCase,
+      @required LoggedUserUseCase loggedUserUseCase})
+      : super(loggedUserUseCase: loggedUserUseCase);
 
   final String canalVideo='smart_cities_video';
-  final String canalAudio='smart_cities_audio';
 
 
   bool _isJoined = false;
@@ -50,7 +52,7 @@ class StreamingProvider extends CurrentUserProvider{
   Future initialize({bool isVideo}) async {
     state = Loading();
 
-    var result= await getDataStreamingUseCase(GetDataStreamingParams(canal: isVideo ? canalVideo : canalAudio ));
+    var result= await getDataStreamingUseCase(GetDataStreamingParams(canal: canalVideo ));
     result.fold(
           (failure) => state = Error(failure: failure),
           (valueData) => connectLive(valueData, isVideo),

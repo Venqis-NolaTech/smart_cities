@@ -122,6 +122,20 @@ class _AudioStreamingPageState extends State<AudioStreamingPage> with TickerProv
     );
   }
 
+  Widget _buidlMute(){
+    return RawMaterialButton(
+      onPressed: ()=> provider.onToggleMute(),
+      child: Icon(
+        provider.muted ? Icons.mic_off : Icons.mic,
+        color: provider.muted ? Colors.white : Colors.blueAccent,
+        size: 20.0,
+      ),
+      shape: CircleBorder(),
+      elevation: 2.0,
+      fillColor: provider.muted ? Colors.blueAccent : Colors.white,
+      padding: const EdgeInsets.all(12.0),
+    );
+  }
 
   Widget _toolbar() {
     return Container(
@@ -130,18 +144,8 @@ class _AudioStreamingPageState extends State<AudioStreamingPage> with TickerProv
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          RawMaterialButton(
-            onPressed: ()=> provider.onToggleMute(),
-            child: Icon(
-              provider.muted ? Icons.mic_off : Icons.mic,
-              color: provider.muted ? Colors.white : Colors.blueAccent,
-              size: 20.0,
-            ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: provider.muted ? Colors.blueAccent : Colors.white,
-            padding: const EdgeInsets.all(12.0),
-          ),
+          _buidlMute(),
+
           RawMaterialButton(
             onPressed: () => _onCallEnd(context),
             child: Icon(
@@ -154,8 +158,10 @@ class _AudioStreamingPageState extends State<AudioStreamingPage> with TickerProv
             fillColor: Colors.redAccent,
             padding: const EdgeInsets.all(15.0),
           ),
+
+
           RawMaterialButton(
-            onPressed:  () => provider.onSwitchCamera(),
+            onPressed:  () => {},
             child: Icon(
               Icons.switch_camera,
               color: Colors.blueAccent,
@@ -166,6 +172,8 @@ class _AudioStreamingPageState extends State<AudioStreamingPage> with TickerProv
             fillColor: Colors.white,
             padding: const EdgeInsets.all(12.0),
           ),
+
+
 
         ],
       ),
