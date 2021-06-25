@@ -1,4 +1,5 @@
 import 'package:smart_cities/src/features/help_line/presentation/page/option_help_line_page.dart';
+import 'package:smart_cities/src/features/help_line/presentation/page/streaming_page.dart';
 import 'package:smart_cities/src/shared/components/app_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class App extends StatelessWidget {
           backgroundColor: Colors.black.withOpacity(0),
         ),
       ),
-      home: SplashPage(),
+      home: StreamingPage(),
       onGenerateRoute: (settings) => AppRouter.appRouter.matchRoute(
         settings.name,
         routeSettings: settings,

@@ -6,7 +6,7 @@ import 'package:smart_cities/src/core/entities/response_model.dart';
 import 'package:smart_cities/src/features/help_line/data/model/streaming_model.dart';
 
 abstract class StreamingDataSource{
-  Future<StreamingModel> getDataConnect(String canal);
+  Future<StreamingModel> getDataConnect(String canal, double latitude, double longitude);
 }
 
 
@@ -17,11 +17,14 @@ class StreamingDataSourceImpl implements StreamingDataSource{
   StreamingDataSourceImpl({this.authHttpClient});
 
   @override
-  Future<StreamingModel> getDataConnect(String canal) async{
+  Future<StreamingModel> getDataConnect(String canal, double latitude, double longitude) async{
     var payload = json.encode({
       "role" : "PUBLISHER",
-      "channel" : canal
+      "channel" : canal,
+      "latitude" : latitude,
+      "longitude": longitude
     });
+    
     final response = await authHttpClient.post(
         '/api/streaming/token',
         body: payload);

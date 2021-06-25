@@ -7,6 +7,7 @@ import 'package:smart_cities/src/features/blog/presentation/pages/blog_page.dart
 import 'package:smart_cities/src/features/help_line/presentation/page/audio_streaming_page.dart';
 import 'package:smart_cities/src/features/help_line/presentation/page/live_video_streaming_page.dart';
 import 'package:smart_cities/src/features/help_line/presentation/page/option_help_line_page.dart';
+import 'package:smart_cities/src/features/help_line/presentation/page/streaming_page.dart';
 import 'package:smart_cities/src/features/help_line/provider/streaming_provider.dart';
 import 'package:smart_cities/src/features/main/presentation/pages/main_page.dart';
 import 'package:smart_cities/src/features/payments/presentation/add_account/page/add_account_page.dart';
@@ -40,15 +41,12 @@ import 'package:smart_cities/src/features/surveys/presentation/list/pages/survey
 import 'package:smart_cities/src/features/surveys/presentation/list/pages/recents_surveys_user.dart';
 import 'package:smart_cities/src/shared/components/web_view_page.dart';
 
-
-
 import 'src/features/auth/presentation/pre_login/page/pre_login.dart';
 import 'src/features/auth/presentation/sign_in/pages/sign_in_page.dart';
 import 'src/features/auth/presentation/verify_code/pages/verify_code_page.dart';
 import 'src/features/auth/presentation/verify_code/providers/verify_code_provider.dart';
 import 'src/features/welcome/presentation/page/welcome_page.dart';
 import 'src/shared/components/app_router.dart';
-
 
 class AppRoute {
   static init() {
@@ -83,10 +81,10 @@ class AppRoute {
           return AudioStreamingPage();
         }),
       )
-
       ..define(
         routePath: OptionHelpLinePage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => OptionHelpLinePage()),
+        handler:
+            AppRouteHandler(handlerFunc: (arguments) => OptionHelpLinePage()),
       )
       /*..define(
         routePath: PhoneNumberPage.id,
@@ -105,7 +103,8 @@ class AppRoute {
       )
       ..define(
         routePath: SelectedMunicipalityPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => SelectedMunicipalityPage()),
+        handler: AppRouteHandler(
+            handlerFunc: (arguments) => SelectedMunicipalityPage()),
       )
       ..define(
         routePath: MainPage.id,
@@ -157,13 +156,12 @@ class AppRoute {
         }),
       )
       ..define(
-        routePath: BlogDetailPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments){
-          final args = arguments as BlogDetailPageArgs;
+          routePath: BlogDetailPage.id,
+          handler: AppRouteHandler(handlerFunc: (arguments) {
+            final args = arguments as BlogDetailPageArgs;
 
-          return BlogDetailPage(args: args);
-        })
-      )
+            return BlogDetailPage(args: args);
+          }))
       ..define(
         routePath: FilterReportPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
@@ -174,44 +172,42 @@ class AppRoute {
       ..define(
         routePath: PlacesCategoryPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-           final category= arguments as String;
-           return PlacesCategoryPage(category: category);
+          final category = arguments as String;
+          return PlacesCategoryPage(category: category);
         }),
       )
       ..define(
         routePath: PlacesPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          final category= arguments as String;
+          final category = arguments as String;
           return PlacesPage(category: category);
         }),
       )
       ..define(
         routePath: PlaceDetailsPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          final place= arguments as Place;
+          final place = arguments as Place;
           return PlaceDetailsPage(place: place);
         }),
       )
-
       ..define(
         routePath: NewReviewPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          final params= arguments as NewReviewParams;
+          final params = arguments as NewReviewParams;
           return NewReviewPage(params: params);
         }),
       )
-
       ..define(
         routePath: PlaceCommentPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          final place= arguments as Place;
+          final place = arguments as Place;
           return PlaceCommentPage(place: place);
         }),
       )
       ..define(
         routePath: SchedulePlacePage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          final place= arguments as Place;
+          final place = arguments as Place;
           return SchedulePlacePage(place: place);
         }),
       )
@@ -219,10 +215,10 @@ class AppRoute {
         routePath: ProfilePage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) => ProfilePage()),
       )
-  
       ..define(
         routePath: SelectSectorPage.id,
-        handler: AppRouteHandler(handlerFunc: (arguments) => SelectSectorPage()),
+        handler:
+            AppRouteHandler(handlerFunc: (arguments) => SelectSectorPage()),
       )
       ..define(
         routePath: SignInPage.id,
@@ -232,7 +228,9 @@ class AppRoute {
         routePath: WhenTakeOutTrashPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
           final selectedSector = arguments as CatalogItem;
-          return WhenTakeOutTrashPage(sector: selectedSector,);
+          return WhenTakeOutTrashPage(
+            sector: selectedSector,
+          );
         }),
       )
       ..define(
@@ -245,14 +243,16 @@ class AppRoute {
       ..define(
         routePath: ForgotPasswordPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          final args = arguments as ForgotPasswordPageArgs ?? ForgotPasswordPageArgs();
+          final args =
+              arguments as ForgotPasswordPageArgs ?? ForgotPasswordPageArgs();
           return ForgotPasswordPage(args: args);
         }),
       )
       ..define(
         routePath: EmailConfirmationPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
-          final args = arguments as EmailConfirmationPageArgs ??  EmailConfirmationPageArgs();
+          final args = arguments as EmailConfirmationPageArgs ??
+              EmailConfirmationPageArgs();
           return EmailConfirmationPage(args: args);
         }),
       )
@@ -270,7 +270,6 @@ class AppRoute {
           return AddAccountPage();
         }),
       )
-
       ..define(
         routePath: DetailAccountPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
@@ -278,8 +277,6 @@ class AppRoute {
           return DetailAccountPage(args: args);
         }),
       )
-
-
       ..define(
         routePath: PaymentPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
@@ -287,7 +284,6 @@ class AppRoute {
           return PaymentPage();
         }),
       )
-
       ..define(
         routePath: MultiplePaymentsPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
@@ -295,22 +291,18 @@ class AppRoute {
           return MultiplePaymentsPage();
         }),
       )
-
       ..define(
         routePath: SurveysPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
           return SurveysPage();
         }),
       )
-
       ..define(
         routePath: RecentSurveysUser.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
           return RecentSurveysUser();
         }),
       )
-
-
       ..define(
         routePath: CrudSurveyPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
@@ -318,7 +310,6 @@ class AppRoute {
           return CrudSurveyPage(args: args);
         }),
       )
-
       ..define(
         routePath: WebViewPage.id,
         handler: AppRouteHandler(handlerFunc: (arguments) {
@@ -326,11 +317,12 @@ class AppRoute {
           return WebViewPage(args: args);
         }),
       )
-    ;
-
+      ..define(
+        routePath: StreamingPage.id,
+        handler: AppRouteHandler(handlerFunc: (arguments) {
+          //final args = arguments as CrudSurveyArgs;
+          return StreamingPage();
+        }),
+      );
   }
-
-
-
-
 }

@@ -11,9 +11,9 @@ class StreamingRepositoryImpl implements StreamingRepository{
   StreamingRepositoryImpl({this.streamingDataSource});
 
   @override
-  Future<Either<Failure, Streaming>> getDataConnect(String canal) async {
+  Future<Either<Failure, Streaming>> getDataConnect(String canal, double latitude, double longitude) async {
     try {
-      final data = await streamingDataSource.getDataConnect(canal);
+      final data = await streamingDataSource.getDataConnect(canal, latitude, longitude);
       return data != null ? Right(data) : Left(InfoNotFoundFailure());
     } catch (e, s) {
       return Left(_handleFailure(e, s));
