@@ -48,13 +48,13 @@ class StreamingProvider extends CurrentUserProvider {
 
   get muted => _muted;
 
-  bool _cameraOff = false;
-  set cameraOff(bool newValue) {
-    _cameraOff = newValue;
+  bool _cameraPower = true;
+  set cameraPower(bool newValue) {
+    _cameraPower = newValue;
     notifyListeners();
   }
 
-  get cameraOff => _cameraOff;
+  get cameraPower => _cameraPower;
 
   ClientRole role = ClientRole.Broadcaster;
   RtcEngine _engine;
@@ -100,11 +100,8 @@ class StreamingProvider extends CurrentUserProvider {
     _engine =
         await RtcEngine.createWithConfig(RtcEngineConfig(valueData.appId));
     this._addListener();
-    /*if (isVideo)
-      await _engine.enableVideo();
-    else*/
-
     await _engine.enableAudio();
+    await _engine.enableVideo();
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
     await this._updateClientRole(role);
 
@@ -158,12 +155,14 @@ class StreamingProvider extends CurrentUserProvider {
     _engine?.muteLocalAudioStream(muted);
   }
 
-  void onToggleCamera() {
-    cameraOff = !cameraOff;
-    if (cameraOff)
-      _engine?.enableVideo();
+  void onToggleCamera() async {
+
+    if (cameraPower)
+      await _engine?.disableVideo();
     else
-      _engine?.disableVideo();
+      await _engine?.enableVideo();
+    cameraPower = !cameraPower;
+
   }
 
   @override

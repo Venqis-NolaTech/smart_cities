@@ -4,6 +4,9 @@ import 'package:smart_cities/src/features/help_line/provider/streaming_provider.
 
 initProvider(GetIt sl) {
   sl.registerFactory(
-    () => StreamingProvider(getDataStreamingUseCase: sl(), loggedUserUseCase: sl()),
+    () => StreamingProvider(
+        getDataStreamingUseCase: sl(),
+        loggedUserUseCase: sl(),
+        getCurrentLocationUseCase: sl()),
   );
 }

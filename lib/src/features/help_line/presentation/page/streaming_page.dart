@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smart_cities/generated/i18n.dart';
@@ -47,7 +48,7 @@ class _StreamingPageState extends State<StreamingPage> {
               ),
               body: Stack(
                 children: [
-                  !provider.cameraOff
+                  !provider.cameraPower
                       ? Center(
                           child: Icon(
                             MdiIcons.account,
@@ -57,7 +58,7 @@ class _StreamingPageState extends State<StreamingPage> {
                         )
                       : provider.isJoined
                           ? RtcLocalView.SurfaceView()
-                          : CircularProgressIndicator(),
+                          : Center(child: CircularProgressIndicator()),
                   _toolbar()
                 ],
               ),
@@ -69,7 +70,8 @@ class _StreamingPageState extends State<StreamingPage> {
   void _optionAudionStreaming() async {
     await _handleCameraAndMic(Permission.camera);
     await _handleCameraAndMic(Permission.microphone);
-    provider.initialize(isVideo: false);
+    await _handleCameraAndMic(Permission.location);
+    Future.delayed(Duration(seconds: 5),  () => provider.initialize(isVideo: false));
   }
 
   Future<void> _handleCameraAndMic(Permission permission) async {
@@ -115,9 +117,9 @@ class _StreamingPageState extends State<StreamingPage> {
         ),
         Spaces.verticalMedium(),
         Container(
-          color: AppColors.red,
-          alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          //color: AppColors.red,
+          //alignment: Alignment.bottomCenter,
+          //padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -125,13 +127,13 @@ class _StreamingPageState extends State<StreamingPage> {
                 child: InkWell(
                   onTap: () => provider.onToggleMute(),
                   child: Container(
-                    color: provider.muted
+                    color: !provider.muted
                         ? AppColors.blueBtnRegister
                         : Colors.white,
                     padding: const EdgeInsets.all(12.0),
                     child: Icon(
-                      provider.muted ? Icons.mic_off : Icons.mic,
-                      color: provider.muted
+                      !provider.muted ? Icons.mic_off : Icons.mic,
+                      color: !provider.muted
                           ? Colors.white
                           : AppColors.blueBtnRegister,
                       size: 20.0,
@@ -141,17 +143,17 @@ class _StreamingPageState extends State<StreamingPage> {
               ),
               Expanded(
                 child: InkWell(
-                  onTap: null,
+                  onTap: () => provider.onToggleCamera(),
                   child: Container(
                     padding: const EdgeInsets.all(12.0),
-                    color: provider.cameraOff
+                    color: provider.cameraPower
                         ? AppColors.blueBtnRegister
                         : Colors.white,
                     child: Icon(
-                      !provider.cameraOff
+                      !provider.cameraPower
                           ? MdiIcons.cameraOff
                           : MdiIcons.camera,
-                      color: provider.cameraOff
+                      color: provider.cameraPower
                           ? Colors.white
                           : AppColors.blueBtnRegister,
                       size: 20.0,
@@ -181,6 +183,7 @@ class _StreamingPageState extends State<StreamingPage> {
   }
 
   void _onCallEnd(BuildContext context) {
-    Navigator.pop(context);
+    //Navigator.pop(context);
+    SystemNavigator.pop();
   }
 }

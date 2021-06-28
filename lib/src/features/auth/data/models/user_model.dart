@@ -58,7 +58,6 @@ class UserModel extends User {
       CatalogItem city,
       CatalogItem sector,
       int reportNumber,
-      bool emailVerified,
       String lastSignInTime,
       })
       : super(
@@ -81,7 +80,6 @@ class UserModel extends User {
             city: city,
             reportNumber: reportNumber,
             sector: sector,
-            emailVerified: emailVerified,
             lastSignInTime: lastSignInTime,
   );
 
@@ -116,8 +114,6 @@ class UserModel extends User {
       sector: user['sector'] != null
           ? CatalogItemModel.fromJson(user['sector'])
           : null,
-
-      emailVerified: user['emailVerified'] ?? false,
       lastSignInTime: user['lastSignInTime'],
 
     );
@@ -152,7 +148,6 @@ class UserModel extends User {
         'sector': sector != null
             ? CatalogItemModel.fromEntity(sector).toJson()
             : null,
-        'emailVerified': emailVerified ?? false,
         'lastSignInTime': lastSignInTime ?? DateTime.now().toIso8601String(),
       }
     };
@@ -195,7 +190,6 @@ class UserModel extends User {
       city: user.city,
       reportNumber: user.reportNumber,
       sector: user.sector,
-      emailVerified: user.emailVerified,
       lastSignInTime: user.lastSignInTime,
     );
   }

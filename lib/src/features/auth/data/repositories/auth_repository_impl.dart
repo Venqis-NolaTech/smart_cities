@@ -79,7 +79,7 @@ class AuthRepositoryImpl implements AuthRepository {
         return Right(await _handleUser(
           firebaseToken,
           request: {
-            'registerMethod': "EMAIL_AND_PASSWORD",
+            'registerMethod': "EMAIL",
           },
         ));
       }
@@ -246,17 +246,19 @@ class AuthRepositoryImpl implements AuthRepository {
         : (await authDataSource.login(firebaseToken));
 
     return await _saveUser(success,
-        isFacebook: request['registerMethod'] == 'FACEBOOK');
+        verified:  request['registerMethod']=='FACEBOOK' || request['registerMethod']=='GOOGLE');
   }
 
-  Future<User> _saveUser(bool success, {bool isFacebook}) async {
+  Future<User> _saveUser(bool success, {bool verified}) async {
     if (success) {
       User user = await userDataSource.getProfile();
+      var emailVerified = false;
 
-      var emailVerified = firebaseAuth?.currentUser?.emailVerified;
-      if (isFacebook != null) {
-        emailVerified = isFacebook ? true : false;
-      }
+      if (verified != null) {
+        emailVerified = verified;
+      }else
+        emailVerified = firebaseAuth?.currentUser?.emailVerified;
+
 
       final lastSignInTime =
           firebaseAuth?.currentUser?.metadata?.lastSignInTime;
